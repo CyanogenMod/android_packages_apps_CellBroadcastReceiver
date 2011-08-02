@@ -55,8 +55,7 @@
     <string name="enable_cmas_imminent_threat_alerts_title" msgid="113476323956792952">"Mostra minacce imminenti"</string>
     <string name="enable_cmas_imminent_threat_alerts_summary" msgid="5291579260539730417">"Visualizza notifiche di avviso minacce imminenti CMAS"</string>
     <string name="enable_cmas_amber_alerts_title" msgid="6624617083256370966">"Mostra avvisi AMBER"</string>
-    <!-- no translation found for enable_cmas_amber_alerts_summary (4780708170217369192) -->
-    <skip />
+    <string name="enable_cmas_amber_alerts_summary" msgid="4780708170217369192">"Visualizza bollettini AMBER Alert (emergenza rapimento bambini)"</string>
     <string name="enable_cmas_test_alerts_title" msgid="3460083005355598489">"Mostra trasmissioni di prova"</string>
     <string name="enable_cmas_test_alerts_summary" msgid="8198111409000885403">"Visualizza trasmissioni di prova mensili CMAS"</string>
     <string name="category_brazil_settings_title" msgid="6343130548572319922">"Impostazioni per il Brasile"</string>

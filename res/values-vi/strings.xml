@@ -55,8 +55,7 @@
     <string name="enable_cmas_imminent_threat_alerts_title" msgid="113476323956792952">"Hiển thị các mối đe dọa sắp xảy ra"</string>
     <string name="enable_cmas_imminent_threat_alerts_summary" msgid="5291579260539730417">"Hiển thị thông báo cảnh báo về mối đe dọa sắp xảy ra trên CMAS"</string>
     <string name="enable_cmas_amber_alerts_title" msgid="6624617083256370966">"Hiển thị báo động AMBER"</string>
-    <!-- no translation found for enable_cmas_amber_alerts_summary (4780708170217369192) -->
-    <skip />
+    <string name="enable_cmas_amber_alerts_summary" msgid="4780708170217369192">"Hiển thị bản tin (khẩn cấp về bắt cóc trẻ em) của AMBER Alert"</string>
     <string name="enable_cmas_test_alerts_title" msgid="3460083005355598489">"Hiển thị chương trình phát sóng thử nghiệm"</string>
     <string name="enable_cmas_test_alerts_summary" msgid="8198111409000885403">"Hiển thị chương trình phát sóng thử nghiệm hàng tháng trên CMAS"</string>
     <string name="category_brazil_settings_title" msgid="6343130548572319922">"Cài đặt cho Braxin"</string>

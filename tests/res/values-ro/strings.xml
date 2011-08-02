@@ -18,35 +18,20 @@
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="app_label" msgid="2102435118079140813">"Teste transmisie celulară"</string>
     <string name="button_etws_normal_type" msgid="3852703138521119537">"Trimiteţi difuzare ETWS normală"</string>
-    <!-- no translation found for button_etws_cancel_type (7194264116649371175) -->
-    <skip />
-    <!-- no translation found for button_etws_test_type (6353906188028139901) -->
-    <skip />
-    <!-- no translation found for button_gsm_7bit_type (4757698592787955850) -->
-    <skip />
-    <!-- no translation found for button_gsm_7bit_umts_type (4377077702628367387) -->
-    <skip />
-    <!-- no translation found for button_gsm_7bit_nopadding_type (5289528095948674862) -->
-    <skip />
-    <!-- no translation found for button_gsm_7bit_nopadding_umts_type (7953047238483884846) -->
-    <skip />
-    <!-- no translation found for button_gsm_7bit_multipage_type (8516540964071070491) -->
-    <skip />
-    <!-- no translation found for button_gsm_7bit_multipage_umts_type (474883728254547100) -->
-    <skip />
-    <!-- no translation found for button_gsm_7bit_with_language_type (7414138913180046493) -->
-    <skip />
-    <!-- no translation found for button_gsm_7bit_with_language_body_umts_type (1201329758881885921) -->
-    <skip />
-    <!-- no translation found for button_gsm_ucs2_type (6652864601384080678) -->
-    <skip />
-    <!-- no translation found for button_gsm_ucs2_umts_type (2985879481785569626) -->
-    <skip />
-    <!-- no translation found for button_gsm_ucs2_multipage_umts_type (4557772309524939206) -->
-    <skip />
+    <string name="button_etws_cancel_type" msgid="7194264116649371175">"Difuzaţi un mesaj de anulare ETWS"</string>
+    <string name="button_etws_test_type" msgid="6353906188028139901">"Difuzaţi un mesaj de test ETWS"</string>
+    <string name="button_gsm_7bit_type" msgid="4757698592787955850">"Difuzaţi un mesaj de test GSM pe 7 biţi"</string>
+    <string name="button_gsm_7bit_umts_type" msgid="4377077702628367387">"Difuzaţi un mesaj de test UMTS pe 7 biţi"</string>
+    <string name="button_gsm_7bit_nopadding_type" msgid="5289528095948674862">"Difuzaţi un mesaj de dimensiune completă GSM pe 7 biţi"</string>
+    <string name="button_gsm_7bit_nopadding_umts_type" msgid="7953047238483884846">"Difuzaţi un mesaj de dimensiune completă UMTS pe 7 biţi"</string>
+    <string name="button_gsm_7bit_multipage_type" msgid="8516540964071070491">"Difuzaţi un mesaj multipagină GSM pe 7 biţi"</string>
+    <string name="button_gsm_7bit_multipage_umts_type" msgid="474883728254547100">"Difuzaţi un mesaj multipagină UMTS pe 7 biţi"</string>
+    <string name="button_gsm_7bit_with_language_type" msgid="7414138913180046493">"Trimiteţi un mesaj GSM pe 7 biţi în care să precizaţi limba"</string>
+    <string name="button_gsm_7bit_with_language_body_umts_type" msgid="1201329758881885921">"Trimiteţi un mesaj UMTS pe 7 biţi în care să precizaţi limba"</string>
+    <string name="button_gsm_ucs2_type" msgid="6652864601384080678">"Difuzaţi un mesaj de test GSM UCS-2"</string>
+    <string name="button_gsm_ucs2_umts_type" msgid="2985879481785569626">"Difuzaţi un mesaj de test UMTS UCS-2"</string>
+    <string name="button_gsm_ucs2_multipage_umts_type" msgid="4557772309524939206">"Difuzaţi un mesaj multipagină UMTS UCS-2"</string>
     <string name="button_gsm_ucs2_with_language_type" msgid="8992961254390480388">"Trimiteţi mesaj GSM UCS-2 în care să precizaţi limba"</string>
-    <!-- no translation found for button_gsm_ucs2_with_language_umts_type (1080788762601688380) -->
-    <skip />
-    <!-- no translation found for button_delay_broadcast (5138650276363839541) -->
-    <skip />
+    <string name="button_gsm_ucs2_with_language_umts_type" msgid="1080788762601688380">"Trimiteţi un mesaj UMTS UCS-2 în care să precizaţi limba"</string>
+    <string name="button_delay_broadcast" msgid="5138650276363839541">"Întârziaţi cu 5 secunde înaintea trimiterii"</string>
 </resources>

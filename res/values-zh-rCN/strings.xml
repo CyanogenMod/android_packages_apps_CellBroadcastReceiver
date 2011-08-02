@@ -33,7 +33,7 @@
     <string name="etws_earthquake_and_tsunami_warning" msgid="3328800329792092563">"地震海啸警报"</string>
     <string name="etws_test_message" msgid="2275975653933965980">"地震海啸警报系统测试消息"</string>
     <string name="etws_other_emergency_type" msgid="5898196177505740491">"紧急警报"</string>
-    <string name="cmas_presidential_level_alert" msgid="5882738702264392095">"董事长级警报"</string>
+    <string name="cmas_presidential_level_alert" msgid="5882738702264392095">"总裁级警报"</string>
     <string name="cmas_extreme_alert" msgid="3428242609916096738">"紧急警报：极严重"</string>
     <string name="cmas_severe_alert" msgid="4076236701096888312">"紧急警报：严重"</string>
     <string name="cmas_amber_alert" msgid="1970160018363203781">"儿童绑架（安珀警报）"</string>
@@ -61,7 +61,7 @@
     <string name="enable_cmas_test_alerts_summary" msgid="8198111409000885403">"显示商业移动警报系统的每月测试广播"</string>
     <string name="category_brazil_settings_title" msgid="6343130548572319922">"针对巴西的设置"</string>
     <string name="enable_channel_50_alerts_title" msgid="2818924064446974167">"显示 50 频道的广播"</string>
-    <string name="enable_channel_50_alerts_summary" msgid="7507770011325273009">"巴西使用频道 50 来广播更新信息"</string>
+    <string name="enable_channel_50_alerts_summary" msgid="7507770011325273009">"巴西使用频道 50 来广播区域动态信息"</string>
   <string-array name="alert_sound_duration_entries">
     <item msgid="5353482200312892037">"2 秒"</item>
     <item msgid="5656092384277009212">"4 秒"</item>

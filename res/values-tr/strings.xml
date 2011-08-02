@@ -47,7 +47,7 @@
     <string name="enable_emergency_alerts_summary" msgid="5932655529367149358">"Acil durum uyarısı yayınlarını görüntüle"</string>
     <string name="alert_sound_duration_title" msgid="4712853569849108005">"Uyarı sesi süresi"</string>
     <string name="enable_alert_speech_title" msgid="8052104771053526941">"Uyarı mesajını seslendir"</string>
-    <string name="enable_alert_speech_summary" msgid="356086178962268831">"Acil durum uyarı mesajlarını seslendirmek için metin-konuşma özelliğini kullan"</string>
+    <string name="enable_alert_speech_summary" msgid="356086178962268831">"Acil durum uyarı mesajları için metin-konuşma özelliğini kullan"</string>
     <string name="category_etws_settings_title" msgid="434542051842056531">"ETWS Ayarları"</string>
     <string name="enable_etws_test_alerts_title" msgid="610886539669540241">"Test yayınlarını göster"</string>
     <string name="enable_etws_test_alerts_summary" msgid="7988690174166347072">"Deprem Tsunami Uyarı Sistemi için test yayınlarını görüntüle"</string>
@@ -55,8 +55,7 @@
     <string name="enable_cmas_imminent_threat_alerts_title" msgid="113476323956792952">"Yaklaşan tehditleri göster"</string>
     <string name="enable_cmas_imminent_threat_alerts_summary" msgid="5291579260539730417">"CMAS yaklaşan tehdit uyarısı bildirimlerini görüntüle"</string>
     <string name="enable_cmas_amber_alerts_title" msgid="6624617083256370966">"AMBER Uyarıları Göster"</string>
-    <!-- no translation found for enable_cmas_amber_alerts_summary (4780708170217369192) -->
-    <skip />
+    <string name="enable_cmas_amber_alerts_summary" msgid="4780708170217369192">"AMBER Uyarı (çocuk kaçırma acil durum) bültenlerini görüntüle"</string>
     <string name="enable_cmas_test_alerts_title" msgid="3460083005355598489">"Test yayınlarını göster"</string>
     <string name="enable_cmas_test_alerts_summary" msgid="8198111409000885403">"CMAS aylık test yayınlarını görüntüle"</string>
     <string name="category_brazil_settings_title" msgid="6343130548572319922">"Brezilya için Ayarlar"</string>

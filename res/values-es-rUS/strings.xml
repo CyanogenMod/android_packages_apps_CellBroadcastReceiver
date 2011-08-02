@@ -55,8 +55,7 @@
     <string name="enable_cmas_imminent_threat_alerts_title" msgid="113476323956792952">"Mostrar las amenazas inminentes"</string>
     <string name="enable_cmas_imminent_threat_alerts_summary" msgid="5291579260539730417">"Mostrar las notificaciones de alerta de amenaza inminente de CMAS"</string>
     <string name="enable_cmas_amber_alerts_title" msgid="6624617083256370966">"Mostrar las alertas color ÁMBAR"</string>
-    <!-- no translation found for enable_cmas_amber_alerts_summary (4780708170217369192) -->
-    <skip />
+    <string name="enable_cmas_amber_alerts_summary" msgid="4780708170217369192">"Mostrar boletines (de emergencia de sustracción de menores) de alerta ÁMBAR"</string>
     <string name="enable_cmas_test_alerts_title" msgid="3460083005355598489">"Mostrar emisiones de prueba"</string>
     <string name="enable_cmas_test_alerts_summary" msgid="8198111409000885403">"Mostrar difusiones mensuales de prueba del Sistema Comercial de Alerta Móvil (CMAS)"</string>
     <string name="category_brazil_settings_title" msgid="6343130548572319922">"Configuración para Brasil"</string>

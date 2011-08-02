@@ -54,7 +54,7 @@
     <string name="category_cmas_settings_title" msgid="2851420028614615466">"Paramètres CMAS"</string>
     <string name="enable_cmas_imminent_threat_alerts_title" msgid="113476323956792952">"Afficher menaces imminentes"</string>
     <string name="enable_cmas_imminent_threat_alerts_summary" msgid="5291579260539730417">"Afficher les notifications CMAS d\'alerte de menace imminente"</string>
-    <string name="enable_cmas_amber_alerts_title" msgid="6624617083256370966">"Afficher les alertes AMBER"</string>
+    <string name="enable_cmas_amber_alerts_title" msgid="6624617083256370966">"Afficher les alertes d\'enlèvement d\'enfants"</string>
     <!-- no translation found for enable_cmas_amber_alerts_summary (4780708170217369192) -->
     <skip />
     <string name="enable_cmas_test_alerts_title" msgid="3460083005355598489">"Afficher les diffusions test"</string>

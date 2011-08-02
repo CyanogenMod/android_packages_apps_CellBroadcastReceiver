@@ -16,8 +16,8 @@
 
 <resources xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="app_label" msgid="2102435118079140813">"Testovi emitiranja na mobitele"</string>
-    <string name="button_etws_normal_type" msgid="3852703138521119537">"Pošalji ETWS-ovo normalno emitiranje"</string>
+    <string name="app_label" msgid="2102435118079140813">"Ujian Siaran Sel"</string>
+    <string name="button_etws_normal_type" msgid="3852703138521119537">"Hantar Siaran Normal ETWS"</string>
     <!-- no translation found for button_etws_cancel_type (7194264116649371175) -->
     <skip />
     <!-- no translation found for button_etws_test_type (6353906188028139901) -->
@@ -44,7 +44,7 @@
     <skip />
     <!-- no translation found for button_gsm_ucs2_multipage_umts_type (4557772309524939206) -->
     <skip />
-    <string name="button_gsm_ucs2_with_language_type" msgid="8992961254390480388">"Pošalji GSM UCS-2 s jezikom"</string>
+    <string name="button_gsm_ucs2_with_language_type" msgid="8992961254390480388">"Hantar GSM UCS-2 Dengan Bahasa"</string>
     <!-- no translation found for button_gsm_ucs2_with_language_umts_type (1080788762601688380) -->
     <skip />
     <!-- no translation found for button_delay_broadcast (5138650276363839541) -->

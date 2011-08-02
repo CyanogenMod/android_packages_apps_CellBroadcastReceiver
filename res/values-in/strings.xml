@@ -52,16 +52,16 @@
     <string name="enable_etws_test_alerts_title" msgid="610886539669540241">"Tampilkan siaran uji"</string>
     <string name="enable_etws_test_alerts_summary" msgid="7988690174166347072">"Tampilkan siaran uji untuk Sistem Peringatan Tsunami Gempa Bumi"</string>
     <string name="category_cmas_settings_title" msgid="2851420028614615466">"Setelan CMAS"</string>
-    <string name="enable_cmas_imminent_threat_alerts_title" msgid="113476323956792952">"Tampilkan potensi ancaman"</string>
-    <string name="enable_cmas_imminent_threat_alerts_summary" msgid="5291579260539730417">"Tampilkan pemberitahuan peringatan potensi ancaman terhadap CMAS"</string>
+    <string name="enable_cmas_imminent_threat_alerts_title" msgid="113476323956792952">"Tampilkan ancaman sgt dekat"</string>
+    <string name="enable_cmas_imminent_threat_alerts_summary" msgid="5291579260539730417">"Tampilkan pemberitahuan CMAS tentang ancaman sangat dekat"</string>
     <string name="enable_cmas_amber_alerts_title" msgid="6624617083256370966">"Tampilkan Lansiran AMBER"</string>
     <!-- no translation found for enable_cmas_amber_alerts_summary (4780708170217369192) -->
     <skip />
     <string name="enable_cmas_test_alerts_title" msgid="3460083005355598489">"Tampilkan siaran uji"</string>
     <string name="enable_cmas_test_alerts_summary" msgid="8198111409000885403">"Tampilkan siaran uji bulanan CMAS"</string>
     <string name="category_brazil_settings_title" msgid="6343130548572319922">"Setelan untuk Brasil"</string>
-    <string name="enable_channel_50_alerts_title" msgid="2818924064446974167">"Tayangkan siaran channel 50"</string>
-    <string name="enable_channel_50_alerts_summary" msgid="7507770011325273009">"Channel 50 dgunakn di Brasil utk info pembaruan area"</string>
+    <string name="enable_channel_50_alerts_title" msgid="2818924064446974167">"Tampilkan siaran channel 50"</string>
+    <string name="enable_channel_50_alerts_summary" msgid="7507770011325273009">"Channel 50 digunakan di Brasil untuk info pembaruan area"</string>
   <string-array name="alert_sound_duration_entries">
     <item msgid="5353482200312892037">"2 detik"</item>
     <item msgid="5656092384277009212">"4 detik"</item>
