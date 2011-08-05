@@ -39,7 +39,7 @@
     <string name="cmas_amber_alert" msgid="1970160018363203781">"Penculikan Kanak-kanak (Isyarat Amber)"</string>
     <string name="cmas_required_monthly_test" msgid="5916270292411022780">"Ujian Bulanan Isyarat Kecemasan"</string>
     <string name="cmas_exercise_alert" msgid="6190628869976872207">"Isyarat Kecemasan (Latihan)"</string>
-    <string name="cmas_operator_defined_alert" msgid="2450489487926280449">"Isyarat Kecemasan (Pengendali)"</string>
+    <string name="cmas_operator_defined_alert" msgid="2450489487926280449">"Isyarat Kecemasan (Operator)"</string>
     <string name="pws_other_message_identifiers" msgid="5215479112363627634">"Isyarat Kecemasan"</string>
     <string name="cb_other_message_identifiers" msgid="4106203294490768069">"Siaran Sel"</string>
     <string name="emergency_alert_settings_title" msgid="4167061213730461522">"Tetapan Isyarat Kecemasan"</string>
@@ -55,8 +55,7 @@
     <string name="enable_cmas_imminent_threat_alerts_title" msgid="113476323956792952">"Tunjukkan ancaman hampir"</string>
     <string name="enable_cmas_imminent_threat_alerts_summary" msgid="5291579260539730417">"Paparkan pemberitahuan amaran ancaman hampir CMAS"</string>
     <string name="enable_cmas_amber_alerts_title" msgid="6624617083256370966">"Tunjukkan Isyarat AMBER"</string>
-    <!-- no translation found for enable_cmas_amber_alerts_summary (4780708170217369192) -->
-    <skip />
+    <string name="enable_cmas_amber_alerts_summary" msgid="4780708170217369192">"Memaparkan buletin Isyarat AMBER (kecemasan penculikan kanak-kanak)"</string>
     <string name="enable_cmas_test_alerts_title" msgid="3460083005355598489">"Tunjukkan siaran ujian"</string>
     <string name="enable_cmas_test_alerts_summary" msgid="8198111409000885403">"Paparkan siaran ujian bulanan CMAS"</string>
     <string name="category_brazil_settings_title" msgid="6343130548572319922">"Tetapan untuk Brazil"</string>

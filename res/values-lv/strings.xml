@@ -55,8 +55,7 @@
     <string name="enable_cmas_imminent_threat_alerts_title" msgid="113476323956792952">"Rādīt nenovēršamu draudu brīd."</string>
     <string name="enable_cmas_imminent_threat_alerts_summary" msgid="5291579260539730417">"Rādīt CMAS nenovēršamu draudu brīdinājumu paziņojumus"</string>
     <string name="enable_cmas_amber_alerts_title" msgid="6624617083256370966">"Rādīt AMBER brīdinājumus"</string>
-    <!-- no translation found for enable_cmas_amber_alerts_summary (4780708170217369192) -->
-    <skip />
+    <string name="enable_cmas_amber_alerts_summary" msgid="4780708170217369192">"Attēlot AMBER Alert (ziņojumi par bērnu nolaupīšanu) biļetenus"</string>
     <string name="enable_cmas_test_alerts_title" msgid="3460083005355598489">"Rādīt testa apraides"</string>
     <string name="enable_cmas_test_alerts_summary" msgid="8198111409000885403">"Rādīt CMAS ikmēneša testa apraides"</string>
     <string name="category_brazil_settings_title" msgid="6343130548572319922">"Iestatījumi attiecībā uz Brazīliju"</string>

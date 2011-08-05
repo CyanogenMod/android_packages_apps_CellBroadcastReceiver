@@ -55,8 +55,7 @@
     <string name="enable_cmas_imminent_threat_alerts_title" msgid="113476323956792952">"显示紧急威胁"</string>
     <string name="enable_cmas_imminent_threat_alerts_summary" msgid="5291579260539730417">"显示商业移动警报系统的紧急威胁警报通知"</string>
     <string name="enable_cmas_amber_alerts_title" msgid="6624617083256370966">"显示安珀警报"</string>
-    <!-- no translation found for enable_cmas_amber_alerts_summary (4780708170217369192) -->
-    <skip />
+    <string name="enable_cmas_amber_alerts_summary" msgid="4780708170217369192">"显示安珀警报（紧急儿童绑架事件）公告"</string>
     <string name="enable_cmas_test_alerts_title" msgid="3460083005355598489">"显示测试广播"</string>
     <string name="enable_cmas_test_alerts_summary" msgid="8198111409000885403">"显示商业移动警报系统的每月测试广播"</string>
     <string name="category_brazil_settings_title" msgid="6343130548572319922">"针对巴西的设置"</string>

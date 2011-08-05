@@ -55,8 +55,7 @@
     <string name="enable_cmas_imminent_threat_alerts_title" msgid="113476323956792952">"Прикажи непосредне претње"</string>
     <string name="enable_cmas_imminent_threat_alerts_summary" msgid="5291579260539730417">"Прикажи CMAS обавештења о упозорењу на непосредне претње"</string>
     <string name="enable_cmas_amber_alerts_title" msgid="6624617083256370966">"Прикажи AMBER упозорења"</string>
-    <!-- no translation found for enable_cmas_amber_alerts_summary (4780708170217369192) -->
-    <skip />
+    <string name="enable_cmas_amber_alerts_summary" msgid="4780708170217369192">"Прикажи објаве за AMBER обавештење (у случају отмице деце)"</string>
     <string name="enable_cmas_test_alerts_title" msgid="3460083005355598489">"Прикажи пробна емитовања"</string>
     <string name="enable_cmas_test_alerts_summary" msgid="8198111409000885403">"Прикажи CMAS месечна пробна емитовања"</string>
     <string name="category_brazil_settings_title" msgid="6343130548572319922">"Подешавања за Бразил"</string>

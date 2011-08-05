@@ -55,8 +55,7 @@
     <string name="enable_cmas_imminent_threat_alerts_title" msgid="113476323956792952">"Mostra les amenaces imminents"</string>
     <string name="enable_cmas_imminent_threat_alerts_summary" msgid="5291579260539730417">"Mostra les notificacions d\'advertiment d\'amenaça imminent de la CMAS"</string>
     <string name="enable_cmas_amber_alerts_title" msgid="6624617083256370966">"Mostra les alertes AMBRES"</string>
-    <!-- no translation found for enable_cmas_amber_alerts_summary (4780708170217369192) -->
-    <skip />
+    <string name="enable_cmas_amber_alerts_summary" msgid="4780708170217369192">"Mostra els butlletins d\'alerta AMBRE (d\'emergència per segrest de menors)"</string>
     <string name="enable_cmas_test_alerts_title" msgid="3460083005355598489">"Mostra difusions de prova"</string>
     <string name="enable_cmas_test_alerts_summary" msgid="8198111409000885403">"Mostra les difusions de prova mensuals de la CMAS"</string>
     <string name="category_brazil_settings_title" msgid="6343130548572319922">"Configuració del Brasil"</string>
