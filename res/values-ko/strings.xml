@@ -55,8 +55,7 @@
     <string name="enable_cmas_imminent_threat_alerts_title" msgid="113476323956792952">"임박한 위협 표시"</string>
     <string name="enable_cmas_imminent_threat_alerts_summary" msgid="5291579260539730417">"CMAS 임박한 위협 경고 알림 표시"</string>
     <string name="enable_cmas_amber_alerts_title" msgid="6624617083256370966">"앰버 경고 표시"</string>
-    <!-- no translation found for enable_cmas_amber_alerts_summary (4780708170217369192) -->
-    <skip />
+    <string name="enable_cmas_amber_alerts_summary" msgid="4780708170217369192">"황색 경고(아동 유괴 긴급상황) 게시판 표시"</string>
     <string name="enable_cmas_test_alerts_title" msgid="3460083005355598489">"테스트 브로드캐스트 표시"</string>
     <string name="enable_cmas_test_alerts_summary" msgid="8198111409000885403">"CMAS 월별 테스트 브로드캐스트 표시"</string>
     <string name="category_brazil_settings_title" msgid="6343130548572319922">"브라질에 대한 설정"</string>

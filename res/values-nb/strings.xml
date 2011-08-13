@@ -32,10 +32,10 @@
     <string name="etws_tsunami_warning" msgid="686911416498753519">"Tsunamivarsel"</string>
     <string name="etws_earthquake_and_tsunami_warning" msgid="3328800329792092563">"Tsunami- og jordskjelvvarsel"</string>
     <string name="etws_test_message" msgid="2275975653933965980">"ETWS-testmelding"</string>
-    <string name="etws_other_emergency_type" msgid="5898196177505740491">"Nødsadvarsel"</string>
+    <string name="etws_other_emergency_type" msgid="5898196177505740491">"Nødvarsel"</string>
     <string name="cmas_presidential_level_alert" msgid="5882738702264392095">"Presidentvarsel"</string>
     <string name="cmas_extreme_alert" msgid="3428242609916096738">"Nødvarsel: ekstremt"</string>
-    <string name="cmas_severe_alert" msgid="4076236701096888312">"Nødvarsel: kraftig"</string>
+    <string name="cmas_severe_alert" msgid="4076236701096888312">"Nødvarsel: alvorlig"</string>
     <string name="cmas_amber_alert" msgid="1970160018363203781">"Barnebortføring"</string>
     <string name="cmas_required_monthly_test" msgid="5916270292411022780">"Månedlig test av nødvarsel"</string>
     <string name="cmas_exercise_alert" msgid="6190628869976872207">"Nødvarsel (øvelse)"</string>
@@ -50,7 +50,7 @@
     <string name="enable_alert_speech_summary" msgid="356086178962268831">"Bruk tekst-til-tale for å snakke inn nødvarselsmeldinger"</string>
     <string name="category_etws_settings_title" msgid="434542051842056531">"Innstillinger for ETWS"</string>
     <string name="enable_etws_test_alerts_title" msgid="610886539669540241">"Vis testkringkastinger"</string>
-    <string name="enable_etws_test_alerts_summary" msgid="7988690174166347072">"Vis testkringkastinger fra advarselssystemet for tsunamier og jordskjelv"</string>
+    <string name="enable_etws_test_alerts_summary" msgid="7988690174166347072">"Vis testkringkastinger fra varselssystemet for tsunamier og jordskjelv"</string>
     <string name="category_cmas_settings_title" msgid="2851420028614615466">"CMAS-innstillinger"</string>
     <string name="enable_cmas_imminent_threat_alerts_title" msgid="113476323956792952">"Vis overhengende trusler"</string>
     <string name="enable_cmas_imminent_threat_alerts_summary" msgid="5291579260539730417">"Vis CMAS-varslinger for advarsler om overhengende trusler"</string>
