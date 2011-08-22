@@ -33,7 +33,7 @@
     <string name="etws_earthquake_and_tsunami_warning" msgid="3328800329792092563">"地震津波警報"</string>
     <string name="etws_test_message" msgid="2275975653933965980">"ETWSテストメッセージ"</string>
     <string name="etws_other_emergency_type" msgid="5898196177505740491">"緊急警報"</string>
-    <string name="cmas_presidential_level_alert" msgid="5882738702264392095">"大統領からの警報"</string>
+    <string name="cmas_presidential_level_alert" msgid="5882738702264392095">"国家レベルの警報"</string>
     <string name="cmas_extreme_alert" msgid="3428242609916096738">"緊急警報: 最重要"</string>
     <string name="cmas_severe_alert" msgid="4076236701096888312">"緊急警報: 重要"</string>
     <string name="cmas_amber_alert" msgid="1970160018363203781">"子供の誘拐（誘拐事件速報）"</string>
