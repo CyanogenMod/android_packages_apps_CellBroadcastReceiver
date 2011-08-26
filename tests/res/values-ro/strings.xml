@@ -33,5 +33,5 @@
     <string name="button_gsm_ucs2_multipage_umts_type" msgid="4557772309524939206">"Difuzaţi un mesaj multipagină UMTS UCS-2"</string>
     <string name="button_gsm_ucs2_with_language_type" msgid="8992961254390480388">"Trimiteţi mesaj GSM UCS-2 în care să precizaţi limba"</string>
     <string name="button_gsm_ucs2_with_language_umts_type" msgid="1080788762601688380">"Trimiteţi un mesaj UMTS UCS-2 în care să precizaţi limba"</string>
-    <string name="button_delay_broadcast" msgid="5138650276363839541">"Întârziaţi cu 5 secunde înaintea trimiterii"</string>
+    <string name="button_delay_broadcast" msgid="5138650276363839541">"Întârziaţi 5 secunde înaintea trimiterii"</string>
 </resources>

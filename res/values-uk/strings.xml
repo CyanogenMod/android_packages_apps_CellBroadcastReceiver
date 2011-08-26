@@ -55,7 +55,7 @@
     <string name="enable_cmas_imminent_threat_alerts_title" msgid="113476323956792952">"Показати безпосередні загрози"</string>
     <string name="enable_cmas_imminent_threat_alerts_summary" msgid="5291579260539730417">"Відобразити сповіщення-застереження системи CMAS про безпосередні загрози"</string>
     <string name="enable_cmas_amber_alerts_title" msgid="6624617083256370966">"Показати сповіщення про викрадення"</string>
-    <string name="enable_cmas_amber_alerts_summary" msgid="4780708170217369192">"Показувати інформаційні повідомлення AMBER Alert (у випадку викрадення дітей)"</string>
+    <string name="enable_cmas_amber_alerts_summary" msgid="4780708170217369192">"Показувати сповіщення AMBER (повідомлення про викрадення дітей)"</string>
     <string name="enable_cmas_test_alerts_title" msgid="3460083005355598489">"Показати тестові повідомлення"</string>
     <string name="enable_cmas_test_alerts_summary" msgid="8198111409000885403">"Відобразити щомісячні тестові широкомовні повідомлення системи CMAS"</string>
     <string name="category_brazil_settings_title" msgid="6343130548572319922">"Налаштування для Бразилії"</string>

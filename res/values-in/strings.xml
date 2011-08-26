@@ -55,8 +55,7 @@
     <string name="enable_cmas_imminent_threat_alerts_title" msgid="113476323956792952">"Tampilkan ancaman sgt dekat"</string>
     <string name="enable_cmas_imminent_threat_alerts_summary" msgid="5291579260539730417">"Tampilkan pemberitahuan CMAS tentang ancaman sangat dekat"</string>
     <string name="enable_cmas_amber_alerts_title" msgid="6624617083256370966">"Tampilkan Lansiran AMBER"</string>
-    <!-- no translation found for enable_cmas_amber_alerts_summary (4780708170217369192) -->
-    <skip />
+    <string name="enable_cmas_amber_alerts_summary" msgid="4780708170217369192">"Tampilkan buletin AMBER Alert (darurat penculikan anak)"</string>
     <string name="enable_cmas_test_alerts_title" msgid="3460083005355598489">"Tampilkan siaran uji"</string>
     <string name="enable_cmas_test_alerts_summary" msgid="8198111409000885403">"Tampilkan siaran uji bulanan CMAS"</string>
     <string name="category_brazil_settings_title" msgid="6343130548572319922">"Setelan untuk Brasil"</string>

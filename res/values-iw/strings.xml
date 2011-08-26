@@ -32,7 +32,7 @@
     <string name="etws_tsunami_warning" msgid="686911416498753519">"אזהרת צונאמי"</string>
     <string name="etws_earthquake_and_tsunami_warning" msgid="3328800329792092563">"אזהרת רעידת אדמה וצונאמי"</string>
     <string name="etws_test_message" msgid="2275975653933965980">"הודעה על בדיקת ETWS"</string>
-    <string name="etws_other_emergency_type" msgid="5898196177505740491">"אזהרת חירום"</string>
+    <string name="etws_other_emergency_type" msgid="5898196177505740491">"התראת חירום"</string>
     <string name="cmas_presidential_level_alert" msgid="5882738702264392095">"התראה נשיאותית"</string>
     <string name="cmas_extreme_alert" msgid="3428242609916096738">"התראת חירום: חמורה ביותר"</string>
     <string name="cmas_severe_alert" msgid="4076236701096888312">"התראת חירום: חמורה"</string>
@@ -54,13 +54,12 @@
     <string name="category_cmas_settings_title" msgid="2851420028614615466">"הגדרות CMAS"</string>
     <string name="enable_cmas_imminent_threat_alerts_title" msgid="113476323956792952">"הצג איומים מיידיים"</string>
     <string name="enable_cmas_imminent_threat_alerts_summary" msgid="5291579260539730417">"הצג התראות אזהרה על איומים מיידיים של CMAS"</string>
-    <string name="enable_cmas_amber_alerts_title" msgid="6624617083256370966">"הצג התראות של AMBER"</string>
-    <!-- no translation found for enable_cmas_amber_alerts_summary (4780708170217369192) -->
-    <skip />
+    <string name="enable_cmas_amber_alerts_title" msgid="6624617083256370966">"הצג התראות AMBER"</string>
+    <string name="enable_cmas_amber_alerts_summary" msgid="4780708170217369192">"הצג התראת AMBER (מצב חירום של חטיפת ילד) מבזקים"</string>
     <string name="enable_cmas_test_alerts_title" msgid="3460083005355598489">"הצג שידורי בדיקה"</string>
     <string name="enable_cmas_test_alerts_summary" msgid="8198111409000885403">"הצג את שידורי הבדיקה החודשיים של CMAS"</string>
     <string name="category_brazil_settings_title" msgid="6343130548572319922">"הגדרות עבור ברזיל"</string>
-    <string name="enable_channel_50_alerts_title" msgid="2818924064446974167">"הצג שידורי ערוץ 50"</string>
+    <string name="enable_channel_50_alerts_title" msgid="2818924064446974167">"הצג את שידורי ערוץ 50"</string>
     <string name="enable_channel_50_alerts_summary" msgid="7507770011325273009">"ערוץ 50 משמש בברזיל למסירת עדכונים אזוריים"</string>
   <string-array name="alert_sound_duration_entries">
     <item msgid="5353482200312892037">"2 שניות"</item>

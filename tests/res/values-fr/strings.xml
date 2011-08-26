@@ -27,11 +27,11 @@
     <string name="button_gsm_7bit_multipage_type" msgid="8516540964071070491">"Envoyer une diffusion multipage GSM 7 bits"</string>
     <string name="button_gsm_7bit_multipage_umts_type" msgid="474883728254547100">"Envoyer une diffusion multipage UMTS 7 bits"</string>
     <string name="button_gsm_7bit_with_language_type" msgid="7414138913180046493">"Envoyer en GSM 7 bits avec le langage"</string>
-    <string name="button_gsm_7bit_with_language_body_umts_type" msgid="1201329758881885921">"Envoyer en UMTS 7 bits avec le language"</string>
+    <string name="button_gsm_7bit_with_language_body_umts_type" msgid="1201329758881885921">"Envoyer en UMTS 7 bits avec le langage"</string>
     <string name="button_gsm_ucs2_type" msgid="6652864601384080678">"Envoyer une diffusion test GSM UCS-2"</string>
     <string name="button_gsm_ucs2_umts_type" msgid="2985879481785569626">"Envoyer une diffusion test UMTS UCS-2"</string>
     <string name="button_gsm_ucs2_multipage_umts_type" msgid="4557772309524939206">"Envoyer une diffusion multipage UMTS UCS-2"</string>
     <string name="button_gsm_ucs2_with_language_type" msgid="8992961254390480388">"Envoyer en GSM UCS-2 avec le langage"</string>
-    <string name="button_gsm_ucs2_with_language_umts_type" msgid="1080788762601688380">"Envoyer en UMTS UCS-2 avec le language"</string>
+    <string name="button_gsm_ucs2_with_language_umts_type" msgid="1080788762601688380">"Envoyer en UMTS UCS-2 avec le langage"</string>
     <string name="button_delay_broadcast" msgid="5138650276363839541">"Retarder l\'envoi de cinq secondes"</string>
 </resources>
