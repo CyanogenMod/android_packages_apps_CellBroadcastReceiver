@@ -98,7 +98,8 @@ public class CellBroadcastAlertService extends Service {
 
         // add notification to the bar
         addToNotificationBar(cbm);
-        if (cbm.isEmergencyAlertMessage()) {
+        if (cbm.isEmergencyAlertMessage() || CellBroadcastConfigService
+                .isOperatorDefinedEmergencyId(cbm.getMessageIdentifier())) {
             // start audio/vibration/speech service for emergency alerts
             Intent audioIntent = new Intent(this, CellBroadcastAlertAudio.class);
             audioIntent.setAction(CellBroadcastAlertAudio.ACTION_START_ALERT_AUDIO);
@@ -191,7 +192,8 @@ public class CellBroadcastAlertService extends Service {
 
         notification.setLatestEventInfo(this, channelName, messageBody, pi);
 
-        if (message.isEmergencyAlertMessage()) {
+        if (message.isEmergencyAlertMessage() || CellBroadcastConfigService
+                .isOperatorDefinedEmergencyId(message.getMessageIdentifier())) {
             // Emergency: open notification immediately
             notification.fullScreenIntent = pi;
             // use default notification lights (CellBroadcastAlertAudio plays sound/vibration)

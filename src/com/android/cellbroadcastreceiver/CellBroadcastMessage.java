@@ -284,7 +284,9 @@ public class CellBroadcastMessage implements Parcelable {
                 return R.string.cmas_operator_defined_alert;
 
             default:
-                if (SmsCbHeader.isEmergencyMessage(mMessageIdentifier)) {
+                if (SmsCbHeader.isEmergencyMessage(mMessageIdentifier) ||
+                        CellBroadcastConfigService.isOperatorDefinedEmergencyId(
+                                mMessageIdentifier)) {
                     return R.string.pws_other_message_identifiers;
                 } else {
                     return R.string.cb_other_message_identifiers;
