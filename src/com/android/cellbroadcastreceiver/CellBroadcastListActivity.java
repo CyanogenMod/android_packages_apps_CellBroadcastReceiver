@@ -183,10 +183,12 @@ public class CellBroadcastListActivity extends ListActivity {
 
     private void showDialogAndMarkRead(Cursor cursor) {
         CellBroadcastMessage cbm = CellBroadcastMessage.createFromCursor(cursor);
+        boolean isAlertMessage = cbm.isPublicAlertMessage() || CellBroadcastConfigService
+                .isOperatorDefinedEmergencyId(cbm.getMessageIdentifier());
         // show emergency alerts with the warning icon, but don't play alert tone
         CellBroadcastAlertDialog dialog = new CellBroadcastAlertDialog(this,
                 cbm.getDialogTitleResource(), cbm.getMessageBody(),
-                cbm.isPublicAlertMessage(), cbm.getDeliveryTime());
+                isAlertMessage, cbm.getDeliveryTime());
         dialog.show();
     }
 
@@ -268,7 +270,8 @@ public class CellBroadcastListActivity extends ListActivity {
             (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
         notificationManager.cancel(notificationId);
 
-        boolean isEmergencyAlert = cbm.isPublicAlertMessage();
+        boolean isEmergencyAlert = cbm.isPublicAlertMessage() || CellBroadcastConfigService
+                .isOperatorDefinedEmergencyId(cbm.getMessageIdentifier());
 
         CellBroadcastAlertDialog dialog = new CellBroadcastAlertDialog(this,
                 cbm.getDialogTitleResource(), cbm.getMessageBody(),

@@ -81,6 +81,34 @@ public class CellBroadcastConfigService extends IntentService {
         }
     }
 
+    static boolean isOperatorDefinedEmergencyId(int messageId) {
+        // Check for system property defining the emergency channel ranges to enable
+        String emergencyIdRange = SystemProperties.get("ro.cellbroadcast.emergencyids");
+        if (TextUtils.isEmpty(emergencyIdRange)) {
+            return false;
+        }
+        try {
+            for (String channelRange : emergencyIdRange.split(",")) {
+                int dashIndex = channelRange.indexOf('-');
+                if (dashIndex != -1) {
+                    int startId = Integer.decode(channelRange.substring(0, dashIndex));
+                    int endId = Integer.decode(channelRange.substring(dashIndex + 1));
+                    if (messageId >= startId && messageId <= endId) {
+                        return true;
+                    }
+                } else {
+                    int emergencyMessageId = Integer.decode(channelRange);
+                    if (emergencyMessageId == messageId) {
+                        return true;
+                    }
+                }
+            }
+        } catch (NumberFormatException e) {
+            Log.e(TAG, "Number Format Exception parsing emergency channel range", e);
+        }
+        return false;
+    }
+
     @Override
     protected void onHandleIntent(Intent intent) {
         if (ACTION_ENABLE_CHANNELS.equals(intent.getAction())) {
