@@ -20,9 +20,11 @@ import android.app.IntentService;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
+import android.os.SystemProperties;
 import android.preference.PreferenceManager;
 import android.telephony.SmsCbConstants;
 import android.telephony.SmsManager;
+import android.text.TextUtils;
 import android.util.Log;
 
 import com.android.internal.telephony.gsm.SmsCbHeader;
@@ -49,12 +51,45 @@ public class CellBroadcastConfigService extends IntentService {
         super(TAG);          // use class name for worker thread name
     }
 
+    private void setChannelRange(SmsManager manager, String ranges, boolean enable) {
+        try {
+            for (String channelRange : ranges.split(",")) {
+                int dashIndex = channelRange.indexOf('-');
+                if (dashIndex != -1) {
+                    int startId = Integer.decode(channelRange.substring(0, dashIndex));
+                    int endId = Integer.decode(channelRange.substring(dashIndex + 1));
+                    if (enable) {
+                        if (DBG) Log.d(TAG, "enabling emergency IDs " + startId + '-' + endId);
+                        manager.enableCellBroadcastRange(startId, endId);
+                    } else {
+                        if (DBG) Log.d(TAG, "disabling emergency IDs " + startId + '-' + endId);
+                        manager.disableCellBroadcastRange(startId, endId);
+                    }
+                } else {
+                    int messageId = Integer.decode(channelRange);
+                    if (enable) {
+                        if (DBG) Log.d(TAG, "enabling emergency message ID " + messageId);
+                        manager.enableCellBroadcast(messageId);
+                    } else {
+                        if (DBG) Log.d(TAG, "disabling emergency message ID " + messageId);
+                        manager.disableCellBroadcast(messageId);
+                    }
+                }
+            }
+        } catch (NumberFormatException e) {
+            Log.e(TAG, "Number Format Exception parsing emergency channel range", e);
+        }
+    }
+
     @Override
     protected void onHandleIntent(Intent intent) {
         if (ACTION_ENABLE_CHANNELS.equals(intent.getAction())) {
             try {
                 SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
                 Resources res = getResources();
+
+                // Check for system property defining the emergency channel ranges to enable
+                String emergencyIdRange = SystemProperties.get("ro.cellbroadcast.emergencyids");
 
                 boolean enableEmergencyAlerts = prefs.getBoolean(
                         CellBroadcastSettings.KEY_ENABLE_EMERGENCY_ALERTS, true);
@@ -65,16 +100,26 @@ public class CellBroadcastConfigService extends IntentService {
                 SmsManager manager = SmsManager.getDefault();
                 if (enableEmergencyAlerts) {
                     if (DBG) Log.d(TAG, "enabling emergency cell broadcast channels");
-                    manager.enableCellBroadcastRange(
-                            SmsCbConstants.MESSAGE_ID_PWS_FIRST_IDENTIFIER,
-                            SmsCbConstants.MESSAGE_ID_PWS_LAST_IDENTIFIER);
+                    if (!TextUtils.isEmpty(emergencyIdRange)) {
+                        setChannelRange(manager, emergencyIdRange, true);
+                    } else {
+                        // No emergency channel system property, enable all emergency channels
+                        manager.enableCellBroadcastRange(
+                                SmsCbConstants.MESSAGE_ID_PWS_FIRST_IDENTIFIER,
+                                SmsCbConstants.MESSAGE_ID_PWS_LAST_IDENTIFIER);
+                    }
                     if (DBG) Log.d(TAG, "enabled emergency cell broadcast channels");
                 } else {
                     // we may have enabled these channels previously, so try to disable them
                     if (DBG) Log.d(TAG, "disabling emergency cell broadcast channels");
-                    manager.disableCellBroadcastRange(
-                            SmsCbConstants.MESSAGE_ID_PWS_FIRST_IDENTIFIER,
-                            SmsCbConstants.MESSAGE_ID_PWS_LAST_IDENTIFIER);
+                    if (!TextUtils.isEmpty(emergencyIdRange)) {
+                        setChannelRange(manager, emergencyIdRange, false);
+                    } else {
+                        // No emergency channel system property, disable all emergency channels
+                        manager.disableCellBroadcastRange(
+                                SmsCbConstants.MESSAGE_ID_PWS_FIRST_IDENTIFIER,
+                                SmsCbConstants.MESSAGE_ID_PWS_LAST_IDENTIFIER);
+                    }
                     if (DBG) Log.d(TAG, "disabled emergency cell broadcast channels");
                 }
 
