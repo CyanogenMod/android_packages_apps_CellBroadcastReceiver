@@ -54,8 +54,8 @@
     <string name="category_cmas_settings_title" msgid="480445088257935283">"CMAS-beállítások"</string>
     <string name="enable_cmas_imminent_threat_alerts_title" msgid="113476323956792952">"Veszélyek megjelenítése"</string>
     <string name="enable_cmas_imminent_threat_alerts_summary" msgid="5291579260539730417">"CMAS közvetlen veszélyre figyelmeztető jelzések megjelenítése"</string>
-    <string name="enable_cmas_amber_alerts_title" msgid="8801523770828375686">"Amber-jelzések megjelenítése"</string>
-    <string name="enable_cmas_amber_alerts_summary" msgid="5009049694659733365">"Amber Alert (gyermekrablási vészhelyzetek) közlemények megjelenítése"</string>
+    <string name="enable_cmas_amber_alerts_title" msgid="8801523770828375686">"Gyermekrablási jelzések megjelenítése"</string>
+    <string name="enable_cmas_amber_alerts_summary" msgid="5009049694659733365">"Amber Alert közlemények (gyermekrablási vészhelyzetek) megjelenítése"</string>
     <string name="enable_cmas_test_alerts_title" msgid="3460083005355598489">"Tesztadások megjelenítése"</string>
     <string name="enable_cmas_test_alerts_summary" msgid="8198111409000885403">"CMAS havi tesztadások megjelenítése"</string>
     <string name="category_brazil_settings_title" msgid="6343130548572319922">"Beállítások Brazília esetén"</string>

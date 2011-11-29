@@ -36,7 +36,7 @@
     <string name="cmas_presidential_level_alert" msgid="1209234030582361001">"Alerta presidencial"</string>
     <string name="cmas_extreme_alert" msgid="2588720613319969289">"Alerta d\'emergències: extrema"</string>
     <string name="cmas_severe_alert" msgid="4135809475315826913">"Alerta d\'emergències: greu"</string>
-    <string name="cmas_amber_alert" msgid="6154867710264778887">"Sostracció de menors (Alerta AMBER)"</string>
+    <string name="cmas_amber_alert" msgid="6154867710264778887">"Segrest de menors (Alerta Amber)"</string>
     <string name="cmas_required_monthly_test" msgid="6464047268150108932">"Prova mensual d\'alerta d\'emergències"</string>
     <string name="cmas_exercise_alert" msgid="2892255514938370321">"Alerta d\'emergències (exercici)"</string>
     <string name="cmas_operator_defined_alert" msgid="8755372450810011476">"Alerta d\'emergències (operador)"</string>
@@ -54,8 +54,8 @@
     <string name="category_cmas_settings_title" msgid="480445088257935283">"Configuració de la CMAS"</string>
     <string name="enable_cmas_imminent_threat_alerts_title" msgid="113476323956792952">"Mostra les amenaces imminents"</string>
     <string name="enable_cmas_imminent_threat_alerts_summary" msgid="5291579260539730417">"Mostra les notificacions d\'advertiment d\'amenaça imminent de la CMAS"</string>
-    <string name="enable_cmas_amber_alerts_title" msgid="8801523770828375686">"Mostra les alertes AMBER"</string>
-    <string name="enable_cmas_amber_alerts_summary" msgid="5009049694659733365">"Mostra els butlletins d\'alerta AMBER (d\'emergència per segrest de menors)"</string>
+    <string name="enable_cmas_amber_alerts_title" msgid="8801523770828375686">"Mostra les alertes Amber"</string>
+    <string name="enable_cmas_amber_alerts_summary" msgid="5009049694659733365">"Mostra els butlletins d\'alerta Amber (d\'emergència per segrest de menors)"</string>
     <string name="enable_cmas_test_alerts_title" msgid="3460083005355598489">"Mostra difusions de prova"</string>
     <string name="enable_cmas_test_alerts_summary" msgid="8198111409000885403">"Mostra les difusions de prova mensuals de la CMAS"</string>
     <string name="category_brazil_settings_title" msgid="6343130548572319922">"Configuració del Brasil"</string>
