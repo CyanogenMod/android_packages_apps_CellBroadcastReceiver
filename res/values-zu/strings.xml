@@ -43,7 +43,7 @@
     <string name="pws_other_message_identifiers" msgid="5215479112363627634">"Isaziso Esiphuthumayo"</string>
     <string name="cb_other_message_identifiers" msgid="4106203294490768069">"Ukusakaza Kwamaselula"</string>
     <string name="emergency_alert_settings_title" msgid="4167061213730461522">"Izilungiselelo Zesaziso Esiphuthumayo"</string>
-    <string name="enable_emergency_alerts_title" msgid="5082829492352587964">"Nika ukwaziswa amandla"</string>
+    <string name="enable_emergency_alerts_title" msgid="5082829492352587964">"Nika amandla izaziso"</string>
     <string name="enable_emergency_alerts_summary" msgid="5932655529367149358">"Bonisa ukusakaza kwesaziso esiphuthumayo"</string>
     <string name="alert_sound_duration_title" msgid="4712853569849108005">"Ubude besaziso somsindo"</string>
     <string name="enable_alert_speech_title" msgid="8052104771053526941">"Khuluma isaziso somlayezo"</string>
