@@ -25,10 +25,17 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+    <CheckBox android:id="@+id/button_delay_broadcast"
+        android:text="@string/button_delay_broadcast"
+        android:layout_marginLeft="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <!-- ETWS Alerts -->
     <Button android:id="@+id/button_etws_normal_type"
         android:text="@string/button_etws_normal_type"
         android:layout_marginLeft="20dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
@@ -44,9 +51,43 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
+    <!-- CDMA CMAS Alerts -->
+    <Button android:id="@+id/button_cmas_pres_alert"
+        android:text="@string/button_cmas_pres_alert"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <Button android:id="@+id/button_cmas_extreme_alert"
+        android:text="@string/button_cmas_extreme_alert"
+        android:layout_marginLeft="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <Button android:id="@+id/button_cmas_severe_alert"
+        android:text="@string/button_cmas_severe_alert"
+        android:layout_marginLeft="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <Button android:id="@+id/button_cmas_amber_alert"
+        android:text="@string/button_cmas_amber_alert"
+        android:layout_marginLeft="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <Button android:id="@+id/button_cmas_monthly_test"
+        android:text="@string/button_cmas_monthly_test"
+        android:layout_marginLeft="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <!-- Other Alerts -->
     <Button android:id="@+id/button_gsm_7bit_type"
         android:text="@string/button_gsm_7bit_type"
         android:layout_marginLeft="20dp"
+        android:layout_marginTop="10dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
@@ -86,6 +127,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
+    <Button android:id="@+id/button_gsm_7bit_with_language_body_gsm_type"
+        android:text="@string/button_gsm_7bit_with_language_body_gsm_type"
+        android:layout_marginLeft="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
     <Button android:id="@+id/button_gsm_7bit_with_language_body_umts_type"
         android:text="@string/button_gsm_7bit_with_language_body_umts_type"
         android:layout_marginLeft="20dp"
@@ -118,12 +165,6 @@
 
     <Button android:id="@+id/button_gsm_ucs2_with_language_umts_type"
         android:text="@string/button_gsm_ucs2_with_language_umts_type"
-        android:layout_marginLeft="20dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-
-    <CheckBox android:id="@+id/button_delay_broadcast"
-        android:text="@string/button_delay_broadcast"
         android:layout_marginLeft="20dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />

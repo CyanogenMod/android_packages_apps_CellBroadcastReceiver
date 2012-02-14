@@ -17,50 +17,48 @@
 package com.android.cellbroadcastreceiver;
 
 import android.app.Application;
-import android.content.SharedPreferences;
 import android.util.Log;
 import android.preference.PreferenceManager;
 
-import static com.android.cellbroadcastreceiver.CellBroadcastReceiver.DBG;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * The application class loads the default preferences at first start,
  * and remembers the time of the most recently received broadcast.
  */
 public class CellBroadcastReceiverApp extends Application {
-    public static final String LOG_TAG = "CellBroadcastReceiverApp";
-    public static final String PREF_KEY_NOTIFICATION_ID = "notification_id";
-
-    static CellBroadcastReceiverApp gCellBroadcastReceiverApp;
+    private static final String LOG_TAG = "CellBroadcastReceiverApp";
 
     @Override
     public void onCreate() {
         super.onCreate();
+        // TODO: fix strict mode violation from the following method call during app creation
         PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
-        gCellBroadcastReceiverApp = this;
     }
 
-    public static CellBroadcastReceiverApp getCellBroadcastReceiverApp() {
-        return gCellBroadcastReceiverApp;
+    /** Number of unread non-emergency alerts since the device was booted. */
+    private static AtomicInteger sUnreadAlertCount = new AtomicInteger();
+
+    /**
+     * Increments the number of unread non-emergency alerts, returning the new value.
+     * @return the updated number of unread non-emergency alerts, after incrementing
+     */
+    static int incrementUnreadAlertCount() {
+        return sUnreadAlertCount.incrementAndGet();
     }
 
-    // Each incoming CB gets its own notification. We have to use a new unique notification id
-    // for each one.
-    public int getNextNotificationId() {
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-        int notificationId = prefs.getInt(PREF_KEY_NOTIFICATION_ID, 0);
-        ++notificationId;
-        if (notificationId > 32765) {
-            notificationId = 1;     // wrap around before it gets dangerous
+    /**
+     * Decrements the number of unread non-emergency alerts after the user reads it.
+     */
+    static void decrementUnreadAlertCount() {
+        if (sUnreadAlertCount.decrementAndGet() < 0) {
+            Log.e("CellBroadcastReceiverApp", "mUnreadAlertCount < 0, resetting to 0");
+            sUnreadAlertCount.set(0);
         }
+    }
 
-        // Save the updated notificationId in SharedPreferences
-        SharedPreferences.Editor editor = prefs.edit();
-        editor.putInt(PREF_KEY_NOTIFICATION_ID, notificationId);
-        editor.apply();
-
-        if (DBG) Log.d(LOG_TAG, "getNextNotificationId: " + notificationId);
-
-        return notificationId;
+    /** Resets the unread alert count to zero after user deletes all alerts. */
+    static void resetUnreadAlertCount() {
+        sUnreadAlertCount.set(0);
     }
 }

@@ -26,11 +26,11 @@ import android.widget.CursorAdapter;
 /**
  * The back-end data adapter for {@link CellBroadcastListActivity}.
  */
-public class CellBroadcastListAdapter extends CursorAdapter {
-    private static final String TAG = "CellBroadcastListAdapter";
+public class CellBroadcastCursorAdapter extends CursorAdapter {
 
-    public CellBroadcastListAdapter(Context context, Cursor cursor) {
-        super(context, cursor, true);
+    public CellBroadcastCursorAdapter(Context context, Cursor cursor) {
+        // don't set FLAG_AUTO_REQUERY or FLAG_REGISTER_CONTENT_OBSERVER
+        super(context, cursor, 0);
     }
 
     /**
@@ -41,6 +41,7 @@ public class CellBroadcastListAdapter extends CursorAdapter {
      * @param parent The parent to which the new view is attached to
      * @return the newly created view.
      */
+    @Override
     public View newView(Context context, Cursor cursor, ViewGroup parent) {
         CellBroadcastMessage message = CellBroadcastMessage.createFromCursor(cursor);
 
@@ -59,6 +60,7 @@ public class CellBroadcastListAdapter extends CursorAdapter {
      * @param cursor The cursor from which to get the data. The cursor is already
      * moved to the correct position.
      */
+    @Override
     public void bindView(View view, Context context, Cursor cursor) {
         CellBroadcastMessage message = CellBroadcastMessage.createFromCursor(cursor);
         CellBroadcastListItem listItem = (CellBroadcastListItem) view;

@@ -20,7 +20,6 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -98,6 +97,71 @@ public class SendTestBroadcastActivity extends Activity {
                     mDelayHandler.sendEmptyMessageDelayed(0, DELAY_BEFORE_SENDING_MSEC);
                 } else {
                     SendTestMessages.testSendEtwsMessageTest(SendTestBroadcastActivity.this);
+                }
+            }
+        });
+
+        /* Send a CMAS presidential alert to app. */
+        Button cmasPresAlertButton = (Button) findViewById(R.id.button_cmas_pres_alert);
+        cmasPresAlertButton.setOnClickListener(new OnClickListener() {
+            public void onClick(View v) {
+                if (mDelayBeforeSending && v != null) {
+                    mPendingButtonClick = this;
+                    mDelayHandler.sendEmptyMessageDelayed(0, DELAY_BEFORE_SENDING_MSEC);
+                } else {
+                    SendCdmaCmasMessages.testSendCmasPresAlert(SendTestBroadcastActivity.this);
+                }
+            }
+        });
+
+        /* Send a CMAS extreme alert to app. */
+        Button cmasExtremeAlertButton = (Button) findViewById(R.id.button_cmas_extreme_alert);
+        cmasExtremeAlertButton.setOnClickListener(new OnClickListener() {
+            public void onClick(View v) {
+                if (mDelayBeforeSending && v != null) {
+                    mPendingButtonClick = this;
+                    mDelayHandler.sendEmptyMessageDelayed(0, DELAY_BEFORE_SENDING_MSEC);
+                } else {
+                    SendCdmaCmasMessages.testSendCmasExtremeAlert(SendTestBroadcastActivity.this);
+                }
+            }
+        });
+
+        /* Send a CMAS severe alert to app. */
+        Button cmasSevereAlertButton = (Button) findViewById(R.id.button_cmas_severe_alert);
+        cmasSevereAlertButton.setOnClickListener(new OnClickListener() {
+            public void onClick(View v) {
+                if (mDelayBeforeSending && v != null) {
+                    mPendingButtonClick = this;
+                    mDelayHandler.sendEmptyMessageDelayed(0, DELAY_BEFORE_SENDING_MSEC);
+                } else {
+                    SendCdmaCmasMessages.testSendCmasSevereAlert(SendTestBroadcastActivity.this);
+                }
+            }
+        });
+
+        /* Send a CMAS AMBER alert to app. */
+        Button cmasAmberAlertButton = (Button) findViewById(R.id.button_cmas_amber_alert);
+        cmasAmberAlertButton.setOnClickListener(new OnClickListener() {
+            public void onClick(View v) {
+                if (mDelayBeforeSending && v != null) {
+                    mPendingButtonClick = this;
+                    mDelayHandler.sendEmptyMessageDelayed(0, DELAY_BEFORE_SENDING_MSEC);
+                } else {
+                    SendCdmaCmasMessages.testSendCmasAmberAlert(SendTestBroadcastActivity.this);
+                }
+            }
+        });
+
+        /* Send a CMAS monthly test alert to app. */
+        Button cmasMonthlyTestButton = (Button) findViewById(R.id.button_cmas_monthly_test);
+        cmasMonthlyTestButton.setOnClickListener(new OnClickListener() {
+            public void onClick(View v) {
+                if (mDelayBeforeSending && v != null) {
+                    mPendingButtonClick = this;
+                    mDelayHandler.sendEmptyMessageDelayed(0, DELAY_BEFORE_SENDING_MSEC);
+                } else {
+                    SendCdmaCmasMessages.testSendCmasMonthlyTest(SendTestBroadcastActivity.this);
                 }
             }
         });
@@ -193,6 +257,21 @@ public class SendTestBroadcastActivity extends Activity {
                     mDelayHandler.sendEmptyMessageDelayed(0, DELAY_BEFORE_SENDING_MSEC);
                 } else {
                     SendTestMessages.testSendMessage7bitWithLanguage(SendTestBroadcastActivity.this);
+                }
+            }
+        });
+
+        /* Send a GSM 7-bit broadcast message with language to app. */
+        Button gsm7bitWithLanguageInBodyButton =
+                (Button) findViewById(R.id.button_gsm_7bit_with_language_body_gsm_type);
+        gsm7bitWithLanguageInBodyButton.setOnClickListener(new OnClickListener() {
+            public void onClick(View v) {
+                if (mDelayBeforeSending && v != null) {
+                    mPendingButtonClick = this;
+                    mDelayHandler.sendEmptyMessageDelayed(0, DELAY_BEFORE_SENDING_MSEC);
+                } else {
+                    SendTestMessages.testSendMessage7bitWithLanguageInBody(
+                            SendTestBroadcastActivity.this);
                 }
             }
         });

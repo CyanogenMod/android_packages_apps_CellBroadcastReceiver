@@ -54,11 +54,30 @@
                 <category android:name="android.intent.category.LAUNCHER" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
+            <intent-filter>
+                <action android:name="android.cellbroadcastreceiver.UPDATE_LIST_VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
         </activity>
 
         <activity android:name="CellBroadcastSettings"
                   android:label="@string/sms_cb_settings"
                   android:exported="true" />
+
+        <activity android:name="CellBroadcastAlertDialog"
+                  android:excludeFromRecents="true"
+                  android:theme="@android:style/Theme.Holo.Dialog"
+                  android:launchMode="singleInstance"
+                  android:exported="false"
+                  android:configChanges="orientation|keyboardHidden|keyboard|navigation" />
+
+        <!-- Full-screen version of CellBroadcastAlertDialog to display alerts over lock screen. -->
+        <activity android:name="CellBroadcastAlertFullScreen"
+                  android:excludeFromRecents="true"
+                  android:theme="@style/AlertFullScreenTheme"
+                  android:launchMode="singleInstance"
+                  android:exported="false"
+                  android:configChanges="orientation|keyboardHidden|keyboard|navigation" />
 
         <!-- Require sender permissions to prevent SMS spoofing -->
         <receiver android:name="PrivilegedCellBroadcastReceiver"
@@ -69,6 +88,10 @@
 
             <intent-filter>
                 <action android:name="android.provider.Telephony.SMS_CB_RECEIVED" />
+            </intent-filter>
+
+            <intent-filter>
+                <action android:name="android.provider.Telephony.SMS_SERVICE_CATEGORY_PROGRAM_DATA_RECEIVED" />
             </intent-filter>
         </receiver>
 

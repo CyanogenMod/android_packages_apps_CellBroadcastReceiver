@@ -22,12 +22,11 @@ import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.os.SystemProperties;
 import android.preference.PreferenceManager;
-import android.telephony.SmsCbConstants;
 import android.telephony.SmsManager;
 import android.text.TextUtils;
 import android.util.Log;
 
-import com.android.internal.telephony.gsm.SmsCbHeader;
+import com.android.internal.telephony.gsm.SmsCbConstants;
 
 import static com.android.cellbroadcastreceiver.CellBroadcastReceiver.DBG;
 
@@ -51,7 +50,7 @@ public class CellBroadcastConfigService extends IntentService {
         super(TAG);          // use class name for worker thread name
     }
 
-    private void setChannelRange(SmsManager manager, String ranges, boolean enable) {
+    private static void setChannelRange(SmsManager manager, String ranges, boolean enable) {
         try {
             for (String channelRange : ranges.split(",")) {
                 int dashIndex = channelRange.indexOf('-');

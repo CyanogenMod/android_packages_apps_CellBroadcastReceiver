@@ -16,17 +16,19 @@
 
 package com.android.cellbroadcastreceiver.tests;
 
-import java.io.UnsupportedEncodingException;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.provider.Telephony.Sms.Intents;
-import android.test.ActivityInstrumentationTestCase2;
+import android.telephony.SmsCbLocation;
+import android.telephony.SmsCbMessage;
 import android.util.Log;
 
 import com.android.internal.telephony.EncodeException;
 import com.android.internal.telephony.GsmAlphabet;
 import com.android.internal.telephony.IccUtils;
+import com.android.internal.telephony.gsm.GsmSmsCbMessage;
+
+import java.io.UnsupportedEncodingException;
 
 /**
  * Send test messages.
@@ -381,64 +383,47 @@ public class SendTestMessages {
             (byte)0x50
     };
 
-    static byte[] encodeCellBroadcast(int serialNumber, int messageId, int dcs, String message) {
-        byte[] pdu = new byte[88];
-        pdu[0] = (byte) ((serialNumber >> 8) & 0xff);
-        pdu[1] = (byte) (serialNumber & 0xff);
-        pdu[2] = (byte) ((messageId >> 8) & 0xff);
-        pdu[3] = (byte) (messageId & 0xff);
-        pdu[4] = (byte) (dcs & 0xff);
-        pdu[5] = 0x11;  // single page message
+    private static final SmsCbLocation sEmptyLocation = new SmsCbLocation();
+
+    private static SmsCbMessage createFromPdu(byte[] pdu) {
         try {
-            byte[] encodedString;
-            if (dcs == DCS_16BIT_UCS2) {
-                encodedString = message.getBytes("UTF-16");
-                System.arraycopy(encodedString, 0, pdu, 6, encodedString.length);
-            } else {
-                // byte 0 of encodedString is the length in septets (don't copy)
-                encodedString = GsmAlphabet.stringToGsm7BitPacked(message);
-                System.arraycopy(encodedString, 1, pdu, 6, encodedString.length-1);
-            }
-            return pdu;
-        } catch (EncodeException e) {
-            Log.e(TAG, "Encode Exception");
+            byte[][] pdus = new byte[1][];
+            pdus[0] = pdu;
+            return GsmSmsCbMessage.createSmsCbMessage(sEmptyLocation, pdus);
+        } catch (IllegalArgumentException e) {
             return null;
-        } catch (UnsupportedEncodingException e) {
-            Log.e(TAG, "Unsupported encoding exception for UTF-16");
+        }
+    }
+
+    private static SmsCbMessage createFromPdus(byte[][] pdus) {
+        try {
+            return GsmSmsCbMessage.createSmsCbMessage(sEmptyLocation, pdus);
+        } catch (IllegalArgumentException e) {
             return null;
         }
     }
 
     public static void testSendMessage7bit(Activity activity) {
         Intent intent = new Intent(Intents.SMS_CB_RECEIVED_ACTION);
-        byte[][] pdus = new byte[1][];
-        pdus[0] = gsm7BitTest;
-//        pdus[0] = encodeCellBroadcast(0, 0, DCS_7BIT_ENGLISH, "Hello in GSM 7 bit");
-        intent.putExtra("pdus", pdus);
+        intent.putExtra("message", createFromPdu(gsm7BitTest));
         activity.sendOrderedBroadcast(intent, "android.permission.RECEIVE_SMS");
     }
 
     public static void testSendMessage7bitUmts(Activity activity) {
         Intent intent = new Intent(Intents.SMS_CB_RECEIVED_ACTION);
-        byte[][] pdus = new byte[1][];
-        pdus[0] = gsm7BitTestUmts;
-        intent.putExtra("pdus", pdus);
+        intent.putExtra("message", createFromPdu(gsm7BitTestUmts));
         activity.sendOrderedBroadcast(intent, "android.permission.RECEIVE_SMS");
     }
 
     public static void testSendMessage7bitNoPadding(Activity activity) {
         Intent intent = new Intent(Intents.SMS_CB_RECEIVED_ACTION);
-        byte[][] pdus = new byte[1][];
-        pdus[0] = gsm7BitTestNoPadding;
-        intent.putExtra("pdus", pdus);
+        intent.putExtra("message", createFromPdu(gsm7BitTestNoPadding));
         activity.sendOrderedBroadcast(intent, "android.permission.RECEIVE_SMS");
     }
 
     public static void testSendMessage7bitNoPaddingUmts(Activity activity) {
         Intent intent = new Intent(Intents.SMS_CB_RECEIVED_ACTION);
-        byte[][] pdus = new byte[1][];
-        pdus[0] = gsm7BitTestNoPaddingUmts;
-        intent.putExtra("pdus", pdus);
+        intent.putExtra("message", createFromPdu(gsm7BitTestNoPaddingUmts));
         activity.sendOrderedBroadcast(intent, "android.permission.RECEIVE_SMS");
     }
 
@@ -447,106 +432,81 @@ public class SendTestMessages {
         byte[][] pdus = new byte[2][];
         pdus[0] = gsm7BitTestMultipage1;
         pdus[1] = gsm7BitTestMultipage2;
-        intent.putExtra("pdus", pdus);
+        intent.putExtra("message", createFromPdus(pdus));
         activity.sendOrderedBroadcast(intent, "android.permission.RECEIVE_SMS");
     }
 
     public static void testSendMessage7bitMultipageUmts(Activity activity) {
         Intent intent = new Intent(Intents.SMS_CB_RECEIVED_ACTION);
-        byte[][] pdus = new byte[1][];
-        pdus[0] = gsm7BitTestMultipageUmts;
-        intent.putExtra("pdus", pdus);
+        intent.putExtra("message", createFromPdu(gsm7BitTestMultipageUmts));
         activity.sendOrderedBroadcast(intent, "android.permission.RECEIVE_SMS");
     }
 
     public static void testSendMessage7bitWithLanguage(Activity activity) {
         Intent intent = new Intent(Intents.SMS_CB_RECEIVED_ACTION);
-        byte[][] pdus = new byte[1][];
-        pdus[0] = gsm7BitTestWithLanguage;
-        intent.putExtra("pdus", pdus);
+        intent.putExtra("message", createFromPdu(gsm7BitTestWithLanguage));
         activity.sendOrderedBroadcast(intent, "android.permission.RECEIVE_SMS");
     }
 
     public static void testSendMessage7bitWithLanguageInBody(Activity activity) {
         Intent intent = new Intent(Intents.SMS_CB_RECEIVED_ACTION);
-        byte[][] pdus = new byte[1][];
-        pdus[0] = gsm7BitTestWithLanguageInBody;
-        intent.putExtra("pdus", pdus);
+        intent.putExtra("message", createFromPdu(gsm7BitTestWithLanguageInBody));
         activity.sendOrderedBroadcast(intent, "android.permission.RECEIVE_SMS");
     }
 
     public static void testSendMessage7bitWithLanguageInBodyUmts(Activity activity) {
         Intent intent = new Intent(Intents.SMS_CB_RECEIVED_ACTION);
-        byte[][] pdus = new byte[1][];
-        pdus[0] = gsm7BitTestWithLanguageInBodyUmts;
-        intent.putExtra("pdus", pdus);
+        intent.putExtra("message", createFromPdu(gsm7BitTestWithLanguageInBodyUmts));
         activity.sendOrderedBroadcast(intent, "android.permission.RECEIVE_SMS");
     }
 
     public static void testSendMessageUcs2(Activity activity) {
         Intent intent = new Intent(Intents.SMS_CB_RECEIVED_ACTION);
-        byte[][] pdus = new byte[1][];
-        pdus[0] = gsmUcs2Test;
-//        pdus[0] = encodeCellBroadcast(0, 0, DCS_16BIT_UCS2, "Hello in UCS2");
-        intent.putExtra("pdus", pdus);
+        intent.putExtra("message", createFromPdu(gsmUcs2Test));
         activity.sendOrderedBroadcast(intent, "android.permission.RECEIVE_SMS");
     }
 
     public static void testSendMessageUcs2Umts(Activity activity) {
         Intent intent = new Intent(Intents.SMS_CB_RECEIVED_ACTION);
-        byte[][] pdus = new byte[1][];
-        pdus[0] = gsmUcs2TestUmts;
-        intent.putExtra("pdus", pdus);
+        intent.putExtra("message", createFromPdu(gsmUcs2TestUmts));
         activity.sendOrderedBroadcast(intent, "android.permission.RECEIVE_SMS");
     }
 
     public static void testSendMessageUcs2MultipageUmts(Activity activity) {
         Intent intent = new Intent(Intents.SMS_CB_RECEIVED_ACTION);
-        byte[][] pdus = new byte[1][];
-        pdus[0] = gsmUcs2TestMultipageUmts;
-        intent.putExtra("pdus", pdus);
+        intent.putExtra("message", createFromPdu(gsmUcs2TestMultipageUmts));
         activity.sendOrderedBroadcast(intent, "android.permission.RECEIVE_SMS");
     }
 
     public static void testSendMessageUcs2WithLanguageInBody(Activity activity) {
         Intent intent = new Intent(Intents.SMS_CB_RECEIVED_ACTION);
-        byte[][] pdus = new byte[1][];
-        pdus[0] = gsmUcs2TestWithLanguageInBody;
-        intent.putExtra("pdus", pdus);
+        intent.putExtra("message", createFromPdu(gsmUcs2TestWithLanguageInBody));
         activity.sendOrderedBroadcast(intent, "android.permission.RECEIVE_SMS");
     }
 
     public static void testSendMessageUcs2WithLanguageUmts(Activity activity) {
         Intent intent = new Intent(Intents.SMS_CB_RECEIVED_ACTION);
-        byte[][] pdus = new byte[1][];
-        pdus[0] = gsmUcs2TestWithLanguageInBodyUmts;
-        intent.putExtra("pdus", pdus);
+        intent.putExtra("message", createFromPdu(gsmUcs2TestWithLanguageInBodyUmts));
         activity.sendOrderedBroadcast(intent, "android.permission.RECEIVE_SMS");
     }
 
     public static void testSendEtwsMessageNormal(Activity activity) {
         Intent intent = new Intent(Intents.SMS_EMERGENCY_CB_RECEIVED_ACTION);
-        byte[][] pdus = new byte[1][];
-        pdus[0] = etwsMessageNormal;
-        intent.putExtra("pdus", pdus);
+        intent.putExtra("message", createFromPdu(etwsMessageNormal));
         activity.sendOrderedBroadcast(intent,
                 "android.permission.RECEIVE_EMERGENCY_BROADCAST");
     }
 
     public static void testSendEtwsMessageCancel(Activity activity) {
         Intent intent = new Intent(Intents.SMS_EMERGENCY_CB_RECEIVED_ACTION);
-        byte[][] pdus = new byte[1][];
-        pdus[0] = etwsMessageCancel;
-        intent.putExtra("pdus", pdus);
+        intent.putExtra("message", createFromPdu(etwsMessageCancel));
         activity.sendOrderedBroadcast(intent,
                 "android.permission.RECEIVE_EMERGENCY_BROADCAST");
     }
 
     public static void testSendEtwsMessageTest(Activity activity) {
         Intent intent = new Intent(Intents.SMS_EMERGENCY_CB_RECEIVED_ACTION);
-        byte[][] pdus = new byte[1][];
-        pdus[0] = etwsMessageTest;
-        intent.putExtra("pdus", pdus);
+        intent.putExtra("message", createFromPdu(etwsMessageTest));
         activity.sendOrderedBroadcast(intent,
                 "android.permission.RECEIVE_EMERGENCY_BROADCAST");
     }

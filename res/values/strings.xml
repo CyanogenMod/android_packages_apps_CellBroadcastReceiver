@@ -26,10 +26,16 @@
     <!-- Text for dismiss button in broadcast message view dialog. [CHAR LIMIT=25] -->
     <string name="button_dismiss">OK</string>
 
+    <!-- Text for list view when empty (no broadcasts). [CHAR LIMIT=200] -->
+    <string name="no_cell_broadcasts">There are no active alerts in your area. You can change the Alert settings using the Settings menu option.</string>
+
     <!-- Menu item for accessing application settings. [CHAR LIMIT=30] -->
     <string name="menu_preferences">Settings</string>
     <!-- Menu item for deleting all broadcasts. [CHAR LIMIT=30] -->
     <string name="menu_delete_all">Delete broadcasts</string>
+
+    <!-- Header for context menu on an individual broadcast. [CHAR LIMIT=30] -->
+    <string name="message_options">Message options</string>
     <!-- Context menu item to view a previously received broadcast. [CHAR LIMIT=30] -->
     <string name="menu_view">View broadcast</string>
     <!-- Context menu item to delete a previously received broadcast. [CHAR LIMIT=30] -->
@@ -94,24 +100,27 @@
     <!-- Preference category title for ETWS settings. [CHAR LIMIT=50] -->
     <string name="category_etws_settings_title">ETWS settings</string>
     <!-- Preference title for enable ETWS test alerts checkbox. [CHAR LIMIT=30] -->
-    <string name="enable_etws_test_alerts_title">Show test broadcasts</string>
+    <string name="enable_etws_test_alerts_title">Show ETWS test broadcasts</string>
     <!-- Preference summary for enable ETWS test alerts checkbox. [CHAR LIMIT=100] -->
     <string name="enable_etws_test_alerts_summary">Display test broadcasts for Earthquake Tsunami Warning System</string>
 
-    <!-- Preference category title for CMAS settings. [CHAR LIMIT=50] -->
-    <string name="category_cmas_settings_title">CMAS settings</string>
-    <!-- Preference title for enable CMAS imminent threat alerts checkbox. [CHAR LIMIT=30] -->
-    <string name="enable_cmas_imminent_threat_alerts_title">Show imminent threats</string>
-    <!-- Preference summary for enable CMAS imminent threat alerts checkbox. [CHAR LIMIT=100] -->
-    <string name="enable_cmas_imminent_threat_alerts_summary">Display CMAS imminent threat warning notifications</string>
+    <!-- Preference title for enable CMAS extreme threat alerts checkbox. [CHAR LIMIT=30] -->
+    <string name="enable_cmas_extreme_threat_alerts_title">Show extreme threats</string>
+    <!-- Preference summary for enable CMAS extreme threat alerts checkbox. [CHAR LIMIT=100] -->
+    <string name="enable_cmas_extreme_threat_alerts_summary">Display alerts for extreme threats to life and property</string>
+    <!-- Preference title for enable CMAS severe threat alerts checkbox. [CHAR LIMIT=30] -->
+    <string name="enable_cmas_severe_threat_alerts_title">Show severe threats</string>
+    <!-- Preference summary for enable CMAS severe threat alerts checkbox. [CHAR LIMIT=100] -->
+    <string name="enable_cmas_severe_threat_alerts_summary">Display alerts for severe threats to life and property</string>
     <!-- Preference title for enable CMAS amber alerts checkbox. [CHAR LIMIT=50] -->
-    <string name="enable_cmas_amber_alerts_title">Show Amber alerts</string>
+    <string name="enable_cmas_amber_alerts_title">Show AMBER alerts</string>
     <!-- Preference summary for enable CMAS amber alerts checkbox. [CHAR LIMIT=100] -->
-    <string name="enable_cmas_amber_alerts_summary">Display Amber alert (child abduction emergency) bulletins</string>
+    <string name="enable_cmas_amber_alerts_summary">Display child abduction emergency bulletins (AMBER alert)</string>
+
     <!-- Preference title for enable CMAS test alerts checkbox. [CHAR LIMIT=30] -->
-    <string name="enable_cmas_test_alerts_title">Show test broadcasts</string>
+    <string name="enable_cmas_test_alerts_title">Show CMAS test broadcasts</string>
     <!-- Preference summary for enable CMAS test alerts checkbox. [CHAR LIMIT=100] -->
-    <string name="enable_cmas_test_alerts_summary">Display CMAS monthly test broadcasts</string>
+    <string name="enable_cmas_test_alerts_summary">Display test broadcasts for Commercial Mobile Alert System</string>
 
     <!-- Preference category title for Brazil settings. [CHAR LIMIT=50] -->
     <string name="category_brazil_settings_title">Settings for Brazil</string>
@@ -119,6 +128,81 @@
     <string name="enable_channel_50_alerts_title">Show channel 50 broadcasts</string>
     <!-- Preference summary for enable channel 50 alerts (Brazil only). [CHAR LIMIT=100] -->
     <string name="enable_channel_50_alerts_summary">Channel 50 is used in Brazil for area update information</string>
+
+    <!-- Preference category title for developer settings. [CHAR LIMIT=50] -->
+    <string name="category_dev_settings_title">Developer options</string>
+
+    <!-- CMAS alert category heading (including colon and space). [CHAR LIMIT=30] -->
+    <string name="cmas_category_heading">Category: </string>
+    <!-- CMAS category for geophysical alerts. [CHAR LIMIT=50] -->
+    <string name="cmas_category_geo">Geophysical</string>
+    <!-- CMAS category for meteorological alerts. [CHAR LIMIT=50] -->
+    <string name="cmas_category_met">Meteorological</string>
+    <!-- CMAS category for general emergency and public safety alerts. [CHAR LIMIT=50] -->
+    <string name="cmas_category_safety">Safety</string>
+    <!-- CMAS category for security alerts (law enforcement, military, etc.). [CHAR LIMIT=50] -->
+    <string name="cmas_category_security">Security</string>
+    <!-- CMAS category for rescue and recovery alerts. [CHAR LIMIT=50] -->
+    <string name="cmas_category_rescue">Rescue</string>
+    <!-- CMAS category for fire suppression and rescue alerts. [CHAR LIMIT=50] -->
+    <string name="cmas_category_fire">Fire</string>
+    <!-- CMAS category for medical and public health alerts. [CHAR LIMIT=50] -->
+    <string name="cmas_category_health">Health</string>
+    <!-- CMAS category for pollution and other environmental alerts. [CHAR LIMIT=50] -->
+    <string name="cmas_category_env">Environmental</string>
+    <!-- CMAS category for transportation alerts. [CHAR LIMIT=50] -->
+    <string name="cmas_category_transport">Transportation</string>
+    <!-- CMAS category for utility, telecommunication, and other infrastructure alerts. [CHAR LIMIT=50] -->
+    <string name="cmas_category_infra">Infrastructure</string>
+    <!-- CMAS category for chemical, biological, radiological, nuclear alerts. [CHAR LIMIT=50] -->
+    <string name="cmas_category_cbrne">Chemical/Biological/Nuclear/Explosive</string>
+    <!-- CMAS category for other alerts. [CHAR LIMIT=50] -->
+    <string name="cmas_category_other">Other</string>
+
+    <!-- CMAS response type heading (including colon and space). [CHAR LIMIT=30] -->
+    <string name="cmas_response_heading">Response type: </string>
+    <!-- CMAS response type: take shelter in place. [CHAR LIMIT=50] -->
+    <string name="cmas_response_shelter">Take shelter</string>
+    <!-- CMAS response type: evacuate (relocate). [CHAR LIMIT=50] -->
+    <string name="cmas_response_evacuate">Evacuate</string>
+    <!-- CMAS response type: make preparations. [CHAR LIMIT=50] -->
+    <string name="cmas_response_prepare">Prepare</string>
+    <!-- CMAS response type: execute a pre-planned activity. [CHAR LIMIT=50] -->
+    <string name="cmas_response_execute">Execute activity</string>
+    <!-- CMAS response type: monitor information sources. [CHAR LIMIT=50] -->
+    <string name="cmas_response_monitor">Monitor info sources</string>
+    <!-- CMAS response type: avoid hazard. [CHAR LIMIT=50] -->
+    <string name="cmas_response_avoid">Avoid hazard</string>
+    <!-- CMAS response type: evaluate the information in this message. [CHAR LIMIT=50] -->
+    <string name="cmas_response_assess">Evaluate</string>
+    <!-- CMAS response type: no action recommended. [CHAR LIMIT=50] -->
+    <string name="cmas_response_none">No action</string>
+
+    <!-- CMAS severity heading (including colon and space). [CHAR LIMIT=30] -->
+    <string name="cmas_severity_heading">Severity: </string>
+    <!-- CMAS severity type: extreme. [CHAR LIMIT=30] -->
+    <string name="cmas_severity_extreme">Extreme</string>
+    <!-- CMAS severity type: severe. [CHAR LIMIT=30] -->
+    <string name="cmas_severity_severe">Severe</string>
+
+    <!-- CMAS urgency heading (including colon and space). [CHAR LIMIT=30] -->
+    <string name="cmas_urgency_heading">Urgency: </string>
+    <!-- CMAS urgency type: take responsive action immediately. [CHAR LIMIT=30] -->
+    <string name="cmas_urgency_immediate">Take action immediately</string>
+    <!-- CMAS severity type: severe. [CHAR LIMIT=30] -->
+    <string name="cmas_urgency_expected">Take action within the next hour</string>
+
+    <!-- CMAS certainty heading (including colon and space). [CHAR LIMIT=30] -->
+    <string name="cmas_certainty_heading">Certainty: </string>
+    <!-- CMAS certainty type: observed. [CHAR LIMIT=30] -->
+    <string name="cmas_certainty_observed">Observed</string>
+    <!-- CMAS severity type: severe. [CHAR LIMIT=30] -->
+    <string name="cmas_certainty_likely">Likely</string>
+
+    <!-- Non-emergency broadcast notification description for multiple unread alerts. -->
+    <string name="notification_multiple"><xliff:g id="count">%s</xliff:g> unread alerts.</string>
+    <!-- Non-emergency broadcast notification title for multiple unread alerts. -->
+    <string name="notification_multiple_title">New alerts</string>
 
     <!-- Entries listed in the ListPreference for allowed alert durations. [CHAR LIMIT=30] -->
     <string-array name="alert_sound_duration_entries">

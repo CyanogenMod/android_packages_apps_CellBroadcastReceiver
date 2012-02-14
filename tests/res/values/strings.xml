@@ -19,6 +19,11 @@
     <string name="button_etws_normal_type">Send ETWS Normal Broadcast</string>
     <string name="button_etws_cancel_type">Send ETWS Cancel Broadcast</string>
     <string name="button_etws_test_type">Send ETWS Test Broadcast</string>
+    <string name="button_cmas_pres_alert">Send CMAS Presidential Alert</string>
+    <string name="button_cmas_extreme_alert">Send CMAS Extreme Alert</string>
+    <string name="button_cmas_severe_alert">Send CMAS Severe Alert</string>
+    <string name="button_cmas_amber_alert">Send CMAS AMBER Alert</string>
+    <string name="button_cmas_monthly_test">Send CMAS Monthly Test Alert</string>
     <string name="button_gsm_7bit_type">Send GSM 7 Bit Test Broadcast</string>
     <string name="button_gsm_7bit_umts_type">Send UMTS 7 Bit Test Broadcast</string>
     <string name="button_gsm_7bit_nopadding_type">Send GSM 7 Bit Full Length Broadcast</string>
@@ -26,6 +31,7 @@
     <string name="button_gsm_7bit_multipage_type">Send GSM 7 Bit Multi Page Broadcast</string>
     <string name="button_gsm_7bit_multipage_umts_type">Send UMTS 7 Bit Multi Page Broadcast</string>
     <string name="button_gsm_7bit_with_language_type">Send GSM 7 Bit With Language</string>
+    <string name="button_gsm_7bit_with_language_body_gsm_type">Send GSM 7 Bit With Language In Body</string>
     <string name="button_gsm_7bit_with_language_body_umts_type">Send UMTS 7 Bit With Language</string>
     <string name="button_gsm_ucs2_type">Send GSM UCS-2 Test Broadcast</string>
     <string name="button_gsm_ucs2_umts_type">Send UMTS UCS-2 Test Broadcast</string>

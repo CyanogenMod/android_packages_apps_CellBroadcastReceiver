@@ -20,12 +20,15 @@ import java.io.UnsupportedEncodingException;
 
 import android.content.Intent;
 import android.provider.Telephony.Sms.Intents;
+import android.telephony.SmsCbLocation;
+import android.telephony.SmsCbMessage;
 import android.test.ActivityInstrumentationTestCase2;
 import android.util.Log;
 
 import com.android.internal.telephony.EncodeException;
 import com.android.internal.telephony.GsmAlphabet;
 import com.android.internal.telephony.IccUtils;
+import com.android.internal.telephony.gsm.GsmSmsCbMessage;
 
 /**
  * Various instrumentation tests for CellBroadcastReceiver.
@@ -106,45 +109,49 @@ public class DialogSmsDisplayTests
         }
     }
 
+    private static final SmsCbLocation sEmptyLocation = new SmsCbLocation();
+
+    private static SmsCbMessage createFromPdu(byte[] pdu) {
+        try {
+            byte[][] pdus = new byte[1][];
+            pdus[0] = pdu;
+            return GsmSmsCbMessage.createSmsCbMessage(sEmptyLocation, pdus);
+        } catch (IllegalArgumentException e) {
+            return null;
+        }
+    }
+
     public void testSendMessage7bit() throws Exception {
         Intent intent = new Intent(Intents.SMS_CB_RECEIVED_ACTION);
-        byte[][] pdus = new byte[1][];
-        pdus[0] = encodeCellBroadcast(0, 0, DCS_7BIT_ENGLISH, "Hello in GSM 7 bit");
-        intent.putExtra("pdus", pdus);
+        byte[] pdu = encodeCellBroadcast(0, 0, DCS_7BIT_ENGLISH, "Hello in GSM 7 bit");
+        intent.putExtra("message", createFromPdu(pdu));
         getActivity().sendOrderedBroadcast(intent, "android.permission.RECEIVE_SMS");
     }
 
     public void testSendMessageUCS2() throws Exception {
         Intent intent = new Intent(Intents.SMS_CB_RECEIVED_ACTION);
-        byte[][] pdus = new byte[1][];
-        pdus[0] = encodeCellBroadcast(0, 0, DCS_16BIT_UCS2, "Hello in UCS2");
-        intent.putExtra("pdus", pdus);
+        byte[] pdu = encodeCellBroadcast(0, 0, DCS_16BIT_UCS2, "Hello in UCS2");
+        intent.putExtra("message", createFromPdu(pdu));
         getActivity().sendOrderedBroadcast(intent, "android.permission.RECEIVE_SMS");
     }
 
     public void testSendEtwsMessageNormal() throws Exception {
         Intent intent = new Intent(Intents.SMS_EMERGENCY_CB_RECEIVED_ACTION);
-        byte[][] pdus = new byte[1][];
-        pdus[0] = etwsMessageNormal;
-        intent.putExtra("pdus", pdus);
+        intent.putExtra("message", createFromPdu(etwsMessageNormal));
         getActivity().sendOrderedBroadcast(intent,
                 "android.permission.RECEIVE_EMERGENCY_BROADCAST");
     }
 
     public void testSendEtwsMessageCancel() throws Exception {
         Intent intent = new Intent(Intents.SMS_EMERGENCY_CB_RECEIVED_ACTION);
-        byte[][] pdus = new byte[1][];
-        pdus[0] = etwsMessageCancel;
-        intent.putExtra("pdus", pdus);
+        intent.putExtra("message", createFromPdu(etwsMessageCancel));
         getActivity().sendOrderedBroadcast(intent,
                 "android.permission.RECEIVE_EMERGENCY_BROADCAST");
     }
 
     public void testSendEtwsMessageTest() throws Exception {
         Intent intent = new Intent(Intents.SMS_EMERGENCY_CB_RECEIVED_ACTION);
-        byte[][] pdus = new byte[1][];
-        pdus[0] = etwsMessageTest;
-        intent.putExtra("pdus", pdus);
+        intent.putExtra("message", createFromPdu(etwsMessageTest));
         getActivity().sendOrderedBroadcast(intent,
                 "android.permission.RECEIVE_EMERGENCY_BROADCAST");
     }
