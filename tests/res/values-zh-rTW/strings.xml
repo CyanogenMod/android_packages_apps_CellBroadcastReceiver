@@ -20,6 +20,16 @@
     <string name="button_etws_normal_type" msgid="3852703138521119537">"傳送 ETWS 正常廣播"</string>
     <string name="button_etws_cancel_type" msgid="7194264116649371175">"傳送 ETWS 取消廣播"</string>
     <string name="button_etws_test_type" msgid="6353906188028139901">"傳送 ETWS 測試廣播"</string>
+    <!-- no translation found for button_cmas_pres_alert (5905111586384766558) -->
+    <skip />
+    <!-- no translation found for button_cmas_extreme_alert (6111658124447111920) -->
+    <skip />
+    <!-- no translation found for button_cmas_severe_alert (9051731172452500819) -->
+    <skip />
+    <!-- no translation found for button_cmas_amber_alert (4217147800913845288) -->
+    <skip />
+    <!-- no translation found for button_cmas_monthly_test (1609320625517248393) -->
+    <skip />
     <string name="button_gsm_7bit_type" msgid="4757698592787955850">"傳送 GSM 7 位元測試廣播"</string>
     <string name="button_gsm_7bit_umts_type" msgid="4377077702628367387">"傳送 UMTS 7 位元測試廣播"</string>
     <string name="button_gsm_7bit_nopadding_type" msgid="5289528095948674862">"傳送 GSM 7 位元全長廣播"</string>
@@ -27,6 +37,8 @@
     <string name="button_gsm_7bit_multipage_type" msgid="8516540964071070491">"傳送 GSM 7 位元多字碼頁廣播"</string>
     <string name="button_gsm_7bit_multipage_umts_type" msgid="474883728254547100">"傳送 UMTS 7 位元多字碼頁廣播"</string>
     <string name="button_gsm_7bit_with_language_type" msgid="7414138913180046493">"傳送特定語言的 GSM 7 位元訊息"</string>
+    <!-- no translation found for button_gsm_7bit_with_language_body_gsm_type (7365993929355114874) -->
+    <skip />
     <string name="button_gsm_7bit_with_language_body_umts_type" msgid="1201329758881885921">"傳送特定語言的 UMTS 7 位元訊息"</string>
     <string name="button_gsm_ucs2_type" msgid="6652864601384080678">"傳送 GSM UCS-2 測試廣播"</string>
     <string name="button_gsm_ucs2_umts_type" msgid="2985879481785569626">"傳送 UMTS UCS-2 測試廣播"</string>

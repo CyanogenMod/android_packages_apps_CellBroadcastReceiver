@@ -20,6 +20,16 @@
     <string name="button_etws_normal_type" msgid="3852703138521119537">"Envia la difusió normal d\'ETWS"</string>
     <string name="button_etws_cancel_type" msgid="7194264116649371175">"Envia la difusió de cancel·lació d\'ETWS"</string>
     <string name="button_etws_test_type" msgid="6353906188028139901">"Envia la difusió de prova d\'ETWS"</string>
+    <!-- no translation found for button_cmas_pres_alert (5905111586384766558) -->
+    <skip />
+    <!-- no translation found for button_cmas_extreme_alert (6111658124447111920) -->
+    <skip />
+    <!-- no translation found for button_cmas_severe_alert (9051731172452500819) -->
+    <skip />
+    <!-- no translation found for button_cmas_amber_alert (4217147800913845288) -->
+    <skip />
+    <!-- no translation found for button_cmas_monthly_test (1609320625517248393) -->
+    <skip />
     <string name="button_gsm_7bit_type" msgid="4757698592787955850">"Envia la difusió de prova de GSM 7 Bit"</string>
     <string name="button_gsm_7bit_umts_type" msgid="4377077702628367387">"Envia la difusió de prova d\'UMTS 7 Bit"</string>
     <string name="button_gsm_7bit_nopadding_type" msgid="5289528095948674862">"Envia la difusió de durada completa de GSM 7 Bit"</string>
@@ -27,6 +37,8 @@
     <string name="button_gsm_7bit_multipage_type" msgid="8516540964071070491">"Envia la difusió de diverses pàgines de GSM 7 Bit"</string>
     <string name="button_gsm_7bit_multipage_umts_type" msgid="474883728254547100">"Envia la difusió de diverses pàgines d\'UMTS 7 Bit"</string>
     <string name="button_gsm_7bit_with_language_type" msgid="7414138913180046493">"Envia GSM 7 Bit amb idioma"</string>
+    <!-- no translation found for button_gsm_7bit_with_language_body_gsm_type (7365993929355114874) -->
+    <skip />
     <string name="button_gsm_7bit_with_language_body_umts_type" msgid="1201329758881885921">"Envia UMTS 7 Bit amb idioma"</string>
     <string name="button_gsm_ucs2_type" msgid="6652864601384080678">"Envia la difusió de prova de GSM UCS-2"</string>
     <string name="button_gsm_ucs2_umts_type" msgid="2985879481785569626">"Envia la difusió de prova d\'UMTS UCS-2"</string>
