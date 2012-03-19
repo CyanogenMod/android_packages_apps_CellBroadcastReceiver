@@ -19,12 +19,10 @@
     <string name="app_label" msgid="7559008249836700599">"Cell Broadcasts"</string>
     <string name="sms_cb_settings" msgid="971917159442705371">"Налаштування Cell Broadcast"</string>
     <string name="button_dismiss" msgid="1234221657930516287">"OK"</string>
-    <!-- no translation found for no_cell_broadcasts (5409324337492758562) -->
-    <skip />
+    <string name="no_cell_broadcasts" msgid="5409324337492758562">"Немає активних сповіщень у вашому районі. Можна змінити налаштування сповіщень за допомогою опції меню Налаштування."</string>
     <string name="menu_preferences" msgid="3596514894131599202">"Налаштування"</string>
     <string name="menu_delete_all" msgid="3940997343921149800">"Видалити широкомовні повідомл."</string>
-    <!-- no translation found for message_options (3178489901903589574) -->
-    <skip />
+    <string name="message_options" msgid="3178489901903589574">"Параметри повідомлення"</string>
     <string name="menu_view" msgid="5991055455727639531">"Див. широкомовне повідомлення"</string>
     <string name="menu_delete" msgid="128380070910799366">"Видалити широкомовне повідомл."</string>
     <string name="confirm_dialog_title" msgid="8556099565207971687">"Видалити"</string>
@@ -53,96 +51,53 @@
     <string name="enable_alert_speech_title" msgid="8052104771053526941">"Дикт.сповіщ.про надзв.ситуації"</string>
     <string name="enable_alert_speech_summary" msgid="356086178962268831">"Використовувати синтез мовлення, щоб диктувати тексти сповіщень про надзвичайні ситуації"</string>
     <string name="category_etws_settings_title" msgid="4072774251965938576">"Налаштування системи ETWS"</string>
-    <!-- no translation found for enable_etws_test_alerts_title (2569886288897109169) -->
-    <skip />
+    <string name="enable_etws_test_alerts_title" msgid="2569886288897109169">"Показув. тест. повідомл. ETWS"</string>
     <string name="enable_etws_test_alerts_summary" msgid="7988690174166347072">"Відобразити тестові широкомовні повідомлення системи застережень щодо землетрусів і цунамі (ETWS)"</string>
-    <!-- no translation found for enable_cmas_extreme_threat_alerts_title (215650211797464620) -->
-    <skip />
-    <!-- no translation found for enable_cmas_extreme_threat_alerts_summary (2493139961243300290) -->
-    <skip />
-    <!-- no translation found for enable_cmas_severe_threat_alerts_title (8008941231371565775) -->
-    <skip />
-    <!-- no translation found for enable_cmas_severe_threat_alerts_summary (4089299793459943222) -->
-    <skip />
-    <!-- no translation found for enable_cmas_amber_alerts_title (997138378272381777) -->
-    <skip />
-    <!-- no translation found for enable_cmas_amber_alerts_summary (8423617548641801387) -->
-    <skip />
-    <!-- no translation found for enable_cmas_test_alerts_title (8620213090932770270) -->
-    <skip />
-    <!-- no translation found for enable_cmas_test_alerts_summary (2935171596891733844) -->
-    <skip />
+    <string name="enable_cmas_extreme_threat_alerts_title" msgid="215650211797464620">"Показувати надзвичайні загрози"</string>
+    <string name="enable_cmas_extreme_threat_alerts_summary" msgid="2493139961243300290">"Показувати сповіщення про загрози надзвичайного рівня для життя та майна"</string>
+    <string name="enable_cmas_severe_threat_alerts_title" msgid="8008941231371565775">"Показувати високі загрози"</string>
+    <string name="enable_cmas_severe_threat_alerts_summary" msgid="4089299793459943222">"Показувати сповіщення про загрози високого рівня для життя та майна"</string>
+    <string name="enable_cmas_amber_alerts_title" msgid="997138378272381777">"Показувати сповіщення AMBER"</string>
+    <string name="enable_cmas_amber_alerts_summary" msgid="8423617548641801387">"Показувати інформаційні повідомлення про викрадення дітей (сповіщення AMBER)"</string>
+    <string name="enable_cmas_test_alerts_title" msgid="8620213090932770270">"Показув. тест. повідомл. CMAS"</string>
+    <string name="enable_cmas_test_alerts_summary" msgid="2935171596891733844">"Показувати тестові широкомовні повідомлення комерційної системи мобільних сповіщень (CMAS)"</string>
     <string name="category_brazil_settings_title" msgid="6343130548572319922">"Налаштування для Бразилії"</string>
     <string name="enable_channel_50_alerts_title" msgid="2818924064446974167">"Показ. повідомлення Каналу 50"</string>
     <string name="enable_channel_50_alerts_summary" msgid="7507770011325273009">"Канал 50 використовується в Бразилії для інформування про регіональні новини"</string>
-    <!-- no translation found for category_dev_settings_title (6194393458398329994) -->
-    <skip />
-    <!-- no translation found for cmas_category_heading (5731181299088631019) -->
-    <skip />
-    <!-- no translation found for cmas_category_geo (4979494217069688527) -->
-    <skip />
-    <!-- no translation found for cmas_category_met (7563732573851773537) -->
-    <skip />
-    <!-- no translation found for cmas_category_safety (2986472639641883453) -->
-    <skip />
-    <!-- no translation found for cmas_category_security (2549520159044403704) -->
-    <skip />
-    <!-- no translation found for cmas_category_rescue (4907571719983321086) -->
-    <skip />
-    <!-- no translation found for cmas_category_fire (3331981591918341119) -->
-    <skip />
-    <!-- no translation found for cmas_category_health (312569774587117324) -->
-    <skip />
-    <!-- no translation found for cmas_category_env (9213088574227522961) -->
-    <skip />
-    <!-- no translation found for cmas_category_transport (5014901635987361642) -->
-    <skip />
-    <!-- no translation found for cmas_category_infra (3558151044446851398) -->
-    <skip />
-    <!-- no translation found for cmas_category_cbrne (240421557913603971) -->
-    <skip />
-    <!-- no translation found for cmas_category_other (6158932360790744360) -->
-    <skip />
-    <!-- no translation found for cmas_response_heading (451355296605342420) -->
-    <skip />
-    <!-- no translation found for cmas_response_shelter (731514427035594985) -->
-    <skip />
-    <!-- no translation found for cmas_response_evacuate (5833170084430021095) -->
-    <skip />
-    <!-- no translation found for cmas_response_prepare (8428073909753758319) -->
-    <skip />
-    <!-- no translation found for cmas_response_execute (4065931123765142173) -->
-    <skip />
-    <!-- no translation found for cmas_response_monitor (1836723975944461996) -->
-    <skip />
-    <!-- no translation found for cmas_response_avoid (9083226909188314307) -->
-    <skip />
-    <!-- no translation found for cmas_response_assess (4419898054369698124) -->
-    <skip />
-    <!-- no translation found for cmas_response_none (9109481144060546906) -->
-    <skip />
-    <!-- no translation found for cmas_severity_heading (8437057117822305243) -->
-    <skip />
-    <!-- no translation found for cmas_severity_extreme (1312013282860183082) -->
-    <skip />
-    <!-- no translation found for cmas_severity_severe (7504359209737074524) -->
-    <skip />
-    <!-- no translation found for cmas_urgency_heading (8218282767913431492) -->
-    <skip />
-    <!-- no translation found for cmas_urgency_immediate (2258810949481930841) -->
-    <skip />
-    <!-- no translation found for cmas_urgency_expected (2649054095518659749) -->
-    <skip />
-    <!-- no translation found for cmas_certainty_heading (8374669249736439193) -->
-    <skip />
-    <!-- no translation found for cmas_certainty_observed (3668549749352106472) -->
-    <skip />
-    <!-- no translation found for cmas_certainty_likely (4254497828943291749) -->
-    <skip />
-    <!-- no translation found for notification_multiple (5121978148152124860) -->
-    <skip />
-    <!-- no translation found for notification_multiple_title (1523638925739947855) -->
-    <skip />
+    <string name="category_dev_settings_title" msgid="6194393458398329994">"Параметри розробника"</string>
+    <string name="cmas_category_heading" msgid="5731181299088631019">"Категорія:"</string>
+    <string name="cmas_category_geo" msgid="4979494217069688527">"Геофізична небезпека"</string>
+    <string name="cmas_category_met" msgid="7563732573851773537">"Метеорологія"</string>
+    <string name="cmas_category_safety" msgid="2986472639641883453">"Загальна безпека"</string>
+    <string name="cmas_category_security" msgid="2549520159044403704">"Безпека держави"</string>
+    <string name="cmas_category_rescue" msgid="4907571719983321086">"Операції порятунку"</string>
+    <string name="cmas_category_fire" msgid="3331981591918341119">"Пожежі"</string>
+    <string name="cmas_category_health" msgid="312569774587117324">"Здоров’я"</string>
+    <string name="cmas_category_env" msgid="9213088574227522961">"Екологія"</string>
+    <string name="cmas_category_transport" msgid="5014901635987361642">"Транспорт"</string>
+    <string name="cmas_category_infra" msgid="3558151044446851398">"Інфраструктура"</string>
+    <string name="cmas_category_cbrne" msgid="240421557913603971">"Небезпека хімічна/біологічна/ядерна/вибуху"</string>
+    <string name="cmas_category_other" msgid="6158932360790744360">"Інше"</string>
+    <string name="cmas_response_heading" msgid="451355296605342420">"Тип реагування:"</string>
+    <string name="cmas_response_shelter" msgid="731514427035594985">"Перейдіть в укриття"</string>
+    <string name="cmas_response_evacuate" msgid="5833170084430021095">"Евакуюйтеся"</string>
+    <string name="cmas_response_prepare" msgid="8428073909753758319">"Підготуйтеся"</string>
+    <string name="cmas_response_execute" msgid="4065931123765142173">"Виконайте дії"</string>
+    <string name="cmas_response_monitor" msgid="1836723975944461996">"Стежте за джерелами інформації"</string>
+    <string name="cmas_response_avoid" msgid="9083226909188314307">"Уникайте небезпеки"</string>
+    <string name="cmas_response_assess" msgid="4419898054369698124">"Оцініть інформацію"</string>
+    <string name="cmas_response_none" msgid="9109481144060546906">"Дії не потрібні"</string>
+    <string name="cmas_severity_heading" msgid="8437057117822305243">"Рівень небезпеки:"</string>
+    <string name="cmas_severity_extreme" msgid="1312013282860183082">"Надзвичайний"</string>
+    <string name="cmas_severity_severe" msgid="7504359209737074524">"Високий"</string>
+    <string name="cmas_urgency_heading" msgid="8218282767913431492">"Терміновість:"</string>
+    <string name="cmas_urgency_immediate" msgid="2258810949481930841">"Вживіть заходів негайно"</string>
+    <string name="cmas_urgency_expected" msgid="2649054095518659749">"Вживіть заходів протягом години"</string>
+    <string name="cmas_certainty_heading" msgid="8374669249736439193">"Достовірність:"</string>
+    <string name="cmas_certainty_observed" msgid="3668549749352106472">"Ведеться спостереження"</string>
+    <string name="cmas_certainty_likely" msgid="4254497828943291749">"Імовірний"</string>
+    <string name="notification_multiple" msgid="5121978148152124860">"Непрочитаних сповіщень: <xliff:g id="COUNT">%s</xliff:g>"</string>
+    <string name="notification_multiple_title" msgid="1523638925739947855">"Нові сповіщення"</string>
   <string-array name="alert_sound_duration_entries">
     <item msgid="5353482200312892037">"2 секунди"</item>
     <item msgid="5656092384277009212">"4 секунди"</item>

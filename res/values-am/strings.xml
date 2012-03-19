@@ -19,7 +19,7 @@
     <string name="app_label" msgid="7559008249836700599">"የስልክ ስርጭቶች"</string>
     <string name="sms_cb_settings" msgid="971917159442705371">"የተንቀሳቃሽ ስልክ ስርጭት ቅንብሮች"</string>
     <string name="button_dismiss" msgid="1234221657930516287">"እሺ"</string>
-    <string name="no_cell_broadcasts" msgid="5409324337492758562">"በአንተ ስፍራ አካባቢ ምንም የነቁ ማንቂያዎች የሉም፡፡ የቅንጅቶችን ምናሌ አማራጭ በመጠቀም የማንቂያ ቅንጅቶችን መለወጥ ትችላለህ፡፡"</string>
+    <string name="no_cell_broadcasts" msgid="5409324337492758562">"በአንተ አካባቢ ምንም የነቁ ማንቂያዎች የሉም። የቅንጅቶችን ምናሌ አማራጭ በመጠቀም የማንቂያ ቅንጅቶችን መለወጥ ትችላለህ።"</string>
     <string name="menu_preferences" msgid="3596514894131599202">"ቅንብሮች"</string>
     <string name="menu_delete_all" msgid="3940997343921149800">"ስርጭት ሰርዝ"</string>
     <string name="message_options" msgid="3178489901903589574">"የመልዕክት አማራጮች"</string>
@@ -53,12 +53,12 @@
     <string name="category_etws_settings_title" msgid="4072774251965938576">"የETWS ቅንብሮች"</string>
     <string name="enable_etws_test_alerts_title" msgid="2569886288897109169">"ETWS የሙከራ ስርጭቶችን አሳይ"</string>
     <string name="enable_etws_test_alerts_summary" msgid="7988690174166347072">"ለመሬት መንቀጥቀጥ ሱናሚ ማስጠንቀቂያ ስርዓት የሙከራ ስርጭቶችን አሳይ"</string>
-    <string name="enable_cmas_extreme_threat_alerts_title" msgid="215650211797464620">"የባሰ ሁኔታ አደጋዎችን አሳይ"</string>
-    <string name="enable_cmas_extreme_threat_alerts_summary" msgid="2493139961243300290">"ለሕይወት  እና ንብረት የባሰ ሁኔታ  አደጋዎችን ማንቂያዎች አሳይ"</string>
+    <string name="enable_cmas_extreme_threat_alerts_title" msgid="215650211797464620">"ከባድ አደጋዎችን አሳይ"</string>
+    <string name="enable_cmas_extreme_threat_alerts_summary" msgid="2493139961243300290">"የሕይወት እና ንብረት ከባድ አደጋዎችን ማንቂያዎች አሳይ"</string>
     <string name="enable_cmas_severe_threat_alerts_title" msgid="8008941231371565775">"ሃይለኛ አደጋዎችን አሳይ"</string>
     <string name="enable_cmas_severe_threat_alerts_summary" msgid="4089299793459943222">"ለሕይወት እና ንብረት ሃይለኛ አደጋዎችን ማንቂያዎች አሳይ"</string>
-    <string name="enable_cmas_amber_alerts_title" msgid="997138378272381777">"የቡርትካናማ ማንቂያዎች አሳይ"</string>
-    <string name="enable_cmas_amber_alerts_summary" msgid="8423617548641801387">"የልጅ ማሳደግ ድንገተኛ ማስታወቂያዎችን አሳይ (የቡርትካናማ ማንቂያ)"</string>
+    <string name="enable_cmas_amber_alerts_title" msgid="997138378272381777">"የእገታ ማንቂያዎች አሳይ"</string>
+    <string name="enable_cmas_amber_alerts_summary" msgid="8423617548641801387">"የህፃናት እገታ አደጋ ጥሪዎችን ዜና አሳይ (የእገታ ማንቂያዎች)"</string>
     <string name="enable_cmas_test_alerts_title" msgid="8620213090932770270">"CMAS የሙከራ ስርጭቶችን አሳይ"</string>
     <string name="enable_cmas_test_alerts_summary" msgid="2935171596891733844">"ለንግድ ተንቀሳቃሽ የማንቂያ ስርዓት የሙከራ ስርጭቶችን አሳይ"</string>
     <string name="category_brazil_settings_title" msgid="6343130548572319922">"ቅንብሮች ለብራዚል"</string>
@@ -86,7 +86,7 @@
     <string name="cmas_response_monitor" msgid="1836723975944461996">"የመረጃ ምንጮችን ተከታተል"</string>
     <string name="cmas_response_avoid" msgid="9083226909188314307">"አደጋ አስወግድ"</string>
     <string name="cmas_response_assess" msgid="4419898054369698124">"መዝን"</string>
-    <string name="cmas_response_none" msgid="9109481144060546906">"ምንም እርምጃ"</string>
+    <string name="cmas_response_none" msgid="9109481144060546906">"ምንም እርምጃ አይደገፍም"</string>
     <string name="cmas_severity_heading" msgid="8437057117822305243">"ሀይለኛነቱ፦"</string>
     <string name="cmas_severity_extreme" msgid="1312013282860183082">"የባሰ ሁኔታ"</string>
     <string name="cmas_severity_severe" msgid="7504359209737074524">"ሀይለኛ"</string>
@@ -96,7 +96,7 @@
     <string name="cmas_certainty_heading" msgid="8374669249736439193">"እርግጠኝነት፦"</string>
     <string name="cmas_certainty_observed" msgid="3668549749352106472">"የታየ"</string>
     <string name="cmas_certainty_likely" msgid="4254497828943291749">"ሊሆን የሚችል"</string>
-    <string name="notification_multiple" msgid="5121978148152124860">"<xliff:g id="COUNT">%s</xliff:g> ያልተነበቡ ማንቂያዎች፡፡"</string>
+    <string name="notification_multiple" msgid="5121978148152124860">"<xliff:g id="COUNT">%s</xliff:g> ያልተነበቡ ማንቂያዎች።"</string>
     <string name="notification_multiple_title" msgid="1523638925739947855">"አዲስ ማንቂያዎች"</string>
   <string-array name="alert_sound_duration_entries">
     <item msgid="5353482200312892037">"2 ሰከንዶች"</item>
