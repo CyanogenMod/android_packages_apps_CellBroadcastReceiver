@@ -32,7 +32,7 @@
     <string name="button_gsm_7bit_multipage_type" msgid="8516540964071070491">"Lähetä täyspitkä 7-bittinen usean sivun GMS-lähetys"</string>
     <string name="button_gsm_7bit_multipage_umts_type" msgid="474883728254547100">"Lähetä 7-bittinen usean sivun UMTS-lähetys"</string>
     <string name="button_gsm_7bit_with_language_type" msgid="7414138913180046493">"Lähetä 7-bittinen GSM kielellä"</string>
-    <string name="button_gsm_7bit_with_language_body_gsm_type" msgid="7365993929355114874">"Lähetä 7-bittinen GSM kielellä ja runko-osassa"</string>
+    <string name="button_gsm_7bit_with_language_body_gsm_type" msgid="7365993929355114874">"Lähetä 7-bittinen GSM, teksti runko-osassa"</string>
     <string name="button_gsm_7bit_with_language_body_umts_type" msgid="1201329758881885921">"Lähetä 7-bittinen UMTS kielellä"</string>
     <string name="button_gsm_ucs2_type" msgid="6652864601384080678">"Lähetä GSM UCS-2 -testilähetys"</string>
     <string name="button_gsm_ucs2_umts_type" msgid="2985879481785569626">"Lähetä UMTS UCS-2 -testilähetys"</string>

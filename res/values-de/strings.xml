@@ -53,14 +53,14 @@
     <string name="category_etws_settings_title" msgid="4072774251965938576">"ETWS-Einstellungen"</string>
     <string name="enable_etws_test_alerts_title" msgid="2569886288897109169">"ETWS-Testsendungen anzeigen"</string>
     <string name="enable_etws_test_alerts_summary" msgid="7988690174166347072">"Test-Broadcasts für Erdbeben-/Tsunami-Warnsystem anzeigen"</string>
-    <string name="enable_cmas_extreme_threat_alerts_title" msgid="215650211797464620">"Extreme Bedrohungen anzeigen"</string>
+    <string name="enable_cmas_extreme_threat_alerts_title" msgid="215650211797464620">"Extreme Gefahren anzeigen"</string>
     <string name="enable_cmas_extreme_threat_alerts_summary" msgid="2493139961243300290">"Warnungen zu extremen Gefahren für Leben und Eigentum anzeigen"</string>
     <string name="enable_cmas_severe_threat_alerts_title" msgid="8008941231371565775">"Schwerwiegende Gefahren anzeigen"</string>
     <string name="enable_cmas_severe_threat_alerts_summary" msgid="4089299793459943222">"Warnungen zu schwerwiegenden Gefahren für Leben und Eigentum anzeigen"</string>
     <string name="enable_cmas_amber_alerts_title" msgid="997138378272381777">"Amber Alerts anzeigen"</string>
     <string name="enable_cmas_amber_alerts_summary" msgid="8423617548641801387">"Notfall-Bulletins zu Kindesentführung anzeigen (Amber Alert)"</string>
     <string name="enable_cmas_test_alerts_title" msgid="8620213090932770270">"CMAS-Testsendungen anzeigen"</string>
-    <string name="enable_cmas_test_alerts_summary" msgid="2935171596891733844">"Test-Sendungen für Commercial Mobile Alert System anzeigen"</string>
+    <string name="enable_cmas_test_alerts_summary" msgid="2935171596891733844">"Testsendungen für Commercial Mobile Alert System anzeigen"</string>
     <string name="category_brazil_settings_title" msgid="6343130548572319922">"Einstellungen für Brasilien"</string>
     <string name="enable_channel_50_alerts_title" msgid="2818924064446974167">"Kanal 50-Broadcasts zeigen"</string>
     <string name="enable_channel_50_alerts_summary" msgid="7507770011325273009">"Kanal 50 wird in Brasilien für aktuelle Gebietsinformationen verwendet."</string>
@@ -76,8 +76,8 @@
     <string name="cmas_category_env" msgid="9213088574227522961">"Umwelt"</string>
     <string name="cmas_category_transport" msgid="5014901635987361642">"Transportwesen"</string>
     <string name="cmas_category_infra" msgid="3558151044446851398">"Infrastruktur"</string>
-    <string name="cmas_category_cbrne" msgid="240421557913603971">"Chemie/Biologie/Kernenergie/Explosivstoffe"</string>
-    <string name="cmas_category_other" msgid="6158932360790744360">"Andere"</string>
+    <string name="cmas_category_cbrne" msgid="240421557913603971">"Chemie/Biologie/Kernenergie/Sprengstoffe"</string>
+    <string name="cmas_category_other" msgid="6158932360790744360">"Sonstige"</string>
     <string name="cmas_response_heading" msgid="451355296605342420">"Reaktionstyp:"</string>
     <string name="cmas_response_shelter" msgid="731514427035594985">"Zuflucht suchen"</string>
     <string name="cmas_response_evacuate" msgid="5833170084430021095">"Evakuieren"</string>
@@ -89,7 +89,7 @@
     <string name="cmas_response_none" msgid="9109481144060546906">"Keine Aktion"</string>
     <string name="cmas_severity_heading" msgid="8437057117822305243">"Schweregrad:"</string>
     <string name="cmas_severity_extreme" msgid="1312013282860183082">"Extrem"</string>
-    <string name="cmas_severity_severe" msgid="7504359209737074524">"Hoch"</string>
+    <string name="cmas_severity_severe" msgid="7504359209737074524">"Schwerwiegend"</string>
     <string name="cmas_urgency_heading" msgid="8218282767913431492">"Dringlichkeit:"</string>
     <string name="cmas_urgency_immediate" msgid="2258810949481930841">"Sofort handeln"</string>
     <string name="cmas_urgency_expected" msgid="2649054095518659749">"Innerhalb der nächsten Stunde handeln"</string>

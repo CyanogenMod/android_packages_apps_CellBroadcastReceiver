@@ -24,7 +24,7 @@
     <string name="button_cmas_extreme_alert" msgid="6111658124447111920">"Pošlji izjemno opozorilo za CMAS"</string>
     <string name="button_cmas_severe_alert" msgid="9051731172452500819">"Pošlji hudo opozorilo za CMAS"</string>
     <string name="button_cmas_amber_alert" msgid="4217147800913845288">"Pošlji opozorilo AMBER za CMAS"</string>
-    <string name="button_cmas_monthly_test" msgid="1609320625517248393">"Pošlji opozorilo o mesečnem preskusu za CMAS"</string>
+    <string name="button_cmas_monthly_test" msgid="1609320625517248393">"Pošlji mesečno preskusno opozorilo za CMAS"</string>
     <string name="button_gsm_7bit_type" msgid="4757698592787955850">"Pošlji 7-bitno preskusno oddajo GSM"</string>
     <string name="button_gsm_7bit_umts_type" msgid="4377077702628367387">"Pošlji 7-bitno preskusno oddajo UMTS"</string>
     <string name="button_gsm_7bit_nopadding_type" msgid="5289528095948674862">"Pošlji 7-bitno celotno oddajo GSM"</string>

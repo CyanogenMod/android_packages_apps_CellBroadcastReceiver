@@ -57,10 +57,10 @@
     <string name="enable_cmas_extreme_threat_alerts_summary" msgid="2493139961243300290">"Wys berigte vir uiterste bedreigings vir lewe en eiendom"</string>
     <string name="enable_cmas_severe_threat_alerts_title" msgid="8008941231371565775">"Wys ernstige bedreigings"</string>
     <string name="enable_cmas_severe_threat_alerts_summary" msgid="4089299793459943222">"Wys berigte vir ernstige bedreigings vir lewe en eiendom"</string>
-    <string name="enable_cmas_amber_alerts_title" msgid="997138378272381777">"Wys kinderontvoering-berigte"</string>
+    <string name="enable_cmas_amber_alerts_title" msgid="997138378272381777">"Wys AMBER-berigte"</string>
     <string name="enable_cmas_amber_alerts_summary" msgid="8423617548641801387">"Toon kinderontvoerings se noodbulletins (AMBER-berig)"</string>
     <string name="enable_cmas_test_alerts_title" msgid="8620213090932770270">"Wys CMAS-toetsuitsendings"</string>
-    <string name="enable_cmas_test_alerts_summary" msgid="2935171596891733844">"Vertoon toetsuitsendings vir CMAS"</string>
+    <string name="enable_cmas_test_alerts_summary" msgid="2935171596891733844">"Vertoon toetsuitsendings vir Komersiële Mobiele Waarskuwingstelsel (CMAS)"</string>
     <string name="category_brazil_settings_title" msgid="6343130548572319922">"Instellings vir Brasilië"</string>
     <string name="enable_channel_50_alerts_title" msgid="2818924064446974167">"Wys kanaal 50-uitsendings"</string>
     <string name="enable_channel_50_alerts_summary" msgid="7507770011325273009">"Kanaal 50 word in Brasilië gebruik vir opdateer van area-inligting"</string>
