@@ -58,7 +58,7 @@
     <string name="enable_cmas_severe_threat_alerts_title" msgid="8008941231371565775">"गंभीर खतरे दिखाएं"</string>
     <string name="enable_cmas_severe_threat_alerts_summary" msgid="4089299793459943222">"जीवन और संपत्ति के गंभीर खतरों के लिए अलर्ट प्रदर्शित करें"</string>
     <string name="enable_cmas_amber_alerts_title" msgid="997138378272381777">"AMBER अलर्ट दिखाएं"</string>
-    <string name="enable_cmas_amber_alerts_summary" msgid="8423617548641801387">"बच्‍चे के अपहरण की आपातालीन बुलेटिन प्रदर्शित करें (AMBER अलर्ट)"</string>
+    <string name="enable_cmas_amber_alerts_summary" msgid="8423617548641801387">"बच्‍चे के अपहरण की आपातकालीन बुलेटिन प्रदर्शित करें (AMBER अलर्ट)"</string>
     <string name="enable_cmas_test_alerts_title" msgid="8620213090932770270">"CMAS परीक्षण प्रसारण दिखाएं"</string>
     <string name="enable_cmas_test_alerts_summary" msgid="2935171596891733844">"व्यावसायिक मोबाइल अलर्ट सिस्‍टम के लिए परीक्षण प्रसारण प्रदर्शित करें"</string>
     <string name="category_brazil_settings_title" msgid="6343130548572319922">"ब्राज़ील के लिए सेटिंग"</string>
@@ -80,7 +80,7 @@
     <string name="cmas_category_other" msgid="6158932360790744360">"अन्य"</string>
     <string name="cmas_response_heading" msgid="451355296605342420">"प्रतिक्रिया का प्रकार:"</string>
     <string name="cmas_response_shelter" msgid="731514427035594985">"आश्रय लें"</string>
-    <string name="cmas_response_evacuate" msgid="5833170084430021095">"हटाएं"</string>
+    <string name="cmas_response_evacuate" msgid="5833170084430021095">"खाली करें"</string>
     <string name="cmas_response_prepare" msgid="8428073909753758319">"तैयारी करें"</string>
     <string name="cmas_response_execute" msgid="4065931123765142173">"गतिविधि निष्‍पादित करें"</string>
     <string name="cmas_response_monitor" msgid="1836723975944461996">"जानकारी स्रोतों पर नज़र रखें"</string>

@@ -58,13 +58,13 @@
     <string name="enable_cmas_severe_threat_alerts_title" msgid="8008941231371565775">"Прикажи озбиљне претње"</string>
     <string name="enable_cmas_severe_threat_alerts_summary" msgid="4089299793459943222">"Приказује упозорења о озбиљној опасности по живот и својину"</string>
     <string name="enable_cmas_amber_alerts_title" msgid="997138378272381777">"Прикажи AMBER упозорења"</string>
-    <string name="enable_cmas_amber_alerts_summary" msgid="8423617548641801387">"Приказује ванредне објаве у у вези са отмицом детета (AMBER упозорење)"</string>
+    <string name="enable_cmas_amber_alerts_summary" msgid="8423617548641801387">"Приказује ванредне објаве у вези са отмицом детета (AMBER упозорење)"</string>
     <string name="enable_cmas_test_alerts_title" msgid="8620213090932770270">"Прикажи CMAS пробна емитовања"</string>
     <string name="enable_cmas_test_alerts_summary" msgid="2935171596891733844">"Приказује пробне преносе за Комерцијални систем упозорења за мобилне уређаје (CMAS)"</string>
     <string name="category_brazil_settings_title" msgid="6343130548572319922">"Подешавања за Бразил"</string>
     <string name="enable_channel_50_alerts_title" msgid="2818924064446974167">"Прикажи емитовања канала 50"</string>
     <string name="enable_channel_50_alerts_summary" msgid="7507770011325273009">"Канал 50 се у Бразилу користи за ажурирање информација о подручју"</string>
-    <string name="category_dev_settings_title" msgid="6194393458398329994">"Опције програмера"</string>
+    <string name="category_dev_settings_title" msgid="6194393458398329994">"Опције за програмера"</string>
     <string name="cmas_category_heading" msgid="5731181299088631019">"Категорија:"</string>
     <string name="cmas_category_geo" msgid="4979494217069688527">"Геофизичка"</string>
     <string name="cmas_category_met" msgid="7563732573851773537">"Метеоролошка"</string>

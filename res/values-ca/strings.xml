@@ -58,8 +58,8 @@
     <string name="enable_cmas_severe_threat_alerts_title" msgid="8008941231371565775">"Mostra les amenaces importants"</string>
     <string name="enable_cmas_severe_threat_alerts_summary" msgid="4089299793459943222">"Mostra les alertes d\'amenaces importants per a la vida i per a la propietat"</string>
     <string name="enable_cmas_amber_alerts_title" msgid="997138378272381777">"Mostra les alertes GROGUES"</string>
-    <string name="enable_cmas_amber_alerts_summary" msgid="8423617548641801387">"Mostra els butlletins d\'emergència per segrest de nens (alerta GROGA)"</string>
-    <string name="enable_cmas_test_alerts_title" msgid="8620213090932770270">"Mostra emissions prova CMAS"</string>
+    <string name="enable_cmas_amber_alerts_summary" msgid="8423617548641801387">"Mostra els butlletins d\'emergència per segrest de nens (alerta AMBER)"</string>
+    <string name="enable_cmas_test_alerts_title" msgid="8620213090932770270">"Mostra emissions de prova CMAS"</string>
     <string name="enable_cmas_test_alerts_summary" msgid="2935171596891733844">"Mostra les emissions de prova per al Sistema Comercial d\'Alertes Mòbils"</string>
     <string name="category_brazil_settings_title" msgid="6343130548572319922">"Configuració del Brasil"</string>
     <string name="enable_channel_50_alerts_title" msgid="2818924064446974167">"Mostra difusions del canal 50"</string>
@@ -91,7 +91,7 @@
     <string name="cmas_severity_extreme" msgid="1312013282860183082">"Extrema"</string>
     <string name="cmas_severity_severe" msgid="7504359209737074524">"Important"</string>
     <string name="cmas_urgency_heading" msgid="8218282767913431492">"Urgència:"</string>
-    <string name="cmas_urgency_immediate" msgid="2258810949481930841">"Cal prendre accions ara"</string>
+    <string name="cmas_urgency_immediate" msgid="2258810949481930841">"Cal emprendre accions ara"</string>
     <string name="cmas_urgency_expected" msgid="2649054095518659749">"Cal actuar aquesta hora"</string>
     <string name="cmas_certainty_heading" msgid="8374669249736439193">"Probabilitat:"</string>
     <string name="cmas_certainty_observed" msgid="3668549749352106472">"Complerta"</string>

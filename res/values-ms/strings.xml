@@ -69,9 +69,9 @@
     <string name="cmas_category_geo" msgid="4979494217069688527">"Geofizikal"</string>
     <string name="cmas_category_met" msgid="7563732573851773537">"Meteorologi"</string>
     <string name="cmas_category_safety" msgid="2986472639641883453">"Keselamatan"</string>
-    <string name="cmas_category_security" msgid="2549520159044403704">"Keselamatan"</string>
+    <string name="cmas_category_security" msgid="2549520159044403704">"Pihak Keselamatan"</string>
     <string name="cmas_category_rescue" msgid="4907571719983321086">"Menyelamat"</string>
-    <string name="cmas_category_fire" msgid="3331981591918341119">"Api"</string>
+    <string name="cmas_category_fire" msgid="3331981591918341119">"Kebakaran"</string>
     <string name="cmas_category_health" msgid="312569774587117324">"Kesihatan"</string>
     <string name="cmas_category_env" msgid="9213088574227522961">"Alam sekitar"</string>
     <string name="cmas_category_transport" msgid="5014901635987361642">"Pengangkutan"</string>

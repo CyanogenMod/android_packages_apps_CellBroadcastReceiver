@@ -32,7 +32,7 @@
     <string name="button_gsm_7bit_multipage_type" msgid="8516540964071070491">"Hantar Siaran Berbilang Halaman GSM 7 Bit"</string>
     <string name="button_gsm_7bit_multipage_umts_type" msgid="474883728254547100">"Hantar Siaran Berbilang Halaman UMTS 7 Bit"</string>
     <string name="button_gsm_7bit_with_language_type" msgid="7414138913180046493">"Hantar GSM 7 Bit Dengan Bahasa"</string>
-    <string name="button_gsm_7bit_with_language_body_gsm_type" msgid="7365993929355114874">"Hantar GSM 7 Bit Dengan Bahasa Dalam Badan"</string>
+    <string name="button_gsm_7bit_with_language_body_gsm_type" msgid="7365993929355114874">"Hantar GSM 7 Bit Dengan Bahasa Dalam Isi"</string>
     <string name="button_gsm_7bit_with_language_body_umts_type" msgid="1201329758881885921">"Hantar UMTS 7 Bit Dengan Bahasa"</string>
     <string name="button_gsm_ucs2_type" msgid="6652864601384080678">"Hantar Siaran Ujian GSM UCS-2"</string>
     <string name="button_gsm_ucs2_umts_type" msgid="2985879481785569626">"Hantar Siaran Ujian UMTS UCS-2"</string>

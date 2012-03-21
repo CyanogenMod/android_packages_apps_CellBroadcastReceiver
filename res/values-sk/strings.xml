@@ -68,15 +68,15 @@
     <string name="cmas_category_heading" msgid="5731181299088631019">"Kategória:"</string>
     <string name="cmas_category_geo" msgid="4979494217069688527">"Geofyzikálne"</string>
     <string name="cmas_category_met" msgid="7563732573851773537">"Meteorologické"</string>
-    <string name="cmas_category_safety" msgid="2986472639641883453">"Bezpečnosť"</string>
+    <string name="cmas_category_safety" msgid="2986472639641883453">"Bezpečnostné"</string>
     <string name="cmas_category_security" msgid="2549520159044403704">"Zabezpečenie"</string>
-    <string name="cmas_category_rescue" msgid="4907571719983321086">"Záchrana"</string>
+    <string name="cmas_category_rescue" msgid="4907571719983321086">"Záchranné"</string>
     <string name="cmas_category_fire" msgid="3331981591918341119">"Požiar"</string>
     <string name="cmas_category_health" msgid="312569774587117324">"Zdravie"</string>
     <string name="cmas_category_env" msgid="9213088574227522961">"Životné prostredie"</string>
     <string name="cmas_category_transport" msgid="5014901635987361642">"Doprava"</string>
     <string name="cmas_category_infra" msgid="3558151044446851398">"Infraštruktúra"</string>
-    <string name="cmas_category_cbrne" msgid="240421557913603971">"Chemické / Biologické / Nukleárne / Výbušnina"</string>
+    <string name="cmas_category_cbrne" msgid="240421557913603971">"Chemické / Biologické / Nukleárne / Výbušniny"</string>
     <string name="cmas_category_other" msgid="6158932360790744360">"Iné"</string>
     <string name="cmas_response_heading" msgid="451355296605342420">"Typ reakcie:"</string>
     <string name="cmas_response_shelter" msgid="731514427035594985">"Ukryte sa"</string>

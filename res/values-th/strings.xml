@@ -67,7 +67,7 @@
     <string name="category_dev_settings_title" msgid="6194393458398329994">"ตัวเลือกสำหรับนักพัฒนาซอฟต์แวร์"</string>
     <string name="cmas_category_heading" msgid="5731181299088631019">"หมวดหมู่:"</string>
     <string name="cmas_category_geo" msgid="4979494217069688527">"ธรณีฟิสิกส์"</string>
-    <string name="cmas_category_met" msgid="7563732573851773537">"เกี่ยวกับอุตุนิยมวิทยา"</string>
+    <string name="cmas_category_met" msgid="7563732573851773537">"อุตุนิยมวิทยา"</string>
     <string name="cmas_category_safety" msgid="2986472639641883453">"ความปลอดภัย"</string>
     <string name="cmas_category_security" msgid="2549520159044403704">"ความมั่นคง"</string>
     <string name="cmas_category_rescue" msgid="4907571719983321086">"กู้ภัย"</string>
@@ -79,10 +79,10 @@
     <string name="cmas_category_cbrne" msgid="240421557913603971">"สารเคมี/ชีวภาพ/นิวเคลียร์/ระเบิด"</string>
     <string name="cmas_category_other" msgid="6158932360790744360">"อื่นๆ"</string>
     <string name="cmas_response_heading" msgid="451355296605342420">"ประเภทการตอบสนอง:"</string>
-    <string name="cmas_response_shelter" msgid="731514427035594985">"หาที่หลบ"</string>
+    <string name="cmas_response_shelter" msgid="731514427035594985">"เตรียมที่หลบภัย"</string>
     <string name="cmas_response_evacuate" msgid="5833170084430021095">"อพยพ"</string>
     <string name="cmas_response_prepare" msgid="8428073909753758319">"เตรียมพร้อม"</string>
-    <string name="cmas_response_execute" msgid="4065931123765142173">"สั่งการกิจกรรม"</string>
+    <string name="cmas_response_execute" msgid="4065931123765142173">"ดำเนินกิจกรรม"</string>
     <string name="cmas_response_monitor" msgid="1836723975944461996">"ตรวจสอบแหล่งข้อมูล"</string>
     <string name="cmas_response_avoid" msgid="9083226909188314307">"หลีกเลี่ยงอันตราย"</string>
     <string name="cmas_response_assess" msgid="4419898054369698124">"ประเมินผล"</string>
@@ -94,7 +94,7 @@
     <string name="cmas_urgency_immediate" msgid="2258810949481930841">"ดำเนินการทันที"</string>
     <string name="cmas_urgency_expected" msgid="2649054095518659749">"ดำเนินการภายในอีกหนึ่งชั่วโมง"</string>
     <string name="cmas_certainty_heading" msgid="8374669249736439193">"ความแน่นอน:"</string>
-    <string name="cmas_certainty_observed" msgid="3668549749352106472">"สังเกตการณ์"</string>
+    <string name="cmas_certainty_observed" msgid="3668549749352106472">"สังเกตได้"</string>
     <string name="cmas_certainty_likely" msgid="4254497828943291749">"เป็นไปได้"</string>
     <string name="notification_multiple" msgid="5121978148152124860">"<xliff:g id="COUNT">%s</xliff:g> การแจ้งเตือนที่ยังไม่ได้อ่าน"</string>
     <string name="notification_multiple_title" msgid="1523638925739947855">"การแจ้งเตือนใหม่"</string>

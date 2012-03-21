@@ -93,7 +93,7 @@
     <string name="cmas_urgency_heading" msgid="8218282767913431492">"Viktighetsgrad:"</string>
     <string name="cmas_urgency_immediate" msgid="2258810949481930841">"Iverksett tiltak umiddelbart"</string>
     <string name="cmas_urgency_expected" msgid="2649054095518659749">"Iverksett tiltak neste time"</string>
-    <string name="cmas_certainty_heading" msgid="8374669249736439193">"Synnsynlighetsgrad:"</string>
+    <string name="cmas_certainty_heading" msgid="8374669249736439193">"Sannsynlighetsgrad:"</string>
     <string name="cmas_certainty_observed" msgid="3668549749352106472">"Observert"</string>
     <string name="cmas_certainty_likely" msgid="4254497828943291749">"Sannsynlig"</string>
     <string name="notification_multiple" msgid="5121978148152124860">"<xliff:g id="COUNT">%s</xliff:g> uleste varsler."</string>
