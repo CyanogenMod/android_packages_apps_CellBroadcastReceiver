@@ -19,7 +19,7 @@
     <string name="app_label" msgid="7559008249836700599">"Phát sóng trên di động"</string>
     <string name="sms_cb_settings" msgid="971917159442705371">"Cài đặt phát sóng trên di động"</string>
     <string name="button_dismiss" msgid="1234221657930516287">"OK"</string>
-    <string name="no_cell_broadcasts" msgid="5409324337492758562">"Không có cảnh báo hoạt động nào trong khu vực của bạn. Bạn có thể thay đổi cài đặt Cảnh báo bằng tùy chọn trình đơn Cài đặt."</string>
+    <string name="no_cell_broadcasts" msgid="5409324337492758562">"Không có thông báo hoạt động nào trong khu vực của bạn. Bạn có thể thay đổi cài đặt Thông báo bằng tùy chọn trình đơn Cài đặt."</string>
     <string name="menu_preferences" msgid="3596514894131599202">"Cài đặt"</string>
     <string name="menu_delete_all" msgid="3940997343921149800">"Xóa chương trình phát sóng"</string>
     <string name="message_options" msgid="3178489901903589574">"Tùy chọn tin nhắn"</string>
@@ -54,13 +54,13 @@
     <string name="enable_etws_test_alerts_title" msgid="2569886288897109169">"Hiển thị các thông báo kiểm tra cho ETWS"</string>
     <string name="enable_etws_test_alerts_summary" msgid="7988690174166347072">"Hiển thị chương trình phát sóng thử nghiệm cho Hệ thống cảnh báo động đất và sóng thần"</string>
     <string name="enable_cmas_extreme_threat_alerts_title" msgid="215650211797464620">"Hiển thị các mối đe dọa cực kỳ nghiêm trọng"</string>
-    <string name="enable_cmas_extreme_threat_alerts_summary" msgid="2493139961243300290">"Hiển thị cảnh báo cho các mối đe dọa đến sinh mạng và tài sản cực kỳ nghiêm trọng"</string>
+    <string name="enable_cmas_extreme_threat_alerts_summary" msgid="2493139961243300290">"Hiển thị thông báo cho các mối đe dọa đến sinh mạng và tài sản cực kỳ nghiêm trọng"</string>
     <string name="enable_cmas_severe_threat_alerts_title" msgid="8008941231371565775">"Hiển thị các mối đe dọa nghiêm trọng"</string>
-    <string name="enable_cmas_severe_threat_alerts_summary" msgid="4089299793459943222">"Hiển thị cảnh báo cho các mối đe dọa đến sinh mạng và tài sản nghiêm trọng"</string>
-    <string name="enable_cmas_amber_alerts_title" msgid="997138378272381777">"Hiển thị cảnh báo AMBER"</string>
-    <string name="enable_cmas_amber_alerts_summary" msgid="8423617548641801387">"Hiển thị bản tin khẩn cấp vụ việc bắt cóc trẻ em (cảnh báo AMBER)"</string>
+    <string name="enable_cmas_severe_threat_alerts_summary" msgid="4089299793459943222">"Hiển thị thông báo cho các mối đe dọa đến sinh mạng và tài sản nghiêm trọng"</string>
+    <string name="enable_cmas_amber_alerts_title" msgid="997138378272381777">"Hiển thị thông báo AMBER"</string>
+    <string name="enable_cmas_amber_alerts_summary" msgid="8423617548641801387">"Hiển thị bản tin khẩn cấp vụ việc bắt cóc trẻ em (thông báo AMBER)"</string>
     <string name="enable_cmas_test_alerts_title" msgid="8620213090932770270">"Hiển thị các thông báo kiểm tra cho CMAS"</string>
-    <string name="enable_cmas_test_alerts_summary" msgid="2935171596891733844">"Hiển thị các thông báo kiểm tra cho Hệ thống cảnh báo thương mại trên điện thoại di động"</string>
+    <string name="enable_cmas_test_alerts_summary" msgid="2935171596891733844">"Hiển thị các thông báo kiểm tra cho Hệ thống thông báo thương mại trên điện thoại di động"</string>
     <string name="category_brazil_settings_title" msgid="6343130548572319922">"Cài đặt cho Braxin"</string>
     <string name="enable_channel_50_alerts_title" msgid="2818924064446974167">"Hiển thị chương trình phát sóng kênh 50"</string>
     <string name="enable_channel_50_alerts_summary" msgid="7507770011325273009">"Kênh 50 được sử dụng ở Braxin để cập nhật thông tin khu vực"</string>
@@ -76,7 +76,7 @@
     <string name="cmas_category_env" msgid="9213088574227522961">"Môi trường"</string>
     <string name="cmas_category_transport" msgid="5014901635987361642">"Vận tải"</string>
     <string name="cmas_category_infra" msgid="3558151044446851398">"Cơ sở hạ tầng"</string>
-    <string name="cmas_category_cbrne" msgid="240421557913603971">"Hóa họcl/Sinh học/Hạt nhân/Chất nổ"</string>
+    <string name="cmas_category_cbrne" msgid="240421557913603971">"Hóa học/Sinh học/Hạt nhân/Chất nổ"</string>
     <string name="cmas_category_other" msgid="6158932360790744360">"Khác"</string>
     <string name="cmas_response_heading" msgid="451355296605342420">"Loại ứng phó:"</string>
     <string name="cmas_response_shelter" msgid="731514427035594985">"Tìm nơi trú ẩn"</string>
@@ -93,11 +93,11 @@
     <string name="cmas_urgency_heading" msgid="8218282767913431492">"Mức khẩn cấp:"</string>
     <string name="cmas_urgency_immediate" msgid="2258810949481930841">"Thực hiện hành động ngay lập tức"</string>
     <string name="cmas_urgency_expected" msgid="2649054095518659749">"Thực hiện hành động trong giờ tiếp theo"</string>
-    <string name="cmas_certainty_heading" msgid="8374669249736439193">"Tính chắc chắn:"</string>
+    <string name="cmas_certainty_heading" msgid="8374669249736439193">"Mức độ chắc chắn:"</string>
     <string name="cmas_certainty_observed" msgid="3668549749352106472">"Được quan sát"</string>
     <string name="cmas_certainty_likely" msgid="4254497828943291749">"Có thể xảy ra"</string>
-    <string name="notification_multiple" msgid="5121978148152124860">"<xliff:g id="COUNT">%s</xliff:g> cảnh báo chưa đọc."</string>
-    <string name="notification_multiple_title" msgid="1523638925739947855">"Cảnh báo mới"</string>
+    <string name="notification_multiple" msgid="5121978148152124860">"<xliff:g id="COUNT">%s</xliff:g> thông báo chưa đọc."</string>
+    <string name="notification_multiple_title" msgid="1523638925739947855">"Thông báo mới"</string>
   <string-array name="alert_sound_duration_entries">
     <item msgid="5353482200312892037">"2 giây"</item>
     <item msgid="5656092384277009212">"4 giây"</item>

@@ -58,7 +58,7 @@
     <string name="enable_cmas_severe_threat_alerts_title" msgid="8008941231371565775">"顯示嚴重威脅"</string>
     <string name="enable_cmas_severe_threat_alerts_summary" msgid="4089299793459943222">"顯示嚴重生命財產威脅警示"</string>
     <string name="enable_cmas_amber_alerts_title" msgid="997138378272381777">"顯示安珀警示"</string>
-    <string name="enable_cmas_amber_alerts_summary" msgid="8423617548641801387">"顯示兒童綁架緊急情況公告 (安珀警示)"</string>
+    <string name="enable_cmas_amber_alerts_summary" msgid="8423617548641801387">"顯示兒童綁架緊急事件公告 (安珀警示)"</string>
     <string name="enable_cmas_test_alerts_title" msgid="8620213090932770270">"顯示 CMAS 測試廣播"</string>
     <string name="enable_cmas_test_alerts_summary" msgid="2935171596891733844">"顯示商用行動警示系統測試廣播"</string>
     <string name="category_brazil_settings_title" msgid="6343130548572319922">"巴西專用設定"</string>
@@ -83,14 +83,14 @@
     <string name="cmas_response_evacuate" msgid="5833170084430021095">"撤離"</string>
     <string name="cmas_response_prepare" msgid="8428073909753758319">"預做準備"</string>
     <string name="cmas_response_execute" msgid="4065931123765142173">"執行預定行動"</string>
-    <string name="cmas_response_monitor" msgid="1836723975944461996">"關注資訊來源"</string>
+    <string name="cmas_response_monitor" msgid="1836723975944461996">"持續追蹤資訊來源"</string>
     <string name="cmas_response_avoid" msgid="9083226909188314307">"躲避危害"</string>
     <string name="cmas_response_assess" msgid="4419898054369698124">"評估"</string>
     <string name="cmas_response_none" msgid="9109481144060546906">"無建議行動"</string>
     <string name="cmas_severity_heading" msgid="8437057117822305243">"嚴重程度："</string>
     <string name="cmas_severity_extreme" msgid="1312013282860183082">"極嚴重"</string>
     <string name="cmas_severity_severe" msgid="7504359209737074524">"嚴重"</string>
-    <string name="cmas_urgency_heading" msgid="8218282767913431492">"緊急性："</string>
+    <string name="cmas_urgency_heading" msgid="8218282767913431492">"緊急程度："</string>
     <string name="cmas_urgency_immediate" msgid="2258810949481930841">"請立刻採取行動"</string>
     <string name="cmas_urgency_expected" msgid="2649054095518659749">"請在一小時內採取行動"</string>
     <string name="cmas_certainty_heading" msgid="8374669249736439193">"確定等級："</string>

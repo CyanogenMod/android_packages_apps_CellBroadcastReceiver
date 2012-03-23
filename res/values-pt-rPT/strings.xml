@@ -79,7 +79,7 @@
     <string name="cmas_category_cbrne" msgid="240421557913603971">"Químico/Biológico/Nuclear/Explosivo"</string>
     <string name="cmas_category_other" msgid="6158932360790744360">"Outro"</string>
     <string name="cmas_response_heading" msgid="451355296605342420">"Tipo de resposta:"</string>
-    <string name="cmas_response_shelter" msgid="731514427035594985">"Procurar abrigo"</string>
+    <string name="cmas_response_shelter" msgid="731514427035594985">"Aceitar abrigo"</string>
     <string name="cmas_response_evacuate" msgid="5833170084430021095">"Evacuar"</string>
     <string name="cmas_response_prepare" msgid="8428073909753758319">"Prepare-se"</string>
     <string name="cmas_response_execute" msgid="4065931123765142173">"Executar a atividade"</string>

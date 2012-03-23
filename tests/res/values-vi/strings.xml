@@ -20,11 +20,11 @@
     <string name="button_etws_normal_type" msgid="3852703138521119537">"Gửi chương trình phát sóng bình thường trên ETWS"</string>
     <string name="button_etws_cancel_type" msgid="7194264116649371175">"Phát thử nghiệm việc gửi lệnh Hủy ETWS"</string>
     <string name="button_etws_test_type" msgid="6353906188028139901">"Phát thử nghiệm việc gửi ETWS"</string>
-    <string name="button_cmas_pres_alert" msgid="5905111586384766558">"Gửi cảnh báo dành cho tổng thống cho CMAS"</string>
-    <string name="button_cmas_extreme_alert" msgid="6111658124447111920">"Gửi cảnh báo cực kỳ nghiêm trọng cho CMAS"</string>
-    <string name="button_cmas_severe_alert" msgid="9051731172452500819">"Gửi cảnh báo nghiêm trọng cho CMAS"</string>
-    <string name="button_cmas_amber_alert" msgid="4217147800913845288">"Gửi cảnh báo AMBER cho CMAS"</string>
-    <string name="button_cmas_monthly_test" msgid="1609320625517248393">"Gửi cảnh báo kiểm tra hàng tháng cho CMAS"</string>
+    <string name="button_cmas_pres_alert" msgid="5905111586384766558">"Gửi thông báo dành cho tổng thống cho CMAS"</string>
+    <string name="button_cmas_extreme_alert" msgid="6111658124447111920">"Gửi thông báo cực kỳ nghiêm trọng cho CMAS"</string>
+    <string name="button_cmas_severe_alert" msgid="9051731172452500819">"Gửi thông báo nghiêm trọng cho CMAS"</string>
+    <string name="button_cmas_amber_alert" msgid="4217147800913845288">"Gửi thông báo AMBER cho CMAS"</string>
+    <string name="button_cmas_monthly_test" msgid="1609320625517248393">"Gửi thông báo kiểm tra hàng tháng cho CMAS"</string>
     <string name="button_gsm_7bit_type" msgid="4757698592787955850">"Phát thử nghiệm trên nhiều trang việc gửi GSM 7 bit"</string>
     <string name="button_gsm_7bit_umts_type" msgid="4377077702628367387">"Phát thử nghiệm việc gửi UMTS 7 bit"</string>
     <string name="button_gsm_7bit_nopadding_type" msgid="5289528095948674862">"Phát toàn bộ việc gửi GSM 7 bit"</string>
