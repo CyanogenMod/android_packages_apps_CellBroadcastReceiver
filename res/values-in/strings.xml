@@ -18,7 +18,7 @@
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="app_label" msgid="7559008249836700599">"Siaran Sel"</string>
     <string name="sms_cb_settings" msgid="971917159442705371">"Setelan Siaran Sel"</string>
-    <string name="button_dismiss" msgid="1234221657930516287">"OK"</string>
+    <string name="button_dismiss" msgid="1234221657930516287">"Oke"</string>
     <string name="no_cell_broadcasts" msgid="5409324337492758562">"Tidak ada peringatan aktif di wilayah Anda. Anda dapat mengubah setelan Peringatan menggunakan opsi menu Setelan."</string>
     <string name="menu_preferences" msgid="3596514894131599202">"Setelan"</string>
     <string name="menu_delete_all" msgid="3940997343921149800">"Hapus siaran"</string>
