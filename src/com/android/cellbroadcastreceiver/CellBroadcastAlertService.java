@@ -29,6 +29,7 @@ import android.os.IBinder;
 import android.os.PowerManager;
 import android.preference.PreferenceManager;
 import android.provider.Telephony;
+import android.telephony.CellBroadcastMessage;
 import android.telephony.SmsCbCmasInfo;
 import android.telephony.SmsCbMessage;
 import android.util.Log;
@@ -101,11 +102,14 @@ public class CellBroadcastAlertService extends Service {
             addToNotificationBar(cbm);
         }
 
-        // write to database on a separate service thread
-        Intent dbWriteIntent = new Intent(this, CellBroadcastDatabaseService.class);
-        dbWriteIntent.setAction(CellBroadcastDatabaseService.ACTION_INSERT_NEW_BROADCAST);
-        dbWriteIntent.putExtra(CellBroadcastMessage.SMS_CB_MESSAGE_EXTRA, cbm);
-        startService(dbWriteIntent);
+        // write to database on a background thread
+        new CellBroadcastContentProvider.AsyncCellBroadcastTask(getContentResolver())
+                .execute(new CellBroadcastContentProvider.CellBroadcastOperation() {
+                    @Override
+                    public boolean execute(CellBroadcastContentProvider provider) {
+                        return provider.insertNewBroadcast(cbm);
+                    }
+                });
     }
 
     /**
@@ -186,7 +190,7 @@ public class CellBroadcastAlertService extends Service {
         audioIntent.putExtra(CellBroadcastAlertAudio.ALERT_AUDIO_DURATION_EXTRA,
                 Integer.parseInt(duration));
 
-        int channelTitleId = message.getDialogTitleResource();
+        int channelTitleId = CellBroadcastResources.getDialogTitleResource(message);
         CharSequence channelName = getText(channelTitleId);
         String messageBody = message.getMessageBody();
 
@@ -222,7 +226,7 @@ public class CellBroadcastAlertService extends Service {
 
         Notification.Builder builder = new Notification.Builder(this)
                 .setSmallIcon(R.drawable.stat_color_warning)
-                .setTicker(getText(message.getDialogTitleResource()))
+                .setTicker(getText(CellBroadcastResources.getDialogTitleResource(message)))
                 .setWhen(System.currentTimeMillis())
                 .setContentIntent(pi)
                 .setFullScreenIntent(pi, true)
@@ -242,7 +246,7 @@ public class CellBroadcastAlertService extends Service {
      * @param message the alert to display
      */
     private void addToNotificationBar(CellBroadcastMessage message) {
-        int channelTitleId = message.getDialogTitleResource();
+        int channelTitleId = CellBroadcastResources.getDialogTitleResource(message);
         CharSequence channelName = getText(channelTitleId);
         String messageBody = message.getMessageBody();
 

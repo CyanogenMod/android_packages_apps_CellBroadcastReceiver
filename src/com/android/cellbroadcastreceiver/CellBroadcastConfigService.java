@@ -58,19 +58,19 @@ public class CellBroadcastConfigService extends IntentService {
                     int startId = Integer.decode(channelRange.substring(0, dashIndex));
                     int endId = Integer.decode(channelRange.substring(dashIndex + 1));
                     if (enable) {
-                        if (DBG) Log.d(TAG, "enabling emergency IDs " + startId + '-' + endId);
+                        if (DBG) log("enabling emergency IDs " + startId + '-' + endId);
                         manager.enableCellBroadcastRange(startId, endId);
                     } else {
-                        if (DBG) Log.d(TAG, "disabling emergency IDs " + startId + '-' + endId);
+                        if (DBG) log("disabling emergency IDs " + startId + '-' + endId);
                         manager.disableCellBroadcastRange(startId, endId);
                     }
                 } else {
                     int messageId = Integer.decode(channelRange);
                     if (enable) {
-                        if (DBG) Log.d(TAG, "enabling emergency message ID " + messageId);
+                        if (DBG) log("enabling emergency message ID " + messageId);
                         manager.enableCellBroadcast(messageId);
                     } else {
-                        if (DBG) Log.d(TAG, "disabling emergency message ID " + messageId);
+                        if (DBG) log("disabling emergency message ID " + messageId);
                         manager.disableCellBroadcast(messageId);
                     }
                 }
@@ -126,7 +126,7 @@ public class CellBroadcastConfigService extends IntentService {
 
                 SmsManager manager = SmsManager.getDefault();
                 if (enableEmergencyAlerts) {
-                    if (DBG) Log.d(TAG, "enabling emergency cell broadcast channels");
+                    if (DBG) log("enabling emergency cell broadcast channels");
                     if (!TextUtils.isEmpty(emergencyIdRange)) {
                         setChannelRange(manager, emergencyIdRange, true);
                     } else {
@@ -135,10 +135,10 @@ public class CellBroadcastConfigService extends IntentService {
                                 SmsCbConstants.MESSAGE_ID_PWS_FIRST_IDENTIFIER,
                                 SmsCbConstants.MESSAGE_ID_PWS_LAST_IDENTIFIER);
                     }
-                    if (DBG) Log.d(TAG, "enabled emergency cell broadcast channels");
+                    if (DBG) log("enabled emergency cell broadcast channels");
                 } else {
                     // we may have enabled these channels previously, so try to disable them
-                    if (DBG) Log.d(TAG, "disabling emergency cell broadcast channels");
+                    if (DBG) log("disabling emergency cell broadcast channels");
                     if (!TextUtils.isEmpty(emergencyIdRange)) {
                         setChannelRange(manager, emergencyIdRange, false);
                     } else {
@@ -147,21 +147,25 @@ public class CellBroadcastConfigService extends IntentService {
                                 SmsCbConstants.MESSAGE_ID_PWS_FIRST_IDENTIFIER,
                                 SmsCbConstants.MESSAGE_ID_PWS_LAST_IDENTIFIER);
                     }
-                    if (DBG) Log.d(TAG, "disabled emergency cell broadcast channels");
+                    if (DBG) log("disabled emergency cell broadcast channels");
                 }
 
                 if (enableChannel50Alerts) {
-                    if (DBG) Log.d(TAG, "enabling cell broadcast channel 50");
+                    if (DBG) log("enabling cell broadcast channel 50");
                     manager.enableCellBroadcast(50);
-                    if (DBG) Log.d(TAG, "enabled cell broadcast channel 50");
+                    if (DBG) log("enabled cell broadcast channel 50");
                 } else {
-                    if (DBG) Log.d(TAG, "disabling cell broadcast channel 50");
+                    if (DBG) log("disabling cell broadcast channel 50");
                     manager.disableCellBroadcast(50);
-                    if (DBG) Log.d(TAG, "disabled cell broadcast channel 50");
+                    if (DBG) log("disabled cell broadcast channel 50");
                 }
             } catch (Exception ex) {
                 Log.e(TAG, "exception enabling cell broadcast channels", ex);
             }
         }
+    }
+
+    private static void log(String msg) {
+        Log.d(TAG, msg);
     }
 }

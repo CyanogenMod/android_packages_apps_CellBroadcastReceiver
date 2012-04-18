@@ -98,7 +98,7 @@ public class CellBroadcastAlertAudio extends Service implements TextToSpeech.OnI
         public void handleMessage(Message msg) {
             switch (msg.what) {
                 case ALERT_SOUND_FINISHED:
-                    if (DBG) Log.v(TAG, "ALERT_SOUND_FINISHED");
+                    if (DBG) log("ALERT_SOUND_FINISHED");
                     stop();     // stop alert sound
                     // if we can speak the message text
                     if (mMessageBody != null && mTtsEngineReady && mTtsLanguageSupported) {
@@ -112,9 +112,9 @@ public class CellBroadcastAlertAudio extends Service implements TextToSpeech.OnI
                     break;
 
                 case ALERT_PAUSE_FINISHED:
-                    if (DBG) Log.v(TAG, "ALERT_PAUSE_FINISHED");
+                    if (DBG) log("ALERT_PAUSE_FINISHED");
                     if (mMessageBody != null && mTtsEngineReady && mTtsLanguageSupported) {
-                        if (DBG) Log.v(TAG, "Speaking broadcast text: " + mMessageBody);
+                        if (DBG) log("Speaking broadcast text: " + mMessageBody);
                         mTts.speak(mMessageBody, TextToSpeech.QUEUE_FLUSH, null);
                         mState = STATE_SPEAKING;
                     } else {
@@ -147,7 +147,7 @@ public class CellBroadcastAlertAudio extends Service implements TextToSpeech.OnI
      */
     @Override
     public void onInit(int status) {
-        if (DBG) Log.v(TAG, "onInit() TTS engine status: " + status);
+        if (DBG) log("onInit() TTS engine status: " + status);
         if (status == TextToSpeech.SUCCESS) {
             mTtsEngineReady = true;
             // try to set the TTS language to match the broadcast
@@ -165,14 +165,14 @@ public class CellBroadcastAlertAudio extends Service implements TextToSpeech.OnI
      */
     private void setTtsLanguage() {
         if (mMessageLanguage != null) {
-            if (DBG) Log.v(TAG, "Setting TTS language to '" + mMessageLanguage + '\'');
+            if (DBG) log("Setting TTS language to '" + mMessageLanguage + '\'');
             int result = mTts.setLanguage(new Locale(mMessageLanguage));
             // success values are >= 0, failure returns negative value
-            if (DBG) Log.v(TAG, "TTS setLanguage() returned: " + result);
+            if (DBG) log("TTS setLanguage() returned: " + result);
             mTtsLanguageSupported = result >= 0;
         } else {
             // try to use the default TTS language for broadcasts with no language specified
-            if (DBG) Log.v(TAG, "No language specified in broadcast: using default");
+            if (DBG) log("No language specified in broadcast: using default");
             mTtsLanguageSupported = true;
         }
     }
@@ -265,7 +265,7 @@ public class CellBroadcastAlertAudio extends Service implements TextToSpeech.OnI
         // stop() checks to see if we are already playing.
         stop();
 
-        if (DBG) Log.v(TAG, "play()");
+        if (DBG) log("play()");
 
         // future optimization: reuse media player object
         mMediaPlayer = new MediaPlayer();
@@ -329,7 +329,7 @@ public class CellBroadcastAlertAudio extends Service implements TextToSpeech.OnI
      * Stops alert audio and speech.
      */
     public void stop() {
-        if (DBG) Log.v(TAG, "stop()");
+        if (DBG) log("stop()");
 
         mHandler.removeMessages(ALERT_SOUND_FINISHED);
         mHandler.removeMessages(ALERT_PAUSE_FINISHED);
@@ -349,5 +349,9 @@ public class CellBroadcastAlertAudio extends Service implements TextToSpeech.OnI
         }
         mAudioManager.abandonAudioFocus(null);
         mState = STATE_IDLE;
+    }
+
+    private static void log(String msg) {
+        Log.d(TAG, msg);
     }
 }

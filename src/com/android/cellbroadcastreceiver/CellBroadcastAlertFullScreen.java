@@ -24,6 +24,8 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.provider.Telephony;
+import android.telephony.CellBroadcastMessage;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
@@ -74,12 +76,12 @@ public class CellBroadcastAlertFullScreen extends Activity {
         @Override
         public void handleMessage(Message msg) {
             if (mIconAnimationState) {
-                mWarningIconView.setAlpha(255);
+                mWarningIconView.setImageAlpha(255);
                 if (!mStopAnimation) {
                     mAnimationHandler.sendEmptyMessageDelayed(0, WARNING_ICON_ON_DURATION_MSEC);
                 }
             } else {
-                mWarningIconView.setAlpha(0);
+                mWarningIconView.setImageAlpha(0);
                 if (!mStopAnimation) {
                     mAnimationHandler.sendEmptyMessageDelayed(0, WARNING_ICON_OFF_DURATION_MSEC);
                 }
@@ -127,10 +129,11 @@ public class CellBroadcastAlertFullScreen extends Activity {
         setContentView(inflater.inflate(getLayoutResId(), null));
 
         /* Initialize dialog text from alert message. */
-        int titleId = message.getDialogTitleResource();
+        int titleId = CellBroadcastResources.getDialogTitleResource(message);
         setTitle(titleId);
         ((TextView) findViewById(R.id.alertTitle)).setText(titleId);
-        ((TextView) findViewById(R.id.message)).setText(message.getFormattedMessageBody(this));
+        ((TextView) findViewById(R.id.message)).setText(
+                CellBroadcastResources.getFormattedMessageBody(this, message));
 
         /* dismiss button: close notification */
         findViewById(R.id.dismissButton).setOnClickListener(
@@ -176,13 +179,17 @@ public class CellBroadcastAlertFullScreen extends Activity {
         // Stop playing alert sound/vibration/speech (if started)
         stopService(new Intent(this, CellBroadcastAlertAudio.class));
 
-        // Start database service to mark broadcast as read
-        Intent intent = new Intent(this, CellBroadcastDatabaseService.class);
-        intent.setAction(CellBroadcastDatabaseService.ACTION_MARK_BROADCAST_READ);
-        // Select by delivery time because we don't know the database row ID.
-        intent.putExtra(CellBroadcastDatabaseService.DATABASE_DELIVERY_TIME_EXTRA,
-                mMessage.getDeliveryTime());
-        startService(intent);
+        final long deliveryTime = mMessage.getDeliveryTime();
+
+        // Mark broadcast as read on a background thread.
+        new CellBroadcastContentProvider.AsyncCellBroadcastTask(getContentResolver())
+                .execute(new CellBroadcastContentProvider.CellBroadcastOperation() {
+                    @Override
+                    public boolean execute(CellBroadcastContentProvider provider) {
+                        return provider.markBroadcastRead(
+                                Telephony.CellBroadcasts.DELIVERY_TIME, deliveryTime);
+                    }
+                });
 
         if (mIsEmergencyAlert) {
             // stop animating emergency alert icon

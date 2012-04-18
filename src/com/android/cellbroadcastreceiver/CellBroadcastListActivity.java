@@ -23,13 +23,15 @@ import android.app.ListFragment;
 import android.app.LoaderManager;
 import android.app.NotificationManager;
 import android.content.Context;
+import android.content.CursorLoader;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
 import android.os.Bundle;
-import android.util.Log;
+import android.provider.Telephony;
+import android.telephony.CellBroadcastMessage;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.LayoutInflater;
@@ -41,15 +43,12 @@ import android.view.View.OnCreateContextMenuListener;
 import android.view.ViewGroup;
 import android.widget.CursorAdapter;
 import android.widget.ListView;
-import android.widget.TextView;
 
 /**
  * This activity provides a list view of received cell broadcasts. Most of the work is handled
  * in the inner CursorLoaderListFragment class.
  */
 public class CellBroadcastListActivity extends Activity {
-    // package local for efficient access from inner class
-    static final String TAG = "CellBroadcastListActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,10 +90,6 @@ public class CellBroadcastListActivity extends Activity {
 
             // We have a menu item to show in action bar.
             setHasOptionsMenu(true);
-
-            // Prepare the loader.  Either re-connect with an existing one,
-            // or start a new one.
-            getLoaderManager().initLoader(0, null, this);
         }
 
         @Override
@@ -107,9 +102,6 @@ public class CellBroadcastListActivity extends Activity {
         public void onActivityCreated(Bundle savedInstanceState) {
             super.onActivityCreated(savedInstanceState);
 
-            // Tell database service to notify us when a new broadcast arrives.
-            CellBroadcastDatabaseService.setActiveListFragment(this);
-
             // Set context menu for long-press.
             ListView listView = getListView();
             listView.setOnCreateContextMenuListener(mOnCreateContextMenuListener);
@@ -117,12 +109,10 @@ public class CellBroadcastListActivity extends Activity {
             // Create a cursor adapter to display the loaded data.
             mAdapter = new CellBroadcastCursorAdapter(getActivity(), null);
             setListAdapter(mAdapter);
-        }
 
-        @Override
-        public void onDestroy() {
-            super.onDestroy();
-            CellBroadcastDatabaseService.setActiveListFragment(null);
+            // Prepare the loader.  Either re-connect with an existing one,
+            // or start a new one.
+            getLoaderManager().initLoader(0, null, this);
         }
 
         @Override
@@ -146,7 +136,9 @@ public class CellBroadcastListActivity extends Activity {
 
         @Override
         public Loader<Cursor> onCreateLoader(int id, Bundle args) {
-            return new CellBroadcastCursorLoader(getActivity());
+            return new CursorLoader(getActivity(), CellBroadcastContentProvider.CONTENT_URI,
+                    Telephony.CellBroadcasts.QUERY_COLUMNS, null, null,
+                    Telephony.CellBroadcasts.DELIVERY_TIME + " DESC");
         }
 
         @Override
@@ -162,18 +154,6 @@ public class CellBroadcastListActivity extends Activity {
             // above is about to be closed.  We need to make sure we are no
             // longer using it.
             mAdapter.swapCursor(null);
-        }
-
-        /**
-         * Callback from CellBroadcastDatabaseService after content changes.
-         */
-        void databaseContentChanged() {
-            Loader<Cursor> loader = getLoaderManager().getLoader(0);
-            if (loader != null) {
-                loader.onContentChanged();
-            } else {
-                Log.w(TAG, "databaseContentChanged() called, but loader is null");
-            }
         }
 
         private void showDialogAndMarkRead(CellBroadcastMessage cbm) {
@@ -201,10 +181,10 @@ public class CellBroadcastListActivity extends Activity {
                 switch (item.getItemId()) {
                     case MENU_DELETE:
                         // We need to decrement the unread alert count if deleting unread alert
-                        boolean isUnread =
-                                (cursor.getInt(CellBroadcastDatabase.COLUMN_MESSAGE_READ) == 0);
-                        confirmDeleteThread(cursor.getLong(CellBroadcastDatabase.COLUMN_ID),
-                                isUnread);
+                        boolean isUnread = (cursor.getInt(cursor.getColumnIndexOrThrow(
+                                Telephony.CellBroadcasts.MESSAGE_READ)) == 0);
+                        confirmDeleteThread(cursor.getLong(cursor.getColumnIndexOrThrow(
+                                Telephony.CellBroadcasts._ID)), isUnread);
                         break;
 
                     case MENU_VIEW:
@@ -256,20 +236,14 @@ public class CellBroadcastListActivity extends Activity {
          */
         public static void confirmDeleteThreadDialog(DeleteThreadListener listener,
                 boolean deleteAll, Context context) {
-            View contents = View.inflate(context, R.layout.delete_broadcast_dialog_view, null);
-            TextView msg = (TextView)contents.findViewById(R.id.message);
-            msg.setText(deleteAll
-                    ? R.string.confirm_delete_all_broadcasts
-                            : R.string.confirm_delete_broadcast);
-
             AlertDialog.Builder builder = new AlertDialog.Builder(context);
-            builder.setTitle(R.string.confirm_dialog_title)
-                .setIcon(android.R.drawable.ic_dialog_alert)
-            .setCancelable(true)
-            .setPositiveButton(R.string.button_delete, listener)
-            .setNegativeButton(R.string.button_cancel, null)
-            .setView(contents)
-            .show();
+            builder.setIcon(android.R.drawable.ic_dialog_alert)
+                    .setCancelable(true)
+                    .setPositiveButton(R.string.button_delete, listener)
+                    .setNegativeButton(R.string.button_cancel, null)
+                    .setMessage(deleteAll ? R.string.confirm_delete_all_broadcasts
+                            : R.string.confirm_delete_broadcast)
+                    .show();
         }
 
         public class DeleteThreadListener implements OnClickListener {
@@ -283,23 +257,20 @@ public class CellBroadcastListActivity extends Activity {
 
             @Override
             public void onClick(DialogInterface dialog, int whichButton) {
-                // delete from database on a separate service thread
-                Intent dbWriteIntent = new Intent(getActivity(),
-                        CellBroadcastDatabaseService.class);
-                if (mRowId != -1) {
-                    dbWriteIntent.setAction(CellBroadcastDatabaseService.ACTION_DELETE_BROADCAST);
-                    dbWriteIntent.putExtra(CellBroadcastDatabaseService.DATABASE_ROW_ID_EXTRA,
-                            mRowId);
-                    if (mIsUnread) {
-                        // decrement unread alert count after delete
-                        dbWriteIntent.putExtra(
-                                CellBroadcastDatabaseService.DECREMENT_UNREAD_ALERT_COUNT, true);
-                    }
-                } else {
-                    dbWriteIntent.setAction(
-                            CellBroadcastDatabaseService.ACTION_DELETE_ALL_BROADCASTS);
-                }
-                getActivity().startService(dbWriteIntent);
+                // delete from database on a background thread
+                new CellBroadcastContentProvider.AsyncCellBroadcastTask(
+                        getActivity().getContentResolver()).execute(
+                        new CellBroadcastContentProvider.CellBroadcastOperation() {
+                            @Override
+                            public boolean execute(CellBroadcastContentProvider provider) {
+                                if (mRowId != -1) {
+                                    return provider.deleteBroadcast(mRowId, mIsUnread);
+                                } else {
+                                    return provider.deleteAllBroadcasts();
+                                }
+                            }
+                        });
+
                 dialog.dismiss();
             }
         }

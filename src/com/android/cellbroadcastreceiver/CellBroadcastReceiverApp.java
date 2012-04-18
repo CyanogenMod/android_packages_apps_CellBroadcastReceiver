@@ -27,7 +27,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  * and remembers the time of the most recently received broadcast.
  */
 public class CellBroadcastReceiverApp extends Application {
-    private static final String LOG_TAG = "CellBroadcastReceiverApp";
+    private static final String TAG = "CellBroadcastReceiverApp";
 
     @Override
     public void onCreate() {
@@ -52,7 +52,7 @@ public class CellBroadcastReceiverApp extends Application {
      */
     static void decrementUnreadAlertCount() {
         if (sUnreadAlertCount.decrementAndGet() < 0) {
-            Log.e("CellBroadcastReceiverApp", "mUnreadAlertCount < 0, resetting to 0");
+            Log.e(TAG, "mUnreadAlertCount < 0, resetting to 0");
             sUnreadAlertCount.set(0);
         }
     }
