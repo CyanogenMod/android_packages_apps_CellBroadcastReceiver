@@ -42,8 +42,6 @@
     <string name="menu_delete">Delete broadcast</string>
 
     <!-- Confirm Delete -->
-    <!-- Delete confirmation dialog title. [CHAR LIMIT=30] -->
-    <string name="confirm_dialog_title">Delete</string>
     <!-- Delete broadcast confirmation dialog message. [CHAR LIMIT=NONE] -->
     <string name="confirm_delete_broadcast">Delete this broadcast?</string>
     <!-- Delete all broadcasts confirmation dialog message. [CHAR LIMIT=NONE] -->

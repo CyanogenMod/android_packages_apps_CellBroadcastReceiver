@@ -16,15 +16,12 @@
 
 package com.android.cellbroadcastreceiver;
 
-import android.app.KeyguardManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
-import android.util.Log;
+import android.telephony.CellBroadcastMessage;
 
 /**
  * Custom alert dialog with optional flashing warning icon.
@@ -32,7 +29,6 @@ import android.util.Log;
  * Keyguard handling based on {@code AlarmAlert} class from DeskClock app.
  */
 public class CellBroadcastAlertDialog extends CellBroadcastAlertFullScreen {
-    private static final String TAG = "CellBroadcastAlertDialog";
 
     private BroadcastReceiver mScreenOffReceiver;
 

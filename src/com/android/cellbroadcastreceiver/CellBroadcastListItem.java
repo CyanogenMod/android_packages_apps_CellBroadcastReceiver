@@ -17,7 +17,9 @@
 package com.android.cellbroadcastreceiver;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
+import android.telephony.CellBroadcastMessage;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
 import android.util.AttributeSet;
@@ -64,9 +66,9 @@ public class CellBroadcastListItem extends RelativeLayout {
                 getResources().getDrawable(R.drawable.list_item_background_read) :
                 getResources().getDrawable(R.drawable.list_item_background_unread);
 
-        setBackgroundDrawable(background);
+        setBackground(background);
 
-        mChannelView.setText(message.getDialogTitleResource());
+        mChannelView.setText(CellBroadcastResources.getDialogTitleResource(message));
         mDateView.setText(message.getDateString(getContext()));
         mMessageView.setText(formatMessage(message));
     }
@@ -78,7 +80,7 @@ public class CellBroadcastListItem extends RelativeLayout {
 
         // Unread messages are shown in bold
         if (!message.isRead()) {
-            buf.setSpan(CellBroadcastMessage.STYLE_BOLD, 0, buf.length(),
+            buf.setSpan(Typeface.DEFAULT_BOLD, 0, buf.length(),
                     Spannable.SPAN_INCLUSIVE_EXCLUSIVE);
         }
         return buf;

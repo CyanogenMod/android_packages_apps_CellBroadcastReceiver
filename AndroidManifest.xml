@@ -42,8 +42,9 @@
         <service android:name="CellBroadcastConfigService"
                  android:exported="false" />
 
-        <service android:name="CellBroadcastDatabaseService"
-                 android:exported="false" />
+        <provider android:name="CellBroadcastContentProvider"
+                  android:authorities="cellbroadcasts"
+                  android:readPermission="android.permission.READ_CELL_BROADCASTS" />
 
         <activity android:name="CellBroadcastListActivity"
                   android:label="@string/app_label"

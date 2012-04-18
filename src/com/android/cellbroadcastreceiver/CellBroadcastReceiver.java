@@ -41,7 +41,7 @@ public class CellBroadcastReceiver extends BroadcastReceiver {
     }
 
     protected void onReceiveWithPrivilege(Context context, Intent intent, boolean privileged) {
-        if (DBG) Log.d(TAG, "onReceive " + intent);
+        if (DBG) log("onReceive " + intent);
 
         String action = intent.getAction();
 
@@ -156,7 +156,7 @@ public class CellBroadcastReceiver extends BroadcastReceiver {
      */
     static void startConfigService(Context context) {
         if (phoneIsCdma()) {
-            Log.d(TAG, "CDMA phone detected; doing nothing");
+            if (DBG) log("CDMA phone detected; doing nothing");
         } else {
             Intent serviceIntent = new Intent(CellBroadcastConfigService.ACTION_ENABLE_CHANNELS,
                     null, context, CellBroadcastConfigService.class);
@@ -178,5 +178,9 @@ public class CellBroadcastReceiver extends BroadcastReceiver {
             Log.w(TAG, "phone.getActivePhoneType() failed", e);
         }
         return isCdma;
+    }
+
+    private static void log(String msg) {
+        Log.d(TAG, msg);
     }
 }
