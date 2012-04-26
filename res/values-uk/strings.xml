@@ -25,7 +25,6 @@
     <string name="message_options" msgid="3178489901903589574">"Параметри повідомлення"</string>
     <string name="menu_view" msgid="5991055455727639531">"Див. широкомовне повідомлення"</string>
     <string name="menu_delete" msgid="128380070910799366">"Видалити широкомовне повідомл."</string>
-    <string name="confirm_dialog_title" msgid="8556099565207971687">"Видалити"</string>
     <string name="confirm_delete_broadcast" msgid="2540199303730232322">"Видалити це широкомовне повідомлення?"</string>
     <string name="confirm_delete_all_broadcasts" msgid="2924444089047280871">"Видалити всі отримані широкомовні повідомлення?"</string>
     <string name="button_delete" msgid="4672451757925194350">"Видалити"</string>

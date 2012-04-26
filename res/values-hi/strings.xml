@@ -25,7 +25,6 @@
     <string name="message_options" msgid="3178489901903589574">"संदेश विकल्‍प"</string>
     <string name="menu_view" msgid="5991055455727639531">"प्रसारण देखें"</string>
     <string name="menu_delete" msgid="128380070910799366">"प्रसारण हटाएं"</string>
-    <string name="confirm_dialog_title" msgid="8556099565207971687">"हटाएं"</string>
     <string name="confirm_delete_broadcast" msgid="2540199303730232322">"यह प्रसारण हटाएं?"</string>
     <string name="confirm_delete_all_broadcasts" msgid="2924444089047280871">"प्राप्त हुए सभी प्रसारण संदेश हटाएं?"</string>
     <string name="button_delete" msgid="4672451757925194350">"हटाएं"</string>

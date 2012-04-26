@@ -25,7 +25,6 @@
     <string name="message_options" msgid="3178489901903589574">"Mga pagpipilian sa mensahe"</string>
     <string name="menu_view" msgid="5991055455727639531">"Tingnan ang broadcast"</string>
     <string name="menu_delete" msgid="128380070910799366">"Tanggalin ang broadcast"</string>
-    <string name="confirm_dialog_title" msgid="8556099565207971687">"Tanggalin"</string>
     <string name="confirm_delete_broadcast" msgid="2540199303730232322">"Tanggalin ang broadcast na ito?"</string>
     <string name="confirm_delete_all_broadcasts" msgid="2924444089047280871">"Tanggalin ang lahat ng natanggap na broadcast na mensahe?"</string>
     <string name="button_delete" msgid="4672451757925194350">"Tanggalin"</string>

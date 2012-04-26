@@ -25,7 +25,6 @@
     <string name="message_options" msgid="3178489901903589574">"Opzioni messaggio"</string>
     <string name="menu_view" msgid="5991055455727639531">"Visualizza trasmissione"</string>
     <string name="menu_delete" msgid="128380070910799366">"Elimina trasmissione"</string>
-    <string name="confirm_dialog_title" msgid="8556099565207971687">"Elimina"</string>
     <string name="confirm_delete_broadcast" msgid="2540199303730232322">"Eliminare questo broadcast?"</string>
     <string name="confirm_delete_all_broadcasts" msgid="2924444089047280871">"Eliminare tutti i messaggi broadcast ricevuti?"</string>
     <string name="button_delete" msgid="4672451757925194350">"Elimina"</string>
