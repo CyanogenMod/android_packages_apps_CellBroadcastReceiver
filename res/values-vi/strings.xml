@@ -25,7 +25,6 @@
     <string name="message_options" msgid="3178489901903589574">"Tùy chọn tin nhắn"</string>
     <string name="menu_view" msgid="5991055455727639531">"Xem chương trình phát sóng"</string>
     <string name="menu_delete" msgid="128380070910799366">"Xóa chương trình phát sóng"</string>
-    <string name="confirm_dialog_title" msgid="8556099565207971687">"Xóa"</string>
     <string name="confirm_delete_broadcast" msgid="2540199303730232322">"Xóa chương trình phát sóng này?"</string>
     <string name="confirm_delete_all_broadcasts" msgid="2924444089047280871">"Xóa tất cả các thông báo của chương trình phát sóng đã nhận được?"</string>
     <string name="button_delete" msgid="4672451757925194350">"Xóa"</string>

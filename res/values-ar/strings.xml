@@ -25,7 +25,6 @@
     <string name="message_options" msgid="3178489901903589574">"خيارات الرسائل"</string>
     <string name="menu_view" msgid="5991055455727639531">"عرض البث"</string>
     <string name="menu_delete" msgid="128380070910799366">"حذف بث"</string>
-    <string name="confirm_dialog_title" msgid="8556099565207971687">"حذف"</string>
     <string name="confirm_delete_broadcast" msgid="2540199303730232322">"هل تريد حذف هذا البث؟"</string>
     <string name="confirm_delete_all_broadcasts" msgid="2924444089047280871">"هل تريد حذف جميع رسائل البث المستلمة؟"</string>
     <string name="button_delete" msgid="4672451757925194350">"حذف"</string>

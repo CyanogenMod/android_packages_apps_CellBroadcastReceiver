@@ -25,7 +25,6 @@
     <string name="message_options" msgid="3178489901903589574">"Opcions del missatge"</string>
     <string name="menu_view" msgid="5991055455727639531">"Visualitza la difusió"</string>
     <string name="menu_delete" msgid="128380070910799366">"Suprimeix la difusió"</string>
-    <string name="confirm_dialog_title" msgid="8556099565207971687">"Suprimeix"</string>
     <string name="confirm_delete_broadcast" msgid="2540199303730232322">"Vols suprimir aquesta emissió?"</string>
     <string name="confirm_delete_all_broadcasts" msgid="2924444089047280871">"Vols suprimir tots els missatges d\'emissió que s\'han rebut?"</string>
     <string name="button_delete" msgid="4672451757925194350">"Suprimeix"</string>
