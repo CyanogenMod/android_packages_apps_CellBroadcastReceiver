@@ -95,7 +95,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layoutDirection="locale"
             android:measureWithLargestChild="true">
             <Button android:id="@+id/dismissButton"
                 android:layout_width="0dip"
