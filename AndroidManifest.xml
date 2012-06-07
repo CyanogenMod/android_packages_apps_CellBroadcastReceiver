@@ -31,7 +31,7 @@
 
     <application android:name="CellBroadcastReceiverApp"
             android:label="@string/app_label"
-            android:icon="@drawable/ic_launcher_cbreceiver">
+            android:icon="@mipmap/ic_launcher_cell_broadcast">
 
         <service android:name="CellBroadcastAlertAudio"
                  android:exported="false" />
