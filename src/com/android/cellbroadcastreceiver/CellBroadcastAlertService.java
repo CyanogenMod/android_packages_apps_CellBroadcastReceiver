@@ -225,7 +225,7 @@ public class CellBroadcastAlertService extends Service {
         PendingIntent pi = PendingIntent.getActivity(this, notificationId, notify, 0);
 
         Notification.Builder builder = new Notification.Builder(this)
-                .setSmallIcon(R.drawable.stat_color_warning)
+                .setSmallIcon(R.drawable.ic_notify_alert)
                 .setTicker(getText(CellBroadcastResources.getDialogTitleResource(message)))
                 .setWhen(System.currentTimeMillis())
                 .setContentIntent(pi)
@@ -258,7 +258,7 @@ public class CellBroadcastAlertService extends Service {
 
         // use default sound/vibration/lights for non-emergency broadcasts
         Notification.Builder builder = new Notification.Builder(this)
-                .setSmallIcon(R.drawable.stat_color_warning)
+                .setSmallIcon(R.drawable.ic_notify_alert)
                 .setTicker(channelName)
                 .setWhen(System.currentTimeMillis())
                 .setContentIntent(pi)
