@@ -181,22 +181,72 @@ public class CellBroadcastContentProvider extends ContentProvider {
         throw new UnsupportedOperationException("update not supported");
     }
 
+    private static final String QUERY_BY_SERIAL = Telephony.CellBroadcasts.SERIAL_NUMBER + "=?";
+
+    private static final String QUERY_BY_SERIAL_PLMN = QUERY_BY_SERIAL + " AND "
+            + Telephony.CellBroadcasts.PLMN + "=?";
+
+    private static final String QUERY_BY_SERIAL_PLMN_LAC = QUERY_BY_SERIAL_PLMN + " AND "
+            + Telephony.CellBroadcasts.LAC + "=?";
+
+    private static final String QUERY_BY_SERIAL_PLMN_LAC_CID = QUERY_BY_SERIAL_PLMN_LAC + " AND "
+            + Telephony.CellBroadcasts.CID + "=?";
+
+    private static final String[] SELECT_ID_COLUMN = {Telephony.CellBroadcasts._ID};
+
     /**
      * Internal method to insert a new Cell Broadcast into the database and notify observers.
      * @param message the message to insert
-     * @return true if the database was updated, false otherwise
+     * @return true if the broadcast is new, false if it's a duplicate broadcast.
      */
     boolean insertNewBroadcast(CellBroadcastMessage message) {
         SQLiteDatabase db = mOpenHelper.getWritableDatabase();
         ContentValues cv = message.getContentValues();
 
-        long rowId = db.insert(CellBroadcastDatabaseHelper.TABLE_NAME, null, cv);
-        if (rowId != -1) {
-            return true;
+        // Check for existing alert with same serial number and geo scope
+        String serial = cv.getAsString(Telephony.CellBroadcasts.SERIAL_NUMBER);
+        String plmn = cv.getAsString(Telephony.CellBroadcasts.PLMN);
+        String lac = cv.getAsString(Telephony.CellBroadcasts.LAC);
+        String cid = cv.getAsString(Telephony.CellBroadcasts.CID);
+        String selection;
+        String[] selectionArgs;
+
+        if (plmn != null) {
+            if (lac != null) {
+                if (cid != null) {
+                    selection = QUERY_BY_SERIAL_PLMN_LAC_CID;
+                    selectionArgs = new String[] {serial, plmn, lac, cid};
+                } else {
+                    selection = QUERY_BY_SERIAL_PLMN_LAC;
+                    selectionArgs = new String[] {serial, plmn, lac};
+                }
+            } else {
+                selection = QUERY_BY_SERIAL_PLMN;
+                selectionArgs = new String[] {serial, plmn};
+            }
         } else {
-            Log.e(TAG, "failed to insert new broadcast into database");
+            selection = QUERY_BY_SERIAL;
+            selectionArgs = new String[] {serial};
+        }
+
+        Cursor c = db.query(CellBroadcastDatabaseHelper.TABLE_NAME, SELECT_ID_COLUMN,
+                selection, selectionArgs, null, null, null);
+
+        if (c.getCount() != 0) {
+            Log.d(TAG, "ignoring dup broadcast serial=" + serial + " found " + c.getCount());
             return false;
         }
+
+        long rowId = db.insert(CellBroadcastDatabaseHelper.TABLE_NAME, null, cv);
+        if (rowId == -1) {
+            Log.e(TAG, "failed to insert new broadcast into database");
+            // Return true on DB write failure because we still want to notify the user.
+            // The CellBroadcastMessage will be passed with the intent, so the message will be
+            // displayed in the emergency alert dialog, or the dialog that is displayed when
+            // the user selects the notification for a non-emergency broadcast, even if the
+            // broadcast could not be written to the database.
+        }
+        return true;    // broadcast is not a duplicate
     }
 
     /**

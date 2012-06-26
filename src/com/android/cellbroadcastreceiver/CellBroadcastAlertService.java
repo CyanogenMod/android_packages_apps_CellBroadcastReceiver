@@ -50,6 +50,9 @@ public class CellBroadcastAlertService extends Service {
     /** Intent extra to indicate a previously unread alert. */
     static final String NEW_ALERT_EXTRA = "com.android.cellbroadcastreceiver.NEW_ALERT";
 
+    /** Intent action to display alert dialog/notification, after verifying the alert is new. */
+    static final String SHOW_NEW_ALERT_ACTION = "cellbroadcastreceiver.SHOW_NEW_ALERT";
+
     /** Use the same notification ID for non-emergency alerts. */
     static final int NOTIFICATION_ID = 1;
 
@@ -65,10 +68,11 @@ public class CellBroadcastAlertService extends Service {
         if (Telephony.Sms.Intents.SMS_EMERGENCY_CB_RECEIVED_ACTION.equals(action) ||
                 Telephony.Sms.Intents.SMS_CB_RECEIVED_ACTION.equals(action)) {
             handleCellBroadcastIntent(intent);
+        } else if (SHOW_NEW_ALERT_ACTION.equals(action)) {
+            showNewAlert(intent);
         } else {
             Log.e(TAG, "Unrecognized intent action: " + action);
         }
-        stopSelf(); // this service always stops after processing the intent
         return START_NOT_STICKY;
     }
 
@@ -93,6 +97,40 @@ public class CellBroadcastAlertService extends Service {
             return;
         }
 
+        final Intent alertIntent = new Intent(SHOW_NEW_ALERT_ACTION);
+        alertIntent.setClass(this, CellBroadcastAlertService.class);
+        alertIntent.putExtra("message", cbm);
+
+        // write to database on a background thread
+        new CellBroadcastContentProvider.AsyncCellBroadcastTask(getContentResolver())
+                .execute(new CellBroadcastContentProvider.CellBroadcastOperation() {
+                    @Override
+                    public boolean execute(CellBroadcastContentProvider provider) {
+                        if (provider.insertNewBroadcast(cbm)) {
+                            // new message, show the alert or notification on UI thread
+                            startService(alertIntent);
+                            return true;
+                        } else {
+                            return false;
+                        }
+                    }
+                });
+    }
+
+    private void showNewAlert(Intent intent) {
+        Bundle extras = intent.getExtras();
+        if (extras == null) {
+            Log.e(TAG, "received SHOW_NEW_ALERT_ACTION with no extras!");
+            return;
+        }
+
+        CellBroadcastMessage cbm = (CellBroadcastMessage) extras.get("message");
+
+        if (cbm == null) {
+            Log.e(TAG, "received SHOW_NEW_ALERT_ACTION with no message extra");
+            return;
+        }
+
         if (cbm.isEmergencyAlertMessage() || CellBroadcastConfigService
                 .isOperatorDefinedEmergencyId(cbm.getServiceCategory())) {
             // start alert sound / vibration / TTS and display full-screen alert
@@ -101,15 +139,6 @@ public class CellBroadcastAlertService extends Service {
             // add notification to the bar
             addToNotificationBar(cbm);
         }
-
-        // write to database on a background thread
-        new CellBroadcastContentProvider.AsyncCellBroadcastTask(getContentResolver())
-                .execute(new CellBroadcastContentProvider.CellBroadcastOperation() {
-                    @Override
-                    public boolean execute(CellBroadcastContentProvider provider) {
-                        return provider.insertNewBroadcast(cbm);
-                    }
-                });
     }
 
     /**
