@@ -18,9 +18,9 @@
 -->
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <!-- Emergency alert settings for CMAS. -->
+    <!-- General and CMAS emergency alert settings. -->
     <PreferenceCategory android:title="@string/emergency_alert_settings_title"
-                        android:key="category_cmas_settings">
+                        android:key="category_alert_settings">
 
         <!-- Enable CMAS Extreme Threat alerts -->
         <CheckBoxPreference android:defaultValue="true"
@@ -39,6 +39,34 @@
                             android:key="enable_cmas_amber_alerts"
                             android:summary="@string/enable_cmas_amber_alerts_summary"
                             android:title="@string/enable_cmas_amber_alerts_title" />
+
+        <CheckBoxPreference android:defaultValue="true"
+                            android:key="enable_emergency_alerts"
+                            android:summary="@string/enable_emergency_alerts_summary"
+                            android:title="@string/enable_emergency_alerts_title" />
+
+        <ListPreference android:key="alert_sound_duration"
+                        android:title="@string/alert_sound_duration_title"
+                        android:entries="@array/alert_sound_duration_entries"
+                        android:entryValues="@array/alert_sound_duration_values"
+                        android:defaultValue="4"
+                        android:dialogTitle="@string/alert_sound_duration_title" />
+
+        <CheckBoxPreference android:defaultValue="true"
+                            android:key="enable_alert_speech"
+                            android:summary="@string/enable_alert_speech_summary"
+                            android:title="@string/enable_alert_speech_title" />
+
+    </PreferenceCategory>
+
+    <!-- Emergency alert settings for ETWS. -->
+    <PreferenceCategory android:title="@string/category_etws_settings_title"
+                        android:key="category_etws_settings">
+
+        <CheckBoxPreference android:defaultValue="false"
+                            android:key="enable_etws_test_alerts"
+                            android:summary="@string/enable_etws_test_alerts_summary"
+                            android:title="@string/enable_etws_test_alerts_title" />
 
     </PreferenceCategory>
 
@@ -59,31 +87,9 @@
                         android:key="category_dev_settings">
 
         <CheckBoxPreference android:defaultValue="false"
-                            android:key="enable_etws_test_alerts"
-                            android:summary="@string/enable_etws_test_alerts_summary"
-                            android:title="@string/enable_etws_test_alerts_title" />
-
-        <CheckBoxPreference android:defaultValue="false"
                             android:key="enable_cmas_test_alerts"
                             android:summary="@string/enable_cmas_test_alerts_summary"
                             android:title="@string/enable_cmas_test_alerts_title" />
-
-        <CheckBoxPreference android:defaultValue="true"
-                            android:key="enable_emergency_alerts"
-                            android:summary="@string/enable_emergency_alerts_summary"
-                            android:title="@string/enable_emergency_alerts_title" />
-
-        <ListPreference android:key="alert_sound_duration"
-                        android:title="@string/alert_sound_duration_title"
-                        android:entries="@array/alert_sound_duration_entries"
-                        android:entryValues="@array/alert_sound_duration_values"
-                        android:defaultValue="4"
-                        android:dialogTitle="@string/alert_sound_duration_title" />
-
-        <CheckBoxPreference android:defaultValue="true"
-                            android:key="enable_alert_speech"
-                            android:summary="@string/enable_alert_speech_summary"
-                            android:title="@string/enable_alert_speech_title" />
 
     </PreferenceCategory>
 
