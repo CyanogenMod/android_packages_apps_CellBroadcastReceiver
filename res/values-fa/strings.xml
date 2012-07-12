@@ -62,7 +62,7 @@
     <string name="enable_cmas_test_alerts_summary" msgid="2935171596891733844">"نمایش پخش‌های آزمایشی برای سیستم هشدار تجاری سیار"</string>
     <string name="category_brazil_settings_title" msgid="6343130548572319922">"تنظیمات برای برزیل"</string>
     <string name="enable_channel_50_alerts_title" msgid="2818924064446974167">"نمایش پخش های کانال 50"</string>
-    <string name="enable_channel_50_alerts_summary" msgid="7507770011325273009">"کانال 50 در برزیل برای اطلاعات به روز رسانی منطقه استفاده می شود"</string>
+    <string name="enable_channel_50_alerts_summary" msgid="7507770011325273009">"کانال 50 در برزیل برای اطلاعات به‌روزرسانی منطقه استفاده می شود"</string>
     <string name="category_dev_settings_title" msgid="6194393458398329994">"گزینه‌های برنامه‌نویس"</string>
     <string name="cmas_category_heading" msgid="5731181299088631019">"دسته:"</string>
     <string name="cmas_category_geo" msgid="4979494217069688527">"ژئوفیزیکی"</string>
