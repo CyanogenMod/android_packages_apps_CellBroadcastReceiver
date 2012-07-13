@@ -62,7 +62,7 @@
     <string name="enable_cmas_test_alerts_summary" msgid="2935171596891733844">"نمایش پخش‌های آزمایشی برای سیستم هشدار تجاری سیار"</string>
     <string name="category_brazil_settings_title" msgid="6343130548572319922">"تنظیمات برای برزیل"</string>
     <string name="enable_channel_50_alerts_title" msgid="2818924064446974167">"نمایش پخش های کانال 50"</string>
-    <string name="enable_channel_50_alerts_summary" msgid="7507770011325273009">"کانال 50 در برزیل برای اطلاعات به‌روزرسانی منطقه استفاده می شود"</string>
+    <string name="enable_channel_50_alerts_summary" msgid="7507770011325273009">"کانال 50 در برزیل برای اطلاعات به‌روزرسانی منطقه استفاده می‌شود"</string>
     <string name="category_dev_settings_title" msgid="6194393458398329994">"گزینه‌های برنامه‌نویس"</string>
     <string name="cmas_category_heading" msgid="5731181299088631019">"دسته:"</string>
     <string name="cmas_category_geo" msgid="4979494217069688527">"ژئوفیزیکی"</string>
@@ -98,10 +98,10 @@
     <string name="notification_multiple" msgid="5121978148152124860">"<xliff:g id="COUNT">%s</xliff:g> هشدار خوانده نشده."</string>
     <string name="notification_multiple_title" msgid="1523638925739947855">"هشدارهای جدید"</string>
   <string-array name="alert_sound_duration_entries">
-    <item msgid="5353482200312892037">"2 ثانیه"</item>
-    <item msgid="5656092384277009212">"4 ثانیه"</item>
-    <item msgid="253564899252909788">"6 ثانیه"</item>
-    <item msgid="7514102744524534421">"8 ثانیه"</item>
-    <item msgid="6062562309271376642">"10 ثانیه"</item>
+    <item msgid="5353482200312892037">"۲ ثانیه"</item>
+    <item msgid="5656092384277009212">"۴ ثانیه"</item>
+    <item msgid="253564899252909788">"۶ ثانیه"</item>
+    <item msgid="7514102744524534421">"۸ ثانیه"</item>
+    <item msgid="6062562309271376642">"۱۰ ثانیه"</item>
   </string-array>
 </resources>
