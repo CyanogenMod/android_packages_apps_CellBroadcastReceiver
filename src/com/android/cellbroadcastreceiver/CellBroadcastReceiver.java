@@ -16,20 +16,25 @@
 
 package com.android.cellbroadcastreceiver;
 
+import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Bundle;
 import android.os.RemoteException;
 import android.os.ServiceManager;
 import android.preference.PreferenceManager;
 import android.provider.Telephony;
 import android.telephony.TelephonyManager;
 import android.telephony.cdma.CdmaSmsCbProgramData;
+import android.telephony.cdma.CdmaSmsCbProgramResults;
 import android.util.Log;
 
 import com.android.internal.telephony.ITelephony;
 import com.android.internal.telephony.cdma.sms.SmsEnvelope;
+
+import java.util.ArrayList;
 
 public class CellBroadcastReceiver extends BroadcastReceiver {
     private static final String TAG = "CellBroadcastReceiver";
@@ -67,13 +72,25 @@ public class CellBroadcastReceiver extends BroadcastReceiver {
         } else if (Telephony.Sms.Intents.SMS_SERVICE_CATEGORY_PROGRAM_DATA_RECEIVED_ACTION
                 .equals(action)) {
             if (privileged) {
-                CdmaSmsCbProgramData[] programDataList = (CdmaSmsCbProgramData[])
-                        intent.getParcelableArrayExtra("program_data_list");
-                if (programDataList != null) {
-                    handleCdmaSmsCbProgramData(context, programDataList);
-                } else {
-                    Log.e(TAG, "SCPD intent received with no program_data_list");
+                String sender = intent.getStringExtra("sender");
+                if (sender == null) {
+                    Log.e(TAG, "SCPD intent received with no originating address");
+                    return;
                 }
+
+                ArrayList<CdmaSmsCbProgramData> programData =
+                        intent.getParcelableArrayListExtra("program_data");
+                if (programData == null) {
+                    Log.e(TAG, "SCPD intent received with no program_data");
+                    return;
+                }
+
+                ArrayList<CdmaSmsCbProgramResults> results = handleCdmaSmsCbProgramData(context,
+                        programData);
+                Bundle extras = new Bundle();
+                extras.putString("sender", sender);
+                extras.putParcelableArrayList("results", results);
+                setResult(Activity.RESULT_OK, null, extras);
             } else {
                 Log.e(TAG, "ignoring unprivileged action received " + action);
             }
@@ -83,22 +100,26 @@ public class CellBroadcastReceiver extends BroadcastReceiver {
     }
 
     /**
-     * Handle Service Category Program Data message.
-     * TODO: Send Service Category Program Results response message to sender
+     * Handle Service Category Program Data message and return responses.
      *
-     * @param context
-     * @param programDataList
+     * @param context the context to use
+     * @param programDataList an array of SCPD operations
+     * @return the SCP results ArrayList to send to the message center
      */
-    private void handleCdmaSmsCbProgramData(Context context,
-            CdmaSmsCbProgramData[] programDataList) {
+    private static ArrayList<CdmaSmsCbProgramResults> handleCdmaSmsCbProgramData(Context context,
+            ArrayList<CdmaSmsCbProgramData> programDataList) {
+        ArrayList<CdmaSmsCbProgramResults> results
+                = new ArrayList<CdmaSmsCbProgramResults>(programDataList.size());
+
         for (CdmaSmsCbProgramData programData : programDataList) {
+            int result;
             switch (programData.getOperation()) {
                 case CdmaSmsCbProgramData.OPERATION_ADD_CATEGORY:
-                    tryCdmaSetCategory(context, programData.getCategory(), true);
+                    result = tryCdmaSetCategory(context, programData.getCategory(), true);
                     break;
 
                 case CdmaSmsCbProgramData.OPERATION_DELETE_CATEGORY:
-                    tryCdmaSetCategory(context, programData.getCategory(), false);
+                    result = tryCdmaSetCategory(context, programData.getCategory(), false);
                     break;
 
                 case CdmaSmsCbProgramData.OPERATION_CLEAR_CATEGORIES:
@@ -110,43 +131,67 @@ public class CellBroadcastReceiver extends BroadcastReceiver {
                             SmsEnvelope.SERVICE_CATEGORY_CMAS_CHILD_ABDUCTION_EMERGENCY, false);
                     tryCdmaSetCategory(context,
                             SmsEnvelope.SERVICE_CATEGORY_CMAS_TEST_MESSAGE, false);
+                    result = CdmaSmsCbProgramResults.RESULT_SUCCESS;
                     break;
 
                 default:
                     Log.e(TAG, "Ignoring unknown SCPD operation " + programData.getOperation());
+                    result = CdmaSmsCbProgramResults.RESULT_UNSPECIFIED_FAILURE;
             }
+            results.add(new CdmaSmsCbProgramResults(programData.getCategory(),
+                    programData.getLanguage(), result));
         }
+
+        return results;
     }
 
-    private void tryCdmaSetCategory(Context context, int category, boolean enable) {
-        SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(context);
-
+    /**
+     * Enables or disables a CMAS category.
+     * @param context the context to use
+     * @param category the CDMA service category
+     * @param enable true to enable; false to disable
+     * @return the service category program result code for this request
+     */
+    private static int tryCdmaSetCategory(Context context, int category, boolean enable) {
+        String key;
         switch (category) {
             case SmsEnvelope.SERVICE_CATEGORY_CMAS_EXTREME_THREAT:
-                sharedPrefs.edit().putBoolean(
-                        CellBroadcastSettings.KEY_ENABLE_CMAS_EXTREME_THREAT_ALERTS, enable)
-                        .apply();
+                key = CellBroadcastSettings.KEY_ENABLE_CMAS_EXTREME_THREAT_ALERTS;
                 break;
 
             case SmsEnvelope.SERVICE_CATEGORY_CMAS_SEVERE_THREAT:
-                sharedPrefs.edit().putBoolean(
-                        CellBroadcastSettings.KEY_ENABLE_CMAS_SEVERE_THREAT_ALERTS, enable)
-                        .apply();
+                key = CellBroadcastSettings.KEY_ENABLE_CMAS_SEVERE_THREAT_ALERTS;
                 break;
 
             case SmsEnvelope.SERVICE_CATEGORY_CMAS_CHILD_ABDUCTION_EMERGENCY:
-                sharedPrefs.edit().putBoolean(
-                        CellBroadcastSettings.KEY_ENABLE_CMAS_AMBER_ALERTS, enable).apply();
+                key = CellBroadcastSettings.KEY_ENABLE_CMAS_AMBER_ALERTS;
                 break;
 
             case SmsEnvelope.SERVICE_CATEGORY_CMAS_TEST_MESSAGE:
-                sharedPrefs.edit().putBoolean(
-                        CellBroadcastSettings.KEY_ENABLE_CMAS_TEST_ALERTS, enable).apply();
+                key = CellBroadcastSettings.KEY_ENABLE_CMAS_TEST_ALERTS;
                 break;
 
             default:
-                Log.w(TAG, "Ignoring SCPD command to " + (enable ? "enable" : "disable")
-                        + " alerts in category " + category);
+                Log.w(TAG, "SCPD category " + category + " is unknown, not setting to " + enable);
+                return CdmaSmsCbProgramResults.RESULT_UNSPECIFIED_FAILURE;
+        }
+
+        SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(context);
+
+        // default value is opt-in for all categories except for test messages.
+        boolean oldValue = sharedPrefs.getBoolean(key,
+                (category != SmsEnvelope.SERVICE_CATEGORY_CMAS_TEST_MESSAGE));
+
+        if (enable && oldValue) {
+            Log.d(TAG, "SCPD category " + category + " is already enabled.");
+            return CdmaSmsCbProgramResults.RESULT_CATEGORY_ALREADY_ADDED;
+        } else if (!enable && !oldValue) {
+            Log.d(TAG, "SCPD category " + category + " is already disabled.");
+            return CdmaSmsCbProgramResults.RESULT_CATEGORY_ALREADY_DELETED;
+        } else {
+            Log.d(TAG, "SCPD category " + category + " is now " + enable);
+            sharedPrefs.edit().putBoolean(key, enable).apply();
+            return CdmaSmsCbProgramResults.RESULT_SUCCESS;
         }
     }
 
