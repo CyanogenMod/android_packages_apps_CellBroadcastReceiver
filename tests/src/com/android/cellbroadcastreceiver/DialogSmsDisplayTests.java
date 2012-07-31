@@ -27,8 +27,8 @@ import android.util.Log;
 
 import com.android.internal.telephony.EncodeException;
 import com.android.internal.telephony.GsmAlphabet;
-import com.android.internal.telephony.IccUtils;
 import com.android.internal.telephony.gsm.GsmSmsCbMessage;
+import com.android.internal.telephony.uicc.IccUtils;
 
 /**
  * Various instrumentation tests for CellBroadcastReceiver.
