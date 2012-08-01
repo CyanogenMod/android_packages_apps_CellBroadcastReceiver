@@ -89,7 +89,7 @@
     <!-- Preference title for alert sound duration list. [CHAR LIMIT=30] -->
     <string name="alert_sound_duration_title">Alert sound duration</string>
     <!-- Do not translate. Empty summary for alert duration (set by CellBroadcastSettings). -->
-    <string name="alert_sound_duration_summary"></string>
+    <string name="alert_sound_duration_summary" translatable="false"></string>
     <!-- Preference title for enable text-to-speech checkbox. [CHAR LIMIT=30] -->
     <string name="enable_alert_speech_title">Speak alert message</string>
     <!-- Preference summary for enable text-to-speech checkbox. [CHAR LIMIT=100] -->
@@ -213,7 +213,7 @@
 
     <!-- Do not translate. Values that are retrieved from the ListPreference.
          These must match the alert_sound_duration_entries above. -->
-    <string-array name="alert_sound_duration_values">
+    <string-array name="alert_sound_duration_values" translatable="false">
       <item>2</item>
       <item>4</item>
       <item>6</item>
