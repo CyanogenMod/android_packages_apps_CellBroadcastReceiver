@@ -31,8 +31,11 @@ import android.preference.PreferenceManager;
 import android.provider.Telephony;
 import android.telephony.CellBroadcastMessage;
 import android.telephony.SmsCbCmasInfo;
+import android.telephony.SmsCbLocation;
 import android.telephony.SmsCbMessage;
 import android.util.Log;
+
+import java.util.HashSet;
 
 /**
  * This service manages the display and animation of broadcast messages.
@@ -61,6 +64,42 @@ public class CellBroadcastAlertService extends Service {
 
     /** Hold the wake lock for 5 seconds, which should be enough time to display the alert. */
     private static final int WAKE_LOCK_TIMEOUT = 5000;
+
+    /** Container for message ID and geographical scope, for duplicate message detection. */
+    private static final class MessageIdAndScope {
+        private final int mMessageId;
+        private final SmsCbLocation mLocation;
+
+        MessageIdAndScope(int messageId, SmsCbLocation location) {
+            mMessageId = messageId;
+            mLocation = location;
+        }
+
+        @Override
+        public int hashCode() {
+            return mMessageId * 31 + mLocation.hashCode();
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (o == this) {
+                return true;
+            }
+            if (o instanceof MessageIdAndScope) {
+                MessageIdAndScope other = (MessageIdAndScope) o;
+                return (mMessageId == other.mMessageId && mLocation.equals(other.mLocation));
+            }
+            return false;
+        }
+
+        @Override
+        public String toString() {
+            return "{messageId: " + mMessageId + " location: " + mLocation.toString() + '}';
+        }
+    }
+
+    /** Cache of received message IDs, for duplicate message detection. */
+    private static final HashSet<MessageIdAndScope> sCmasIdList = new HashSet<MessageIdAndScope>(8);
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
@@ -94,6 +133,14 @@ public class CellBroadcastAlertService extends Service {
         if (!isMessageEnabledByUser(cbm)) {
             Log.d(TAG, "ignoring alert of type " + cbm.getServiceCategory() +
                     " by user preference");
+            return;
+        }
+
+        // Set.add() returns false if message ID has already been added
+        MessageIdAndScope messageIdAndScope = new MessageIdAndScope(message.getSerialNumber(),
+                message.getLocation());
+        if (!sCmasIdList.add(messageIdAndScope)) {
+            Log.d(TAG, "ignoring duplicate alert with " + messageIdAndScope);
             return;
         }
 
