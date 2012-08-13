@@ -237,7 +237,7 @@ public class CellBroadcastListActivity extends Activity {
         public static void confirmDeleteThreadDialog(DeleteThreadListener listener,
                 boolean deleteAll, Context context) {
             AlertDialog.Builder builder = new AlertDialog.Builder(context);
-            builder.setIcon(android.R.drawable.ic_dialog_alert)
+            builder.setIconAttribute(android.R.attr.alertDialogIcon)
                     .setCancelable(true)
                     .setPositiveButton(R.string.button_delete, listener)
                     .setNegativeButton(R.string.button_cancel, null)
