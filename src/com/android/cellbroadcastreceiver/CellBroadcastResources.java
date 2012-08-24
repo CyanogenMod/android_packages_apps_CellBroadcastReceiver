@@ -23,70 +23,84 @@ import android.telephony.SmsCbCmasInfo;
 import android.telephony.SmsCbEtwsInfo;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
+import android.text.style.StyleSpan;
 
 /**
  * Returns the string resource ID's for CMAS and ETWS emergency alerts.
  */
 public class CellBroadcastResources {
 
+    private CellBroadcastResources() {
+    }
+
     /**
-     * Returns a styled CharSequence containing the message body and optional CMAS alert headers.
+     * Returns a styled CharSequence containing the message date/time and alert details.
      * @param context a Context for resource string access
      * @return a CharSequence for display in the broadcast alert dialog
      */
-    public static CharSequence getFormattedMessageBody(Context context, CellBroadcastMessage cbm) {
+    public static CharSequence getMessageDetails(Context context, CellBroadcastMessage cbm) {
+        SpannableStringBuilder buf = new SpannableStringBuilder();
+
+        // Alert date/time
+        int start = buf.length();
+        buf.append(context.getString(R.string.delivery_time_heading));
+        int end = buf.length();
+        buf.setSpan(new StyleSpan(Typeface.BOLD), start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        buf.append(" ");
+        buf.append(cbm.getDateString(context));
+
         if (cbm.isCmasMessage()) {
-            SmsCbCmasInfo cmasInfo = cbm.getCmasWarningInfo();
-            SpannableStringBuilder buf = new SpannableStringBuilder();
-
-            // CMAS category
-            int categoryId = getCmasCategoryResId(cmasInfo);
-            if (categoryId != 0) {
-                buf.append(context.getText(R.string.cmas_category_heading));
-                buf.append(context.getText(categoryId));
-                buf.append('\n');
-            }
-
-            // CMAS response type
-            int responseId = getCmasResponseResId(cmasInfo);
-            if (responseId != 0) {
-                buf.append(context.getText(R.string.cmas_response_heading));
-                buf.append(context.getText(responseId));
-                buf.append('\n');
-            }
-
-            // CMAS severity
-            int severityId = getCmasSeverityResId(cmasInfo);
-            if (severityId != 0) {
-                buf.append(context.getText(R.string.cmas_severity_heading));
-                buf.append(context.getText(severityId));
-                buf.append('\n');
-            }
-
-            // CMAS urgency
-            int urgencyId = getCmasUrgencyResId(cmasInfo);
-            if (urgencyId != 0) {
-                buf.append(context.getText(R.string.cmas_urgency_heading));
-                buf.append(context.getText(urgencyId));
-                buf.append('\n');
-            }
-
-            // CMAS certainty
-            int certaintyId = getCmasCertaintyResId(cmasInfo);
-            if (certaintyId != 0) {
-                buf.append(context.getText(R.string.cmas_certainty_heading));
-                buf.append(context.getText(certaintyId));
-                buf.append('\n');
-            }
-
-            // Style all headings in bold
-            buf.setSpan(Typeface.DEFAULT_BOLD, 0, buf.length(), Spannable.SPAN_INCLUSIVE_EXCLUSIVE);
-
-            buf.append(cbm.getMessageBody());
-            return buf;
-        } else {
-            return cbm.getMessageBody();
+            // CMAS category, response type, severity, urgency, certainty
+            appendCmasAlertDetails(context, buf, cbm.getCmasWarningInfo());
         }
+
+        return buf;
+    }
+
+    private static void appendCmasAlertDetails(Context context, SpannableStringBuilder buf,
+            SmsCbCmasInfo cmasInfo) {
+        // CMAS category
+        int categoryId = getCmasCategoryResId(cmasInfo);
+        if (categoryId != 0) {
+            appendMessageDetail(context, buf, R.string.cmas_category_heading, categoryId);
+        }
+
+        // CMAS response type
+        int responseId = getCmasResponseResId(cmasInfo);
+        if (responseId != 0) {
+            appendMessageDetail(context, buf, R.string.cmas_response_heading, responseId);
+        }
+
+        // CMAS severity
+        int severityId = getCmasSeverityResId(cmasInfo);
+        if (severityId != 0) {
+            appendMessageDetail(context, buf, R.string.cmas_severity_heading, severityId);
+        }
+
+        // CMAS urgency
+        int urgencyId = getCmasUrgencyResId(cmasInfo);
+        if (urgencyId != 0) {
+            appendMessageDetail(context, buf, R.string.cmas_urgency_heading, urgencyId);
+        }
+
+        // CMAS certainty
+        int certaintyId = getCmasCertaintyResId(cmasInfo);
+        if (certaintyId != 0) {
+            appendMessageDetail(context, buf, R.string.cmas_certainty_heading, certaintyId);
+        }
+    }
+
+    private static void appendMessageDetail(Context context, SpannableStringBuilder buf,
+            int typeId, int valueId) {
+        if (buf.length() != 0) {
+            buf.append("\n");
+        }
+        int start = buf.length();
+        buf.append(context.getString(typeId));
+        int end = buf.length();
+        buf.setSpan(new StyleSpan(Typeface.BOLD), start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        buf.append(" ");
+        buf.append(context.getString(valueId));
     }
 
     /**

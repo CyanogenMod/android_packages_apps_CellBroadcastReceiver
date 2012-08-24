@@ -22,6 +22,7 @@ import android.graphics.drawable.Drawable;
 import android.telephony.CellBroadcastMessage;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
+import android.text.style.StyleSpan;
 import android.util.AttributeSet;
 import android.view.accessibility.AccessibilityEvent;
 import android.widget.RelativeLayout;
@@ -80,8 +81,8 @@ public class CellBroadcastListItem extends RelativeLayout {
 
         // Unread messages are shown in bold
         if (!message.isRead()) {
-            buf.setSpan(Typeface.DEFAULT_BOLD, 0, buf.length(),
-                    Spannable.SPAN_INCLUSIVE_EXCLUSIVE);
+            buf.setSpan(new StyleSpan(Typeface.BOLD), 0, buf.length(),
+                    Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         }
         return buf;
     }

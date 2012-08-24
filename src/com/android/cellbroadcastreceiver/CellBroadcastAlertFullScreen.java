@@ -132,8 +132,7 @@ public class CellBroadcastAlertFullScreen extends Activity {
         int titleId = CellBroadcastResources.getDialogTitleResource(message);
         setTitle(titleId);
         ((TextView) findViewById(R.id.alertTitle)).setText(titleId);
-        ((TextView) findViewById(R.id.message)).setText(
-                CellBroadcastResources.getFormattedMessageBody(this, message));
+        ((TextView) findViewById(R.id.message)).setText(message.getMessageBody());
 
         /* dismiss button: close notification */
         findViewById(R.id.dismissButton).setOnClickListener(
