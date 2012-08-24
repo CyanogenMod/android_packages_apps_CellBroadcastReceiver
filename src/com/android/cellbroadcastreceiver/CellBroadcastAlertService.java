@@ -261,10 +261,20 @@ public class CellBroadcastAlertService extends Service {
         Intent audioIntent = new Intent(this, CellBroadcastAlertAudio.class);
         audioIntent.setAction(CellBroadcastAlertAudio.ACTION_START_ALERT_AUDIO);
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-        String duration = prefs.getString(CellBroadcastSettings.KEY_ALERT_SOUND_DURATION,
-                CellBroadcastSettings.ALERT_SOUND_DEFAULT_DURATION);
-        audioIntent.putExtra(CellBroadcastAlertAudio.ALERT_AUDIO_DURATION_EXTRA,
-                Integer.parseInt(duration));
+
+        int duration;   // alert audio duration in ms
+        if (message.isCmasMessage()) {
+            // CMAS requirement: duration of the audio attention signal is 10.5 seconds.
+            duration = 10500;
+        } else {
+            duration = Integer.parseInt(prefs.getString(
+                    CellBroadcastSettings.KEY_ALERT_SOUND_DURATION,
+                    CellBroadcastSettings.ALERT_SOUND_DEFAULT_DURATION)) * 1000;
+        }
+        audioIntent.putExtra(CellBroadcastAlertAudio.ALERT_AUDIO_DURATION_EXTRA, duration);
+
+        audioIntent.putExtra(CellBroadcastAlertAudio.ALERT_AUDIO_VIBRATE_EXTRA,
+                prefs.getBoolean(CellBroadcastSettings.KEY_ENABLE_ALERT_VIBRATE, true));
 
         int channelTitleId = CellBroadcastResources.getDialogTitleResource(message);
         CharSequence channelName = getText(channelTitleId);
