@@ -79,7 +79,7 @@ public class CellBroadcastListActivity extends Activity {
 
         // IDs of the context menu items (package local, accessed from inner DeleteThreadListener).
         static final int MENU_DELETE               = 0;
-        static final int MENU_VIEW                 = 1;
+        static final int MENU_VIEW_DETAILS         = 1;
 
         // This is the Adapter being used to display the list's data.
         CursorAdapter mAdapter;
@@ -163,13 +163,23 @@ public class CellBroadcastListActivity extends Activity {
             startActivity(i);
         }
 
+        private void showBroadcastDetails(CellBroadcastMessage cbm) {
+            // show dialog with delivery date/time and alert details
+            CharSequence details = CellBroadcastResources.getMessageDetails(getActivity(), cbm);
+            new AlertDialog.Builder(getActivity())
+                    .setTitle(R.string.view_details_title)
+                    .setMessage(details)
+                    .setCancelable(true)
+                    .show();
+        }
+
         private final OnCreateContextMenuListener mOnCreateContextMenuListener =
                 new OnCreateContextMenuListener() {
                     @Override
                     public void onCreateContextMenu(ContextMenu menu, View v,
                             ContextMenuInfo menuInfo) {
                         menu.setHeaderTitle(R.string.message_options);
-                        menu.add(0, MENU_VIEW, 0, R.string.menu_view);
+                        menu.add(0, MENU_VIEW_DETAILS, 0, R.string.menu_view_details);
                         menu.add(0, MENU_DELETE, 0, R.string.menu_delete);
                     }
                 };
@@ -187,8 +197,8 @@ public class CellBroadcastListActivity extends Activity {
                                 Telephony.CellBroadcasts._ID)), isUnread);
                         break;
 
-                    case MENU_VIEW:
-                        showDialogAndMarkRead(CellBroadcastMessage.createFromCursor(cursor));
+                    case MENU_VIEW_DETAILS:
+                        showBroadcastDetails(CellBroadcastMessage.createFromCursor(cursor));
                         break;
 
                     default:
