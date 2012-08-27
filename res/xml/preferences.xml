@@ -53,6 +53,11 @@
                         android:dialogTitle="@string/alert_sound_duration_title" />
 
         <CheckBoxPreference android:defaultValue="true"
+                            android:key="enable_alert_vibrate"
+                            android:summary="@string/enable_alert_vibrate_summary"
+                            android:title="@string/enable_alert_vibrate_title" />
+
+        <CheckBoxPreference android:defaultValue="true"
                             android:key="enable_alert_speech"
                             android:summary="@string/enable_alert_speech_summary"
                             android:title="@string/enable_alert_speech_title" />

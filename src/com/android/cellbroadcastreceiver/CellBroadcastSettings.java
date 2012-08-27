@@ -40,6 +40,9 @@ public class CellBroadcastSettings extends PreferenceActivity {
     // Default alert duration (in seconds).
     public static final String ALERT_SOUND_DEFAULT_DURATION = "4";
 
+    // Enable vibration on alert (unless master volume is silent).
+    public static final String KEY_ENABLE_ALERT_VIBRATE = "enable_alert_vibrate";
+
     // Speak contents of alert after playing the alert sound.
     public static final String KEY_ENABLE_ALERT_SPEECH = "enable_alert_speech";
 
