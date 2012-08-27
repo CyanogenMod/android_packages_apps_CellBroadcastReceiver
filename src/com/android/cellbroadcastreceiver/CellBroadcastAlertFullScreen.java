@@ -26,6 +26,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.provider.Telephony;
 import android.telephony.CellBroadcastMessage;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
@@ -198,6 +199,25 @@ public class CellBroadcastAlertFullScreen extends Activity {
             CellBroadcastReceiverApp.decrementUnreadAlertCount();
         }
         finish();
+    }
+
+    @Override
+    public boolean dispatchKeyEvent(KeyEvent event) {
+        switch (event.getKeyCode()) {
+            // Volume keys and camera keys mute the alert sound/vibration.
+            case KeyEvent.KEYCODE_VOLUME_UP:
+            case KeyEvent.KEYCODE_VOLUME_DOWN:
+            case KeyEvent.KEYCODE_VOLUME_MUTE:
+            case KeyEvent.KEYCODE_CAMERA:
+            case KeyEvent.KEYCODE_FOCUS:
+                // Stop playing alert sound/vibration/speech (if started)
+                stopService(new Intent(this, CellBroadcastAlertAudio.class));
+                return true;
+
+            default:
+                break;
+        }
+        return super.dispatchKeyEvent(event);
     }
 
     /**
