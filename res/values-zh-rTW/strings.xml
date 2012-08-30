@@ -23,8 +23,11 @@
     <string name="menu_preferences" msgid="3596514894131599202">"設定"</string>
     <string name="menu_delete_all" msgid="3940997343921149800">"刪除廣播"</string>
     <string name="message_options" msgid="3178489901903589574">"訊息選項"</string>
-    <string name="menu_view" msgid="5991055455727639531">"查看廣播"</string>
+    <!-- no translation found for menu_view_details (1040989019045280975) -->
+    <skip />
     <string name="menu_delete" msgid="128380070910799366">"刪除廣播"</string>
+    <!-- no translation found for view_details_title (1780427629491781473) -->
+    <skip />
     <string name="confirm_delete_broadcast" msgid="2540199303730232322">"刪除這個廣播嗎？"</string>
     <string name="confirm_delete_all_broadcasts" msgid="2924444089047280871">"刪除所有收到的廣播訊息嗎？"</string>
     <string name="button_delete" msgid="4672451757925194350">"刪除"</string>
@@ -60,11 +63,16 @@
     <string name="enable_cmas_amber_alerts_summary" msgid="8423617548641801387">"顯示兒童綁架緊急事件公告 (安珀警示)"</string>
     <string name="enable_cmas_test_alerts_title" msgid="8620213090932770270">"顯示 CMAS 測試廣播"</string>
     <string name="enable_cmas_test_alerts_summary" msgid="2935171596891733844">"顯示商用行動警示系統測試廣播"</string>
+    <!-- no translation found for enable_alert_vibrate_title (982817538757982090) -->
+    <skip />
+    <!-- no translation found for enable_alert_vibrate_summary (4328060563316778589) -->
+    <skip />
     <string name="category_brazil_settings_title" msgid="6343130548572319922">"巴西專用設定"</string>
     <string name="enable_channel_50_alerts_title" msgid="2818924064446974167">"顯示第 50 頻道的廣播"</string>
     <string name="enable_channel_50_alerts_summary" msgid="7507770011325273009">"巴西使用第 50 頻道廣播地區最新資訊"</string>
     <string name="category_dev_settings_title" msgid="6194393458398329994">"開發人員選項"</string>
-    <string name="cmas_category_heading" msgid="5731181299088631019">"類別："</string>
+    <!-- no translation found for cmas_category_heading (3923503130776640717) -->
+    <skip />
     <string name="cmas_category_geo" msgid="4979494217069688527">"地球物理災變"</string>
     <string name="cmas_category_met" msgid="7563732573851773537">"氣象"</string>
     <string name="cmas_category_safety" msgid="2986472639641883453">"公共安全"</string>
@@ -77,24 +85,35 @@
     <string name="cmas_category_infra" msgid="3558151044446851398">"基礎設施"</string>
     <string name="cmas_category_cbrne" msgid="240421557913603971">"核生化武器/爆裂物"</string>
     <string name="cmas_category_other" msgid="6158932360790744360">"其他"</string>
-    <string name="cmas_response_heading" msgid="451355296605342420">"應變類型："</string>
-    <string name="cmas_response_shelter" msgid="731514427035594985">"尋找掩蔽"</string>
+    <!-- no translation found for cmas_response_heading (4205379547245540163) -->
+    <skip />
+    <!-- no translation found for cmas_response_shelter (7301175579079615909) -->
+    <skip />
     <string name="cmas_response_evacuate" msgid="5833170084430021095">"撤離"</string>
     <string name="cmas_response_prepare" msgid="8428073909753758319">"預做準備"</string>
-    <string name="cmas_response_execute" msgid="4065931123765142173">"執行預定行動"</string>
-    <string name="cmas_response_monitor" msgid="1836723975944461996">"持續追蹤資訊來源"</string>
-    <string name="cmas_response_avoid" msgid="9083226909188314307">"躲避危害"</string>
-    <string name="cmas_response_assess" msgid="4419898054369698124">"評估"</string>
-    <string name="cmas_response_none" msgid="9109481144060546906">"無建議行動"</string>
+    <!-- no translation found for cmas_response_execute (284719420769568493) -->
+    <skip />
+    <!-- no translation found for cmas_response_monitor (681400164440495749) -->
+    <skip />
+    <!-- no translation found for cmas_response_avoid (156419597612629270) -->
+    <skip />
+    <!-- no translation found for cmas_response_assess (9043534222710563415) -->
+    <skip />
+    <!-- no translation found for cmas_response_none (5149009359674452959) -->
+    <skip />
     <string name="cmas_severity_heading" msgid="8437057117822305243">"嚴重程度："</string>
     <string name="cmas_severity_extreme" msgid="1312013282860183082">"極嚴重"</string>
     <string name="cmas_severity_severe" msgid="7504359209737074524">"嚴重"</string>
     <string name="cmas_urgency_heading" msgid="8218282767913431492">"緊急程度："</string>
-    <string name="cmas_urgency_immediate" msgid="2258810949481930841">"請立刻採取行動"</string>
-    <string name="cmas_urgency_expected" msgid="2649054095518659749">"請在一小時內採取行動"</string>
+    <!-- no translation found for cmas_urgency_immediate (1577485208196449288) -->
+    <skip />
+    <!-- no translation found for cmas_urgency_expected (6830831119872375936) -->
+    <skip />
     <string name="cmas_certainty_heading" msgid="8374669249736439193">"確定等級："</string>
     <string name="cmas_certainty_observed" msgid="3668549749352106472">"有跡象"</string>
     <string name="cmas_certainty_likely" msgid="4254497828943291749">"可能發生"</string>
+    <!-- no translation found for delivery_time_heading (5980836543433619329) -->
+    <skip />
     <string name="notification_multiple" msgid="5121978148152124860">"<xliff:g id="COUNT">%s</xliff:g> 則未讀取警示。"</string>
     <string name="notification_multiple_title" msgid="1523638925739947855">"新警示"</string>
   <string-array name="alert_sound_duration_entries">
