@@ -23,8 +23,11 @@
     <string name="menu_preferences" msgid="3596514894131599202">"Nastavení"</string>
     <string name="menu_delete_all" msgid="3940997343921149800">"Smazat vysílání"</string>
     <string name="message_options" msgid="3178489901903589574">"Možnosti zprávy"</string>
-    <string name="menu_view" msgid="5991055455727639531">"Zobrazit vysílání"</string>
+    <!-- no translation found for menu_view_details (1040989019045280975) -->
+    <skip />
     <string name="menu_delete" msgid="128380070910799366">"Smazat vysílání"</string>
+    <!-- no translation found for view_details_title (1780427629491781473) -->
+    <skip />
     <string name="confirm_delete_broadcast" msgid="2540199303730232322">"Smazat toto vysílání?"</string>
     <string name="confirm_delete_all_broadcasts" msgid="2924444089047280871">"Smazat všechny přijaté vysílané zprávy?"</string>
     <string name="button_delete" msgid="4672451757925194350">"Smazat"</string>
@@ -60,11 +63,16 @@
     <string name="enable_cmas_amber_alerts_summary" msgid="8423617548641801387">"Zobrazovat mimořádné zprávy o únosech dětí (upozornění AMBER)"</string>
     <string name="enable_cmas_test_alerts_title" msgid="8620213090932770270">"Zobrazit test vysílání CMAS"</string>
     <string name="enable_cmas_test_alerts_summary" msgid="2935171596891733844">"Zobrazovat testovací vysílání systému Commercial Mobile Alert System"</string>
+    <!-- no translation found for enable_alert_vibrate_title (982817538757982090) -->
+    <skip />
+    <!-- no translation found for enable_alert_vibrate_summary (4328060563316778589) -->
+    <skip />
     <string name="category_brazil_settings_title" msgid="6343130548572319922">"Nastavení pro Brazílii"</string>
     <string name="enable_channel_50_alerts_title" msgid="2818924064446974167">"Zobrazit vysílání na kanálu 50"</string>
     <string name="enable_channel_50_alerts_summary" msgid="7507770011325273009">"Kanál 50 se v Brazílii používá pro aktuální informace v oblasti"</string>
     <string name="category_dev_settings_title" msgid="6194393458398329994">"Pro vývojáře"</string>
-    <string name="cmas_category_heading" msgid="5731181299088631019">"Kategorie:"</string>
+    <!-- no translation found for cmas_category_heading (3923503130776640717) -->
+    <skip />
     <string name="cmas_category_geo" msgid="4979494217069688527">"Geofyzikální"</string>
     <string name="cmas_category_met" msgid="7563732573851773537">"Meteorologické"</string>
     <string name="cmas_category_safety" msgid="2986472639641883453">"Bezpečnost"</string>
@@ -77,24 +85,35 @@
     <string name="cmas_category_infra" msgid="3558151044446851398">"Infrastruktura"</string>
     <string name="cmas_category_cbrne" msgid="240421557913603971">"Chemické/Biologické/Nukleární/Výbušnina"</string>
     <string name="cmas_category_other" msgid="6158932360790744360">"Jiné"</string>
-    <string name="cmas_response_heading" msgid="451355296605342420">"Typ reakce:"</string>
-    <string name="cmas_response_shelter" msgid="731514427035594985">"Ukryjte se"</string>
+    <!-- no translation found for cmas_response_heading (4205379547245540163) -->
+    <skip />
+    <!-- no translation found for cmas_response_shelter (7301175579079615909) -->
+    <skip />
     <string name="cmas_response_evacuate" msgid="5833170084430021095">"Evakuujte se"</string>
     <string name="cmas_response_prepare" msgid="8428073909753758319">"Připravte se"</string>
-    <string name="cmas_response_execute" msgid="4065931123765142173">"Proveďte předem naplánovaný postup"</string>
-    <string name="cmas_response_monitor" msgid="1836723975944461996">"Sledujte informační zdroje"</string>
-    <string name="cmas_response_avoid" msgid="9083226909188314307">"Vyhněte se nebezpečí"</string>
-    <string name="cmas_response_assess" msgid="4419898054369698124">"Vyhodnoťte situaci"</string>
-    <string name="cmas_response_none" msgid="9109481144060546906">"Žádná akce"</string>
+    <!-- no translation found for cmas_response_execute (284719420769568493) -->
+    <skip />
+    <!-- no translation found for cmas_response_monitor (681400164440495749) -->
+    <skip />
+    <!-- no translation found for cmas_response_avoid (156419597612629270) -->
+    <skip />
+    <!-- no translation found for cmas_response_assess (9043534222710563415) -->
+    <skip />
+    <!-- no translation found for cmas_response_none (5149009359674452959) -->
+    <skip />
     <string name="cmas_severity_heading" msgid="8437057117822305243">"Závažnost:"</string>
     <string name="cmas_severity_extreme" msgid="1312013282860183082">"Extrémní"</string>
     <string name="cmas_severity_severe" msgid="7504359209737074524">"Závažná"</string>
     <string name="cmas_urgency_heading" msgid="8218282767913431492">"Naléhavost:"</string>
-    <string name="cmas_urgency_immediate" msgid="2258810949481930841">"Akci proveďte okamžitě."</string>
-    <string name="cmas_urgency_expected" msgid="2649054095518659749">"Akci proveďte do hodiny."</string>
+    <!-- no translation found for cmas_urgency_immediate (1577485208196449288) -->
+    <skip />
+    <!-- no translation found for cmas_urgency_expected (6830831119872375936) -->
+    <skip />
     <string name="cmas_certainty_heading" msgid="8374669249736439193">"Jistota:"</string>
     <string name="cmas_certainty_observed" msgid="3668549749352106472">"Pozorováno"</string>
     <string name="cmas_certainty_likely" msgid="4254497828943291749">"Pravděpodobné"</string>
+    <!-- no translation found for delivery_time_heading (5980836543433619329) -->
+    <skip />
     <string name="notification_multiple" msgid="5121978148152124860">"Nepřečtená upozornění: <xliff:g id="COUNT">%s</xliff:g>"</string>
     <string name="notification_multiple_title" msgid="1523638925739947855">"Nová upozornění"</string>
   <string-array name="alert_sound_duration_entries">
