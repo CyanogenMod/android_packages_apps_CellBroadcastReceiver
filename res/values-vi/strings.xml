@@ -23,11 +23,9 @@
     <string name="menu_preferences" msgid="3596514894131599202">"Cài đặt"</string>
     <string name="menu_delete_all" msgid="3940997343921149800">"Xóa chương trình phát sóng"</string>
     <string name="message_options" msgid="3178489901903589574">"Tùy chọn tin nhắn"</string>
-    <!-- no translation found for menu_view_details (1040989019045280975) -->
-    <skip />
+    <string name="menu_view_details" msgid="1040989019045280975">"Xem chi tiết"</string>
     <string name="menu_delete" msgid="128380070910799366">"Xóa chương trình phát sóng"</string>
-    <!-- no translation found for view_details_title (1780427629491781473) -->
-    <skip />
+    <string name="view_details_title" msgid="1780427629491781473">"Chi tiết cảnh báo"</string>
     <string name="confirm_delete_broadcast" msgid="2540199303730232322">"Xóa chương trình phát sóng này?"</string>
     <string name="confirm_delete_all_broadcasts" msgid="2924444089047280871">"Xóa tất cả các thông báo của chương trình phát sóng đã nhận được?"</string>
     <string name="button_delete" msgid="4672451757925194350">"Xóa"</string>
@@ -63,16 +61,13 @@
     <string name="enable_cmas_amber_alerts_summary" msgid="8423617548641801387">"Hiển thị bản tin khẩn cấp vụ việc bắt cóc trẻ em (thông báo AMBER)"</string>
     <string name="enable_cmas_test_alerts_title" msgid="8620213090932770270">"Hiển thị các thông báo kiểm tra cho CMAS"</string>
     <string name="enable_cmas_test_alerts_summary" msgid="2935171596891733844">"Hiển thị các thông báo kiểm tra cho Hệ thống thông báo thương mại trên điện thoại di động"</string>
-    <!-- no translation found for enable_alert_vibrate_title (982817538757982090) -->
-    <skip />
-    <!-- no translation found for enable_alert_vibrate_summary (4328060563316778589) -->
-    <skip />
+    <string name="enable_alert_vibrate_title" msgid="982817538757982090">"Rung"</string>
+    <string name="enable_alert_vibrate_summary" msgid="4328060563316778589">"Rung khi cảnh báo"</string>
     <string name="category_brazil_settings_title" msgid="6343130548572319922">"Cài đặt cho Braxin"</string>
     <string name="enable_channel_50_alerts_title" msgid="2818924064446974167">"Hiển thị chương trình phát sóng kênh 50"</string>
     <string name="enable_channel_50_alerts_summary" msgid="7507770011325273009">"Kênh 50 được sử dụng ở Braxin để cập nhật thông tin khu vực"</string>
     <string name="category_dev_settings_title" msgid="6194393458398329994">"Tùy chọn nhà phát triển"</string>
-    <!-- no translation found for cmas_category_heading (3923503130776640717) -->
-    <skip />
+    <string name="cmas_category_heading" msgid="3923503130776640717">"Danh mục cảnh báo:"</string>
     <string name="cmas_category_geo" msgid="4979494217069688527">"Địa vật lý"</string>
     <string name="cmas_category_met" msgid="7563732573851773537">"Khí tượng học"</string>
     <string name="cmas_category_safety" msgid="2986472639641883453">"An toàn"</string>
@@ -85,35 +80,25 @@
     <string name="cmas_category_infra" msgid="3558151044446851398">"Cơ sở hạ tầng"</string>
     <string name="cmas_category_cbrne" msgid="240421557913603971">"Hóa học/Sinh học/Hạt nhân/Chất nổ"</string>
     <string name="cmas_category_other" msgid="6158932360790744360">"Khác"</string>
-    <!-- no translation found for cmas_response_heading (4205379547245540163) -->
-    <skip />
-    <!-- no translation found for cmas_response_shelter (7301175579079615909) -->
-    <skip />
+    <string name="cmas_response_heading" msgid="4205379547245540163">"Loại phản hồi:"</string>
+    <string name="cmas_response_shelter" msgid="7301175579079615909">"Trú ẩn"</string>
     <string name="cmas_response_evacuate" msgid="5833170084430021095">"Sơ tán"</string>
     <string name="cmas_response_prepare" msgid="8428073909753758319">"Chuẩn bị"</string>
-    <!-- no translation found for cmas_response_execute (284719420769568493) -->
-    <skip />
-    <!-- no translation found for cmas_response_monitor (681400164440495749) -->
-    <skip />
-    <!-- no translation found for cmas_response_avoid (156419597612629270) -->
-    <skip />
-    <!-- no translation found for cmas_response_assess (9043534222710563415) -->
-    <skip />
-    <!-- no translation found for cmas_response_none (5149009359674452959) -->
-    <skip />
+    <string name="cmas_response_execute" msgid="284719420769568493">"Thực thi"</string>
+    <string name="cmas_response_monitor" msgid="681400164440495749">"Giám sát"</string>
+    <string name="cmas_response_avoid" msgid="156419597612629270">"Tránh"</string>
+    <string name="cmas_response_assess" msgid="9043534222710563415">"Đánh giá"</string>
+    <string name="cmas_response_none" msgid="5149009359674452959">"Không có"</string>
     <string name="cmas_severity_heading" msgid="8437057117822305243">"Mức độ nghiêm trọng:"</string>
     <string name="cmas_severity_extreme" msgid="1312013282860183082">"Cực kỳ nghiêm trọng"</string>
     <string name="cmas_severity_severe" msgid="7504359209737074524">"Nghiêm trọng"</string>
     <string name="cmas_urgency_heading" msgid="8218282767913431492">"Mức khẩn cấp:"</string>
-    <!-- no translation found for cmas_urgency_immediate (1577485208196449288) -->
-    <skip />
-    <!-- no translation found for cmas_urgency_expected (6830831119872375936) -->
-    <skip />
+    <string name="cmas_urgency_immediate" msgid="1577485208196449288">"Ngay lập tức"</string>
+    <string name="cmas_urgency_expected" msgid="6830831119872375936">"Mong đợi"</string>
     <string name="cmas_certainty_heading" msgid="8374669249736439193">"Mức độ chắc chắn:"</string>
     <string name="cmas_certainty_observed" msgid="3668549749352106472">"Được quan sát"</string>
     <string name="cmas_certainty_likely" msgid="4254497828943291749">"Có thể xảy ra"</string>
-    <!-- no translation found for delivery_time_heading (5980836543433619329) -->
-    <skip />
+    <string name="delivery_time_heading" msgid="5980836543433619329">"Đã nhận:"</string>
     <string name="notification_multiple" msgid="5121978148152124860">"<xliff:g id="COUNT">%s</xliff:g> thông báo chưa đọc."</string>
     <string name="notification_multiple_title" msgid="1523638925739947855">"Thông báo mới"</string>
   <string-array name="alert_sound_duration_entries">
