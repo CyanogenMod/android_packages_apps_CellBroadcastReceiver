@@ -62,7 +62,7 @@
     <string name="enable_cmas_test_alerts_title" msgid="8620213090932770270">"显示 CMAS 测试广播"</string>
     <string name="enable_cmas_test_alerts_summary" msgid="2935171596891733844">"显示商业移动警报系统的测试广播"</string>
     <string name="enable_alert_vibrate_title" msgid="982817538757982090">"振动"</string>
-    <string name="enable_alert_vibrate_summary" msgid="4328060563316778589">"振动警报"</string>
+    <string name="enable_alert_vibrate_summary" msgid="4328060563316778589">"收到警报时振动"</string>
     <string name="category_brazil_settings_title" msgid="6343130548572319922">"针对巴西的设置"</string>
     <string name="enable_channel_50_alerts_title" msgid="2818924064446974167">"显示 50 频道的广播"</string>
     <string name="enable_channel_50_alerts_summary" msgid="7507770011325273009">"巴西使用频道 50 来广播区域动态信息"</string>
@@ -81,7 +81,7 @@
     <string name="cmas_category_cbrne" msgid="240421557913603971">"化学/生物/核能/爆炸"</string>
     <string name="cmas_category_other" msgid="6158932360790744360">"其他"</string>
     <string name="cmas_response_heading" msgid="4205379547245540163">"响应类型："</string>
-    <string name="cmas_response_shelter" msgid="7301175579079615909">"住房"</string>
+    <string name="cmas_response_shelter" msgid="7301175579079615909">"就地避难"</string>
     <string name="cmas_response_evacuate" msgid="5833170084430021095">"疏散"</string>
     <string name="cmas_response_prepare" msgid="8428073909753758319">"准备"</string>
     <string name="cmas_response_execute" msgid="284719420769568493">"执行"</string>
@@ -94,7 +94,7 @@
     <string name="cmas_severity_severe" msgid="7504359209737074524">"严重"</string>
     <string name="cmas_urgency_heading" msgid="8218282767913431492">"紧急："</string>
     <string name="cmas_urgency_immediate" msgid="1577485208196449288">"立即"</string>
-    <string name="cmas_urgency_expected" msgid="6830831119872375936">"预计"</string>
+    <string name="cmas_urgency_expected" msgid="6830831119872375936">"符合预计"</string>
     <string name="cmas_certainty_heading" msgid="8374669249736439193">"确定性："</string>
     <string name="cmas_certainty_observed" msgid="3668549749352106472">"已观察到"</string>
     <string name="cmas_certainty_likely" msgid="4254497828943291749">"很可能"</string>

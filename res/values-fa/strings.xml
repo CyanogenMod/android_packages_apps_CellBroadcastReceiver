@@ -94,7 +94,7 @@
     <string name="cmas_severity_severe" msgid="7504359209737074524">"شدید"</string>
     <string name="cmas_urgency_heading" msgid="8218282767913431492">"فوریت:"</string>
     <string name="cmas_urgency_immediate" msgid="1577485208196449288">"فوری"</string>
-    <string name="cmas_urgency_expected" msgid="6830831119872375936">"موردانتظار"</string>
+    <string name="cmas_urgency_expected" msgid="6830831119872375936">"مورد انتظار"</string>
     <string name="cmas_certainty_heading" msgid="8374669249736439193">"قطعیت:"</string>
     <string name="cmas_certainty_observed" msgid="3668549749352106472">"مشاهده شده"</string>
     <string name="cmas_certainty_likely" msgid="4254497828943291749">"احتمالا"</string>
