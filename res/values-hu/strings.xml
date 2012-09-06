@@ -62,7 +62,7 @@
     <string name="enable_cmas_test_alerts_title" msgid="8620213090932770270">"CMAS kísérleti adásának megj."</string>
     <string name="enable_cmas_test_alerts_summary" msgid="2935171596891733844">"A Commercial Mobile Alert System (CMAS) kísérleti adásának megjelenítése"</string>
     <string name="enable_alert_vibrate_title" msgid="982817538757982090">"Rezgés"</string>
-    <string name="enable_alert_vibrate_summary" msgid="4328060563316778589">"Rezgés értesítéshez"</string>
+    <string name="enable_alert_vibrate_summary" msgid="4328060563316778589">"Rezgés értesítéskor"</string>
     <string name="category_brazil_settings_title" msgid="6343130548572319922">"Beállítások Brazília esetén"</string>
     <string name="enable_channel_50_alerts_title" msgid="2818924064446974167">"50-es csatorna üzenetei"</string>
     <string name="enable_channel_50_alerts_summary" msgid="7507770011325273009">"Az 50-es csatornát Brazíliában a területalapú frissítési információkhoz használják"</string>
