@@ -84,7 +84,7 @@
     <string name="cmas_response_shelter" msgid="7301175579079615909">"Zuflucht suchen"</string>
     <string name="cmas_response_evacuate" msgid="5833170084430021095">"Evakuieren"</string>
     <string name="cmas_response_prepare" msgid="8428073909753758319">"Vorbereiten"</string>
-    <string name="cmas_response_execute" msgid="284719420769568493">"Ausführen"</string>
+    <string name="cmas_response_execute" msgid="284719420769568493">"Durchführen"</string>
     <string name="cmas_response_monitor" msgid="681400164440495749">"Überwachen"</string>
     <string name="cmas_response_avoid" msgid="156419597612629270">"Vermeiden"</string>
     <string name="cmas_response_assess" msgid="9043534222710563415">"Bewerten"</string>
