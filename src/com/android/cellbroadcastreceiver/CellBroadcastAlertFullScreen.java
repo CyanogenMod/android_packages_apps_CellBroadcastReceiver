@@ -203,19 +203,21 @@ public class CellBroadcastAlertFullScreen extends Activity {
 
     @Override
     public boolean dispatchKeyEvent(KeyEvent event) {
-        switch (event.getKeyCode()) {
-            // Volume keys and camera keys mute the alert sound/vibration.
-            case KeyEvent.KEYCODE_VOLUME_UP:
-            case KeyEvent.KEYCODE_VOLUME_DOWN:
-            case KeyEvent.KEYCODE_VOLUME_MUTE:
-            case KeyEvent.KEYCODE_CAMERA:
-            case KeyEvent.KEYCODE_FOCUS:
-                // Stop playing alert sound/vibration/speech (if started)
-                stopService(new Intent(this, CellBroadcastAlertAudio.class));
-                return true;
+        if (!mMessage.isEtwsMessage()) {
+            switch (event.getKeyCode()) {
+                // Volume keys and camera keys mute the alert sound/vibration (except ETWS).
+                case KeyEvent.KEYCODE_VOLUME_UP:
+                case KeyEvent.KEYCODE_VOLUME_DOWN:
+                case KeyEvent.KEYCODE_VOLUME_MUTE:
+                case KeyEvent.KEYCODE_CAMERA:
+                case KeyEvent.KEYCODE_FOCUS:
+                    // Stop playing alert sound/vibration/speech (if started)
+                    stopService(new Intent(this, CellBroadcastAlertAudio.class));
+                    return true;
 
-            default:
-                break;
+                default:
+                    break;
+            }
         }
         return super.dispatchKeyEvent(event);
     }
