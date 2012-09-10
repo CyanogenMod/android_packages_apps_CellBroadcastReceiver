@@ -65,6 +65,10 @@ public class CellBroadcastAlertAudio extends Service implements TextToSpeech.OnI
     public static final String ALERT_AUDIO_VIBRATE_EXTRA =
             "com.android.cellbroadcastreceiver.ALERT_AUDIO_VIBRATE";
 
+    /** Extra for alert audio ETWS behavior (always vibrate, even in silent mode). */
+    public static final String ALERT_AUDIO_ETWS_VIBRATE_EXTRA =
+            "com.android.cellbroadcastreceiver.ALERT_AUDIO_ETWS_VIBRATE";
+
     /** Pause duration between alert sound and alert speech. */
     private static final int PAUSE_DURATION_BEFORE_SPEAKING_MSEC = 1000;
 
@@ -248,12 +252,14 @@ public class CellBroadcastAlertAudio extends Service implements TextToSpeech.OnI
         // Get text to speak (if enabled by user)
         mMessageBody = intent.getStringExtra(ALERT_AUDIO_MESSAGE_BODY);
         mMessageLanguage = intent.getStringExtra(ALERT_AUDIO_MESSAGE_LANGUAGE);
+
         mEnableVibrate = intent.getBooleanExtra(ALERT_AUDIO_VIBRATE_EXTRA, true);
+        boolean forceVibrate = intent.getBooleanExtra(ALERT_AUDIO_ETWS_VIBRATE_EXTRA, false);
 
         switch (mAudioManager.getRingerMode()) {
             case AudioManager.RINGER_MODE_SILENT:
                 if (DBG) log("Ringer mode: silent");
-                mEnableVibrate = false;
+                mEnableVibrate = forceVibrate;
                 mEnableAudio = false;
                 break;
 
