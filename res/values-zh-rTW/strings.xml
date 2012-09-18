@@ -86,7 +86,7 @@
     <string name="cmas_response_prepare" msgid="8428073909753758319">"預做準備"</string>
     <string name="cmas_response_execute" msgid="284719420769568493">"執行"</string>
     <string name="cmas_response_monitor" msgid="681400164440495749">"監控"</string>
-    <string name="cmas_response_avoid" msgid="156419597612629270">"躲避"</string>
+    <string name="cmas_response_avoid" msgid="156419597612629270">"避開"</string>
     <string name="cmas_response_assess" msgid="9043534222710563415">"評估"</string>
     <string name="cmas_response_none" msgid="5149009359674452959">"無"</string>
     <string name="cmas_severity_heading" msgid="8437057117822305243">"嚴重程度："</string>

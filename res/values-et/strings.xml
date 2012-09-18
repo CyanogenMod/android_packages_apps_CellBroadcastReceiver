@@ -61,7 +61,7 @@
     <string name="enable_cmas_amber_alerts_summary" msgid="8423617548641801387">"Lapseröövi hädateadete (AMBER-häire) kuvamine"</string>
     <string name="enable_cmas_test_alerts_title" msgid="8620213090932770270">"Kuva CMAS-i katseteavitusi"</string>
     <string name="enable_cmas_test_alerts_summary" msgid="2935171596891733844">"Commercial Mobile Alert Systemi katseteavituste kuvamine"</string>
-    <string name="enable_alert_vibrate_title" msgid="982817538757982090">"Vibratsioon"</string>
+    <string name="enable_alert_vibrate_title" msgid="982817538757982090">"Vibreerimine"</string>
     <string name="enable_alert_vibrate_summary" msgid="4328060563316778589">"Märguandel vibreeri"</string>
     <string name="category_brazil_settings_title" msgid="6343130548572319922">"Brasiilia seaded"</string>
     <string name="enable_channel_50_alerts_title" msgid="2818924064446974167">"50. kanali saadete kuvamine"</string>
@@ -93,7 +93,7 @@
     <string name="cmas_severity_extreme" msgid="1312013282860183082">"Ekstreemne"</string>
     <string name="cmas_severity_severe" msgid="7504359209737074524">"Ränk"</string>
     <string name="cmas_urgency_heading" msgid="8218282767913431492">"Kiireloomulisus:"</string>
-    <string name="cmas_urgency_immediate" msgid="1577485208196449288">"Kohene"</string>
+    <string name="cmas_urgency_immediate" msgid="1577485208196449288">"Kohe"</string>
     <string name="cmas_urgency_expected" msgid="6830831119872375936">"Oodatud"</string>
     <string name="cmas_certainty_heading" msgid="8374669249736439193">"Kindlus:"</string>
     <string name="cmas_certainty_observed" msgid="3668549749352106472">"Täheldatud"</string>
