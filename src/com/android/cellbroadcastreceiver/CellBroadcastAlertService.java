@@ -27,6 +27,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.os.UserHandle;
+import android.os.SystemProperties;
 import android.preference.PreferenceManager;
 import android.provider.Telephony;
 import android.telephony.CellBroadcastMessage;
@@ -57,6 +58,11 @@ public class CellBroadcastAlertService extends Service {
     /** Sticky broadcast for latest area info broadcast received. */
     static final String CB_AREA_INFO_RECEIVED_ACTION =
             "android.cellbroadcastreceiver.CB_AREA_INFO_RECEIVED";
+    /** system property to enable/disable broadcast duplicate detecion.  */
+    private static final String CB_DUP_DETECTION = "persist.cb.dup_detection";
+
+    /** Check for system property to enable/disable duplicate detection.  */
+    static boolean mUseDupDetection = SystemProperties.getBoolean(CB_DUP_DETECTION, true);
 
     /** Container for message ID and geographical scope, for duplicate message detection. */
     private static final class MessageIdAndScope {
@@ -149,31 +155,33 @@ public class CellBroadcastAlertService extends Service {
             return;
         }
 
-        // Check for duplicate message IDs according to CMAS carrier requirements. Message IDs
-        // are stored in volatile memory. If the maximum of 65535 messages is reached, the
-        // message ID of the oldest message is deleted from the list.
-        MessageIdAndScope newMessageId = new MessageIdAndScope(message.getServiceCategory(),
+        if (mUseDupDetection) {
+            // Check for duplicate message IDs according to CMAS carrier requirements. Message IDs
+            // are stored in volatile memory. If the maximum of 65535 messages is reached, the
+            // message ID of the oldest message is deleted from the list.
+            MessageIdAndScope newMessageId = new MessageIdAndScope(message.getServiceCategory(),
                 message.getSerialNumber(), message.getLocation());
 
-        // Add the new message ID to the list. It's okay if this is a duplicate message ID,
-        // because the list is only used for removing old message IDs from the hash set.
-        if (sCmasIdList.size() < MAX_MESSAGE_ID_SIZE) {
-            sCmasIdList.add(newMessageId);
-        } else {
-            // Get oldest message ID from the list and replace with the new message ID.
-            MessageIdAndScope oldestId = sCmasIdList.get(sCmasIdListIndex);
-            sCmasIdList.set(sCmasIdListIndex, newMessageId);
-            Log.d(TAG, "message ID limit reached, removing oldest message ID " + oldestId);
-            // Remove oldest message ID from the set.
-            sCmasIdSet.remove(oldestId);
-            if (++sCmasIdListIndex >= MAX_MESSAGE_ID_SIZE) {
-                sCmasIdListIndex = 0;
+            // Add the new message ID to the list. It's okay if this is a duplicate message ID,
+            // because the list is only used for removing old message IDs from the hash set.
+            if (sCmasIdList.size() < MAX_MESSAGE_ID_SIZE) {
+                sCmasIdList.add(newMessageId);
+            } else {
+                // Get oldest message ID from the list and replace with the new message ID.
+                MessageIdAndScope oldestId = sCmasIdList.get(sCmasIdListIndex);
+                sCmasIdList.set(sCmasIdListIndex, newMessageId);
+                Log.d(TAG, "message ID limit reached, removing oldest message ID " + oldestId);
+                // Remove oldest message ID from the set.
+                sCmasIdSet.remove(oldestId);
+                if (++sCmasIdListIndex >= MAX_MESSAGE_ID_SIZE) {
+                    sCmasIdListIndex = 0;
+                }
             }
-        }
-        // Set.add() returns false if message ID has already been added
-        if (!sCmasIdSet.add(newMessageId)) {
-            Log.d(TAG, "ignoring duplicate alert with " + newMessageId);
-            return;
+            // Set.add() returns false if message ID has already been added
+            if (!sCmasIdSet.add(newMessageId)) {
+                Log.d(TAG, "ignoring duplicate alert with " + newMessageId);
+                return;
+            }
         }
 
         final Intent alertIntent = new Intent(SHOW_NEW_ALERT_ACTION);
