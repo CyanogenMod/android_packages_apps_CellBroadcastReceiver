@@ -113,8 +113,8 @@ public class CellBroadcastSettings extends PreferenceActivity {
                     };
 
             // Show extra settings when developer options is enabled in settings.
-            boolean enableDevSettings = Settings.Secure.getInt(getActivity().getContentResolver(),
-                    Settings.Secure.DEVELOPMENT_SETTINGS_ENABLED, 0) != 0;
+            boolean enableDevSettings = Settings.Global.getInt(getActivity().getContentResolver(),
+                    Settings.Global.DEVELOPMENT_SETTINGS_ENABLED, 0) != 0;
 
             Resources res = getResources();
             boolean showEtwsSettings = res.getBoolean(R.bool.show_etws_settings);
