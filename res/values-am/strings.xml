@@ -23,8 +23,9 @@
     <string name="menu_preferences" msgid="3596514894131599202">"ቅንብሮች"</string>
     <string name="menu_delete_all" msgid="3940997343921149800">"ስርጭት ሰርዝ"</string>
     <string name="message_options" msgid="3178489901903589574">"የመልዕክት አማራጮች"</string>
-    <string name="menu_view" msgid="5991055455727639531">"ስርጭት እይ"</string>
+    <string name="menu_view_details" msgid="1040989019045280975">"ዝርዝሮችን ይመልከቱ"</string>
     <string name="menu_delete" msgid="128380070910799366">"ስርጭት ሰርዝ"</string>
+    <string name="view_details_title" msgid="1780427629491781473">"የማንቂያ ዝርዝሮች"</string>
     <string name="confirm_delete_broadcast" msgid="2540199303730232322">"ይሄንን ማስተላለፍ ሰርዝ?"</string>
     <string name="confirm_delete_all_broadcasts" msgid="2924444089047280871">"ሁሉንም የተላለፉ መልዕክቶችን ሰርዝ?"</string>
     <string name="button_delete" msgid="4672451757925194350">"ሰርዝ"</string>
@@ -60,11 +61,13 @@
     <string name="enable_cmas_amber_alerts_summary" msgid="8423617548641801387">"የህፃናት እገታ አደጋ ጥሪዎችን ዜና አሳይ (የእገታ ማንቂያዎች)"</string>
     <string name="enable_cmas_test_alerts_title" msgid="8620213090932770270">"CMAS የሙከራ ስርጭቶችን አሳይ"</string>
     <string name="enable_cmas_test_alerts_summary" msgid="2935171596891733844">"ለንግድ ተንቀሳቃሽ የማንቂያ ስርዓት የሙከራ ስርጭቶችን አሳይ"</string>
+    <string name="enable_alert_vibrate_title" msgid="982817538757982090">"ንዘር"</string>
+    <string name="enable_alert_vibrate_summary" msgid="4328060563316778589">"ማንቂያ ላይ ንዘር"</string>
     <string name="category_brazil_settings_title" msgid="6343130548572319922">"ቅንብሮች ለብራዚል"</string>
     <string name="enable_channel_50_alerts_title" msgid="2818924064446974167">"የጣቢያ 50 ስርጭቶችን አሳይ"</string>
     <string name="enable_channel_50_alerts_summary" msgid="7507770011325273009">"ጣቢያ 50  ለአካባቢ  መረጃአዘምን ብራዚል ውስጥ በማገልገል ላይ ነው።"</string>
     <string name="category_dev_settings_title" msgid="6194393458398329994">"የገንቢዎች አማራጮች"</string>
-    <string name="cmas_category_heading" msgid="5731181299088631019">"ምድብ፦"</string>
+    <string name="cmas_category_heading" msgid="3923503130776640717">"የማንቂያ ምድብ፦"</string>
     <string name="cmas_category_geo" msgid="4979494217069688527">"ጂኦፊዚካል"</string>
     <string name="cmas_category_met" msgid="7563732573851773537">"ሜትሮሎጂያዊ"</string>
     <string name="cmas_category_safety" msgid="2986472639641883453">"ደህንነት"</string>
@@ -77,24 +80,25 @@
     <string name="cmas_category_infra" msgid="3558151044446851398">"መሰረተ ልማት"</string>
     <string name="cmas_category_cbrne" msgid="240421557913603971">"ኬሚካል/ባዮሎጂካል/ኒውክሌር/ ፈንጅ"</string>
     <string name="cmas_category_other" msgid="6158932360790744360">"ሌላ"</string>
-    <string name="cmas_response_heading" msgid="451355296605342420">"የምላሽ አይነት፦"</string>
-    <string name="cmas_response_shelter" msgid="731514427035594985">"መጠለያ ውሰድ"</string>
+    <string name="cmas_response_heading" msgid="4205379547245540163">"የምላሽ አይነት፦"</string>
+    <string name="cmas_response_shelter" msgid="7301175579079615909">"መጠለያ"</string>
     <string name="cmas_response_evacuate" msgid="5833170084430021095">"ልቀቅ"</string>
     <string name="cmas_response_prepare" msgid="8428073909753758319">"አዘጋጅ"</string>
-    <string name="cmas_response_execute" msgid="4065931123765142173">"ሥራን አከናውን"</string>
-    <string name="cmas_response_monitor" msgid="1836723975944461996">"የመረጃ ምንጮችን ተከታተል"</string>
-    <string name="cmas_response_avoid" msgid="9083226909188314307">"አደጋ አስወግድ"</string>
-    <string name="cmas_response_assess" msgid="4419898054369698124">"መዝን"</string>
-    <string name="cmas_response_none" msgid="9109481144060546906">"ምንም እርምጃ አይደገፍም"</string>
+    <string name="cmas_response_execute" msgid="284719420769568493">"ፈጽም"</string>
+    <string name="cmas_response_monitor" msgid="681400164440495749">"ተከታተል"</string>
+    <string name="cmas_response_avoid" msgid="156419597612629270">"ተከላከል"</string>
+    <string name="cmas_response_assess" msgid="9043534222710563415">"ገምግም"</string>
+    <string name="cmas_response_none" msgid="5149009359674452959">"ምንም"</string>
     <string name="cmas_severity_heading" msgid="8437057117822305243">"ሀይለኛነቱ፦"</string>
     <string name="cmas_severity_extreme" msgid="1312013282860183082">"የባሰ ሁኔታ"</string>
     <string name="cmas_severity_severe" msgid="7504359209737074524">"ሀይለኛ"</string>
     <string name="cmas_urgency_heading" msgid="8218282767913431492">"አስቸኳይነት፦"</string>
-    <string name="cmas_urgency_immediate" msgid="2258810949481930841">"እርምጃ ወዲያውኑ ውሰድ"</string>
-    <string name="cmas_urgency_expected" msgid="2649054095518659749">"በሚቀጥለው ሰዓት ውስጥ እርምጃ ውሰድ"</string>
+    <string name="cmas_urgency_immediate" msgid="1577485208196449288">"ወዲያውኑ"</string>
+    <string name="cmas_urgency_expected" msgid="6830831119872375936">"የተጠበቀ"</string>
     <string name="cmas_certainty_heading" msgid="8374669249736439193">"እርግጠኝነት፦"</string>
     <string name="cmas_certainty_observed" msgid="3668549749352106472">"የታየ"</string>
     <string name="cmas_certainty_likely" msgid="4254497828943291749">"ሊሆን የሚችል"</string>
+    <string name="delivery_time_heading" msgid="5980836543433619329">"የደረሰው፦"</string>
     <string name="notification_multiple" msgid="5121978148152124860">"<xliff:g id="COUNT">%s</xliff:g> ያልተነበቡ ማንቂያዎች።"</string>
     <string name="notification_multiple_title" msgid="1523638925739947855">"አዲስ ማንቂያዎች"</string>
   <string-array name="alert_sound_duration_entries">

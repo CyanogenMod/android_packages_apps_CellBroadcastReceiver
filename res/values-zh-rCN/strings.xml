@@ -23,8 +23,9 @@
     <string name="menu_preferences" msgid="3596514894131599202">"设置"</string>
     <string name="menu_delete_all" msgid="3940997343921149800">"删除广播"</string>
     <string name="message_options" msgid="3178489901903589574">"短信选项"</string>
-    <string name="menu_view" msgid="5991055455727639531">"查看广播"</string>
+    <string name="menu_view_details" msgid="1040989019045280975">"查看详情"</string>
     <string name="menu_delete" msgid="128380070910799366">"删除广播"</string>
+    <string name="view_details_title" msgid="1780427629491781473">"警报详情"</string>
     <string name="confirm_delete_broadcast" msgid="2540199303730232322">"要删除这条广播吗？"</string>
     <string name="confirm_delete_all_broadcasts" msgid="2924444089047280871">"要删除收到的所有广播消息吗？"</string>
     <string name="button_delete" msgid="4672451757925194350">"删除"</string>
@@ -60,11 +61,13 @@
     <string name="enable_cmas_amber_alerts_summary" msgid="8423617548641801387">"显示拐骗儿童紧急事件公告（安珀警报）"</string>
     <string name="enable_cmas_test_alerts_title" msgid="8620213090932770270">"显示 CMAS 测试广播"</string>
     <string name="enable_cmas_test_alerts_summary" msgid="2935171596891733844">"显示商业移动警报系统的测试广播"</string>
+    <string name="enable_alert_vibrate_title" msgid="982817538757982090">"振动"</string>
+    <string name="enable_alert_vibrate_summary" msgid="4328060563316778589">"收到警报时振动"</string>
     <string name="category_brazil_settings_title" msgid="6343130548572319922">"针对巴西的设置"</string>
     <string name="enable_channel_50_alerts_title" msgid="2818924064446974167">"显示 50 频道的广播"</string>
     <string name="enable_channel_50_alerts_summary" msgid="7507770011325273009">"巴西使用频道 50 来广播区域动态信息"</string>
-    <string name="category_dev_settings_title" msgid="6194393458398329994">"开发人员选项"</string>
-    <string name="cmas_category_heading" msgid="5731181299088631019">"类别："</string>
+    <string name="category_dev_settings_title" msgid="6194393458398329994">"开发者选项"</string>
+    <string name="cmas_category_heading" msgid="3923503130776640717">"警报类别："</string>
     <string name="cmas_category_geo" msgid="4979494217069688527">"地球物理"</string>
     <string name="cmas_category_met" msgid="7563732573851773537">"气象"</string>
     <string name="cmas_category_safety" msgid="2986472639641883453">"紧急事故和公共安全"</string>
@@ -77,24 +80,25 @@
     <string name="cmas_category_infra" msgid="3558151044446851398">"基础设施"</string>
     <string name="cmas_category_cbrne" msgid="240421557913603971">"化学/生物/核能/爆炸"</string>
     <string name="cmas_category_other" msgid="6158932360790744360">"其他"</string>
-    <string name="cmas_response_heading" msgid="451355296605342420">"响应类型"</string>
-    <string name="cmas_response_shelter" msgid="731514427035594985">"避难"</string>
+    <string name="cmas_response_heading" msgid="4205379547245540163">"响应类型："</string>
+    <string name="cmas_response_shelter" msgid="7301175579079615909">"就地避难"</string>
     <string name="cmas_response_evacuate" msgid="5833170084430021095">"疏散"</string>
     <string name="cmas_response_prepare" msgid="8428073909753758319">"准备"</string>
-    <string name="cmas_response_execute" msgid="4065931123765142173">"执行活动"</string>
-    <string name="cmas_response_monitor" msgid="1836723975944461996">"监测信息来源"</string>
-    <string name="cmas_response_avoid" msgid="9083226909188314307">"躲避危险"</string>
-    <string name="cmas_response_assess" msgid="4419898054369698124">"评估"</string>
-    <string name="cmas_response_none" msgid="9109481144060546906">"不采取行动"</string>
+    <string name="cmas_response_execute" msgid="284719420769568493">"执行"</string>
+    <string name="cmas_response_monitor" msgid="681400164440495749">"监控"</string>
+    <string name="cmas_response_avoid" msgid="156419597612629270">"躲避"</string>
+    <string name="cmas_response_assess" msgid="9043534222710563415">"评估"</string>
+    <string name="cmas_response_none" msgid="5149009359674452959">"无"</string>
     <string name="cmas_severity_heading" msgid="8437057117822305243">"严重性："</string>
     <string name="cmas_severity_extreme" msgid="1312013282860183082">"极端情况"</string>
     <string name="cmas_severity_severe" msgid="7504359209737074524">"严重"</string>
     <string name="cmas_urgency_heading" msgid="8218282767913431492">"紧急："</string>
-    <string name="cmas_urgency_immediate" msgid="2258810949481930841">"立即采取行动"</string>
-    <string name="cmas_urgency_expected" msgid="2649054095518659749">"在接下来的一小时内采取行动"</string>
+    <string name="cmas_urgency_immediate" msgid="1577485208196449288">"立即"</string>
+    <string name="cmas_urgency_expected" msgid="6830831119872375936">"符合预计"</string>
     <string name="cmas_certainty_heading" msgid="8374669249736439193">"确定性："</string>
     <string name="cmas_certainty_observed" msgid="3668549749352106472">"已观察到"</string>
     <string name="cmas_certainty_likely" msgid="4254497828943291749">"很可能"</string>
+    <string name="delivery_time_heading" msgid="5980836543433619329">"接收时间："</string>
     <string name="notification_multiple" msgid="5121978148152124860">"<xliff:g id="COUNT">%s</xliff:g> 条未读警报。"</string>
     <string name="notification_multiple_title" msgid="1523638925739947855">"新警报"</string>
   <string-array name="alert_sound_duration_entries">
