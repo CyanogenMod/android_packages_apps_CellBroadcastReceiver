@@ -213,6 +213,18 @@
     <!-- Non-emergency broadcast notification title for multiple unread alerts. -->
     <string name="notification_multiple_title">New alerts</string>
 
+    <!-- Show CMAS opt-out dialog on first non-Presidential alert. [CHAR LIMIT=100] -->
+    <string name="show_cmas_opt_out_summary">Show an opt-out dialog after displaying the first CMAS alert (other than Presidential Alert).</string>
+    <!-- Show CMAS opt-out dialog on first non-Presidential alert. [CHAR LIMIT=40] -->
+    <string name="show_cmas_opt_out_title">Show opt-out dialog</string>
+
+    <!-- CMAS opt-out dialog message. [CHAR LIMIT=160] -->
+    <string name="cmas_opt_out_dialog_text">You are currently receiving Emergency Alerts. Would you like to continue receiving Emergency Alerts?</string>
+    <!-- Text for positive button in CMAS opt-out dialog. [CHAR LIMIT=25] -->
+    <string name="cmas_opt_out_button_yes">Yes</string>
+    <!-- Text for negative button in CMAS opt-out dialog. [CHAR LIMIT=25] -->
+    <string name="cmas_opt_out_button_no">No</string>
+
     <!-- Entries listed in the ListPreference for allowed alert durations. [CHAR LIMIT=30] -->
     <string-array name="alert_sound_duration_entries">
       <item>2 seconds</item>
