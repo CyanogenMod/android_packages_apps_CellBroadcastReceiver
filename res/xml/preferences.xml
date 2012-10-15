@@ -96,6 +96,11 @@
                             android:summary="@string/enable_cmas_test_alerts_summary"
                             android:title="@string/enable_cmas_test_alerts_title" />
 
+        <CheckBoxPreference android:defaultValue="true"
+                            android:key="show_cmas_opt_out_dialog"
+                            android:summary="@string/show_cmas_opt_out_summary"
+                            android:title="@string/show_cmas_opt_out_title" />
+
     </PreferenceCategory>
 
 </PreferenceScreen>
