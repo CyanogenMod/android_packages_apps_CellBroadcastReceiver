@@ -44,6 +44,8 @@ import android.view.ViewGroup;
 import android.widget.CursorAdapter;
 import android.widget.ListView;
 
+import java.util.ArrayList;
+
 /**
  * This activity provides a list view of received cell broadcasts. Most of the work is handled
  * in the inner CursorLoaderListFragment class.
@@ -159,7 +161,9 @@ public class CellBroadcastListActivity extends Activity {
         private void showDialogAndMarkRead(CellBroadcastMessage cbm) {
             // show emergency alerts with the warning icon, but don't play alert tone
             Intent i = new Intent(getActivity(), CellBroadcastAlertDialog.class);
-            i.putExtra(CellBroadcastMessage.SMS_CB_MESSAGE_EXTRA, cbm);
+            ArrayList<CellBroadcastMessage> messageList = new ArrayList<CellBroadcastMessage>(1);
+            messageList.add(cbm);
+            i.putParcelableArrayListExtra(CellBroadcastMessage.SMS_CB_MESSAGE_EXTRA, messageList);
             startActivity(i);
         }
 
@@ -190,11 +194,8 @@ public class CellBroadcastListActivity extends Activity {
             if (cursor != null && cursor.getPosition() >= 0) {
                 switch (item.getItemId()) {
                     case MENU_DELETE:
-                        // We need to decrement the unread alert count if deleting unread alert
-                        boolean isUnread = (cursor.getInt(cursor.getColumnIndexOrThrow(
-                                Telephony.CellBroadcasts.MESSAGE_READ)) == 0);
                         confirmDeleteThread(cursor.getLong(cursor.getColumnIndexOrThrow(
-                                Telephony.CellBroadcasts._ID)), isUnread);
+                                Telephony.CellBroadcasts._ID)));
                         break;
 
                     case MENU_VIEW_DETAILS:
@@ -212,7 +213,7 @@ public class CellBroadcastListActivity extends Activity {
         public boolean onOptionsItemSelected(MenuItem item) {
             switch(item.getItemId()) {
                 case MENU_DELETE_ALL:
-                    confirmDeleteThread(-1, false);
+                    confirmDeleteThread(-1);
                     break;
 
                 case MENU_PREFERENCES:
@@ -229,10 +230,9 @@ public class CellBroadcastListActivity extends Activity {
         /**
          * Start the process of putting up a dialog to confirm deleting a broadcast.
          * @param rowId the row ID of the broadcast to delete, or -1 to delete all broadcasts
-         * @param unread true if the alert was not already marked as read
          */
-        public void confirmDeleteThread(long rowId, boolean unread) {
-            DeleteThreadListener listener = new DeleteThreadListener(rowId, unread);
+        public void confirmDeleteThread(long rowId) {
+            DeleteThreadListener listener = new DeleteThreadListener(rowId);
             confirmDeleteThreadDialog(listener, (rowId == -1), getActivity());
         }
 
@@ -258,11 +258,9 @@ public class CellBroadcastListActivity extends Activity {
 
         public class DeleteThreadListener implements OnClickListener {
             private final long mRowId;
-            private final boolean mIsUnread;
 
-            public DeleteThreadListener(long rowId, boolean unread) {
+            public DeleteThreadListener(long rowId) {
                 mRowId = rowId;
-                mIsUnread = unread;
             }
 
             @Override
@@ -274,7 +272,7 @@ public class CellBroadcastListActivity extends Activity {
                             @Override
                             public boolean execute(CellBroadcastContentProvider provider) {
                                 if (mRowId != -1) {
-                                    return provider.deleteBroadcast(mRowId, mIsUnread);
+                                    return provider.deleteBroadcast(mRowId);
                                 } else {
                                     return provider.deleteAllBroadcasts();
                                 }
@@ -284,30 +282,5 @@ public class CellBroadcastListActivity extends Activity {
                 dialog.dismiss();
             }
         }
-    }
-
-    @Override
-    protected void onNewIntent(Intent intent) {
-        if (intent == null) {
-            return;
-        }
-
-        Bundle extras = intent.getExtras();
-        if (extras == null) {
-            return;
-        }
-
-        CellBroadcastMessage cbm = extras.getParcelable(CellBroadcastMessage.SMS_CB_MESSAGE_EXTRA);
-        int notificationId = extras.getInt(CellBroadcastAlertService.SMS_CB_NOTIFICATION_ID_EXTRA);
-
-        // Dismiss the notification that brought us here.
-        NotificationManager notificationManager =
-            (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
-        notificationManager.cancel(notificationId);
-
-        // launch the dialog activity to show the alert
-        Intent i = new Intent(this, CellBroadcastAlertDialog.class);
-        i.putExtra(CellBroadcastMessage.SMS_CB_MESSAGE_EXTRA, cbm);
-        startActivity(i);
     }
 }

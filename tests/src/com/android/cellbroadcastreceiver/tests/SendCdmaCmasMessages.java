@@ -62,9 +62,9 @@ public class SendCdmaCmasMessages {
 
     private static final String IS91_TEXT = "IS91 SHORT MSG";   // max length 14 chars
 
-    public static void testSendCmasPresAlert(Activity activity) {
+    public static void testSendCmasPresAlert(Activity activity, int messageId) {
         SmsCbMessage cbMessage = createCmasSmsMessage(
-                SmsEnvelope.SERVICE_CATEGORY_CMAS_PRESIDENTIAL_LEVEL_ALERT, 12345, "en",
+                SmsEnvelope.SERVICE_CATEGORY_CMAS_PRESIDENTIAL_LEVEL_ALERT, messageId, "en",
                 PRES_ALERT, SmsCbCmasInfo.CMAS_CATEGORY_GEO,
                 SmsCbCmasInfo.CMAS_RESPONSE_TYPE_PREPARE, SmsCbCmasInfo.CMAS_SEVERITY_EXTREME,
                 SmsCbCmasInfo.CMAS_URGENCY_EXPECTED, SmsCbCmasInfo.CMAS_CERTAINTY_LIKELY);
@@ -74,9 +74,9 @@ public class SendCdmaCmasMessages {
         activity.sendOrderedBroadcast(intent, "android.permission.RECEIVE_SMS");
     }
 
-    public static void testSendCmasExtremeAlert(Activity activity) {
+    public static void testSendCmasExtremeAlert(Activity activity, int messageId) {
         SmsCbMessage cbMessage = createCmasSmsMessage(
-                SmsEnvelope.SERVICE_CATEGORY_CMAS_EXTREME_THREAT, 23456, "en",
+                SmsEnvelope.SERVICE_CATEGORY_CMAS_EXTREME_THREAT, messageId, "en",
                 EXTREME_ALERT, SmsCbCmasInfo.CMAS_CATEGORY_MET,
                 SmsCbCmasInfo.CMAS_RESPONSE_TYPE_PREPARE, SmsCbCmasInfo.CMAS_SEVERITY_EXTREME,
                 SmsCbCmasInfo.CMAS_URGENCY_EXPECTED, SmsCbCmasInfo.CMAS_CERTAINTY_OBSERVED);
@@ -86,9 +86,9 @@ public class SendCdmaCmasMessages {
         activity.sendOrderedBroadcast(intent, "android.permission.RECEIVE_SMS");
     }
 
-    public static void testSendCmasSevereAlert(Activity activity) {
+    public static void testSendCmasSevereAlert(Activity activity, int messageId) {
         SmsCbMessage cbMessage = createCmasSmsMessage(
-                SmsEnvelope.SERVICE_CATEGORY_CMAS_SEVERE_THREAT, 34567, "en",
+                SmsEnvelope.SERVICE_CATEGORY_CMAS_SEVERE_THREAT, messageId, "en",
                 SEVERE_ALERT, SmsCbCmasInfo.CMAS_CATEGORY_HEALTH,
                 SmsCbCmasInfo.CMAS_RESPONSE_TYPE_AVOID, SmsCbCmasInfo.CMAS_SEVERITY_SEVERE,
                 SmsCbCmasInfo.CMAS_URGENCY_IMMEDIATE, SmsCbCmasInfo.CMAS_CERTAINTY_LIKELY);
@@ -98,9 +98,9 @@ public class SendCdmaCmasMessages {
         activity.sendOrderedBroadcast(intent, "android.permission.RECEIVE_SMS");
     }
 
-    public static void testSendCmasAmberAlert(Activity activity) {
+    public static void testSendCmasAmberAlert(Activity activity, int messageId) {
         SmsCbMessage cbMessage = createCmasSmsMessage(
-                SmsEnvelope.SERVICE_CATEGORY_CMAS_CHILD_ABDUCTION_EMERGENCY, 45678, "en",
+                SmsEnvelope.SERVICE_CATEGORY_CMAS_CHILD_ABDUCTION_EMERGENCY, messageId, "en",
                 AMBER_ALERT, SmsCbCmasInfo.CMAS_CATEGORY_UNKNOWN,
                 SmsCbCmasInfo.CMAS_RESPONSE_TYPE_UNKNOWN, SmsCbCmasInfo.CMAS_SEVERITY_UNKNOWN,
                 SmsCbCmasInfo.CMAS_URGENCY_UNKNOWN, SmsCbCmasInfo.CMAS_CERTAINTY_UNKNOWN);
@@ -110,9 +110,9 @@ public class SendCdmaCmasMessages {
         activity.sendOrderedBroadcast(intent, "android.permission.RECEIVE_SMS");
     }
 
-    public static void testSendCmasMonthlyTest(Activity activity) {
+    public static void testSendCmasMonthlyTest(Activity activity, int messageId) {
         SmsCbMessage cbMessage = createCmasSmsMessage(
-                SmsEnvelope.SERVICE_CATEGORY_CMAS_TEST_MESSAGE, 56789, "en",
+                SmsEnvelope.SERVICE_CATEGORY_CMAS_TEST_MESSAGE, messageId, "en",
                 MONTHLY_TEST_ALERT, SmsCbCmasInfo.CMAS_CATEGORY_UNKNOWN,
                 SmsCbCmasInfo.CMAS_RESPONSE_TYPE_UNKNOWN, SmsCbCmasInfo.CMAS_SEVERITY_UNKNOWN,
                 SmsCbCmasInfo.CMAS_URGENCY_UNKNOWN, SmsCbCmasInfo.CMAS_CERTAINTY_UNKNOWN);
