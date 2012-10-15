@@ -22,6 +22,7 @@ import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.os.SystemProperties;
 import android.preference.PreferenceManager;
+import android.telephony.CellBroadcastMessage;
 import android.telephony.SmsManager;
 import android.text.TextUtils;
 import android.util.Log;
@@ -80,13 +81,24 @@ public class CellBroadcastConfigService extends IntentService {
         }
     }
 
-    static boolean isOperatorDefinedEmergencyId(int messageId) {
+    /**
+     * Returns true if this is a standard or operator-defined emergency alert message.
+     * This includes all ETWS and CMAS alerts, except for AMBER alerts.
+     * @param message the message to test
+     * @return true if the message is an emergency alert; false otherwise
+     */
+    static boolean isEmergencyAlertMessage(CellBroadcastMessage message) {
+        if (message.isEmergencyAlertMessage()) {
+            return true;
+        }
+
         // Check for system property defining the emergency channel ranges to enable
         String emergencyIdRange = SystemProperties.get("ro.cellbroadcast.emergencyids");
         if (TextUtils.isEmpty(emergencyIdRange)) {
             return false;
         }
         try {
+            int messageId = message.getServiceCategory();
             for (String channelRange : emergencyIdRange.split(",")) {
                 int dashIndex = channelRange.indexOf('-');
                 if (dashIndex != -1) {
