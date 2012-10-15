@@ -20,16 +20,20 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.EditText;
+
+import java.util.Random;
 
 /**
  * Activity to send test cell broadcast messages from GUI.
  */
 public class SendTestBroadcastActivity extends Activity {
-    private static String TAG = "SendTestBroadcastActivity";
+    private static final String TAG = "SendTestBroadcastActivity";
 
     /** Whether to delay before sending test message. */
     private boolean mDelayBeforeSending;
@@ -37,19 +41,35 @@ public class SendTestBroadcastActivity extends Activity {
     /** Delay time before sending test message (when box is checked). */
     private static final int DELAY_BEFORE_SENDING_MSEC = 5000;
 
-    /** Callback for sending test message after delay */
-    private OnClickListener mPendingButtonClick;
-
-    private Handler mDelayHandler = new Handler() {
+    private final Handler mDelayHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             // call the onClick() method again, passing null View.
             // The callback will ignore mDelayBeforeSending when the View is null.
-            mPendingButtonClick.onClick(null);
+            OnClickListener pendingButtonClick = (OnClickListener) msg.obj;
+            pendingButtonClick.onClick(null);
         }
     };
 
-
+    /**
+     * Increment the message ID field and return the previous value.
+     * @return the current value of the message ID text field
+     */
+    private int getMessageId() {
+        EditText messageIdField = (EditText) findViewById(R.id.message_id);
+        int messageId = 0;
+        try {
+            messageId = Integer.parseInt(messageIdField.getText().toString());
+        } catch (NumberFormatException ignored) {
+            Log.e(TAG, "Invalid message ID");
+        }
+        int newMessageId = (messageId + 1) % 65536;
+        if (newMessageId == 0) {
+            newMessageId = 1;
+        }
+        messageIdField.setText(String.valueOf(newMessageId));
+        return messageId;
+    }
 
     /**
      * Initialization of the Activity after it is first created.  Must at least
@@ -61,14 +81,18 @@ public class SendTestBroadcastActivity extends Activity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.test_buttons);
+
+        /* Set message ID to a random value from 1-65535. */
+        EditText messageIdField = (EditText) findViewById(R.id.message_id);
+        messageIdField.setText(String.valueOf(new Random().nextInt(65535) + 1));
                 
         /* Send an ETWS normal broadcast message to app. */
         Button etwsNormalTypeButton = (Button) findViewById(R.id.button_etws_normal_type);
         etwsNormalTypeButton.setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
                 if (mDelayBeforeSending && v != null) {
-                    mPendingButtonClick = this;
-                    mDelayHandler.sendEmptyMessageDelayed(0, DELAY_BEFORE_SENDING_MSEC);
+                    Message msg = mDelayHandler.obtainMessage(0, this);
+                    mDelayHandler.sendMessageDelayed(msg, DELAY_BEFORE_SENDING_MSEC);
                 } else {
                     SendTestMessages.testSendEtwsMessageNormal(SendTestBroadcastActivity.this);
                 }
@@ -80,8 +104,8 @@ public class SendTestBroadcastActivity extends Activity {
         etwsCancelTypeButton.setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
                 if (mDelayBeforeSending && v != null) {
-                    mPendingButtonClick = this;
-                    mDelayHandler.sendEmptyMessageDelayed(0, DELAY_BEFORE_SENDING_MSEC);
+                    Message msg = mDelayHandler.obtainMessage(0, this);
+                    mDelayHandler.sendMessageDelayed(msg, DELAY_BEFORE_SENDING_MSEC);
                 } else {
                     SendTestMessages.testSendEtwsMessageCancel(SendTestBroadcastActivity.this);
                 }
@@ -93,8 +117,8 @@ public class SendTestBroadcastActivity extends Activity {
         etwsTestTypeButton.setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
                 if (mDelayBeforeSending && v != null) {
-                    mPendingButtonClick = this;
-                    mDelayHandler.sendEmptyMessageDelayed(0, DELAY_BEFORE_SENDING_MSEC);
+                    Message msg = mDelayHandler.obtainMessage(0, this);
+                    mDelayHandler.sendMessageDelayed(msg, DELAY_BEFORE_SENDING_MSEC);
                 } else {
                     SendTestMessages.testSendEtwsMessageTest(SendTestBroadcastActivity.this);
                 }
@@ -106,10 +130,11 @@ public class SendTestBroadcastActivity extends Activity {
         cmasPresAlertButton.setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
                 if (mDelayBeforeSending && v != null) {
-                    mPendingButtonClick = this;
-                    mDelayHandler.sendEmptyMessageDelayed(0, DELAY_BEFORE_SENDING_MSEC);
+                    Message msg = mDelayHandler.obtainMessage(0, this);
+                    mDelayHandler.sendMessageDelayed(msg, DELAY_BEFORE_SENDING_MSEC);
                 } else {
-                    SendCdmaCmasMessages.testSendCmasPresAlert(SendTestBroadcastActivity.this);
+                    SendCdmaCmasMessages.testSendCmasPresAlert(SendTestBroadcastActivity.this,
+                            getMessageId());
                 }
             }
         });
@@ -119,10 +144,11 @@ public class SendTestBroadcastActivity extends Activity {
         cmasExtremeAlertButton.setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
                 if (mDelayBeforeSending && v != null) {
-                    mPendingButtonClick = this;
-                    mDelayHandler.sendEmptyMessageDelayed(0, DELAY_BEFORE_SENDING_MSEC);
+                    Message msg = mDelayHandler.obtainMessage(0, this);
+                    mDelayHandler.sendMessageDelayed(msg, DELAY_BEFORE_SENDING_MSEC);
                 } else {
-                    SendCdmaCmasMessages.testSendCmasExtremeAlert(SendTestBroadcastActivity.this);
+                    SendCdmaCmasMessages.testSendCmasExtremeAlert(SendTestBroadcastActivity.this,
+                            getMessageId());
                 }
             }
         });
@@ -132,10 +158,11 @@ public class SendTestBroadcastActivity extends Activity {
         cmasSevereAlertButton.setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
                 if (mDelayBeforeSending && v != null) {
-                    mPendingButtonClick = this;
-                    mDelayHandler.sendEmptyMessageDelayed(0, DELAY_BEFORE_SENDING_MSEC);
+                    Message msg = mDelayHandler.obtainMessage(0, this);
+                    mDelayHandler.sendMessageDelayed(msg, DELAY_BEFORE_SENDING_MSEC);
                 } else {
-                    SendCdmaCmasMessages.testSendCmasSevereAlert(SendTestBroadcastActivity.this);
+                    SendCdmaCmasMessages.testSendCmasSevereAlert(SendTestBroadcastActivity.this,
+                            getMessageId());
                 }
             }
         });
@@ -145,10 +172,11 @@ public class SendTestBroadcastActivity extends Activity {
         cmasAmberAlertButton.setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
                 if (mDelayBeforeSending && v != null) {
-                    mPendingButtonClick = this;
-                    mDelayHandler.sendEmptyMessageDelayed(0, DELAY_BEFORE_SENDING_MSEC);
+                    Message msg = mDelayHandler.obtainMessage(0, this);
+                    mDelayHandler.sendMessageDelayed(msg, DELAY_BEFORE_SENDING_MSEC);
                 } else {
-                    SendCdmaCmasMessages.testSendCmasAmberAlert(SendTestBroadcastActivity.this);
+                    SendCdmaCmasMessages.testSendCmasAmberAlert(SendTestBroadcastActivity.this,
+                            getMessageId());
                 }
             }
         });
@@ -158,10 +186,11 @@ public class SendTestBroadcastActivity extends Activity {
         cmasMonthlyTestButton.setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
                 if (mDelayBeforeSending && v != null) {
-                    mPendingButtonClick = this;
-                    mDelayHandler.sendEmptyMessageDelayed(0, DELAY_BEFORE_SENDING_MSEC);
+                    Message msg = mDelayHandler.obtainMessage(0, this);
+                    mDelayHandler.sendMessageDelayed(msg, DELAY_BEFORE_SENDING_MSEC);
                 } else {
-                    SendCdmaCmasMessages.testSendCmasMonthlyTest(SendTestBroadcastActivity.this);
+                    SendCdmaCmasMessages.testSendCmasMonthlyTest(SendTestBroadcastActivity.this,
+                            getMessageId());
                 }
             }
         });
@@ -171,8 +200,8 @@ public class SendTestBroadcastActivity extends Activity {
         gsm7bitTypeButton.setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
                 if (mDelayBeforeSending && v != null) {
-                    mPendingButtonClick = this;
-                    mDelayHandler.sendEmptyMessageDelayed(0, DELAY_BEFORE_SENDING_MSEC);
+                    Message msg = mDelayHandler.obtainMessage(0, this);
+                    mDelayHandler.sendMessageDelayed(msg, DELAY_BEFORE_SENDING_MSEC);
                 } else {
                     SendTestMessages.testSendMessage7bit(SendTestBroadcastActivity.this);
                 }
@@ -184,8 +213,8 @@ public class SendTestBroadcastActivity extends Activity {
         gsm7bitUmtsTypeButton.setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
                 if (mDelayBeforeSending && v != null) {
-                    mPendingButtonClick = this;
-                    mDelayHandler.sendEmptyMessageDelayed(0, DELAY_BEFORE_SENDING_MSEC);
+                    Message msg = mDelayHandler.obtainMessage(0, this);
+                    mDelayHandler.sendMessageDelayed(msg, DELAY_BEFORE_SENDING_MSEC);
                 } else {
                     SendTestMessages.testSendMessage7bitUmts(SendTestBroadcastActivity.this);
                 }
@@ -197,8 +226,8 @@ public class SendTestBroadcastActivity extends Activity {
         gsm7bitNoPaddingButton.setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
                 if (mDelayBeforeSending && v != null) {
-                    mPendingButtonClick = this;
-                    mDelayHandler.sendEmptyMessageDelayed(0, DELAY_BEFORE_SENDING_MSEC);
+                    Message msg = mDelayHandler.obtainMessage(0, this);
+                    mDelayHandler.sendMessageDelayed(msg, DELAY_BEFORE_SENDING_MSEC);
                 } else {
                     SendTestMessages.testSendMessage7bitNoPadding(SendTestBroadcastActivity.this);
                 }
@@ -211,8 +240,8 @@ public class SendTestBroadcastActivity extends Activity {
         gsm7bitNoPaddingUmtsTypeButton.setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
                 if (mDelayBeforeSending && v != null) {
-                    mPendingButtonClick = this;
-                    mDelayHandler.sendEmptyMessageDelayed(0, DELAY_BEFORE_SENDING_MSEC);
+                    Message msg = mDelayHandler.obtainMessage(0, this);
+                    mDelayHandler.sendMessageDelayed(msg, DELAY_BEFORE_SENDING_MSEC);
                 } else {
                     SendTestMessages.testSendMessage7bitNoPaddingUmts(SendTestBroadcastActivity.this);
                 }
@@ -225,8 +254,8 @@ public class SendTestBroadcastActivity extends Activity {
         gsm7bitMultipageButton.setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
                 if (mDelayBeforeSending && v != null) {
-                    mPendingButtonClick = this;
-                    mDelayHandler.sendEmptyMessageDelayed(0, DELAY_BEFORE_SENDING_MSEC);
+                    Message msg = mDelayHandler.obtainMessage(0, this);
+                    mDelayHandler.sendMessageDelayed(msg, DELAY_BEFORE_SENDING_MSEC);
                 } else {
                     SendTestMessages.testSendMessage7bitMultipageGsm(SendTestBroadcastActivity.this);
                 }
@@ -239,8 +268,8 @@ public class SendTestBroadcastActivity extends Activity {
         gsm7bitMultipageUmtsButton.setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
                 if (mDelayBeforeSending && v != null) {
-                    mPendingButtonClick = this;
-                    mDelayHandler.sendEmptyMessageDelayed(0, DELAY_BEFORE_SENDING_MSEC);
+                    Message msg = mDelayHandler.obtainMessage(0, this);
+                    mDelayHandler.sendMessageDelayed(msg, DELAY_BEFORE_SENDING_MSEC);
                 } else {
                     SendTestMessages.testSendMessage7bitMultipageUmts(SendTestBroadcastActivity.this);
                 }
@@ -253,8 +282,8 @@ public class SendTestBroadcastActivity extends Activity {
         gsm7bitWithLanguageButton.setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
                 if (mDelayBeforeSending && v != null) {
-                    mPendingButtonClick = this;
-                    mDelayHandler.sendEmptyMessageDelayed(0, DELAY_BEFORE_SENDING_MSEC);
+                    Message msg = mDelayHandler.obtainMessage(0, this);
+                    mDelayHandler.sendMessageDelayed(msg, DELAY_BEFORE_SENDING_MSEC);
                 } else {
                     SendTestMessages.testSendMessage7bitWithLanguage(SendTestBroadcastActivity.this);
                 }
@@ -267,8 +296,8 @@ public class SendTestBroadcastActivity extends Activity {
         gsm7bitWithLanguageInBodyButton.setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
                 if (mDelayBeforeSending && v != null) {
-                    mPendingButtonClick = this;
-                    mDelayHandler.sendEmptyMessageDelayed(0, DELAY_BEFORE_SENDING_MSEC);
+                    Message msg = mDelayHandler.obtainMessage(0, this);
+                    mDelayHandler.sendMessageDelayed(msg, DELAY_BEFORE_SENDING_MSEC);
                 } else {
                     SendTestMessages.testSendMessage7bitWithLanguageInBody(
                             SendTestBroadcastActivity.this);
@@ -282,8 +311,8 @@ public class SendTestBroadcastActivity extends Activity {
         gsm7bitWithLanguageUmtsButton.setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
                 if (mDelayBeforeSending && v != null) {
-                    mPendingButtonClick = this;
-                    mDelayHandler.sendEmptyMessageDelayed(0, DELAY_BEFORE_SENDING_MSEC);
+                    Message msg = mDelayHandler.obtainMessage(0, this);
+                    mDelayHandler.sendMessageDelayed(msg, DELAY_BEFORE_SENDING_MSEC);
                 } else {
                     SendTestMessages.testSendMessage7bitWithLanguageInBodyUmts(SendTestBroadcastActivity.this);
                 }
@@ -295,8 +324,8 @@ public class SendTestBroadcastActivity extends Activity {
         gsmUcs2TypeButton.setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
                 if (mDelayBeforeSending && v != null) {
-                    mPendingButtonClick = this;
-                    mDelayHandler.sendEmptyMessageDelayed(0, DELAY_BEFORE_SENDING_MSEC);
+                    Message msg = mDelayHandler.obtainMessage(0, this);
+                    mDelayHandler.sendMessageDelayed(msg, DELAY_BEFORE_SENDING_MSEC);
                 } else {
                     SendTestMessages.testSendMessageUcs2(SendTestBroadcastActivity.this);
                 }
@@ -308,8 +337,8 @@ public class SendTestBroadcastActivity extends Activity {
         gsmUcs2UmtsTypeButton.setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
                 if (mDelayBeforeSending && v != null) {
-                    mPendingButtonClick = this;
-                    mDelayHandler.sendEmptyMessageDelayed(0, DELAY_BEFORE_SENDING_MSEC);
+                    Message msg = mDelayHandler.obtainMessage(0, this);
+                    mDelayHandler.sendMessageDelayed(msg, DELAY_BEFORE_SENDING_MSEC);
                 } else {
                     SendTestMessages.testSendMessageUcs2Umts(SendTestBroadcastActivity.this);
                 }
@@ -322,8 +351,8 @@ public class SendTestBroadcastActivity extends Activity {
         gsmUcs2MultipageUmtsTypeButton.setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
                 if (mDelayBeforeSending && v != null) {
-                    mPendingButtonClick = this;
-                    mDelayHandler.sendEmptyMessageDelayed(0, DELAY_BEFORE_SENDING_MSEC);
+                    Message msg = mDelayHandler.obtainMessage(0, this);
+                    mDelayHandler.sendMessageDelayed(msg, DELAY_BEFORE_SENDING_MSEC);
                 } else {
                     SendTestMessages.testSendMessageUcs2MultipageUmts(SendTestBroadcastActivity.this);
                 }
@@ -336,8 +365,8 @@ public class SendTestBroadcastActivity extends Activity {
         gsmUcs2WithLanguageTypeButton.setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
                 if (mDelayBeforeSending && v != null) {
-                    mPendingButtonClick = this;
-                    mDelayHandler.sendEmptyMessageDelayed(0, DELAY_BEFORE_SENDING_MSEC);
+                    Message msg = mDelayHandler.obtainMessage(0, this);
+                    mDelayHandler.sendMessageDelayed(msg, DELAY_BEFORE_SENDING_MSEC);
                 } else {
                     SendTestMessages.testSendMessageUcs2WithLanguageInBody(SendTestBroadcastActivity.this);
                 }
@@ -350,8 +379,8 @@ public class SendTestBroadcastActivity extends Activity {
         gsmUcs2WithLanguageUmtsTypeButton.setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
                 if (mDelayBeforeSending && v != null) {
-                    mPendingButtonClick = this;
-                    mDelayHandler.sendEmptyMessageDelayed(0, DELAY_BEFORE_SENDING_MSEC);
+                    Message msg = mDelayHandler.obtainMessage(0, this);
+                    mDelayHandler.sendMessageDelayed(msg, DELAY_BEFORE_SENDING_MSEC);
                 } else {
                     SendTestMessages.testSendMessageUcs2WithLanguageUmts(SendTestBroadcastActivity.this);
                 }

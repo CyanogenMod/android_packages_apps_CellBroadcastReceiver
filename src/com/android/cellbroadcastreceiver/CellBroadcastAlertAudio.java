@@ -27,7 +27,6 @@ import android.media.MediaPlayer.OnErrorListener;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
-import android.os.PowerManager;
 import android.os.Vibrator;
 import android.speech.tts.TextToSpeech;
 import android.telephony.PhoneStateListener;
@@ -75,9 +74,6 @@ public class CellBroadcastAlertAudio extends Service implements TextToSpeech.OnI
     /** Vibration uses the same on/off pattern as the CMAS alert tone */
     private static final long[] sVibratePattern = { 0, 2000, 500, 1000, 500, 1000, 500,
             2000, 500, 1000, 500, 1000};
-
-    /** CPU wake lock while playing audio. */
-    private PowerManager.WakeLock mWakeLock;
 
     private static final int STATE_IDLE = 0;
     private static final int STATE_ALERTING = 1;
@@ -199,11 +195,6 @@ public class CellBroadcastAlertAudio extends Service implements TextToSpeech.OnI
 
     @Override
     public void onCreate() {
-        // acquire CPU wake lock while playing audio
-        PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
-        mWakeLock = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, TAG);
-        mWakeLock.acquire();
-
         mVibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
         mAudioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
         // Listen for incoming calls to kill the alarm.
@@ -228,8 +219,8 @@ public class CellBroadcastAlertAudio extends Service implements TextToSpeech.OnI
                 Log.e(TAG, "exception trying to shutdown text-to-speech");
             }
         }
-        // release CPU wake lock
-        mWakeLock.release();
+        // release CPU wake lock acquired by CellBroadcastAlertService
+        CellBroadcastAlertWakeLock.releaseCpuLock();
     }
 
     @Override

@@ -252,19 +252,15 @@ public class CellBroadcastContentProvider extends ContentProvider {
     /**
      * Internal method to delete a cell broadcast by row ID and notify observers.
      * @param rowId the row ID of the broadcast to delete
-     * @param decrementUnreadCount true to decrement the count of unread alerts
      * @return true if the database was updated, false otherwise
      */
-    boolean deleteBroadcast(long rowId, boolean decrementUnreadCount) {
+    boolean deleteBroadcast(long rowId) {
         SQLiteDatabase db = mOpenHelper.getWritableDatabase();
 
         int rowCount = db.delete(CellBroadcastDatabaseHelper.TABLE_NAME,
                 Telephony.CellBroadcasts._ID + "=?",
                 new String[]{Long.toString(rowId)});
         if (rowCount != 0) {
-            if (decrementUnreadCount) {
-                CellBroadcastReceiverApp.decrementUnreadAlertCount();
-            }
             return true;
         } else {
             Log.e(TAG, "failed to delete broadcast at row " + rowId);
@@ -281,7 +277,6 @@ public class CellBroadcastContentProvider extends ContentProvider {
 
         int rowCount = db.delete(CellBroadcastDatabaseHelper.TABLE_NAME, null, null);
         if (rowCount != 0) {
-            CellBroadcastReceiverApp.resetUnreadAlertCount();
             return true;
         } else {
             Log.e(TAG, "failed to delete all broadcasts");

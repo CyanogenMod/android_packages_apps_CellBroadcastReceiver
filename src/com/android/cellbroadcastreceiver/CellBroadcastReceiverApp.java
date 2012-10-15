@@ -17,9 +17,11 @@
 package com.android.cellbroadcastreceiver;
 
 import android.app.Application;
+import android.telephony.CellBroadcastMessage;
 import android.util.Log;
 import android.preference.PreferenceManager;
 
+import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
@@ -36,29 +38,18 @@ public class CellBroadcastReceiverApp extends Application {
         PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
     }
 
-    /** Number of unread non-emergency alerts since the device was booted. */
-    private static AtomicInteger sUnreadAlertCount = new AtomicInteger();
+    /** List of unread non-emergency alerts to show when user selects the notification. */
+    private static final ArrayList<CellBroadcastMessage> sNewMessageList =
+            new ArrayList<CellBroadcastMessage>(4);
 
-    /**
-     * Increments the number of unread non-emergency alerts, returning the new value.
-     * @return the updated number of unread non-emergency alerts, after incrementing
-     */
-    static int incrementUnreadAlertCount() {
-        return sUnreadAlertCount.incrementAndGet();
+    /** Adds a new unread non-emergency message and returns the current list. */
+    static ArrayList<CellBroadcastMessage> addNewMessageToList(CellBroadcastMessage message) {
+        sNewMessageList.add(message);
+        return sNewMessageList;
     }
 
-    /**
-     * Decrements the number of unread non-emergency alerts after the user reads it.
-     */
-    static void decrementUnreadAlertCount() {
-        if (sUnreadAlertCount.decrementAndGet() < 0) {
-            Log.e(TAG, "mUnreadAlertCount < 0, resetting to 0");
-            sUnreadAlertCount.set(0);
-        }
-    }
-
-    /** Resets the unread alert count to zero after user deletes all alerts. */
-    static void resetUnreadAlertCount() {
-        sUnreadAlertCount.set(0);
+    /** Clears the list of unread non-emergency messages. */
+    static void clearNewMessageList() {
+        sNewMessageList.clear();
     }
 }

@@ -289,7 +289,7 @@ public class CellBroadcastResources {
             }
         }
 
-        if (cbm.isPublicAlertMessage()) {
+        if (CellBroadcastConfigService.isEmergencyAlertMessage(cbm)) {
             return R.string.pws_other_message_identifiers;
         } else {
             return R.string.cb_other_message_identifiers;
