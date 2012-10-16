@@ -40,4 +40,6 @@
     <string name="button_gsm_ucs2_with_language_type" msgid="8992961254390480388">"Lähetä GSM UCS-2 kielellä"</string>
     <string name="button_gsm_ucs2_with_language_umts_type" msgid="1080788762601688380">"Lähetä GSM UCS-2 kielellä"</string>
     <string name="button_delay_broadcast" msgid="5138650276363839541">"5 sekunnin viive ennen lähettämistä"</string>
+    <!-- no translation found for message_id_label (4365322663037110887) -->
+    <skip />
 </resources>
