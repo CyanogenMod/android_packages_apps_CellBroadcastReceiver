@@ -40,4 +40,6 @@
     <string name="button_gsm_ucs2_with_language_type" msgid="8992961254390480388">"Siųsti GSM UCS-2 su kalba"</string>
     <string name="button_gsm_ucs2_with_language_umts_type" msgid="1080788762601688380">"Siųsti UMTS UCS-2 su kalba"</string>
     <string name="button_delay_broadcast" msgid="5138650276363839541">"Atidėti 5 sek. prieš siunčiant"</string>
+    <!-- no translation found for message_id_label (4365322663037110887) -->
+    <skip />
 </resources>
