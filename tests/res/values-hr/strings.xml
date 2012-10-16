@@ -40,4 +40,6 @@
     <string name="button_gsm_ucs2_with_language_type" msgid="8992961254390480388">"Pošalji GSM UCS-2 s jezikom"</string>
     <string name="button_gsm_ucs2_with_language_umts_type" msgid="1080788762601688380">"Pošalji UMTS UCS-2 s jezikom"</string>
     <string name="button_delay_broadcast" msgid="5138650276363839541">"Odgodi slanje za 5 sekundi"</string>
+    <!-- no translation found for message_id_label (4365322663037110887) -->
+    <skip />
 </resources>
