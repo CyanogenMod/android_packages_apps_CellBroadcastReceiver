@@ -40,4 +40,6 @@
     <string name="button_gsm_ucs2_with_language_type" msgid="8992961254390480388">"傳送特定語言的 GSM UCS-2 訊息"</string>
     <string name="button_gsm_ucs2_with_language_umts_type" msgid="1080788762601688380">"傳送特定語言的 UMTS UCS-2 訊息"</string>
     <string name="button_delay_broadcast" msgid="5138650276363839541">"傳送前延遲 5 秒"</string>
+    <!-- no translation found for message_id_label (4365322663037110887) -->
+    <skip />
 </resources>
