@@ -40,6 +40,5 @@
     <string name="button_gsm_ucs2_with_language_type" msgid="8992961254390480388">"Odeslat GSM UCS-2 s jazykem"</string>
     <string name="button_gsm_ucs2_with_language_umts_type" msgid="1080788762601688380">"Odeslat UMTS (UCS-2) s jazykem"</string>
     <string name="button_delay_broadcast" msgid="5138650276363839541">"Před odesláním prodleva 5 sekund"</string>
-    <!-- no translation found for message_id_label (4365322663037110887) -->
-    <skip />
+    <string name="message_id_label" msgid="4365322663037110887">"ID zprávy:"</string>
 </resources>

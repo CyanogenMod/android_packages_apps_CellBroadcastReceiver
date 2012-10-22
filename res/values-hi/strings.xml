@@ -101,16 +101,11 @@
     <string name="delivery_time_heading" msgid="5980836543433619329">"प्राप्त:"</string>
     <string name="notification_multiple" msgid="5121978148152124860">"<xliff:g id="COUNT">%s</xliff:g> बिना पढ़े अलर्ट."</string>
     <string name="notification_multiple_title" msgid="1523638925739947855">"नए अलर्ट"</string>
-    <!-- no translation found for show_cmas_opt_out_summary (4370292554938680862) -->
-    <skip />
-    <!-- no translation found for show_cmas_opt_out_title (9182104842820171132) -->
-    <skip />
-    <!-- no translation found for cmas_opt_out_dialog_text (7529010670998259128) -->
-    <skip />
-    <!-- no translation found for cmas_opt_out_button_yes (7248930667195432936) -->
-    <skip />
-    <!-- no translation found for cmas_opt_out_button_no (3110484064328538553) -->
-    <skip />
+    <string name="show_cmas_opt_out_summary" msgid="4370292554938680862">"पहला CMAS अलर्ट (प्रेसिडेंशियल अलर्ट के अलावा) दिखाने के बाद ऑप्ट-आउट संवाद दिखाएं."</string>
+    <string name="show_cmas_opt_out_title" msgid="9182104842820171132">"ऑप्ट-आउट संवाद दिखाएं"</string>
+    <string name="cmas_opt_out_dialog_text" msgid="7529010670998259128">"आपको वर्तमान में आपातकालीन अलर्ट प्राप्त हो रहे हैं. क्या आप आगे भी आपातकालीन अलर्ट प्राप्त करना चाहते हैं?"</string>
+    <string name="cmas_opt_out_button_yes" msgid="7248930667195432936">"हां"</string>
+    <string name="cmas_opt_out_button_no" msgid="3110484064328538553">"नहीं"</string>
   <string-array name="alert_sound_duration_entries">
     <item msgid="5353482200312892037">"2 सेकंड"</item>
     <item msgid="5656092384277009212">"4 सेकंड"</item>
