@@ -101,16 +101,11 @@
     <string name="delivery_time_heading" msgid="5980836543433619329">"Атрымана:"</string>
     <string name="notification_multiple" msgid="5121978148152124860">"Непрачытаных абвестак: <xliff:g id="COUNT">%s</xliff:g>."</string>
     <string name="notification_multiple_title" msgid="1523638925739947855">"Новыя абвесткі"</string>
-    <!-- no translation found for show_cmas_opt_out_summary (4370292554938680862) -->
-    <skip />
-    <!-- no translation found for show_cmas_opt_out_title (9182104842820171132) -->
-    <skip />
-    <!-- no translation found for cmas_opt_out_dialog_text (7529010670998259128) -->
-    <skip />
-    <!-- no translation found for cmas_opt_out_button_yes (7248930667195432936) -->
-    <skip />
-    <!-- no translation found for cmas_opt_out_button_no (3110484064328538553) -->
-    <skip />
+    <string name="show_cmas_opt_out_summary" msgid="4370292554938680862">"Паказаць дыялогавае вакно выхада пасля адлюстравання першага CMAS (акрамя прэзідэнцкага папярэджання)."</string>
+    <string name="show_cmas_opt_out_title" msgid="9182104842820171132">"Паказаць дыялогавае вакно выхада"</string>
+    <string name="cmas_opt_out_dialog_text" msgid="7529010670998259128">"Зараз вы атрымліваеце надзвычайныя абвесткі. Працягваць атрымліваць іх?"</string>
+    <string name="cmas_opt_out_button_yes" msgid="7248930667195432936">"Так"</string>
+    <string name="cmas_opt_out_button_no" msgid="3110484064328538553">"Не"</string>
   <string-array name="alert_sound_duration_entries">
     <item msgid="5353482200312892037">"2 секунды"</item>
     <item msgid="5656092384277009212">"30 секунд"</item>

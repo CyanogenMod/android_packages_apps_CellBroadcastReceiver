@@ -23,11 +23,9 @@
     <string name="menu_preferences" msgid="3596514894131599202">"Configurações"</string>
     <string name="menu_delete_all" msgid="3940997343921149800">"Excluir transmissões"</string>
     <string name="message_options" msgid="3178489901903589574">"Opções de mensagem"</string>
-    <!-- no translation found for menu_view_details (1040989019045280975) -->
-    <skip />
+    <string name="menu_view_details" msgid="1040989019045280975">"Ver detalhes"</string>
     <string name="menu_delete" msgid="128380070910799366">"Excluir transmissão"</string>
-    <!-- no translation found for view_details_title (1780427629491781473) -->
-    <skip />
+    <string name="view_details_title" msgid="1780427629491781473">"Detalhes do alerta"</string>
     <string name="confirm_delete_broadcast" msgid="2540199303730232322">"Excluir esta transmissão?"</string>
     <string name="confirm_delete_all_broadcasts" msgid="2924444089047280871">"Excluir todas as mensagens recebidas?"</string>
     <string name="button_delete" msgid="4672451757925194350">"Excluir"</string>
@@ -63,16 +61,13 @@
     <string name="enable_cmas_amber_alerts_summary" msgid="8423617548641801387">"Mostrar boletins de emergência de sequestro de crianças (alerta AMBER)"</string>
     <string name="enable_cmas_test_alerts_title" msgid="8620213090932770270">"Mostrar transm. de teste CMAS"</string>
     <string name="enable_cmas_test_alerts_summary" msgid="2935171596891733844">"Exibir transmissões de teste para o Sistema de alertas para celular comercial"</string>
-    <!-- no translation found for enable_alert_vibrate_title (982817538757982090) -->
-    <skip />
-    <!-- no translation found for enable_alert_vibrate_summary (4328060563316778589) -->
-    <skip />
+    <string name="enable_alert_vibrate_title" msgid="982817538757982090">"Vibrar"</string>
+    <string name="enable_alert_vibrate_summary" msgid="4328060563316778589">"Vibrar ao alertar"</string>
     <string name="category_brazil_settings_title" msgid="6343130548572319922">"Configurações para o Brasil"</string>
     <string name="enable_channel_50_alerts_title" msgid="2818924064446974167">"Ver transmissões do canal 50"</string>
     <string name="enable_channel_50_alerts_summary" msgid="7507770011325273009">"O canal 50 é usado no Brasil para informações de atualização de área"</string>
     <string name="category_dev_settings_title" msgid="6194393458398329994">"Opções do desenvolvedor"</string>
-    <!-- no translation found for cmas_category_heading (3923503130776640717) -->
-    <skip />
+    <string name="cmas_category_heading" msgid="3923503130776640717">"Categoria de alerta:"</string>
     <string name="cmas_category_geo" msgid="4979494217069688527">"Geofísico"</string>
     <string name="cmas_category_met" msgid="7563732573851773537">"Meteorológico"</string>
     <string name="cmas_category_safety" msgid="2986472639641883453">"Segurança"</string>
@@ -85,47 +80,32 @@
     <string name="cmas_category_infra" msgid="3558151044446851398">"Infraestrutura"</string>
     <string name="cmas_category_cbrne" msgid="240421557913603971">"Químico/Biológico/Nuclear/Explosivo"</string>
     <string name="cmas_category_other" msgid="6158932360790744360">"Outros"</string>
-    <!-- no translation found for cmas_response_heading (4205379547245540163) -->
-    <skip />
-    <!-- no translation found for cmas_response_shelter (7301175579079615909) -->
-    <skip />
+    <string name="cmas_response_heading" msgid="4205379547245540163">"Tipo de resposta:"</string>
+    <string name="cmas_response_shelter" msgid="7301175579079615909">"Abrigar"</string>
     <string name="cmas_response_evacuate" msgid="5833170084430021095">"Evacuar"</string>
     <string name="cmas_response_prepare" msgid="8428073909753758319">"Preparar"</string>
-    <!-- no translation found for cmas_response_execute (284719420769568493) -->
-    <skip />
-    <!-- no translation found for cmas_response_monitor (681400164440495749) -->
-    <skip />
-    <!-- no translation found for cmas_response_avoid (156419597612629270) -->
-    <skip />
-    <!-- no translation found for cmas_response_assess (9043534222710563415) -->
-    <skip />
-    <!-- no translation found for cmas_response_none (5149009359674452959) -->
-    <skip />
+    <string name="cmas_response_execute" msgid="284719420769568493">"Executar"</string>
+    <string name="cmas_response_monitor" msgid="681400164440495749">"Monitorar"</string>
+    <string name="cmas_response_avoid" msgid="156419597612629270">"Evitar"</string>
+    <string name="cmas_response_assess" msgid="9043534222710563415">"Avaliar"</string>
+    <string name="cmas_response_none" msgid="5149009359674452959">"Nenhuma"</string>
     <string name="cmas_severity_heading" msgid="8437057117822305243">"Gravidade:"</string>
     <string name="cmas_severity_extreme" msgid="1312013282860183082">"Extremo"</string>
     <string name="cmas_severity_severe" msgid="7504359209737074524">"Grave"</string>
     <string name="cmas_urgency_heading" msgid="8218282767913431492">"Urgência:"</string>
-    <!-- no translation found for cmas_urgency_immediate (1577485208196449288) -->
-    <skip />
-    <!-- no translation found for cmas_urgency_expected (6830831119872375936) -->
-    <skip />
+    <string name="cmas_urgency_immediate" msgid="1577485208196449288">"Imediata"</string>
+    <string name="cmas_urgency_expected" msgid="6830831119872375936">"Esperada"</string>
     <string name="cmas_certainty_heading" msgid="8374669249736439193">"Certeza:"</string>
     <string name="cmas_certainty_observed" msgid="3668549749352106472">"Observado"</string>
     <string name="cmas_certainty_likely" msgid="4254497828943291749">"Provável"</string>
-    <!-- no translation found for delivery_time_heading (5980836543433619329) -->
-    <skip />
+    <string name="delivery_time_heading" msgid="5980836543433619329">"Recebida:"</string>
     <string name="notification_multiple" msgid="5121978148152124860">"<xliff:g id="COUNT">%s</xliff:g> alertas não lidos."</string>
     <string name="notification_multiple_title" msgid="1523638925739947855">"Novos alertas"</string>
-    <!-- no translation found for show_cmas_opt_out_summary (4370292554938680862) -->
-    <skip />
-    <!-- no translation found for show_cmas_opt_out_title (9182104842820171132) -->
-    <skip />
-    <!-- no translation found for cmas_opt_out_dialog_text (7529010670998259128) -->
-    <skip />
-    <!-- no translation found for cmas_opt_out_button_yes (7248930667195432936) -->
-    <skip />
-    <!-- no translation found for cmas_opt_out_button_no (3110484064328538553) -->
-    <skip />
+    <string name="show_cmas_opt_out_summary" msgid="4370292554938680862">"Mostrar um diálogo de desativação após exibir o primeiro alerta CMAS (exceto presidencial)."</string>
+    <string name="show_cmas_opt_out_title" msgid="9182104842820171132">"Mostrar diálogo de desativação"</string>
+    <string name="cmas_opt_out_dialog_text" msgid="7529010670998259128">"Você está recebendo alertas de emergência. Deseja continuar a receber alertas de emergência?"</string>
+    <string name="cmas_opt_out_button_yes" msgid="7248930667195432936">"Sim"</string>
+    <string name="cmas_opt_out_button_no" msgid="3110484064328538553">"Não"</string>
   <string-array name="alert_sound_duration_entries">
     <item msgid="5353482200312892037">"Dois segundos"</item>
     <item msgid="5656092384277009212">"Quatro segundos"</item>
