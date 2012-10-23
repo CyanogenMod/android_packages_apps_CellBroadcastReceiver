@@ -101,8 +101,8 @@
     <string name="delivery_time_heading" msgid="5980836543433619329">"Ricevuto:"</string>
     <string name="notification_multiple" msgid="5121978148152124860">"<xliff:g id="COUNT">%s</xliff:g> avvisi non letti."</string>
     <string name="notification_multiple_title" msgid="1523638925739947855">"Nuovi avvisi"</string>
-    <string name="show_cmas_opt_out_summary" msgid="4370292554938680862">"Dopo primo avviso CMAS (non avviso presidenziale) viene visualizzata finestra per disattivazione."</string>
-    <string name="show_cmas_opt_out_title" msgid="9182104842820171132">"Mostra finestra disattivazione"</string>
+    <string name="show_cmas_opt_out_summary" msgid="4370292554938680862">"Mostra finestra di disattivazione dopo il primo avviso CMAS (diverso da un avviso presidenziale)."</string>
+    <string name="show_cmas_opt_out_title" msgid="9182104842820171132">"Mostra finestra di disattivazione"</string>
     <string name="cmas_opt_out_dialog_text" msgid="7529010670998259128">"Stai ricevendo avvisi di emergenza. Vuoi continuare a ricevere questi avvisi?"</string>
     <string name="cmas_opt_out_button_yes" msgid="7248930667195432936">"Sì"</string>
     <string name="cmas_opt_out_button_no" msgid="3110484064328538553">"No"</string>
