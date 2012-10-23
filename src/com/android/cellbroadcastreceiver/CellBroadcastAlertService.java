@@ -86,7 +86,17 @@ public class CellBroadcastAlertService extends Service {
     }
 
     /** Cache of received message IDs, for duplicate message detection. */
-    private static final HashSet<MessageIdAndScope> sCmasIdList = new HashSet<MessageIdAndScope>(8);
+    private static final HashSet<MessageIdAndScope> sCmasIdSet = new HashSet<MessageIdAndScope>(8);
+
+    /** Maximum number of message IDs to save before removing the oldest message ID. */
+    private static final int MAX_MESSAGE_ID_SIZE = 65535;
+
+    /** List of message IDs received, for removing oldest ID when max message IDs are received. */
+    private static final ArrayList<MessageIdAndScope> sCmasIdList =
+            new ArrayList<MessageIdAndScope>(8);
+
+    /** Index of message ID to replace with new message ID when max message IDs are received. */
+    private static int sCmasIdListIndex = 0;
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
@@ -123,11 +133,30 @@ public class CellBroadcastAlertService extends Service {
             return;
         }
 
-        // Set.add() returns false if message ID has already been added
-        MessageIdAndScope messageIdAndScope = new MessageIdAndScope(message.getSerialNumber(),
+        // Check for duplicate message IDs according to CMAS carrier requirements. Message IDs
+        // are stored in volatile memory. If the maximum of 65535 messages is reached, the
+        // message ID of the oldest message is deleted from the list.
+        MessageIdAndScope newMessageId = new MessageIdAndScope(message.getSerialNumber(),
                 message.getLocation());
-        if (!sCmasIdList.add(messageIdAndScope)) {
-            Log.d(TAG, "ignoring duplicate alert with " + messageIdAndScope);
+
+        // Add the new message ID to the list. It's okay if this is a duplicate message ID,
+        // because the list is only used for removing old message IDs from the hash set.
+        if (sCmasIdList.size() < MAX_MESSAGE_ID_SIZE) {
+            sCmasIdList.add(newMessageId);
+        } else {
+            // Get oldest message ID from the list and replace with the new message ID.
+            MessageIdAndScope oldestId = sCmasIdList.get(sCmasIdListIndex);
+            sCmasIdList.set(sCmasIdListIndex, newMessageId);
+            Log.d(TAG, "message ID limit reached, removing oldest message ID " + oldestId);
+            // Remove oldest message ID from the set.
+            sCmasIdSet.remove(oldestId);
+            if (++sCmasIdListIndex >= MAX_MESSAGE_ID_SIZE) {
+                sCmasIdListIndex = 0;
+            }
+        }
+        // Set.add() returns false if message ID has already been added
+        if (!sCmasIdSet.add(newMessageId)) {
+            Log.d(TAG, "ignoring duplicate alert with " + newMessageId);
             return;
         }
 
