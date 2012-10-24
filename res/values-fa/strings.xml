@@ -101,7 +101,7 @@
     <string name="delivery_time_heading" msgid="5980836543433619329">"دریافت:"</string>
     <string name="notification_multiple" msgid="5121978148152124860">"<xliff:g id="COUNT">%s</xliff:g> هشدار خوانده نشده."</string>
     <string name="notification_multiple_title" msgid="1523638925739947855">"هشدارهای جدید"</string>
-    <string name="show_cmas_opt_out_summary" msgid="4370292554938680862">"یک گفتگوی انصراف بعد از نمایش اولین هشدار CMAS (به جز هشدار رياست جمهوری) نشان داده می‌شود."</string>
+    <string name="show_cmas_opt_out_summary" msgid="4370292554938680862">"پس از نمایش اولین هشدار CMAS (به جز هشدار رياست جمهوری) یک کادر گفتگو نمایش داده شود که امکان انصراف از دریافت هشدارهای بعدی را بدهد."</string>
     <string name="show_cmas_opt_out_title" msgid="9182104842820171132">"نمایش گفتگوی انصراف"</string>
     <string name="cmas_opt_out_dialog_text" msgid="7529010670998259128">"شما در حال حاضر هشدارهای اضطراری را دریافت می‌کنید. آیا می‌خواهید همچنان هشدارهای اضطراری دریافت کنید؟"</string>
     <string name="cmas_opt_out_button_yes" msgid="7248930667195432936">"بله"</string>
