@@ -101,7 +101,7 @@
     <string name="delivery_time_heading" msgid="5980836543433619329">"받은 시간:"</string>
     <string name="notification_multiple" msgid="5121978148152124860">"읽지 않은 경보 <xliff:g id="COUNT">%s</xliff:g>개"</string>
     <string name="notification_multiple_title" msgid="1523638925739947855">"새 경보"</string>
-    <string name="show_cmas_opt_out_summary" msgid="4370292554938680862">"대통령령 경보가 아닌 첫 번째 CMAS(민간 이동통신 경보체계) 경고를 표시한 뒤에 선택 해제 대화상자를 표시합니다."</string>
+    <string name="show_cmas_opt_out_summary" msgid="4370292554938680862">"대통령령 경보가 아닌 첫 번째 CMAS(민간 이동통신 경보체계) 알림을 표시한 뒤에 선택 해제 대화상자를 표시합니다."</string>
     <string name="show_cmas_opt_out_title" msgid="9182104842820171132">"선택 해제 대화상자 표시"</string>
     <string name="cmas_opt_out_dialog_text" msgid="7529010670998259128">"현재 긴급 알림을 수신하고 있습니다. 긴급 알림을 계속 수신하시겠습니까?"</string>
     <string name="cmas_opt_out_button_yes" msgid="7248930667195432936">"예"</string>
