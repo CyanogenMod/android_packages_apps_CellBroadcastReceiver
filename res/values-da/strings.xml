@@ -23,8 +23,9 @@
     <string name="menu_preferences" msgid="3596514894131599202">"Indstillinger"</string>
     <string name="menu_delete_all" msgid="3940997343921149800">"Slet meddelelser"</string>
     <string name="message_options" msgid="3178489901903589574">"Valgmuligheder for beskeder"</string>
-    <string name="menu_view" msgid="5991055455727639531">"Vis meddelelse"</string>
+    <string name="menu_view_details" msgid="1040989019045280975">"Se detaljer"</string>
     <string name="menu_delete" msgid="128380070910799366">"Slet meddelelse"</string>
+    <string name="view_details_title" msgid="1780427629491781473">"Detaljer om underretning"</string>
     <string name="confirm_delete_broadcast" msgid="2540199303730232322">"Vil du slette denne meddelelse?"</string>
     <string name="confirm_delete_all_broadcasts" msgid="2924444089047280871">"Vil du slette alle modtagne meddelelser?"</string>
     <string name="button_delete" msgid="4672451757925194350">"Slet"</string>
@@ -60,11 +61,13 @@
     <string name="enable_cmas_amber_alerts_summary" msgid="8423617548641801387">"Vis bulletiner om nødsituationer i forbindelse med børnebortførelse (advarsel om barnebortførelse)"</string>
     <string name="enable_cmas_test_alerts_title" msgid="8620213090932770270">"Vis testudsendelser fra CMAS"</string>
     <string name="enable_cmas_test_alerts_summary" msgid="2935171596891733844">"Vis testudsendelser for Commercial Mobile Alert System"</string>
+    <string name="enable_alert_vibrate_title" msgid="982817538757982090">"Vibration"</string>
+    <string name="enable_alert_vibrate_summary" msgid="4328060563316778589">"Vibrer ved underretning"</string>
     <string name="category_brazil_settings_title" msgid="6343130548572319922">"Indstillinger for Brasilien"</string>
     <string name="enable_channel_50_alerts_title" msgid="2818924064446974167">"Vis meddelelser fra kanal 50"</string>
     <string name="enable_channel_50_alerts_summary" msgid="7507770011325273009">"I Brasilien anvendes kanal 50 til opdateringer om området"</string>
     <string name="category_dev_settings_title" msgid="6194393458398329994">"Indstillinger for udviklere"</string>
-    <string name="cmas_category_heading" msgid="5731181299088631019">"Kategori:"</string>
+    <string name="cmas_category_heading" msgid="3923503130776640717">"Underretningskategori:"</string>
     <string name="cmas_category_geo" msgid="4979494217069688527">"Geofysisk"</string>
     <string name="cmas_category_met" msgid="7563732573851773537">"Meteorologisk"</string>
     <string name="cmas_category_safety" msgid="2986472639641883453">"Sikkerhed"</string>
@@ -77,26 +80,32 @@
     <string name="cmas_category_infra" msgid="3558151044446851398">"Infrastruktur"</string>
     <string name="cmas_category_cbrne" msgid="240421557913603971">"Kemisk/biologisk/nuklear/eksplosiv"</string>
     <string name="cmas_category_other" msgid="6158932360790744360">"Andet"</string>
-    <string name="cmas_response_heading" msgid="451355296605342420">"Svartype:"</string>
-    <string name="cmas_response_shelter" msgid="731514427035594985">"Tag husly"</string>
+    <string name="cmas_response_heading" msgid="4205379547245540163">"Svartype:"</string>
+    <string name="cmas_response_shelter" msgid="7301175579079615909">"Søg ly"</string>
     <string name="cmas_response_evacuate" msgid="5833170084430021095">"Evakuer"</string>
     <string name="cmas_response_prepare" msgid="8428073909753758319">"Forbered dig"</string>
-    <string name="cmas_response_execute" msgid="4065931123765142173">"Udfør aktivitet"</string>
-    <string name="cmas_response_monitor" msgid="1836723975944461996">"Overvåg informationskilder"</string>
-    <string name="cmas_response_avoid" msgid="9083226909188314307">"Undgå fare"</string>
-    <string name="cmas_response_assess" msgid="4419898054369698124">"Evaluer"</string>
-    <string name="cmas_response_none" msgid="9109481144060546906">"Ingen handling"</string>
+    <string name="cmas_response_execute" msgid="284719420769568493">"Udfør"</string>
+    <string name="cmas_response_monitor" msgid="681400164440495749">"Overvåg"</string>
+    <string name="cmas_response_avoid" msgid="156419597612629270">"Undgå"</string>
+    <string name="cmas_response_assess" msgid="9043534222710563415">"Vurder"</string>
+    <string name="cmas_response_none" msgid="5149009359674452959">"Ingen"</string>
     <string name="cmas_severity_heading" msgid="8437057117822305243">"Alvorlighed:"</string>
     <string name="cmas_severity_extreme" msgid="1312013282860183082">"Ekstrem"</string>
     <string name="cmas_severity_severe" msgid="7504359209737074524">"Alvorlig"</string>
     <string name="cmas_urgency_heading" msgid="8218282767913431492">"Hast:"</string>
-    <string name="cmas_urgency_immediate" msgid="2258810949481930841">"Foretag handling med det samme"</string>
-    <string name="cmas_urgency_expected" msgid="2649054095518659749">"Foretag handling i næste time"</string>
+    <string name="cmas_urgency_immediate" msgid="1577485208196449288">"Omgående"</string>
+    <string name="cmas_urgency_expected" msgid="6830831119872375936">"Forventet"</string>
     <string name="cmas_certainty_heading" msgid="8374669249736439193">"Sikkerhed:"</string>
     <string name="cmas_certainty_observed" msgid="3668549749352106472">"Observeret"</string>
     <string name="cmas_certainty_likely" msgid="4254497828943291749">"Sandsynlig"</string>
+    <string name="delivery_time_heading" msgid="5980836543433619329">"Modtaget:"</string>
     <string name="notification_multiple" msgid="5121978148152124860">"<xliff:g id="COUNT">%s</xliff:g> ulæste advarsler."</string>
     <string name="notification_multiple_title" msgid="1523638925739947855">"Nye advarsler"</string>
+    <string name="show_cmas_opt_out_summary" msgid="4370292554938680862">"Vis en fravalgsdialogboks efter visningen af den første CMAS-advarsel (undtagen fra præsidenten)."</string>
+    <string name="show_cmas_opt_out_title" msgid="9182104842820171132">"Vis en fravalgsdialogboks"</string>
+    <string name="cmas_opt_out_dialog_text" msgid="7529010670998259128">"Du modtager i øjeblikket nødadvarsler. Vil du gerne fortsætte med at modtage dem?"</string>
+    <string name="cmas_opt_out_button_yes" msgid="7248930667195432936">"Ja"</string>
+    <string name="cmas_opt_out_button_no" msgid="3110484064328538553">"Nej"</string>
   <string-array name="alert_sound_duration_entries">
     <item msgid="5353482200312892037">"2 sekunder"</item>
     <item msgid="5656092384277009212">"4 sekunder"</item>

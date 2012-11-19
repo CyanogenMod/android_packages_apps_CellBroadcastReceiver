@@ -181,19 +181,6 @@ public class CellBroadcastContentProvider extends ContentProvider {
         throw new UnsupportedOperationException("update not supported");
     }
 
-    private static final String QUERY_BY_SERIAL = Telephony.CellBroadcasts.SERIAL_NUMBER + "=?";
-
-    private static final String QUERY_BY_SERIAL_PLMN = QUERY_BY_SERIAL + " AND "
-            + Telephony.CellBroadcasts.PLMN + "=?";
-
-    private static final String QUERY_BY_SERIAL_PLMN_LAC = QUERY_BY_SERIAL_PLMN + " AND "
-            + Telephony.CellBroadcasts.LAC + "=?";
-
-    private static final String QUERY_BY_SERIAL_PLMN_LAC_CID = QUERY_BY_SERIAL_PLMN_LAC + " AND "
-            + Telephony.CellBroadcasts.CID + "=?";
-
-    private static final String[] SELECT_ID_COLUMN = {Telephony.CellBroadcasts._ID};
-
     /**
      * Internal method to insert a new Cell Broadcast into the database and notify observers.
      * @param message the message to insert
@@ -203,39 +190,10 @@ public class CellBroadcastContentProvider extends ContentProvider {
         SQLiteDatabase db = mOpenHelper.getWritableDatabase();
         ContentValues cv = message.getContentValues();
 
-        // Check for existing alert with same serial number and geo scope
-        String serial = cv.getAsString(Telephony.CellBroadcasts.SERIAL_NUMBER);
-        String plmn = cv.getAsString(Telephony.CellBroadcasts.PLMN);
-        String lac = cv.getAsString(Telephony.CellBroadcasts.LAC);
-        String cid = cv.getAsString(Telephony.CellBroadcasts.CID);
-        String selection;
-        String[] selectionArgs;
-
-        if (plmn != null) {
-            if (lac != null) {
-                if (cid != null) {
-                    selection = QUERY_BY_SERIAL_PLMN_LAC_CID;
-                    selectionArgs = new String[] {serial, plmn, lac, cid};
-                } else {
-                    selection = QUERY_BY_SERIAL_PLMN_LAC;
-                    selectionArgs = new String[] {serial, plmn, lac};
-                }
-            } else {
-                selection = QUERY_BY_SERIAL_PLMN;
-                selectionArgs = new String[] {serial, plmn};
-            }
-        } else {
-            selection = QUERY_BY_SERIAL;
-            selectionArgs = new String[] {serial};
-        }
-
-        Cursor c = db.query(CellBroadcastDatabaseHelper.TABLE_NAME, SELECT_ID_COLUMN,
-                selection, selectionArgs, null, null, null);
-
-        if (c.getCount() != 0) {
-            Log.d(TAG, "ignoring dup broadcast serial=" + serial + " found " + c.getCount());
-            return false;
-        }
+        // Note: this method previously queried the database for duplicate message IDs, but this
+        // is not compatible with CMAS carrier requirements and could also cause other emergency
+        // alerts, e.g. ETWS, to not display if the database is filled with old messages.
+        // Use duplicate message ID detection in CellBroadcastAlertService instead of DB query.
 
         long rowId = db.insert(CellBroadcastDatabaseHelper.TABLE_NAME, null, cv);
         if (rowId == -1) {
@@ -252,19 +210,15 @@ public class CellBroadcastContentProvider extends ContentProvider {
     /**
      * Internal method to delete a cell broadcast by row ID and notify observers.
      * @param rowId the row ID of the broadcast to delete
-     * @param decrementUnreadCount true to decrement the count of unread alerts
      * @return true if the database was updated, false otherwise
      */
-    boolean deleteBroadcast(long rowId, boolean decrementUnreadCount) {
+    boolean deleteBroadcast(long rowId) {
         SQLiteDatabase db = mOpenHelper.getWritableDatabase();
 
         int rowCount = db.delete(CellBroadcastDatabaseHelper.TABLE_NAME,
                 Telephony.CellBroadcasts._ID + "=?",
                 new String[]{Long.toString(rowId)});
         if (rowCount != 0) {
-            if (decrementUnreadCount) {
-                CellBroadcastReceiverApp.decrementUnreadAlertCount();
-            }
             return true;
         } else {
             Log.e(TAG, "failed to delete broadcast at row " + rowId);
@@ -281,7 +235,6 @@ public class CellBroadcastContentProvider extends ContentProvider {
 
         int rowCount = db.delete(CellBroadcastDatabaseHelper.TABLE_NAME, null, null);
         if (rowCount != 0) {
-            CellBroadcastReceiverApp.resetUnreadAlertCount();
             return true;
         } else {
             Log.e(TAG, "failed to delete all broadcasts");

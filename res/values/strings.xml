@@ -36,10 +36,13 @@
 
     <!-- Header for context menu on an individual broadcast. [CHAR LIMIT=30] -->
     <string name="message_options">Message options</string>
-    <!-- Context menu item to view a previously received broadcast. [CHAR LIMIT=30] -->
-    <string name="menu_view">View broadcast</string>
+    <!-- Context menu item for viewing broadcast details such as time and date. [CHAR LIMIT=30] -->
+    <string name="menu_view_details">View details</string>
     <!-- Context menu item to delete a previously received broadcast. [CHAR LIMIT=30] -->
     <string name="menu_delete">Delete broadcast</string>
+
+    <!-- Title of "View details" dialog -->
+    <string name="view_details_title">Alert details</string>
 
     <!-- Confirm Delete -->
     <!-- Delete broadcast confirmation dialog message. [CHAR LIMIT=NONE] -->
@@ -120,6 +123,11 @@
     <!-- Preference summary for enable CMAS test alerts checkbox. [CHAR LIMIT=100] -->
     <string name="enable_cmas_test_alerts_summary">Display test broadcasts for Commercial Mobile Alert System</string>
 
+    <!-- Preference title for CMAS vibration on/off. [CHAR LIMIT=30] -->
+    <string name="enable_alert_vibrate_title">Vibrate</string>
+    <!-- Preference summary for CMAS vibration on/off. [CHAR LIMIT=60] -->
+    <string name="enable_alert_vibrate_summary">Vibrate on alert</string>
+
     <!-- Preference category title for Brazil settings. [CHAR LIMIT=50] -->
     <string name="category_brazil_settings_title">Settings for Brazil</string>
     <!-- Preference title for enable channel 50 alerts (Brazil only). [CHAR LIMIT=30] -->
@@ -130,8 +138,8 @@
     <!-- Preference category title for developer settings. [CHAR LIMIT=50] -->
     <string name="category_dev_settings_title">Developer options</string>
 
-    <!-- CMAS alert category heading (including colon and space). [CHAR LIMIT=30] -->
-    <string name="cmas_category_heading">Category: </string>
+    <!-- CMAS alert category heading (including colon). [CHAR LIMIT=30] -->
+    <string name="cmas_category_heading">Alert Category:</string>
     <!-- CMAS category for geophysical alerts. [CHAR LIMIT=50] -->
     <string name="cmas_category_geo">Geophysical</string>
     <!-- CMAS category for meteorological alerts. [CHAR LIMIT=50] -->
@@ -157,50 +165,65 @@
     <!-- CMAS category for other alerts. [CHAR LIMIT=50] -->
     <string name="cmas_category_other">Other</string>
 
-    <!-- CMAS response type heading (including colon and space). [CHAR LIMIT=30] -->
-    <string name="cmas_response_heading">Response type: </string>
+    <!-- CMAS response type heading (including colon). [CHAR LIMIT=30] -->
+    <string name="cmas_response_heading">Response Type:</string>
     <!-- CMAS response type: take shelter in place. [CHAR LIMIT=50] -->
-    <string name="cmas_response_shelter">Take shelter</string>
+    <string name="cmas_response_shelter">Shelter</string>
     <!-- CMAS response type: evacuate (relocate). [CHAR LIMIT=50] -->
     <string name="cmas_response_evacuate">Evacuate</string>
     <!-- CMAS response type: make preparations. [CHAR LIMIT=50] -->
     <string name="cmas_response_prepare">Prepare</string>
     <!-- CMAS response type: execute a pre-planned activity. [CHAR LIMIT=50] -->
-    <string name="cmas_response_execute">Execute activity</string>
+    <string name="cmas_response_execute">Execute</string>
     <!-- CMAS response type: monitor information sources. [CHAR LIMIT=50] -->
-    <string name="cmas_response_monitor">Monitor info sources</string>
+    <string name="cmas_response_monitor">Monitor</string>
     <!-- CMAS response type: avoid hazard. [CHAR LIMIT=50] -->
-    <string name="cmas_response_avoid">Avoid hazard</string>
+    <string name="cmas_response_avoid">Avoid</string>
     <!-- CMAS response type: evaluate the information in this message. [CHAR LIMIT=50] -->
-    <string name="cmas_response_assess">Evaluate</string>
+    <string name="cmas_response_assess">Assess</string>
     <!-- CMAS response type: no action recommended. [CHAR LIMIT=50] -->
-    <string name="cmas_response_none">No action</string>
+    <string name="cmas_response_none">None</string>
 
-    <!-- CMAS severity heading (including colon and space). [CHAR LIMIT=30] -->
-    <string name="cmas_severity_heading">Severity: </string>
+    <!-- CMAS severity heading (including colon). [CHAR LIMIT=30] -->
+    <string name="cmas_severity_heading">Severity:</string>
     <!-- CMAS severity type: extreme. [CHAR LIMIT=30] -->
     <string name="cmas_severity_extreme">Extreme</string>
     <!-- CMAS severity type: severe. [CHAR LIMIT=30] -->
     <string name="cmas_severity_severe">Severe</string>
 
-    <!-- CMAS urgency heading (including colon and space). [CHAR LIMIT=30] -->
-    <string name="cmas_urgency_heading">Urgency: </string>
+    <!-- CMAS urgency heading (including colon). [CHAR LIMIT=30] -->
+    <string name="cmas_urgency_heading">Urgency:</string>
     <!-- CMAS urgency type: take responsive action immediately. [CHAR LIMIT=30] -->
-    <string name="cmas_urgency_immediate">Take action immediately</string>
+    <string name="cmas_urgency_immediate">Immediate</string>
     <!-- CMAS severity type: severe. [CHAR LIMIT=30] -->
-    <string name="cmas_urgency_expected">Take action within the next hour</string>
+    <string name="cmas_urgency_expected">Expected</string>
 
-    <!-- CMAS certainty heading (including colon and space). [CHAR LIMIT=30] -->
-    <string name="cmas_certainty_heading">Certainty: </string>
+    <!-- CMAS certainty heading (including colon). [CHAR LIMIT=30] -->
+    <string name="cmas_certainty_heading">Certainty:</string>
     <!-- CMAS certainty type: observed. [CHAR LIMIT=30] -->
     <string name="cmas_certainty_observed">Observed</string>
     <!-- CMAS severity type: severe. [CHAR LIMIT=30] -->
     <string name="cmas_certainty_likely">Likely</string>
 
+    <!-- Message delivery time (including colon). [CHAR LIMIT=30] -->
+    <string name="delivery_time_heading">Received:</string>
+
     <!-- Non-emergency broadcast notification description for multiple unread alerts. -->
     <string name="notification_multiple"><xliff:g id="count">%s</xliff:g> unread alerts.</string>
     <!-- Non-emergency broadcast notification title for multiple unread alerts. -->
     <string name="notification_multiple_title">New alerts</string>
+
+    <!-- Show CMAS opt-out dialog on first non-Presidential alert. [CHAR LIMIT=100] -->
+    <string name="show_cmas_opt_out_summary">Show an opt-out dialog after displaying the first CMAS alert (other than Presidential Alert).</string>
+    <!-- Show CMAS opt-out dialog on first non-Presidential alert. [CHAR LIMIT=40] -->
+    <string name="show_cmas_opt_out_title">Show opt-out dialog</string>
+
+    <!-- CMAS opt-out dialog message. [CHAR LIMIT=160] -->
+    <string name="cmas_opt_out_dialog_text">You are currently receiving Emergency Alerts. Would you like to continue receiving Emergency Alerts?</string>
+    <!-- Text for positive button in CMAS opt-out dialog. [CHAR LIMIT=25] -->
+    <string name="cmas_opt_out_button_yes">Yes</string>
+    <!-- Text for negative button in CMAS opt-out dialog. [CHAR LIMIT=25] -->
+    <string name="cmas_opt_out_button_no">No</string>
 
     <!-- Entries listed in the ListPreference for allowed alert durations. [CHAR LIMIT=30] -->
     <string-array name="alert_sound_duration_entries">

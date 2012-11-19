@@ -40,6 +40,9 @@ public class CellBroadcastSettings extends PreferenceActivity {
     // Default alert duration (in seconds).
     public static final String ALERT_SOUND_DEFAULT_DURATION = "4";
 
+    // Enable vibration on alert (unless master volume is silent).
+    public static final String KEY_ENABLE_ALERT_VIBRATE = "enable_alert_vibrate";
+
     // Speak contents of alert after playing the alert sound.
     public static final String KEY_ENABLE_ALERT_SPEECH = "enable_alert_speech";
 
@@ -76,6 +79,9 @@ public class CellBroadcastSettings extends PreferenceActivity {
     // Enabled by default for phones sold in Brazil, otherwise this setting may be hidden.
     public static final String KEY_ENABLE_CHANNEL_50_ALERTS = "enable_channel_50_alerts";
 
+    // Preference key for initial opt-in/opt-out dialog.
+    public static final String KEY_SHOW_CMAS_OPT_OUT_DIALOG = "show_cmas_opt_out_dialog";
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -110,8 +116,8 @@ public class CellBroadcastSettings extends PreferenceActivity {
                     };
 
             // Show extra settings when developer options is enabled in settings.
-            boolean enableDevSettings = Settings.Secure.getInt(getActivity().getContentResolver(),
-                    Settings.Secure.DEVELOPMENT_SETTINGS_ENABLED, 0) != 0;
+            boolean enableDevSettings = Settings.Global.getInt(getActivity().getContentResolver(),
+                    Settings.Global.DEVELOPMENT_SETTINGS_ENABLED, 0) != 0;
 
             Resources res = getResources();
             boolean showEtwsSettings = res.getBoolean(R.bool.show_etws_settings);

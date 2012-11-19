@@ -26,7 +26,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.IBinder;
-import android.os.PowerManager;
 import android.preference.PreferenceManager;
 import android.provider.Telephony;
 import android.telephony.CellBroadcastMessage;
@@ -35,6 +34,7 @@ import android.telephony.SmsCbLocation;
 import android.telephony.SmsCbMessage;
 import android.util.Log;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 
 /**
@@ -46,24 +46,11 @@ import java.util.HashSet;
 public class CellBroadcastAlertService extends Service {
     private static final String TAG = "CellBroadcastAlertService";
 
-    /** Identifier for notification ID extra. */
-    public static final String SMS_CB_NOTIFICATION_ID_EXTRA =
-            "com.android.cellbroadcastreceiver.SMS_CB_NOTIFICATION_ID";
-
-    /** Intent extra to indicate a previously unread alert. */
-    static final String NEW_ALERT_EXTRA = "com.android.cellbroadcastreceiver.NEW_ALERT";
-
     /** Intent action to display alert dialog/notification, after verifying the alert is new. */
     static final String SHOW_NEW_ALERT_ACTION = "cellbroadcastreceiver.SHOW_NEW_ALERT";
 
     /** Use the same notification ID for non-emergency alerts. */
     static final int NOTIFICATION_ID = 1;
-
-    /** CPU wake lock while handling emergency alert notification. */
-    private PowerManager.WakeLock mWakeLock;
-
-    /** Hold the wake lock for 5 seconds, which should be enough time to display the alert. */
-    private static final int WAKE_LOCK_TIMEOUT = 5000;
 
     /** Container for message ID and geographical scope, for duplicate message detection. */
     private static final class MessageIdAndScope {
@@ -99,7 +86,17 @@ public class CellBroadcastAlertService extends Service {
     }
 
     /** Cache of received message IDs, for duplicate message detection. */
-    private static final HashSet<MessageIdAndScope> sCmasIdList = new HashSet<MessageIdAndScope>(8);
+    private static final HashSet<MessageIdAndScope> sCmasIdSet = new HashSet<MessageIdAndScope>(8);
+
+    /** Maximum number of message IDs to save before removing the oldest message ID. */
+    private static final int MAX_MESSAGE_ID_SIZE = 65535;
+
+    /** List of message IDs received, for removing oldest ID when max message IDs are received. */
+    private static final ArrayList<MessageIdAndScope> sCmasIdList =
+            new ArrayList<MessageIdAndScope>(8);
+
+    /** Index of message ID to replace with new message ID when max message IDs are received. */
+    private static int sCmasIdListIndex = 0;
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
@@ -136,11 +133,30 @@ public class CellBroadcastAlertService extends Service {
             return;
         }
 
-        // Set.add() returns false if message ID has already been added
-        MessageIdAndScope messageIdAndScope = new MessageIdAndScope(message.getSerialNumber(),
+        // Check for duplicate message IDs according to CMAS carrier requirements. Message IDs
+        // are stored in volatile memory. If the maximum of 65535 messages is reached, the
+        // message ID of the oldest message is deleted from the list.
+        MessageIdAndScope newMessageId = new MessageIdAndScope(message.getSerialNumber(),
                 message.getLocation());
-        if (!sCmasIdList.add(messageIdAndScope)) {
-            Log.d(TAG, "ignoring duplicate alert with " + messageIdAndScope);
+
+        // Add the new message ID to the list. It's okay if this is a duplicate message ID,
+        // because the list is only used for removing old message IDs from the hash set.
+        if (sCmasIdList.size() < MAX_MESSAGE_ID_SIZE) {
+            sCmasIdList.add(newMessageId);
+        } else {
+            // Get oldest message ID from the list and replace with the new message ID.
+            MessageIdAndScope oldestId = sCmasIdList.get(sCmasIdListIndex);
+            sCmasIdList.set(sCmasIdListIndex, newMessageId);
+            Log.d(TAG, "message ID limit reached, removing oldest message ID " + oldestId);
+            // Remove oldest message ID from the set.
+            sCmasIdSet.remove(oldestId);
+            if (++sCmasIdListIndex >= MAX_MESSAGE_ID_SIZE) {
+                sCmasIdListIndex = 0;
+            }
+        }
+        // Set.add() returns false if message ID has already been added
+        if (!sCmasIdSet.add(newMessageId)) {
+            Log.d(TAG, "ignoring duplicate alert with " + newMessageId);
             return;
         }
 
@@ -178,8 +194,7 @@ public class CellBroadcastAlertService extends Service {
             return;
         }
 
-        if (cbm.isEmergencyAlertMessage() || CellBroadcastConfigService
-                .isOperatorDefinedEmergencyId(cbm.getServiceCategory())) {
+        if (CellBroadcastConfigService.isEmergencyAlertMessage(cbm)) {
             // start alert sound / vibration / TTS and display full-screen alert
             openEmergencyAlertNotification(cbm);
         } else {
@@ -233,25 +248,13 @@ public class CellBroadcastAlertService extends Service {
         return true;    // other broadcast messages are always enabled
     }
 
-    private void acquireTimedWakelock(int timeout) {
-        if (mWakeLock == null) {
-            PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
-            // Note: acquiring a PARTIAL_WAKE_LOCK and setting window flag FLAG_TURN_SCREEN_ON in
-            // CellBroadcastAlertFullScreen is not sufficient to turn on the screen by itself.
-            // Use SCREEN_BRIGHT_WAKE_LOCK here as a workaround to ensure the screen turns on.
-            mWakeLock = pm.newWakeLock(PowerManager.SCREEN_BRIGHT_WAKE_LOCK
-                    | PowerManager.ACQUIRE_CAUSES_WAKEUP, TAG);
-        }
-        mWakeLock.acquire(timeout);
-    }
-
     /**
      * Display a full-screen alert message for emergency alerts.
      * @param message the alert to display
      */
     private void openEmergencyAlertNotification(CellBroadcastMessage message) {
         // Acquire a CPU wake lock until the alert dialog and audio start playing.
-        acquireTimedWakelock(WAKE_LOCK_TIMEOUT);
+        CellBroadcastAlertWakeLock.acquireScreenCpuWakeLock(this);
 
         // Close dialogs and window shade
         Intent closeDialogs = new Intent(Intent.ACTION_CLOSE_SYSTEM_DIALOGS);
@@ -261,13 +264,28 @@ public class CellBroadcastAlertService extends Service {
         Intent audioIntent = new Intent(this, CellBroadcastAlertAudio.class);
         audioIntent.setAction(CellBroadcastAlertAudio.ACTION_START_ALERT_AUDIO);
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-        String duration = prefs.getString(CellBroadcastSettings.KEY_ALERT_SOUND_DURATION,
-                CellBroadcastSettings.ALERT_SOUND_DEFAULT_DURATION);
-        audioIntent.putExtra(CellBroadcastAlertAudio.ALERT_AUDIO_DURATION_EXTRA,
-                Integer.parseInt(duration));
 
-        int channelTitleId = CellBroadcastResources.getDialogTitleResource(message);
-        CharSequence channelName = getText(channelTitleId);
+        int duration;   // alert audio duration in ms
+        if (message.isCmasMessage()) {
+            // CMAS requirement: duration of the audio attention signal is 10.5 seconds.
+            duration = 10500;
+        } else {
+            duration = Integer.parseInt(prefs.getString(
+                    CellBroadcastSettings.KEY_ALERT_SOUND_DURATION,
+                    CellBroadcastSettings.ALERT_SOUND_DEFAULT_DURATION)) * 1000;
+        }
+        audioIntent.putExtra(CellBroadcastAlertAudio.ALERT_AUDIO_DURATION_EXTRA, duration);
+
+        if (message.isEtwsMessage()) {
+            // For ETWS, always vibrate, even in silent mode.
+            audioIntent.putExtra(CellBroadcastAlertAudio.ALERT_AUDIO_VIBRATE_EXTRA, true);
+            audioIntent.putExtra(CellBroadcastAlertAudio.ALERT_AUDIO_ETWS_VIBRATE_EXTRA, true);
+        } else {
+            // For other alerts, vibration can be disabled in app settings.
+            audioIntent.putExtra(CellBroadcastAlertAudio.ALERT_AUDIO_VIBRATE_EXTRA,
+                    prefs.getBoolean(CellBroadcastSettings.KEY_ENABLE_ALERT_VIBRATE, true));
+        }
+
         String messageBody = message.getMessageBody();
 
         if (prefs.getBoolean(CellBroadcastSettings.KEY_ENABLE_ALERT_SPEECH, true)) {
@@ -286,9 +304,6 @@ public class CellBroadcastAlertService extends Service {
         }
         startService(audioIntent);
 
-        // Use lower 32 bits of emergency alert delivery time for notification ID
-        int notificationId = (int) message.getDeliveryTime();
-
         // Decide which activity to start based on the state of the keyguard.
         Class c = CellBroadcastAlertDialog.class;
         KeyguardManager km = (KeyguardManager) getSystemService(Context.KEYGUARD_SERVICE);
@@ -297,23 +312,12 @@ public class CellBroadcastAlertService extends Service {
             c = CellBroadcastAlertFullScreen.class;
         }
 
-        Intent notify = createDisplayMessageIntent(this, c, message, notificationId);
-        PendingIntent pi = PendingIntent.getActivity(this, notificationId, notify, 0);
+        ArrayList<CellBroadcastMessage> messageList = new ArrayList<CellBroadcastMessage>(1);
+        messageList.add(message);
 
-        Notification.Builder builder = new Notification.Builder(this)
-                .setSmallIcon(R.drawable.ic_notify_alert)
-                .setTicker(getText(CellBroadcastResources.getDialogTitleResource(message)))
-                .setWhen(System.currentTimeMillis())
-                .setContentIntent(pi)
-                .setFullScreenIntent(pi, true)
-                .setContentTitle(channelName)
-                .setContentText(messageBody)
-                .setDefaults(Notification.DEFAULT_LIGHTS);
-
-        NotificationManager notificationManager =
-            (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
-
-        notificationManager.notify(notificationId, builder.getNotification());
+        Intent alertDialogIntent = createDisplayMessageIntent(this, c, messageList);
+        alertDialogIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(alertDialogIntent);
     }
 
     /**
@@ -326,11 +330,17 @@ public class CellBroadcastAlertService extends Service {
         CharSequence channelName = getText(channelTitleId);
         String messageBody = message.getMessageBody();
 
-        // Use the same ID to create a single notification for multiple non-emergency alerts.
-        int notificationId = NOTIFICATION_ID;
+        // Pass the list of unread non-emergency CellBroadcastMessages
+        ArrayList<CellBroadcastMessage> messageList = CellBroadcastReceiverApp
+                .addNewMessageToList(message);
 
-        PendingIntent pi = PendingIntent.getActivity(this, 0, createDisplayMessageIntent(
-                this, CellBroadcastListActivity.class, message, notificationId), 0);
+        // Create intent to show the new messages when user selects the notification.
+        Intent intent = createDisplayMessageIntent(this, CellBroadcastAlertDialog.class,
+                messageList);
+        intent.putExtra(CellBroadcastAlertFullScreen.FROM_NOTIFICATION_EXTRA, true);
+
+        PendingIntent pi = PendingIntent.getActivity(this, 0, intent,
+                PendingIntent.FLAG_ONE_SHOT | PendingIntent.FLAG_UPDATE_CURRENT);
 
         // use default sound/vibration/lights for non-emergency broadcasts
         Notification.Builder builder = new Notification.Builder(this)
@@ -343,7 +353,7 @@ public class CellBroadcastAlertService extends Service {
         builder.setDefaults(Notification.DEFAULT_ALL);
 
         // increment unread alert count (decremented when user dismisses alert dialog)
-        int unreadCount = CellBroadcastReceiverApp.incrementUnreadAlertCount();
+        int unreadCount = messageList.size();
         if (unreadCount > 1) {
             // use generic count of unread broadcasts if more than one unread
             builder.setContentTitle(getString(R.string.notification_multiple_title));
@@ -352,27 +362,17 @@ public class CellBroadcastAlertService extends Service {
             builder.setContentTitle(channelName).setContentText(messageBody);
         }
 
-        Log.i(TAG, "addToNotificationBar notificationId: " + notificationId);
-
         NotificationManager notificationManager =
             (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
 
-        notificationManager.notify(notificationId, builder.getNotification());
+        notificationManager.notify(NOTIFICATION_ID, builder.build());
     }
 
     static Intent createDisplayMessageIntent(Context context, Class intentClass,
-            CellBroadcastMessage message, int notificationId) {
+            ArrayList<CellBroadcastMessage> messageList) {
         // Trigger the list activity to fire up a dialog that shows the received messages
         Intent intent = new Intent(context, intentClass);
-        intent.putExtra(CellBroadcastMessage.SMS_CB_MESSAGE_EXTRA, message);
-        intent.putExtra(SMS_CB_NOTIFICATION_ID_EXTRA, notificationId);
-        intent.putExtra(NEW_ALERT_EXTRA, true);
-
-        // This line is needed to make this intent compare differently than the other intents
-        // created here for other messages. Without this line, the PendingIntent always gets the
-        // intent of a previous message and notification.
-        intent.setType(Integer.toString(notificationId));
-
+        intent.putParcelableArrayListExtra(CellBroadcastMessage.SMS_CB_MESSAGE_EXTRA, messageList);
         return intent;
     }
 

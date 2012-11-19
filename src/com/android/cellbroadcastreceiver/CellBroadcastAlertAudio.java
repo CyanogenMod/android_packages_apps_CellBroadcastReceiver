@@ -27,7 +27,6 @@ import android.media.MediaPlayer.OnErrorListener;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
-import android.os.PowerManager;
 import android.os.Vibrator;
 import android.speech.tts.TextToSpeech;
 import android.telephony.PhoneStateListener;
@@ -61,14 +60,20 @@ public class CellBroadcastAlertAudio extends Service implements TextToSpeech.OnI
     public static final String ALERT_AUDIO_MESSAGE_LANGUAGE =
             "com.android.cellbroadcastreceiver.ALERT_AUDIO_MESSAGE_LANGUAGE";
 
+    /** Extra for alert audio vibration enabled (from settings). */
+    public static final String ALERT_AUDIO_VIBRATE_EXTRA =
+            "com.android.cellbroadcastreceiver.ALERT_AUDIO_VIBRATE";
+
+    /** Extra for alert audio ETWS behavior (always vibrate, even in silent mode). */
+    public static final String ALERT_AUDIO_ETWS_VIBRATE_EXTRA =
+            "com.android.cellbroadcastreceiver.ALERT_AUDIO_ETWS_VIBRATE";
+
     /** Pause duration between alert sound and alert speech. */
     private static final int PAUSE_DURATION_BEFORE_SPEAKING_MSEC = 1000;
 
     /** Vibration uses the same on/off pattern as the CMAS alert tone */
-    private static final long[] sVibratePattern = new long[] { 0, 2000, 500, 1000, 500, 1000, 500 };
-
-    /** CPU wake lock while playing audio. */
-    private PowerManager.WakeLock mWakeLock;
+    private static final long[] sVibratePattern = { 0, 2000, 500, 1000, 500, 1000, 500,
+            2000, 500, 1000, 500, 1000};
 
     private static final int STATE_IDLE = 0;
     private static final int STATE_ALERTING = 1;
@@ -83,6 +88,8 @@ public class CellBroadcastAlertAudio extends Service implements TextToSpeech.OnI
     private String mMessageBody;
     private String mMessageLanguage;
     private boolean mTtsLanguageSupported;
+    private boolean mEnableVibrate;
+    private boolean mEnableAudio;
 
     private Vibrator mVibrator;
     private MediaPlayer mMediaPlayer;
@@ -188,11 +195,6 @@ public class CellBroadcastAlertAudio extends Service implements TextToSpeech.OnI
 
     @Override
     public void onCreate() {
-        // acquire CPU wake lock while playing audio
-        PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
-        mWakeLock = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, TAG);
-        mWakeLock.acquire();
-
         mVibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
         mAudioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
         // Listen for incoming calls to kill the alarm.
@@ -204,16 +206,21 @@ public class CellBroadcastAlertAudio extends Service implements TextToSpeech.OnI
 
     @Override
     public void onDestroy() {
+        // stop audio, vibration and TTS
         stop();
         // Stop listening for incoming calls.
         mTelephonyManager.listen(mPhoneStateListener, 0);
         // shutdown TTS engine
         if (mTts != null) {
-            mTts.stop();
-            mTts.shutdown();
+            try {
+                mTts.shutdown();
+            } catch (IllegalStateException e) {
+                // catch "Unable to retrieve AudioTrack pointer for stop()" exception
+                Log.e(TAG, "exception trying to shutdown text-to-speech");
+            }
         }
-        // release CPU wake lock
-        mWakeLock.release();
+        // release CPU wake lock acquired by CellBroadcastAlertService
+        CellBroadcastAlertWakeLock.releaseCpuLock();
     }
 
     @Override
@@ -230,14 +237,36 @@ public class CellBroadcastAlertAudio extends Service implements TextToSpeech.OnI
         }
 
         // This extra should always be provided by CellBroadcastAlertService,
-        // but default to 4 seconds just to be safe
-        int duration = intent.getIntExtra(ALERT_AUDIO_DURATION_EXTRA, 4);
+        // but default to 10.5 seconds just to be safe (CMAS requirement).
+        int duration = intent.getIntExtra(ALERT_AUDIO_DURATION_EXTRA, 10500);
 
         // Get text to speak (if enabled by user)
         mMessageBody = intent.getStringExtra(ALERT_AUDIO_MESSAGE_BODY);
         mMessageLanguage = intent.getStringExtra(ALERT_AUDIO_MESSAGE_LANGUAGE);
 
-        if (mMessageBody != null) {
+        mEnableVibrate = intent.getBooleanExtra(ALERT_AUDIO_VIBRATE_EXTRA, true);
+        boolean forceVibrate = intent.getBooleanExtra(ALERT_AUDIO_ETWS_VIBRATE_EXTRA, false);
+
+        switch (mAudioManager.getRingerMode()) {
+            case AudioManager.RINGER_MODE_SILENT:
+                if (DBG) log("Ringer mode: silent");
+                mEnableVibrate = forceVibrate;
+                mEnableAudio = false;
+                break;
+
+            case AudioManager.RINGER_MODE_VIBRATE:
+                if (DBG) log("Ringer mode: vibrate");
+                mEnableAudio = false;
+                break;
+
+            case AudioManager.RINGER_MODE_NORMAL:
+            default:
+                if (DBG) log("Ringer mode: normal");
+                mEnableAudio = true;
+                break;
+        }
+
+        if (mMessageBody != null && mEnableAudio) {
             if (mTts == null) {
                 mTts = new TextToSpeech(this, this);
             } else if (mTtsEngineReady) {
@@ -245,7 +274,12 @@ public class CellBroadcastAlertAudio extends Service implements TextToSpeech.OnI
             }
         }
 
-        play(duration * 1000);  // convert to milliseconds
+        if (mEnableAudio || mEnableVibrate) {
+            play(duration);     // in milliseconds
+        } else {
+            stopSelf();
+            return START_NOT_STICKY;
+        }
 
         // Record the initial call state here so that the new alarm has the
         // newest state.
@@ -267,38 +301,43 @@ public class CellBroadcastAlertAudio extends Service implements TextToSpeech.OnI
 
         if (DBG) log("play()");
 
-        // future optimization: reuse media player object
-        mMediaPlayer = new MediaPlayer();
-        mMediaPlayer.setOnErrorListener(new OnErrorListener() {
-            public boolean onError(MediaPlayer mp, int what, int extra) {
-                Log.e(TAG, "Error occurred while playing audio.");
-                mp.stop();
-                mp.release();
-                mMediaPlayer = null;
-                return true;
-            }
-        });
-
-        try {
-            // Check if we are in a call. If we are, play the alert
-            // sound at a low volume to not disrupt the call.
-            if (mTelephonyManager.getCallState()
-                    != TelephonyManager.CALL_STATE_IDLE) {
-                Log.v(TAG, "in call: reducing volume");
-                mMediaPlayer.setVolume(IN_CALL_VOLUME, IN_CALL_VOLUME);
-            }
-            // start playing alert audio
-            setDataSourceFromResource(getResources(), mMediaPlayer,
-                    R.raw.attention_signal);
-            mAudioManager.requestAudioFocus(null, AudioManager.STREAM_ALARM,
-                    AudioManager.AUDIOFOCUS_GAIN_TRANSIENT);
-            startAlarm(mMediaPlayer);
-        } catch (Exception ex) {
-            Log.e(TAG, "Failed to play alert sound", ex);
+        // Start the vibration first.
+        if (mEnableVibrate) {
+            mVibrator.vibrate(sVibratePattern, -1);
         }
 
-        /* Start the vibrator after everything is ok with the media player */
-        mVibrator.vibrate(sVibratePattern, 1);
+        if (mEnableAudio) {
+            // future optimization: reuse media player object
+            mMediaPlayer = new MediaPlayer();
+            mMediaPlayer.setOnErrorListener(new OnErrorListener() {
+                public boolean onError(MediaPlayer mp, int what, int extra) {
+                    Log.e(TAG, "Error occurred while playing audio.");
+                    mp.stop();
+                    mp.release();
+                    mMediaPlayer = null;
+                    return true;
+                }
+            });
+
+            try {
+                // Check if we are in a call. If we are, play the alert
+                // sound at a low volume to not disrupt the call.
+                if (mTelephonyManager.getCallState()
+                        != TelephonyManager.CALL_STATE_IDLE) {
+                    Log.v(TAG, "in call: reducing volume");
+                    mMediaPlayer.setVolume(IN_CALL_VOLUME, IN_CALL_VOLUME);
+                }
+
+                // start playing alert audio (unless master volume is vibrate only or silent).
+                setDataSourceFromResource(getResources(), mMediaPlayer,
+                        R.raw.attention_signal);
+                mAudioManager.requestAudioFocus(null, AudioManager.STREAM_NOTIFICATION,
+                        AudioManager.AUDIOFOCUS_GAIN_TRANSIENT);
+                startAlarm(mMediaPlayer);
+            } catch (Exception ex) {
+                Log.e(TAG, "Failed to play alert sound", ex);
+            }
+        }
 
         // stop alert after the specified duration
         mHandler.sendMessageDelayed(mHandler.obtainMessage(ALERT_SOUND_FINISHED), duration);
@@ -307,9 +346,8 @@ public class CellBroadcastAlertAudio extends Service implements TextToSpeech.OnI
 
     // Do the common stuff when starting the alarm.
     private static void startAlarm(MediaPlayer player)
-            throws java.io.IOException, IllegalArgumentException,
-                   IllegalStateException {
-        player.setAudioStreamType(AudioManager.STREAM_ALARM);
+            throws java.io.IOException, IllegalArgumentException, IllegalStateException {
+        player.setAudioStreamType(AudioManager.STREAM_NOTIFICATION);
         player.setLooping(true);
         player.prepare();
         player.start();
@@ -337,15 +375,25 @@ public class CellBroadcastAlertAudio extends Service implements TextToSpeech.OnI
         if (mState == STATE_ALERTING) {
             // Stop audio playing
             if (mMediaPlayer != null) {
-                mMediaPlayer.stop();
-                mMediaPlayer.release();
+                try {
+                    mMediaPlayer.stop();
+                    mMediaPlayer.release();
+                } catch (IllegalStateException e) {
+                    // catch "Unable to retrieve AudioTrack pointer for stop()" exception
+                    Log.e(TAG, "exception trying to stop media player");
+                }
                 mMediaPlayer = null;
             }
 
             // Stop vibrator
             mVibrator.cancel();
         } else if (mState == STATE_SPEAKING && mTts != null) {
-            mTts.stop();
+            try {
+                mTts.stop();
+            } catch (IllegalStateException e) {
+                // catch "Unable to retrieve AudioTrack pointer for stop()" exception
+                Log.e(TAG, "exception trying to stop text-to-speech");
+            }
         }
         mAudioManager.abandonAudioFocus(null);
         mState = STATE_IDLE;

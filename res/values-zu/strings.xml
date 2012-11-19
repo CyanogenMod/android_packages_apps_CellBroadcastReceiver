@@ -23,8 +23,9 @@
     <string name="menu_preferences" msgid="3596514894131599202">"Izilungiselelo"</string>
     <string name="menu_delete_all" msgid="3940997343921149800">"Susa ukusakaza"</string>
     <string name="message_options" msgid="3178489901903589574">"Izinketho zemilayezo"</string>
-    <string name="menu_view" msgid="5991055455727639531">"Buka ukusakaza"</string>
+    <string name="menu_view_details" msgid="1040989019045280975">"Buka imininingwane"</string>
     <string name="menu_delete" msgid="128380070910799366">"Susa ukusakaza"</string>
+    <string name="view_details_title" msgid="1780427629491781473">"Imininingwane yokwazisa"</string>
     <string name="confirm_delete_broadcast" msgid="2540199303730232322">"Susa lokhu kusakaza?"</string>
     <string name="confirm_delete_all_broadcasts" msgid="2924444089047280871">"Susa yonke imiyalezo yokusakaza?"</string>
     <string name="button_delete" msgid="4672451757925194350">"Susa"</string>
@@ -60,11 +61,13 @@
     <string name="enable_cmas_amber_alerts_summary" msgid="8423617548641801387">"Bonisa izindaba ezihamba phambili eziphuthumayo zokuthunjwa kwezingane (isaziso SOMBALA OLUPHUZI)"</string>
     <string name="enable_cmas_test_alerts_title" msgid="8620213090932770270">"Bonisa ukusakaza kokuhlola i-CMAS"</string>
     <string name="enable_cmas_test_alerts_summary" msgid="2935171596891733844">"Bonisa ukusakazwa Kwesisitimu Yokuxwayisa Ngefoni Yezentengiselwano"</string>
+    <string name="enable_alert_vibrate_title" msgid="982817538757982090">"Dlidliza"</string>
+    <string name="enable_alert_vibrate_summary" msgid="4328060563316778589">"Dlidliza ekwazisweni"</string>
     <string name="category_brazil_settings_title" msgid="6343130548572319922">"Izilungiselelo ze-Brazil"</string>
     <string name="enable_channel_50_alerts_title" msgid="2818924064446974167">"Bonisa ukusakazwa kwesiteshi 50"</string>
     <string name="enable_channel_50_alerts_summary" msgid="7507770011325273009">"Isiteshi 50 sisetshinziswa e-Brazil ukuze kubuyekezwe ulwazi lwasendaweni"</string>
     <string name="category_dev_settings_title" msgid="6194393458398329994">"Izinketho Zonjiniyela"</string>
-    <string name="cmas_category_heading" msgid="5731181299088631019">"Isigaba:"</string>
+    <string name="cmas_category_heading" msgid="3923503130776640717">"Isigaba sesexwayiso:"</string>
     <string name="cmas_category_geo" msgid="4979494217069688527">"Okuphathelene Nomhlaba"</string>
     <string name="cmas_category_met" msgid="7563732573851773537">"Okuphathelene Nesimo Sezulu"</string>
     <string name="cmas_category_safety" msgid="2986472639641883453">"Ukuphepha"</string>
@@ -77,26 +80,32 @@
     <string name="cmas_category_infra" msgid="3558151044446851398">"Ingqalasizinda"</string>
     <string name="cmas_category_cbrne" msgid="240421557913603971">"Amakhemikhali/Okuphathelene Nempilo/Inuzi/Iziqhumani"</string>
     <string name="cmas_category_other" msgid="6158932360790744360">"Okunye"</string>
-    <string name="cmas_response_heading" msgid="451355296605342420">"Uhlobo lwempendulo:"</string>
-    <string name="cmas_response_shelter" msgid="731514427035594985">"Thatha indawo yokuhlala"</string>
+    <string name="cmas_response_heading" msgid="4205379547245540163">"Uhlobo lwempendulo:"</string>
+    <string name="cmas_response_shelter" msgid="7301175579079615909">"Ingosi"</string>
     <string name="cmas_response_evacuate" msgid="5833170084430021095">"Thutha"</string>
     <string name="cmas_response_prepare" msgid="8428073909753758319">"Lungiselela"</string>
-    <string name="cmas_response_execute" msgid="4065931123765142173">"Qalisa umsebenzi"</string>
-    <string name="cmas_response_monitor" msgid="1836723975944461996">"Gada imithombo yokwaziswa"</string>
-    <string name="cmas_response_avoid" msgid="9083226909188314307">"Gwema ingozi"</string>
-    <string name="cmas_response_assess" msgid="4419898054369698124">"Ukuhlola"</string>
-    <string name="cmas_response_none" msgid="9109481144060546906">"Asikho isenzo"</string>
+    <string name="cmas_response_execute" msgid="284719420769568493">"Yenza"</string>
+    <string name="cmas_response_monitor" msgid="681400164440495749">"Ukwengamela"</string>
+    <string name="cmas_response_avoid" msgid="156419597612629270">"Gwema"</string>
+    <string name="cmas_response_assess" msgid="9043534222710563415">"Hlola"</string>
+    <string name="cmas_response_none" msgid="5149009359674452959">"Akunalutho"</string>
     <string name="cmas_severity_heading" msgid="8437057117822305243">"Ubucayi:"</string>
     <string name="cmas_severity_extreme" msgid="1312013282860183082">"Khulu kakhulu"</string>
     <string name="cmas_severity_severe" msgid="7504359209737074524">"Bucayi"</string>
     <string name="cmas_urgency_heading" msgid="8218282767913431492">"Ukuphuthuma:"</string>
-    <string name="cmas_urgency_immediate" msgid="2258810949481930841">"Thatha isinyathelo ngokuphazima kweso"</string>
-    <string name="cmas_urgency_expected" msgid="2649054095518659749">"Thatha isinyathelo lingakapheli ihora elilandelayo"</string>
+    <string name="cmas_urgency_immediate" msgid="1577485208196449288">"Khona manjalo"</string>
+    <string name="cmas_urgency_expected" msgid="6830831119872375936">"Okulindelekile"</string>
     <string name="cmas_certainty_heading" msgid="8374669249736439193">"Ukuqinisekisa:"</string>
     <string name="cmas_certainty_observed" msgid="3668549749352106472">"Kugadiwe"</string>
     <string name="cmas_certainty_likely" msgid="4254497828943291749">"Kungenzeka"</string>
+    <string name="delivery_time_heading" msgid="5980836543433619329">"Okwamukelwe:"</string>
     <string name="notification_multiple" msgid="5121978148152124860">"<xliff:g id="COUNT">%s</xliff:g> izaziso ezingafundiwe."</string>
     <string name="notification_multiple_title" msgid="1523638925739947855">"Izaziso ezintsha"</string>
+    <string name="show_cmas_opt_out_summary" msgid="4370292554938680862">"Bonisa ibhokisi lokuphuma ngemuva kokubonisa isaziso se-CMAS sokuqala (ngaphandle kwesaziso esingumongameli)."</string>
+    <string name="show_cmas_opt_out_title" msgid="9182104842820171132">"Bonisa ibhokisi lokuphuma"</string>
+    <string name="cmas_opt_out_dialog_text" msgid="7529010670998259128">"Okwamanje uthola izaziso zesimo esiphuthumayo. Ungathanda ukuqhubeka ukuthola izaziso zesimo esiphuthumayo?"</string>
+    <string name="cmas_opt_out_button_yes" msgid="7248930667195432936">"Yebo"</string>
+    <string name="cmas_opt_out_button_no" msgid="3110484064328538553">"Cha"</string>
   <string-array name="alert_sound_duration_entries">
     <item msgid="5353482200312892037">"2 amasekhondi"</item>
     <item msgid="5656092384277009212">"4 amasekhondi"</item>

@@ -23,8 +23,9 @@
     <string name="menu_preferences" msgid="3596514894131599202">"Nustatymai"</string>
     <string name="menu_delete_all" msgid="3940997343921149800">"Ištrinti transliacijas"</string>
     <string name="message_options" msgid="3178489901903589574">"Pranešimo parinktys"</string>
-    <string name="menu_view" msgid="5991055455727639531">"Žiūrėti transliaciją"</string>
+    <string name="menu_view_details" msgid="1040989019045280975">"Žiūrėti išsamią informaciją"</string>
     <string name="menu_delete" msgid="128380070910799366">"Ištrinti transliaciją"</string>
+    <string name="view_details_title" msgid="1780427629491781473">"Išsami įspėjimo informacija"</string>
     <string name="confirm_delete_broadcast" msgid="2540199303730232322">"Ištrinti šią transliaciją?"</string>
     <string name="confirm_delete_all_broadcasts" msgid="2924444089047280871">"Ištrinti visus gautus transliacijos pranešimus?"</string>
     <string name="button_delete" msgid="4672451757925194350">"Ištrinti"</string>
@@ -60,11 +61,13 @@
     <string name="enable_cmas_amber_alerts_summary" msgid="8423617548641801387">"Pateikti vaiko pagrobimo biuletenius (AMBER įspėjimas)"</string>
     <string name="enable_cmas_test_alerts_title" msgid="8620213090932770270">"Rodyti CMAS bandom. transliac."</string>
     <string name="enable_cmas_test_alerts_summary" msgid="2935171596891733844">"Pateikti bandomąsias komercinių įspėjimų mobiliesiems sistemos transliacijas"</string>
+    <string name="enable_alert_vibrate_title" msgid="982817538757982090">"Vibruoti"</string>
+    <string name="enable_alert_vibrate_summary" msgid="4328060563316778589">"Vibruoti įspėjant"</string>
     <string name="category_brazil_settings_title" msgid="6343130548572319922">"Brazilijai skirti nustatymai"</string>
     <string name="enable_channel_50_alerts_title" msgid="2818924064446974167">"Rodyti 50 kanalo transliacijų"</string>
     <string name="enable_channel_50_alerts_summary" msgid="7507770011325273009">"Brazilijoje 50 kanalu perduodama informacija apie regionui taikomus naujinius"</string>
     <string name="category_dev_settings_title" msgid="6194393458398329994">"Kūrėjo parinktis"</string>
-    <string name="cmas_category_heading" msgid="5731181299088631019">"Kategorija:"</string>
+    <string name="cmas_category_heading" msgid="3923503130776640717">"Įspėjimo kategorija:"</string>
     <string name="cmas_category_geo" msgid="4979494217069688527">"Geofizinis"</string>
     <string name="cmas_category_met" msgid="7563732573851773537">"Meteorologinis"</string>
     <string name="cmas_category_safety" msgid="2986472639641883453">"Saugumas"</string>
@@ -77,26 +80,32 @@
     <string name="cmas_category_infra" msgid="3558151044446851398">"Infrastruktūra"</string>
     <string name="cmas_category_cbrne" msgid="240421557913603971">"Cheminis / biologinis / atominis / sprogstamasis"</string>
     <string name="cmas_category_other" msgid="6158932360790744360">"Kita"</string>
-    <string name="cmas_response_heading" msgid="451355296605342420">"Atsako tipas:"</string>
-    <string name="cmas_response_shelter" msgid="731514427035594985">"Rasti prieglobstį"</string>
+    <string name="cmas_response_heading" msgid="4205379547245540163">"Atsako tipas:"</string>
+    <string name="cmas_response_shelter" msgid="7301175579079615909">"Prieglobstis"</string>
     <string name="cmas_response_evacuate" msgid="5833170084430021095">"Evakuoti"</string>
     <string name="cmas_response_prepare" msgid="8428073909753758319">"Paruošti"</string>
-    <string name="cmas_response_execute" msgid="4065931123765142173">"Vykdyti veiklą"</string>
-    <string name="cmas_response_monitor" msgid="1836723975944461996">"Stebėti informacijos šaltinius"</string>
-    <string name="cmas_response_avoid" msgid="9083226909188314307">"Išvengti pavojaus"</string>
-    <string name="cmas_response_assess" msgid="4419898054369698124">"Įvertinti"</string>
-    <string name="cmas_response_none" msgid="9109481144060546906">"Nesiimti jokių veiksmų"</string>
+    <string name="cmas_response_execute" msgid="284719420769568493">"Vykdyti"</string>
+    <string name="cmas_response_monitor" msgid="681400164440495749">"Stebėti"</string>
+    <string name="cmas_response_avoid" msgid="156419597612629270">"Vengti"</string>
+    <string name="cmas_response_assess" msgid="9043534222710563415">"Įvertinti"</string>
+    <string name="cmas_response_none" msgid="5149009359674452959">"Joks"</string>
     <string name="cmas_severity_heading" msgid="8437057117822305243">"Rimtumas:"</string>
     <string name="cmas_severity_extreme" msgid="1312013282860183082">"Ekstremalus"</string>
     <string name="cmas_severity_severe" msgid="7504359209737074524">"Rimtas"</string>
     <string name="cmas_urgency_heading" msgid="8218282767913431492">"Skubumas:"</string>
-    <string name="cmas_urgency_immediate" msgid="2258810949481930841">"Nedelsdami imkitės veiksmų"</string>
-    <string name="cmas_urgency_expected" msgid="2649054095518659749">"Imkitės veiksmų per kitą val."</string>
+    <string name="cmas_urgency_immediate" msgid="1577485208196449288">"Nedelsiant"</string>
+    <string name="cmas_urgency_expected" msgid="6830831119872375936">"Tikėtina"</string>
     <string name="cmas_certainty_heading" msgid="8374669249736439193">"Tikrumas:"</string>
     <string name="cmas_certainty_observed" msgid="3668549749352106472">"Stebima"</string>
     <string name="cmas_certainty_likely" msgid="4254497828943291749">"Tikėtina"</string>
+    <string name="delivery_time_heading" msgid="5980836543433619329">"Gauta:"</string>
     <string name="notification_multiple" msgid="5121978148152124860">"<xliff:g id="COUNT">%s</xliff:g> neperskaityti (-ų) įspėjimai (-ų)"</string>
     <string name="notification_multiple_title" msgid="1523638925739947855">"Nauji įspėjimai"</string>
+    <string name="show_cmas_opt_out_summary" msgid="4370292554938680862">"Rodyti atsisakymo dialogo langą pateikus pirmą CMAS įspėjimą (ne prezidento paskelbtą įspėjimą)."</string>
+    <string name="show_cmas_opt_out_title" msgid="9182104842820171132">"Rodyti atsisakymo dialogo langą"</string>
+    <string name="cmas_opt_out_dialog_text" msgid="7529010670998259128">"Šiuo metu gaunate pagalbos įspėjimus. Ar norite toliau gauti pagalbos įspėjimus?"</string>
+    <string name="cmas_opt_out_button_yes" msgid="7248930667195432936">"Taip"</string>
+    <string name="cmas_opt_out_button_no" msgid="3110484064328538553">"Ne"</string>
   <string-array name="alert_sound_duration_entries">
     <item msgid="5353482200312892037">"2 sek."</item>
     <item msgid="5656092384277009212">"4 sek."</item>
