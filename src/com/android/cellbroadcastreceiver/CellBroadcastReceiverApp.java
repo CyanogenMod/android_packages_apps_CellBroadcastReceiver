@@ -42,6 +42,9 @@ public class CellBroadcastReceiverApp extends Application {
     private static final ArrayList<CellBroadcastMessage> sNewMessageList =
             new ArrayList<CellBroadcastMessage>(4);
 
+    /** Latest area info cell broadcast received. */
+    private static CellBroadcastMessage sLatestAreaInfo;
+
     /** Adds a new unread non-emergency message and returns the current list. */
     static ArrayList<CellBroadcastMessage> addNewMessageToList(CellBroadcastMessage message) {
         sNewMessageList.add(message);
@@ -51,5 +54,15 @@ public class CellBroadcastReceiverApp extends Application {
     /** Clears the list of unread non-emergency messages. */
     static void clearNewMessageList() {
         sNewMessageList.clear();
+    }
+
+    /** Saves the latest area info broadcast received. */
+    static void setLatestAreaInfo(CellBroadcastMessage areaInfo) {
+        sLatestAreaInfo = areaInfo;
+    }
+
+    /** Returns the latest area info broadcast received. */
+    static CellBroadcastMessage getLatestAreaInfo() {
+        return sLatestAreaInfo;
     }
 }
