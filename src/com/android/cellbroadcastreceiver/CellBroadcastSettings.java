@@ -16,6 +16,7 @@
 
 package com.android.cellbroadcastreceiver;
 
+import android.content.Context;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.preference.ListPreference;
@@ -25,6 +26,8 @@ import android.preference.PreferenceCategory;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceScreen;
 import android.provider.Settings;
+import android.telephony.TelephonyManager;
+import android.util.Log;
 
 /**
  * Settings activity for the cell broadcast receiver.
@@ -163,7 +166,14 @@ public class CellBroadcastSettings extends PreferenceActivity {
                         findPreference(KEY_ENABLE_CMAS_SEVERE_THREAT_ALERTS));
                 alertCategory.removePreference(findPreference(KEY_ENABLE_CMAS_AMBER_ALERTS));
             }
-            if (!res.getBoolean(R.bool.show_brazil_settings)) {
+
+            TelephonyManager tm = (TelephonyManager) getActivity().getSystemService(
+                    Context.TELEPHONY_SERVICE);
+
+            boolean enableChannel50Support = res.getBoolean(R.bool.show_brazil_settings) ||
+                    "br".equals(tm.getSimCountryIso());
+
+            if (!enableChannel50Support) {
                 preferenceScreen.removePreference(findPreference(KEY_CATEGORY_BRAZIL_SETTINGS));
             }
             if (!enableDevSettings) {
