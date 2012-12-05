@@ -40,4 +40,5 @@
     <string name="button_gsm_ucs2_with_language_umts_type">Send UMTS UCS-2 With Language</string>
     <string name="button_delay_broadcast">Delay 5 seconds before sending</string>
     <string name="message_id_label">Message ID:</string>
+    <string name="category_id_label">Category:</string>
 </resources>

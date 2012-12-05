@@ -57,7 +57,7 @@ public class SendTestMessages {
             "00000000000000000000000000000000000000000000");
 
     private static final byte[] gsm7BitTest = {
-            (byte)0xC0, (byte)0x00, (byte)0x00, (byte)0x32, (byte)0x40, (byte)0x11, (byte)0x41,
+            (byte)0xC0, (byte)0x00, (byte)0x00, (byte)0x01, (byte)0x40, (byte)0x11, (byte)0x41,
             (byte)0xD0, (byte)0x71, (byte)0xDA, (byte)0x04, (byte)0x91, (byte)0xCB, (byte)0xE6,
             (byte)0x70, (byte)0x9D, (byte)0x4D, (byte)0x07, (byte)0x85, (byte)0xD9, (byte)0x70,
             (byte)0x74, (byte)0x58, (byte)0x5C, (byte)0xA6, (byte)0x83, (byte)0xDA, (byte)0xE5,
@@ -73,7 +73,7 @@ public class SendTestMessages {
     };
 
     private static final byte[] gsm7BitTestUmts = {
-            (byte)0x01, (byte)0x00, (byte)0x32, (byte)0xC0, (byte)0x00, (byte)0x40,
+            (byte)0x01, (byte)0x00, (byte)0x01, (byte)0xC0, (byte)0x00, (byte)0x40,
 
             (byte)0x01,
 
@@ -172,7 +172,7 @@ public class SendTestMessages {
     };
 
     private static final byte[] gsm7BitTestNoPadding = {
-            (byte)0xC0, (byte)0x00, (byte)0x00, (byte)0x32, (byte)0x40, (byte)0x11, (byte)0x41,
+            (byte)0xC0, (byte)0x00, (byte)0x00, (byte)0x01, (byte)0x40, (byte)0x11, (byte)0x41,
             (byte)0xD0, (byte)0x71, (byte)0xDA, (byte)0x04, (byte)0x91, (byte)0xCB, (byte)0xE6,
             (byte)0x70, (byte)0x9D, (byte)0x4D, (byte)0x07, (byte)0x85, (byte)0xD9, (byte)0x70,
             (byte)0x74, (byte)0x58, (byte)0x5C, (byte)0xA6, (byte)0x83, (byte)0xDA, (byte)0xE5,
@@ -188,7 +188,7 @@ public class SendTestMessages {
     };
 
     private static final byte[] gsm7BitTestNoPaddingUmts = {
-            (byte)0x01, (byte)0x00, (byte)0x32, (byte)0xC0, (byte)0x00, (byte)0x40,
+            (byte)0x01, (byte)0x00, (byte)0x01, (byte)0xC0, (byte)0x00, (byte)0x40,
 
             (byte)0x01,
 
@@ -211,7 +211,7 @@ public class SendTestMessages {
     };
 
     private static final byte[] gsm7BitTestWithLanguage = {
-            (byte)0xC0, (byte)0x00, (byte)0x00, (byte)0x32, (byte)0x04, (byte)0x11, (byte)0x41,
+            (byte)0xC0, (byte)0x00, (byte)0x00, (byte)0x01, (byte)0x04, (byte)0x11, (byte)0x41,
             (byte)0xD0, (byte)0x71, (byte)0xDA, (byte)0x04, (byte)0x91, (byte)0xCB, (byte)0xE6,
             (byte)0x70, (byte)0x9D, (byte)0x4D, (byte)0x07, (byte)0x85, (byte)0xD9, (byte)0x70,
             (byte)0x74, (byte)0x58, (byte)0x5C, (byte)0xA6, (byte)0x83, (byte)0xDA, (byte)0xE5,
@@ -227,7 +227,7 @@ public class SendTestMessages {
     };
 
     private static final byte[] gsm7BitTestWithLanguageInBody = {
-            (byte)0xC0, (byte)0x00, (byte)0x00, (byte)0x32, (byte)0x10, (byte)0x11, (byte)0x73,
+            (byte)0xC0, (byte)0x00, (byte)0x00, (byte)0x01, (byte)0x10, (byte)0x11, (byte)0x73,
             (byte)0x7B, (byte)0x23, (byte)0x08, (byte)0x3A, (byte)0x4E, (byte)0x9B, (byte)0x20,
             (byte)0x72, (byte)0xD9, (byte)0x1C, (byte)0xAE, (byte)0xB3, (byte)0xE9, (byte)0xA0,
             (byte)0x30, (byte)0x1B, (byte)0x8E, (byte)0x0E, (byte)0x8B, (byte)0xCB, (byte)0x74,
@@ -243,7 +243,7 @@ public class SendTestMessages {
     };
 
     private static final byte[] gsm7BitTestWithLanguageInBodyUmts = {
-            (byte)0x01, (byte)0x00, (byte)0x32, (byte)0xC0, (byte)0x00, (byte)0x10,
+            (byte)0x01, (byte)0x00, (byte)0x01, (byte)0xC0, (byte)0x00, (byte)0x10,
 
             (byte)0x01,
 
@@ -266,7 +266,7 @@ public class SendTestMessages {
     };
 
     private static final byte[] gsmUcs2Test = {
-            (byte)0xC0, (byte)0x00, (byte)0x00, (byte)0x32, (byte)0x48, (byte)0x11, (byte)0x00,
+            (byte)0xC0, (byte)0x00, (byte)0x00, (byte)0x01, (byte)0x48, (byte)0x11, (byte)0x00,
             (byte)0x41, (byte)0x00, (byte)0x20, (byte)0x00, (byte)0x55, (byte)0x00, (byte)0x43,
             (byte)0x00, (byte)0x53, (byte)0x00, (byte)0x32, (byte)0x00, (byte)0x20, (byte)0x00,
             (byte)0x6D, (byte)0x00, (byte)0x65, (byte)0x00, (byte)0x73, (byte)0x00, (byte)0x73,
@@ -282,7 +282,7 @@ public class SendTestMessages {
     };
 
     private static final byte[] gsmUcs2TestUmts = {
-            (byte)0x01, (byte)0x00, (byte)0x32, (byte)0xC0, (byte)0x00, (byte)0x48,
+            (byte)0x01, (byte)0x00, (byte)0x01, (byte)0xC0, (byte)0x00, (byte)0x48,
 
             (byte)0x01,
 
@@ -305,7 +305,7 @@ public class SendTestMessages {
     };
 
     private static final byte[] gsmUcs2TestMultipageUmts = {
-            (byte)0x01, (byte)0x00, (byte)0x32, (byte)0xC0, (byte)0x00, (byte)0x48,
+            (byte)0x01, (byte)0x00, (byte)0x01, (byte)0xC0, (byte)0x00, (byte)0x48,
 
             (byte)0x02,
 
@@ -345,7 +345,7 @@ public class SendTestMessages {
     };
 
     private static final byte[] gsmUcs2TestWithLanguageInBody = {
-            (byte)0xC0, (byte)0x00, (byte)0x00, (byte)0x32, (byte)0x11, (byte)0x11, (byte)0x78,
+            (byte)0xC0, (byte)0x00, (byte)0x00, (byte)0x01, (byte)0x11, (byte)0x11, (byte)0x78,
             (byte)0x3C, (byte)0x00, (byte)0x41, (byte)0x00, (byte)0x20, (byte)0x00, (byte)0x55,
             (byte)0x00, (byte)0x43, (byte)0x00, (byte)0x53, (byte)0x00, (byte)0x32, (byte)0x00,
             (byte)0x20, (byte)0x00, (byte)0x6D, (byte)0x00, (byte)0x65, (byte)0x00, (byte)0x73,
@@ -361,7 +361,7 @@ public class SendTestMessages {
     };
 
     private static final byte[] gsmUcs2TestWithLanguageInBodyUmts = {
-            (byte)0x01, (byte)0x00, (byte)0x32, (byte)0xC0, (byte)0x00, (byte)0x11,
+            (byte)0x01, (byte)0x00, (byte)0x01, (byte)0xC0, (byte)0x00, (byte)0x11,
 
             (byte)0x01,
 
@@ -385,128 +385,161 @@ public class SendTestMessages {
 
     private static final SmsCbLocation sEmptyLocation = new SmsCbLocation();
 
-    private static SmsCbMessage createFromPdu(byte[] pdu) {
+    private static SmsCbMessage createFromPdu(byte[] pdu, int serialNumber, int category) {
+        byte[][] pdus = new byte[1][];
+        pdus[0] = pdu;
+        return createFromPdus(pdus, serialNumber, category);
+    }
+
+    private static SmsCbMessage createFromPdus(byte[][] pdus, int serialNumber, int category) {
         try {
-            byte[][] pdus = new byte[1][];
-            pdus[0] = pdu;
+            for (byte[] pdu : pdus) {
+                if (pdu.length <= 88) {
+                    // GSM format cell broadcast
+                    Log.d(TAG, "setting GSM serial number to " + serialNumber);
+                    pdu[0] = (byte) ((serialNumber >>> 8) & 0xff);
+                    pdu[1] = (byte) (serialNumber & 0xff);
+                    if (category != 0) {
+                        Log.d(TAG, "setting GSM message identifier to " + category);
+                        pdu[2] = (byte) ((category >>> 8) & 0xff);
+                        pdu[3] = (byte) (category & 0xff);
+                    }
+                } else {
+                    // UMTS format cell broadcast
+                    Log.d(TAG, "setting UMTS serial number to " + serialNumber);
+                    pdu[3] = (byte) ((serialNumber >>> 8) & 0xff);
+                    pdu[4] = (byte) (serialNumber & 0xff);
+                    if (category != 0) {
+                        Log.d(TAG, "setting UMTS message identifier to " + category);
+                        pdu[1] = (byte) ((category >>> 8) & 0xff);
+                        pdu[2] = (byte) (category & 0xff);
+                    }
+                }
+            }
             return GsmSmsCbMessage.createSmsCbMessage(sEmptyLocation, pdus);
         } catch (IllegalArgumentException e) {
             return null;
         }
     }
 
-    private static SmsCbMessage createFromPdus(byte[][] pdus) {
-        try {
-            return GsmSmsCbMessage.createSmsCbMessage(sEmptyLocation, pdus);
-        } catch (IllegalArgumentException e) {
-            return null;
-        }
-    }
-
-    public static void testSendMessage7bit(Activity activity) {
+    public static void testSendMessage7bit(Activity activity, int serialNumber, int category) {
         Intent intent = new Intent(Intents.SMS_CB_RECEIVED_ACTION);
-        intent.putExtra("message", createFromPdu(gsm7BitTest));
+        intent.putExtra("message", createFromPdu(gsm7BitTest, serialNumber, category));
         activity.sendOrderedBroadcast(intent, "android.permission.RECEIVE_SMS");
     }
 
-    public static void testSendMessage7bitUmts(Activity activity) {
+    public static void testSendMessage7bitUmts(Activity activity, int serialNumber, int category) {
         Intent intent = new Intent(Intents.SMS_CB_RECEIVED_ACTION);
-        intent.putExtra("message", createFromPdu(gsm7BitTestUmts));
+        intent.putExtra("message", createFromPdu(gsm7BitTestUmts, serialNumber, category));
         activity.sendOrderedBroadcast(intent, "android.permission.RECEIVE_SMS");
     }
 
-    public static void testSendMessage7bitNoPadding(Activity activity) {
+    public static void testSendMessage7bitNoPadding(Activity activity, int serialNumber,
+            int category) {
         Intent intent = new Intent(Intents.SMS_CB_RECEIVED_ACTION);
-        intent.putExtra("message", createFromPdu(gsm7BitTestNoPadding));
+        intent.putExtra("message", createFromPdu(gsm7BitTestNoPadding, serialNumber, category));
         activity.sendOrderedBroadcast(intent, "android.permission.RECEIVE_SMS");
     }
 
-    public static void testSendMessage7bitNoPaddingUmts(Activity activity) {
+    public static void testSendMessage7bitNoPaddingUmts(Activity activity, int serialNumber,
+            int category) {
         Intent intent = new Intent(Intents.SMS_CB_RECEIVED_ACTION);
-        intent.putExtra("message", createFromPdu(gsm7BitTestNoPaddingUmts));
+        intent.putExtra("message", createFromPdu(gsm7BitTestNoPaddingUmts, serialNumber, category));
         activity.sendOrderedBroadcast(intent, "android.permission.RECEIVE_SMS");
     }
 
-    public static void testSendMessage7bitMultipageGsm(Activity activity) {
+    public static void testSendMessage7bitMultipageGsm(Activity activity, int serialNumber,
+            int category) {
         Intent intent = new Intent(Intents.SMS_CB_RECEIVED_ACTION);
         byte[][] pdus = new byte[2][];
         pdus[0] = gsm7BitTestMultipage1;
         pdus[1] = gsm7BitTestMultipage2;
-        intent.putExtra("message", createFromPdus(pdus));
+        intent.putExtra("message", createFromPdus(pdus, serialNumber, category));
         activity.sendOrderedBroadcast(intent, "android.permission.RECEIVE_SMS");
     }
 
-    public static void testSendMessage7bitMultipageUmts(Activity activity) {
+    public static void testSendMessage7bitMultipageUmts(Activity activity, int serialNumber,
+            int category) {
         Intent intent = new Intent(Intents.SMS_CB_RECEIVED_ACTION);
-        intent.putExtra("message", createFromPdu(gsm7BitTestMultipageUmts));
+        intent.putExtra("message", createFromPdu(gsm7BitTestMultipageUmts, serialNumber, category));
         activity.sendOrderedBroadcast(intent, "android.permission.RECEIVE_SMS");
     }
 
-    public static void testSendMessage7bitWithLanguage(Activity activity) {
+    public static void testSendMessage7bitWithLanguage(Activity activity, int serialNumber,
+            int category) {
         Intent intent = new Intent(Intents.SMS_CB_RECEIVED_ACTION);
-        intent.putExtra("message", createFromPdu(gsm7BitTestWithLanguage));
+        intent.putExtra("message", createFromPdu(gsm7BitTestWithLanguage, serialNumber, category));
         activity.sendOrderedBroadcast(intent, "android.permission.RECEIVE_SMS");
     }
 
-    public static void testSendMessage7bitWithLanguageInBody(Activity activity) {
+    public static void testSendMessage7bitWithLanguageInBody(Activity activity, int serialNumber,
+            int category) {
         Intent intent = new Intent(Intents.SMS_CB_RECEIVED_ACTION);
-        intent.putExtra("message", createFromPdu(gsm7BitTestWithLanguageInBody));
+        intent.putExtra("message", createFromPdu(gsm7BitTestWithLanguageInBody, serialNumber,
+                category));
         activity.sendOrderedBroadcast(intent, "android.permission.RECEIVE_SMS");
     }
 
-    public static void testSendMessage7bitWithLanguageInBodyUmts(Activity activity) {
+    public static void testSendMessage7bitWithLanguageInBodyUmts(Activity activity,
+            int serialNumber, int category) {
         Intent intent = new Intent(Intents.SMS_CB_RECEIVED_ACTION);
-        intent.putExtra("message", createFromPdu(gsm7BitTestWithLanguageInBodyUmts));
+        intent.putExtra("message", createFromPdu(gsm7BitTestWithLanguageInBodyUmts, serialNumber,
+                category));
         activity.sendOrderedBroadcast(intent, "android.permission.RECEIVE_SMS");
     }
 
-    public static void testSendMessageUcs2(Activity activity) {
+    public static void testSendMessageUcs2(Activity activity, int serialNumber, int category) {
         Intent intent = new Intent(Intents.SMS_CB_RECEIVED_ACTION);
-        intent.putExtra("message", createFromPdu(gsmUcs2Test));
+        intent.putExtra("message", createFromPdu(gsmUcs2Test, serialNumber, category));
         activity.sendOrderedBroadcast(intent, "android.permission.RECEIVE_SMS");
     }
 
-    public static void testSendMessageUcs2Umts(Activity activity) {
+    public static void testSendMessageUcs2Umts(Activity activity, int serialNumber, int category) {
         Intent intent = new Intent(Intents.SMS_CB_RECEIVED_ACTION);
-        intent.putExtra("message", createFromPdu(gsmUcs2TestUmts));
+        intent.putExtra("message", createFromPdu(gsmUcs2TestUmts, serialNumber, category));
         activity.sendOrderedBroadcast(intent, "android.permission.RECEIVE_SMS");
     }
 
-    public static void testSendMessageUcs2MultipageUmts(Activity activity) {
+    public static void testSendMessageUcs2MultipageUmts(Activity activity, int serialNumber,
+            int category) {
         Intent intent = new Intent(Intents.SMS_CB_RECEIVED_ACTION);
-        intent.putExtra("message", createFromPdu(gsmUcs2TestMultipageUmts));
+        intent.putExtra("message", createFromPdu(gsmUcs2TestMultipageUmts, serialNumber, category));
         activity.sendOrderedBroadcast(intent, "android.permission.RECEIVE_SMS");
     }
 
-    public static void testSendMessageUcs2WithLanguageInBody(Activity activity) {
+    public static void testSendMessageUcs2WithLanguageInBody(Activity activity, int serialNumber,
+            int category) {
         Intent intent = new Intent(Intents.SMS_CB_RECEIVED_ACTION);
-        intent.putExtra("message", createFromPdu(gsmUcs2TestWithLanguageInBody));
+        intent.putExtra("message", createFromPdu(gsmUcs2TestWithLanguageInBody, serialNumber,
+                category));
         activity.sendOrderedBroadcast(intent, "android.permission.RECEIVE_SMS");
     }
 
-    public static void testSendMessageUcs2WithLanguageUmts(Activity activity) {
+    public static void testSendMessageUcs2WithLanguageUmts(Activity activity, int serialNumber,
+            int category) {
         Intent intent = new Intent(Intents.SMS_CB_RECEIVED_ACTION);
-        intent.putExtra("message", createFromPdu(gsmUcs2TestWithLanguageInBodyUmts));
+        intent.putExtra("message", createFromPdu(gsmUcs2TestWithLanguageInBodyUmts, serialNumber,
+                category));
         activity.sendOrderedBroadcast(intent, "android.permission.RECEIVE_SMS");
     }
 
-    public static void testSendEtwsMessageNormal(Activity activity) {
+    public static void testSendEtwsMessageNormal(Activity activity, int serialNumber) {
         Intent intent = new Intent(Intents.SMS_EMERGENCY_CB_RECEIVED_ACTION);
-        intent.putExtra("message", createFromPdu(etwsMessageNormal));
+        intent.putExtra("message", createFromPdu(etwsMessageNormal, serialNumber, 0));
         activity.sendOrderedBroadcast(intent,
                 "android.permission.RECEIVE_EMERGENCY_BROADCAST");
     }
 
-    public static void testSendEtwsMessageCancel(Activity activity) {
+    public static void testSendEtwsMessageCancel(Activity activity, int serialNumber) {
         Intent intent = new Intent(Intents.SMS_EMERGENCY_CB_RECEIVED_ACTION);
-        intent.putExtra("message", createFromPdu(etwsMessageCancel));
+        intent.putExtra("message", createFromPdu(etwsMessageCancel, serialNumber, 0));
         activity.sendOrderedBroadcast(intent,
                 "android.permission.RECEIVE_EMERGENCY_BROADCAST");
     }
 
-    public static void testSendEtwsMessageTest(Activity activity) {
+    public static void testSendEtwsMessageTest(Activity activity, int serialNumber) {
         Intent intent = new Intent(Intents.SMS_EMERGENCY_CB_RECEIVED_ACTION);
-        intent.putExtra("message", createFromPdu(etwsMessageTest));
+        intent.putExtra("message", createFromPdu(etwsMessageTest, serialNumber, 0));
         activity.sendOrderedBroadcast(intent,
                 "android.permission.RECEIVE_EMERGENCY_BROADCAST");
     }
