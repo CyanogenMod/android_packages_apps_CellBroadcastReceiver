@@ -52,12 +52,14 @@ public class CellBroadcastConfigService extends IntentService {
     }
 
     private static void setChannelRange(SmsManager manager, String ranges, boolean enable) {
+        if (DBG)log("setChannelRange: " + ranges);
+
         try {
             for (String channelRange : ranges.split(",")) {
                 int dashIndex = channelRange.indexOf('-');
                 if (dashIndex != -1) {
-                    int startId = Integer.decode(channelRange.substring(0, dashIndex));
-                    int endId = Integer.decode(channelRange.substring(dashIndex + 1));
+                    int startId = Integer.decode(channelRange.substring(0, dashIndex).trim());
+                    int endId = Integer.decode(channelRange.substring(dashIndex + 1).trim());
                     if (enable) {
                         if (DBG) log("enabling emergency IDs " + startId + '-' + endId);
                         manager.enableCellBroadcastRange(startId, endId);
@@ -66,7 +68,7 @@ public class CellBroadcastConfigService extends IntentService {
                         manager.disableCellBroadcastRange(startId, endId);
                     }
                 } else {
-                    int messageId = Integer.decode(channelRange);
+                    int messageId = Integer.decode(channelRange.trim());
                     if (enable) {
                         if (DBG) log("enabling emergency message ID " + messageId);
                         manager.enableCellBroadcast(messageId);
@@ -79,6 +81,10 @@ public class CellBroadcastConfigService extends IntentService {
         } catch (NumberFormatException e) {
             Log.e(TAG, "Number Format Exception parsing emergency channel range", e);
         }
+
+        // Make sure CMAS Presidential is enabled (See 3GPP TS 22.268 Section 6.2).
+        if (DBG) log("setChannelRange: enabling CMAS Presidential");
+        manager.enableCellBroadcast(SmsCbConstants.MESSAGE_ID_CMAS_ALERT_PRESIDENTIAL_LEVEL);
     }
 
     /**
@@ -102,13 +108,13 @@ public class CellBroadcastConfigService extends IntentService {
             for (String channelRange : emergencyIdRange.split(",")) {
                 int dashIndex = channelRange.indexOf('-');
                 if (dashIndex != -1) {
-                    int startId = Integer.decode(channelRange.substring(0, dashIndex));
-                    int endId = Integer.decode(channelRange.substring(dashIndex + 1));
+                    int startId = Integer.decode(channelRange.substring(0, dashIndex).trim());
+                    int endId = Integer.decode(channelRange.substring(dashIndex + 1).trim());
                     if (messageId >= startId && messageId <= endId) {
                         return true;
                     }
                 } else {
-                    int emergencyMessageId = Integer.decode(channelRange);
+                    int emergencyMessageId = Integer.decode(channelRange.trim());
                     if (emergencyMessageId == messageId) {
                         return true;
                     }
@@ -146,6 +152,10 @@ public class CellBroadcastConfigService extends IntentService {
                         manager.enableCellBroadcastRange(
                                 SmsCbConstants.MESSAGE_ID_PWS_FIRST_IDENTIFIER,
                                 SmsCbConstants.MESSAGE_ID_PWS_LAST_IDENTIFIER);
+
+                        // CMAS Presidential must be on (See 3GPP TS 22.268 Section 6.2).
+                        manager.enableCellBroadcast(
+                               SmsCbConstants.MESSAGE_ID_CMAS_ALERT_PRESIDENTIAL_LEVEL);
                     }
                     if (DBG) log("enabled emergency cell broadcast channels");
                 } else {
@@ -155,9 +165,13 @@ public class CellBroadcastConfigService extends IntentService {
                         setChannelRange(manager, emergencyIdRange, false);
                     } else {
                         // No emergency channel system property, disable all emergency channels
+                        // except for CMAS Presidential (See 3GPP TS 22.268 Section 6.2)
                         manager.disableCellBroadcastRange(
                                 SmsCbConstants.MESSAGE_ID_PWS_FIRST_IDENTIFIER,
                                 SmsCbConstants.MESSAGE_ID_PWS_LAST_IDENTIFIER);
+
+                        manager.enableCellBroadcast(
+                                SmsCbConstants.MESSAGE_ID_CMAS_ALERT_PRESIDENTIAL_LEVEL);
                     }
                     if (DBG) log("disabled emergency cell broadcast channels");
                 }
