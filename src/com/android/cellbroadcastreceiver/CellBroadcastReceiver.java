@@ -61,6 +61,7 @@ public class CellBroadcastReceiver extends BroadcastReceiver {
                     PhoneStateListener.LISTEN_SERVICE_STATE);
         } else if (Intent.ACTION_AIRPLANE_MODE_CHANGED.equals(action)) {
             boolean airplaneModeOn = intent.getBooleanExtra("state", false);
+            if (DBG) log("airplaneModeOn: " + airplaneModeOn);
             if (!airplaneModeOn) {
                 startConfigService(context);
             }
@@ -74,7 +75,7 @@ public class CellBroadcastReceiver extends BroadcastReceiver {
                 intent.setClass(context, CellBroadcastAlertService.class);
                 context.startService(intent);
             } else {
-                Log.e(TAG, "ignoring unprivileged action received " + action);
+                loge("ignoring unprivileged action received " + action);
             }
         } else if (Telephony.Sms.Intents.SMS_SERVICE_CATEGORY_PROGRAM_DATA_RECEIVED_ACTION
                 .equals(action)) {
@@ -84,10 +85,10 @@ public class CellBroadcastReceiver extends BroadcastReceiver {
                 if (programDataList != null) {
                     handleCdmaSmsCbProgramData(context, programDataList);
                 } else {
-                    Log.e(TAG, "SCPD intent received with no program_data_list");
+                    loge("SCPD intent received with no program_data_list");
                 }
             } else {
-                Log.e(TAG, "ignoring unprivileged action received " + action);
+                loge("ignoring unprivileged action received " + action);
             }
         } else if (GET_LATEST_CB_AREA_INFO_ACTION.equals(action)) {
             if (privileged) {
@@ -138,7 +139,7 @@ public class CellBroadcastReceiver extends BroadcastReceiver {
                     break;
 
                 default:
-                    Log.e(TAG, "Ignoring unknown SCPD operation " + programData.getOperation());
+                    loge("Ignoring unknown SCPD operation " + programData.getOperation());
             }
         }
     }
@@ -180,19 +181,15 @@ public class CellBroadcastReceiver extends BroadcastReceiver {
      * @param context the broadcast receiver context
      */
     static void startConfigService(Context context) {
-        if (phoneIsCdma()) {
-            if (DBG) log("CDMA phone detected; doing nothing");
-        } else {
-            Intent serviceIntent = new Intent(CellBroadcastConfigService.ACTION_ENABLE_CHANNELS,
-                    null, context, CellBroadcastConfigService.class);
-            context.startService(serviceIntent);
-        }
+        Intent serviceIntent = new Intent(CellBroadcastConfigService.ACTION_ENABLE_CHANNELS,
+                null, context, CellBroadcastConfigService.class);
+        context.startService(serviceIntent);
     }
 
     /**
      * @return true if the phone is a CDMA phone type
      */
-    private static boolean phoneIsCdma() {
+    static boolean phoneIsCdma() {
         boolean isCdma = false;
         try {
             ITelephony phone = ITelephony.Stub.asInterface(ServiceManager.checkService("phone"));
@@ -229,5 +226,9 @@ public class CellBroadcastReceiver extends BroadcastReceiver {
 
     private static void log(String msg) {
         Log.d(TAG, msg);
+    }
+
+    private static void loge(String msg) {
+        Log.e(TAG, msg);
     }
 }
