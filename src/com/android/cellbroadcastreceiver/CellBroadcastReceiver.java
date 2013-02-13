@@ -20,10 +20,15 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.os.RemoteException;
 import android.os.ServiceManager;
+import android.os.UserHandle;
 import android.preference.PreferenceManager;
 import android.provider.Telephony;
+import android.telephony.CellBroadcastMessage;
+import android.telephony.PhoneStateListener;
+import android.telephony.ServiceState;
 import android.telephony.TelephonyManager;
 import android.telephony.cdma.CdmaSmsCbProgramData;
 import android.util.Log;
@@ -34,6 +39,9 @@ import com.android.internal.telephony.cdma.sms.SmsEnvelope;
 public class CellBroadcastReceiver extends BroadcastReceiver {
     private static final String TAG = "CellBroadcastReceiver";
     static final boolean DBG = true;    // STOPSHIP: change to false before ship
+
+    private static final String GET_LATEST_CB_AREA_INFO_ACTION =
+            "android.cellbroadcastreceiver.GET_LATEST_CB_AREA_INFO";
 
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -46,7 +54,11 @@ public class CellBroadcastReceiver extends BroadcastReceiver {
         String action = intent.getAction();
 
         if (Intent.ACTION_BOOT_COMPLETED.equals(action)) {
-            startConfigService(context);
+            if (DBG) log("Registering for ServiceState updates");
+            TelephonyManager tm = (TelephonyManager) context.getSystemService(
+                    Context.TELEPHONY_SERVICE);
+            tm.listen(new ServiceStateListener(context.getApplicationContext()),
+                    PhoneStateListener.LISTEN_SERVICE_STATE);
         } else if (Intent.ACTION_AIRPLANE_MODE_CHANGED.equals(action)) {
             boolean airplaneModeOn = intent.getBooleanExtra("state", false);
             if (!airplaneModeOn) {
@@ -76,6 +88,19 @@ public class CellBroadcastReceiver extends BroadcastReceiver {
                 }
             } else {
                 Log.e(TAG, "ignoring unprivileged action received " + action);
+            }
+        } else if (GET_LATEST_CB_AREA_INFO_ACTION.equals(action)) {
+            if (privileged) {
+                CellBroadcastMessage message = CellBroadcastReceiverApp.getLatestAreaInfo();
+                if (message != null) {
+                    Intent areaInfoIntent = new Intent(
+                            CellBroadcastAlertService.CB_AREA_INFO_RECEIVED_ACTION);
+                    areaInfoIntent.putExtra("message", message);
+                    context.sendBroadcastAsUser(areaInfoIntent, UserHandle.ALL,
+                            android.Manifest.permission.READ_PHONE_STATE);
+                }
+            } else {
+                Log.e(TAG, "caller missing READ_PHONE_STATE permission, returning");
             }
         } else {
             Log.w(TAG, "onReceive() unexpected action " + action);
@@ -178,6 +203,28 @@ public class CellBroadcastReceiver extends BroadcastReceiver {
             Log.w(TAG, "phone.getActivePhoneType() failed", e);
         }
         return isCdma;
+    }
+
+    private static class ServiceStateListener extends PhoneStateListener {
+        private final Context mContext;
+        private int mServiceState = -1;
+
+        ServiceStateListener(Context context) {
+            mContext = context;
+        }
+
+        @Override
+        public void onServiceStateChanged(ServiceState ss) {
+            int newState = ss.getState();
+            if (newState != mServiceState) {
+                Log.d(TAG, "Service state changed! " + newState + " Full: " + ss);
+                mServiceState = newState;
+                if (newState == ServiceState.STATE_IN_SERVICE ||
+                        newState == ServiceState.STATE_EMERGENCY_ONLY) {
+                    startConfigService(mContext);
+                }
+            }
+        }
     }
 
     private static void log(String msg) {

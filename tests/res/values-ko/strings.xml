@@ -41,4 +41,5 @@
     <string name="button_gsm_ucs2_with_language_umts_type" msgid="1080788762601688380">"언어와 UMTS UCS-2 보내기"</string>
     <string name="button_delay_broadcast" msgid="5138650276363839541">"보내기 전에 5초 지연"</string>
     <string name="message_id_label" msgid="4365322663037110887">"메시지 ID:"</string>
+    <string name="category_id_label" msgid="8472814003810180738">"카테고리:"</string>
 </resources>

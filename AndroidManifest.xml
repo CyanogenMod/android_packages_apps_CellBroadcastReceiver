@@ -28,6 +28,7 @@
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.DISABLE_KEYGUARD" />
     <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.INTERACT_ACROSS_USERS" />
 
     <application android:name="CellBroadcastReceiverApp"
             android:label="@string/app_label"
@@ -102,6 +103,14 @@
 
             <intent-filter>
                 <action android:name="android.provider.Telephony.SMS_SERVICE_CATEGORY_PROGRAM_DATA_RECEIVED" />
+            </intent-filter>
+        </receiver>
+
+        <!-- Require sender permission for querying latest area info broadcast -->
+        <receiver android:name="PrivilegedCellBroadcastReceiver"
+            android:permission="android.permission.READ_PHONE_STATE">
+            <intent-filter>
+                 <action android:name="android.cellbroadcastreceiver.GET_LATEST_CB_AREA_INFO" />
             </intent-filter>
         </receiver>
 

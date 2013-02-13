@@ -41,4 +41,5 @@
     <string name="button_gsm_ucs2_with_language_umts_type" msgid="1080788762601688380">"שלח UMTS UCS-2 עם שפה"</string>
     <string name="button_delay_broadcast" msgid="5138650276363839541">"עיכוב של 5 שניות לפני שליחה"</string>
     <string name="message_id_label" msgid="4365322663037110887">"מזהה הודעה:"</string>
+    <string name="category_id_label" msgid="8472814003810180738">"קטגוריה:"</string>
 </resources>

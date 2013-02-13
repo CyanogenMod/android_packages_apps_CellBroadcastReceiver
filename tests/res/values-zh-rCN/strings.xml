@@ -41,4 +41,5 @@
     <string name="button_gsm_ucs2_with_language_umts_type" msgid="1080788762601688380">"发送特定语言的 UMTS UCS-2 编码信息"</string>
     <string name="button_delay_broadcast" msgid="5138650276363839541">"延迟 5 秒后发送"</string>
     <string name="message_id_label" msgid="4365322663037110887">"讯息 ID："</string>
+    <string name="category_id_label" msgid="8472814003810180738">"类别："</string>
 </resources>
