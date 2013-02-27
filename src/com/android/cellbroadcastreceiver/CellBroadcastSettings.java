@@ -27,7 +27,6 @@ import android.preference.PreferenceFragment;
 import android.preference.PreferenceScreen;
 import android.provider.Settings;
 import android.telephony.TelephonyManager;
-import android.util.Log;
 
 /**
  * Settings activity for the cell broadcast receiver.
@@ -85,6 +84,9 @@ public class CellBroadcastSettings extends PreferenceActivity {
     // Preference key for initial opt-in/opt-out dialog.
     public static final String KEY_SHOW_CMAS_OPT_OUT_DIALOG = "show_cmas_opt_out_dialog";
 
+    // Alert reminder interval ("once" = single 2 minute reminder).
+    public static final String KEY_ALERT_REMINDER_INTERVAL = "alert_reminder_interval";
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -128,6 +130,19 @@ public class CellBroadcastSettings extends PreferenceActivity {
             // Emergency alert preference category (general and CMAS preferences).
             PreferenceCategory alertCategory = (PreferenceCategory)
                     findPreference(KEY_CATEGORY_ALERT_SETTINGS);
+
+            // alert reminder interval
+            ListPreference interval = (ListPreference) findPreference(KEY_ALERT_REMINDER_INTERVAL);
+            interval.setSummary(interval.getEntry());
+            interval.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+                @Override
+                public boolean onPreferenceChange(Preference pref, Object newValue) {
+                    final ListPreference listPref = (ListPreference) pref;
+                    final int idx = listPref.findIndexOfValue((String) newValue);
+                    listPref.setSummary(listPref.getEntries()[idx]);
+                    return true;
+                }
+            });
 
             // Show alert settings and ETWS categories for ETWS builds and developer mode.
             if (enableDevSettings || showEtwsSettings) {

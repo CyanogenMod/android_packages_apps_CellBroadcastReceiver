@@ -353,6 +353,9 @@ public class CellBroadcastAlertFullScreen extends Activity {
         setTitle(titleId);
         ((TextView) findViewById(R.id.alertTitle)).setText(titleId);
         ((TextView) findViewById(R.id.message)).setText(message.getMessageBody());
+
+        // Set alert reminder depending on user preference
+        CellBroadcastAlertReminder.queueAlertReminder(this, true);
     }
 
     /**
@@ -385,6 +388,9 @@ public class CellBroadcastAlertFullScreen extends Activity {
     void dismiss() {
         // Stop playing alert sound/vibration/speech (if started)
         stopService(new Intent(this, CellBroadcastAlertAudio.class));
+
+        // Cancel any pending alert reminder
+        CellBroadcastAlertReminder.cancelAlertReminder();
 
         // Remove the current alert message from the list.
         CellBroadcastMessage lastMessage = removeLatestMessage();

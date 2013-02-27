@@ -16,6 +16,7 @@
 
 package com.android.cellbroadcastreceiver;
 
+import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
@@ -24,6 +25,9 @@ import android.content.res.Resources;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.media.MediaPlayer.OnErrorListener;
+import android.media.Ringtone;
+import android.media.RingtoneManager;
+import android.net.Uri;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
@@ -97,6 +101,8 @@ public class CellBroadcastAlertAudio extends Service implements TextToSpeech.OnI
     private TelephonyManager mTelephonyManager;
     private int mInitialCallState;
 
+    private PendingIntent mPlayReminderIntent;
+
     // Internal messages
     private static final int ALERT_SOUND_FINISHED = 1000;
     private static final int ALERT_PAUSE_FINISHED = 1001;
@@ -125,14 +131,14 @@ public class CellBroadcastAlertAudio extends Service implements TextToSpeech.OnI
                         mTts.speak(mMessageBody, TextToSpeech.QUEUE_FLUSH, null);
                         mState = STATE_SPEAKING;
                     } else {
-                        Log.w(TAG, "TTS engine not ready or language not supported");
+                        loge("TTS engine not ready or language not supported");
                         stopSelf();
                         mState = STATE_IDLE;
                     }
                     break;
 
                 default:
-                    Log.e(TAG, "Handler received unknown message, what=" + msg.what);
+                    loge("Handler received unknown message, what=" + msg.what);
             }
         }
     };
@@ -162,7 +168,7 @@ public class CellBroadcastAlertAudio extends Service implements TextToSpeech.OnI
         } else {
             mTtsEngineReady = false;
             mTts = null;
-            Log.e(TAG, "onInit() TTS engine error: " + status);
+            loge("onInit() TTS engine error: " + status);
         }
     }
 
@@ -216,7 +222,7 @@ public class CellBroadcastAlertAudio extends Service implements TextToSpeech.OnI
                 mTts.shutdown();
             } catch (IllegalStateException e) {
                 // catch "Unable to retrieve AudioTrack pointer for stop()" exception
-                Log.e(TAG, "exception trying to shutdown text-to-speech");
+                loge("exception trying to shutdown text-to-speech");
             }
         }
         // release CPU wake lock acquired by CellBroadcastAlertService
@@ -245,12 +251,13 @@ public class CellBroadcastAlertAudio extends Service implements TextToSpeech.OnI
         mMessageLanguage = intent.getStringExtra(ALERT_AUDIO_MESSAGE_LANGUAGE);
 
         mEnableVibrate = intent.getBooleanExtra(ALERT_AUDIO_VIBRATE_EXTRA, true);
-        boolean forceVibrate = intent.getBooleanExtra(ALERT_AUDIO_ETWS_VIBRATE_EXTRA, false);
+        if (intent.getBooleanExtra(ALERT_AUDIO_ETWS_VIBRATE_EXTRA, false)) {
+            mEnableVibrate = true;  // force enable vibration for ETWS alerts
+        }
 
         switch (mAudioManager.getRingerMode()) {
             case AudioManager.RINGER_MODE_SILENT:
                 if (DBG) log("Ringer mode: silent");
-                mEnableVibrate = forceVibrate;
                 mEnableAudio = false;
                 break;
 
@@ -311,7 +318,7 @@ public class CellBroadcastAlertAudio extends Service implements TextToSpeech.OnI
             mMediaPlayer = new MediaPlayer();
             mMediaPlayer.setOnErrorListener(new OnErrorListener() {
                 public boolean onError(MediaPlayer mp, int what, int extra) {
-                    Log.e(TAG, "Error occurred while playing audio.");
+                    loge("Error occurred while playing audio.");
                     mp.stop();
                     mp.release();
                     mMediaPlayer = null;
@@ -324,7 +331,7 @@ public class CellBroadcastAlertAudio extends Service implements TextToSpeech.OnI
                 // sound at a low volume to not disrupt the call.
                 if (mTelephonyManager.getCallState()
                         != TelephonyManager.CALL_STATE_IDLE) {
-                    Log.v(TAG, "in call: reducing volume");
+                    log("in call: reducing volume");
                     mMediaPlayer.setVolume(IN_CALL_VOLUME, IN_CALL_VOLUME);
                 }
 
@@ -335,7 +342,7 @@ public class CellBroadcastAlertAudio extends Service implements TextToSpeech.OnI
                         AudioManager.AUDIOFOCUS_GAIN_TRANSIENT);
                 startAlarm(mMediaPlayer);
             } catch (Exception ex) {
-                Log.e(TAG, "Failed to play alert sound", ex);
+                loge("Failed to play alert sound: " + ex);
             }
         }
 
@@ -363,11 +370,32 @@ public class CellBroadcastAlertAudio extends Service implements TextToSpeech.OnI
         }
     }
 
+    private void playAlertReminderSound() {
+        Uri notificationUri = RingtoneManager.getDefaultUri(
+                RingtoneManager.TYPE_NOTIFICATION | RingtoneManager.TYPE_ALARM);
+        if (notificationUri == null) {
+            loge("Can't get URI for alert reminder sound");
+            return;
+        }
+        Ringtone r = RingtoneManager.getRingtone(this, notificationUri);
+        if (r != null) {
+            log("playing alert reminder sound");
+            r.play();
+        } else {
+            loge("can't get Ringtone for alert reminder sound");
+        }
+    }
+
     /**
      * Stops alert audio and speech.
      */
     public void stop() {
         if (DBG) log("stop()");
+
+        if (mPlayReminderIntent != null) {
+            mPlayReminderIntent.cancel();
+            mPlayReminderIntent = null;
+        }
 
         mHandler.removeMessages(ALERT_SOUND_FINISHED);
         mHandler.removeMessages(ALERT_PAUSE_FINISHED);
@@ -380,7 +408,7 @@ public class CellBroadcastAlertAudio extends Service implements TextToSpeech.OnI
                     mMediaPlayer.release();
                 } catch (IllegalStateException e) {
                     // catch "Unable to retrieve AudioTrack pointer for stop()" exception
-                    Log.e(TAG, "exception trying to stop media player");
+                    loge("exception trying to stop media player");
                 }
                 mMediaPlayer = null;
             }
@@ -392,7 +420,7 @@ public class CellBroadcastAlertAudio extends Service implements TextToSpeech.OnI
                 mTts.stop();
             } catch (IllegalStateException e) {
                 // catch "Unable to retrieve AudioTrack pointer for stop()" exception
-                Log.e(TAG, "exception trying to stop text-to-speech");
+                loge("exception trying to stop text-to-speech");
             }
         }
         mAudioManager.abandonAudioFocus(null);
@@ -401,5 +429,9 @@ public class CellBroadcastAlertAudio extends Service implements TextToSpeech.OnI
 
     private static void log(String msg) {
         Log.d(TAG, msg);
+    }
+
+    private static void loge(String msg) {
+        Log.e(TAG, msg);
     }
 }
