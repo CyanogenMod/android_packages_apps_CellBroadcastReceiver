@@ -242,6 +242,7 @@ public class CellBroadcastAlertService extends Service {
 
                 case SmsCbCmasInfo.CMAS_CLASS_REQUIRED_MONTHLY_TEST:
                 case SmsCbCmasInfo.CMAS_CLASS_CMAS_EXERCISE:
+                case SmsCbCmasInfo.CMAS_CLASS_OPERATOR_DEFINED_USE:
                     return PreferenceManager.getDefaultSharedPreferences(this)
                             .getBoolean(CellBroadcastSettings.KEY_ENABLE_CMAS_TEST_ALERTS, false);
 
