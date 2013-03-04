@@ -43,6 +43,9 @@
         <service android:name="CellBroadcastConfigService"
                  android:exported="false" />
 
+        <service android:name="CellBroadcastAlertReminder"
+                 android:exported="false" />
+
         <provider android:name="CellBroadcastContentProvider"
                   android:authorities="cellbroadcasts"
                   android:readPermission="android.permission.READ_CELL_BROADCASTS" />
