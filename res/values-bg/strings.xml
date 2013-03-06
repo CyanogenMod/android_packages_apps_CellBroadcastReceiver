@@ -48,6 +48,7 @@
     <string name="enable_emergency_alerts_title" msgid="1411195469162410084">"Включване на известията"</string>
     <string name="enable_emergency_alerts_summary" msgid="5932655529367149358">"Показване на излъчв. на сигнал при спешни случаи"</string>
     <string name="alert_sound_duration_title" msgid="4712853569849108005">"Продълж. на звука на сигнала"</string>
+    <string name="alert_reminder_interval_title" msgid="3283595202268218149">"Напомняне за сигнал"</string>
     <string name="enable_alert_speech_title" msgid="8052104771053526941">"Съобщ. за сигнала: Изговаряне"</string>
     <string name="enable_alert_speech_summary" msgid="356086178962268831">"Използване на синтезиран говор за съобщенията за сигнали при спешни случаи"</string>
     <string name="category_etws_settings_title" msgid="4072774251965938576">"Настройки за СПЗЦ"</string>
@@ -112,5 +113,11 @@
     <item msgid="253564899252909788">"6 секунди"</item>
     <item msgid="7514102744524534421">"8 секунди"</item>
     <item msgid="6062562309271376642">"10 секунди"</item>
+  </string-array>
+  <string-array name="alert_reminder_interval_entries">
+    <item msgid="6595211083588795160">"Веднъж"</item>
+    <item msgid="9097229303902157183">"На всеки 2 минути"</item>
+    <item msgid="5676933700148002666">"На всеки 15 минути"</item>
+    <item msgid="694355015442188708">"Изключено"</item>
   </string-array>
 </resources>
