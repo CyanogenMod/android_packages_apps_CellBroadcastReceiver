@@ -48,6 +48,7 @@
     <string name="enable_emergency_alerts_title" msgid="1411195469162410084">"Aktifkan pemberitahuan"</string>
     <string name="enable_emergency_alerts_summary" msgid="5932655529367149358">"Tampilkan siaran lansiran darurat"</string>
     <string name="alert_sound_duration_title" msgid="4712853569849108005">"Durasi suara lansiran"</string>
+    <string name="alert_reminder_interval_title" msgid="3283595202268218149">"Pengingat lansiran"</string>
     <string name="enable_alert_speech_title" msgid="8052104771053526941">"Ucapkan pesan lansiran"</string>
     <string name="enable_alert_speech_summary" msgid="356086178962268831">"Gunakan text-to-speech untuk mengucapkan pesan lansiran darurat"</string>
     <string name="category_etws_settings_title" msgid="4072774251965938576">"Setelan ETWS"</string>
@@ -112,5 +113,11 @@
     <item msgid="253564899252909788">"6 detik"</item>
     <item msgid="7514102744524534421">"8 detik"</item>
     <item msgid="6062562309271376642">"10 detik"</item>
+  </string-array>
+  <string-array name="alert_reminder_interval_entries">
+    <item msgid="6595211083588795160">"Satu kali"</item>
+    <item msgid="9097229303902157183">"Setiap 2 menit"</item>
+    <item msgid="5676933700148002666">"Setiap 15 menit"</item>
+    <item msgid="694355015442188708">"Nonaktif"</item>
   </string-array>
 </resources>
