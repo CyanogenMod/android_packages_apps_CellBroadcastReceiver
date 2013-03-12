@@ -116,8 +116,8 @@
   </string-array>
   <string-array name="alert_reminder_interval_entries">
     <item msgid="6595211083588795160">"一次"</item>
-    <item msgid="9097229303902157183">"每 2 分鐘提醒一次"</item>
-    <item msgid="5676933700148002666">"每 15 分鐘提醒一次"</item>
+    <item msgid="9097229303902157183">"每隔 2 分鐘"</item>
+    <item msgid="5676933700148002666">"每隔 15 分鐘"</item>
     <item msgid="694355015442188708">"關閉"</item>
   </string-array>
 </resources>
