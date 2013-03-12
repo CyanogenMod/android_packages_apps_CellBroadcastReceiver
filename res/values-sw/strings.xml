@@ -115,9 +115,9 @@
     <item msgid="6062562309271376642">"Sekunde 10"</item>
   </string-array>
   <string-array name="alert_reminder_interval_entries">
-    <item msgid="6595211083588795160">"Moja"</item>
-    <item msgid="9097229303902157183">"Kila dakika 2"</item>
-    <item msgid="5676933700148002666">"Kila dakika 15"</item>
+    <item msgid="6595211083588795160">"Mara moja"</item>
+    <item msgid="9097229303902157183">"Kila baada ya dakika 2"</item>
+    <item msgid="5676933700148002666">"Kila baada ya dakika 15"</item>
     <item msgid="694355015442188708">"Zimezimwa"</item>
   </string-array>
 </resources>
