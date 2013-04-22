@@ -54,9 +54,9 @@
     <string name="category_etws_settings_title" msgid="4072774251965938576">"Cài đặt ETWS"</string>
     <string name="enable_etws_test_alerts_title" msgid="2569886288897109169">"Hiển thị các thông báo kiểm tra cho ETWS"</string>
     <string name="enable_etws_test_alerts_summary" msgid="7988690174166347072">"Hiển thị chương trình phát sóng thử nghiệm cho Hệ thống cảnh báo động đất và sóng thần"</string>
-    <string name="enable_cmas_extreme_threat_alerts_title" msgid="215650211797464620">"Hiển thị các mối đe dọa cực kỳ nghiêm trọng"</string>
+    <string name="enable_cmas_extreme_threat_alerts_title" msgid="215650211797464620">"Hiển thị đe dọa rất nghiêm trọng"</string>
     <string name="enable_cmas_extreme_threat_alerts_summary" msgid="2493139961243300290">"Hiển thị thông báo cho các mối đe dọa đến sinh mạng và tài sản cực kỳ nghiêm trọng"</string>
-    <string name="enable_cmas_severe_threat_alerts_title" msgid="8008941231371565775">"Hiển thị các mối đe dọa nghiêm trọng"</string>
+    <string name="enable_cmas_severe_threat_alerts_title" msgid="8008941231371565775">"Hiển thị đe dọa nghiêm trọng"</string>
     <string name="enable_cmas_severe_threat_alerts_summary" msgid="4089299793459943222">"Hiển thị thông báo cho các mối đe dọa đến sinh mạng và tài sản nghiêm trọng"</string>
     <string name="enable_cmas_amber_alerts_title" msgid="997138378272381777">"Hiển thị thông báo AMBER"</string>
     <string name="enable_cmas_amber_alerts_summary" msgid="8423617548641801387">"Hiển thị bản tin khẩn cấp vụ việc bắt cóc trẻ em (thông báo AMBER)"</string>
