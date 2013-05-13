@@ -61,16 +61,21 @@ public class CellBroadcastAlertService extends Service {
     /** Container for message ID and geographical scope, for duplicate message detection. */
     private static final class MessageIdAndScope {
         private final int mMessageId;
+        private final int mSerialNumber;
         private final SmsCbLocation mLocation;
 
-        MessageIdAndScope(int messageId, SmsCbLocation location) {
+        MessageIdAndScope(int messageId, int serialNumber, SmsCbLocation location) {
             mMessageId = messageId;
+            mSerialNumber = serialNumber;
             mLocation = location;
         }
 
         @Override
         public int hashCode() {
-            return mMessageId * 31 + mLocation.hashCode();
+            int hash = mLocation.hashCode();
+            hash = hash * 31 + mMessageId;
+            hash = hash * 31 + mSerialNumber;
+            return hash;
         }
 
         @Override
@@ -80,14 +85,17 @@ public class CellBroadcastAlertService extends Service {
             }
             if (o instanceof MessageIdAndScope) {
                 MessageIdAndScope other = (MessageIdAndScope) o;
-                return (mMessageId == other.mMessageId && mLocation.equals(other.mLocation));
+                return (mMessageId == other.mMessageId &&
+                        mSerialNumber == other.mSerialNumber &&
+                        mLocation.equals(other.mLocation));
             }
             return false;
         }
 
         @Override
         public String toString() {
-            return "{messageId: " + mMessageId + " location: " + mLocation.toString() + '}';
+            return "{messageId: " + mMessageId + " serial number: " + mSerialNumber +
+                    " location: " + mLocation.toString() + '}';
         }
     }
 
@@ -144,8 +152,8 @@ public class CellBroadcastAlertService extends Service {
         // Check for duplicate message IDs according to CMAS carrier requirements. Message IDs
         // are stored in volatile memory. If the maximum of 65535 messages is reached, the
         // message ID of the oldest message is deleted from the list.
-        MessageIdAndScope newMessageId = new MessageIdAndScope(message.getSerialNumber(),
-                message.getLocation());
+        MessageIdAndScope newMessageId = new MessageIdAndScope(message.getServiceCategory(),
+                message.getSerialNumber(), message.getLocation());
 
         // Add the new message ID to the list. It's okay if this is a duplicate message ID,
         // because the list is only used for removing old message IDs from the hash set.
