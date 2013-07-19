@@ -27,6 +27,7 @@ import android.os.UserHandle;
 import android.preference.PreferenceManager;
 import android.provider.Telephony;
 import android.telephony.CellBroadcastMessage;
+import android.telephony.MSimTelephonyManager;
 import android.telephony.PhoneStateListener;
 import android.telephony.ServiceState;
 import android.telephony.TelephonyManager;
@@ -36,6 +37,7 @@ import android.util.Log;
 import com.android.internal.telephony.ITelephony;
 import com.android.internal.telephony.MSimConstants;
 import com.android.internal.telephony.cdma.sms.SmsEnvelope;
+import com.android.internal.telephony.msim.ITelephonyMSim;
 
 public class CellBroadcastReceiver extends BroadcastReceiver {
     private static final String TAG = "CellBroadcastReceiver";
@@ -56,10 +58,20 @@ public class CellBroadcastReceiver extends BroadcastReceiver {
 
         if (Intent.ACTION_BOOT_COMPLETED.equals(action)) {
             if (DBG) log("Registering for ServiceState updates");
-            TelephonyManager tm = (TelephonyManager) context.getSystemService(
-                    Context.TELEPHONY_SERVICE);
-            tm.listen(new ServiceStateListener(context.getApplicationContext()),
-                    PhoneStateListener.LISTEN_SERVICE_STATE);
+            if (MSimTelephonyManager.getDefault().isMultiSimEnabled()) {
+                MSimTelephonyManager msimTm = (MSimTelephonyManager)
+                        context.getSystemService(Context.MSIM_TELEPHONY_SERVICE);;
+                int numPhones = MSimTelephonyManager.getDefault().getPhoneCount();
+                for (int i=0; i < numPhones; i++) {
+                    msimTm.listen(new ServiceStateListener(context.getApplicationContext(), i),
+                            PhoneStateListener.LISTEN_SERVICE_STATE);
+                }
+            } else {
+                TelephonyManager tm = (TelephonyManager) context.getSystemService(
+                        Context.TELEPHONY_SERVICE);
+                tm.listen(new ServiceStateListener(context.getApplicationContext()),
+                        PhoneStateListener.LISTEN_SERVICE_STATE);
+            }
         } else if (Intent.ACTION_AIRPLANE_MODE_CHANGED.equals(action)) {
             boolean airplaneModeOn = intent.getBooleanExtra("state", false);
             if (DBG) log("airplaneModeOn: " + airplaneModeOn);
@@ -188,6 +200,13 @@ public class CellBroadcastReceiver extends BroadcastReceiver {
         context.startService(serviceIntent);
     }
 
+    static void startConfigService(Context context,int subscription) {
+        Intent serviceIntent = new Intent(CellBroadcastConfigService.ACTION_ENABLE_CHANNELS, null,
+                context, CellBroadcastConfigService.class);
+        serviceIntent.putExtra(MSimConstants.SUBSCRIPTION_KEY, subscription);
+        context.startService(serviceIntent);
+    }
+
     /**
      * @return true if the phone is a CDMA phone type
      */
@@ -212,6 +231,11 @@ public class CellBroadcastReceiver extends BroadcastReceiver {
             mContext = context;
         }
 
+        ServiceStateListener(Context context, int subscription) {
+            mContext = context;
+            mSubscription = subscription;
+        }
+
         @Override
         public void onServiceStateChanged(ServiceState ss) {
             int newState = ss.getState();
@@ -220,7 +244,12 @@ public class CellBroadcastReceiver extends BroadcastReceiver {
                 mServiceState = newState;
                 if (newState == ServiceState.STATE_IN_SERVICE ||
                         newState == ServiceState.STATE_EMERGENCY_ONLY) {
-                    startConfigService(mContext);
+                    if (MSimTelephonyManager.getDefault().isMultiSimEnabled()) {
+                        Log.d(TAG, "Service state changed for Subscription: " + mSubscription);
+                        startConfigService(mContext, mSubscription);
+                    } else {
+                        startConfigService(mContext);
+                    }
                 }
             }
         }

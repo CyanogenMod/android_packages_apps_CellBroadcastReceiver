@@ -127,5 +127,19 @@
             </intent-filter>
         </receiver>
 
+        <!-- Select Subscription (SUB1 or SUB2) Screen -->
+        <activity android:name="SelectSubscription"
+                  android:label="@string/select_subscription_title">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+            </intent-filter>
+        </activity>
+
+        <activity android:name="CellBroadcastChannel50Alerts"
+            android:label="@string/cell_broadcast_sms_title">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+            </intent-filter>
+        </activity>
     </application>
 </manifest>
