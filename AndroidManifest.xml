@@ -73,7 +73,8 @@
         <activity android:name="CellBroadcastSettings"
                   android:label="@string/sms_cb_settings"
                   android:launchMode="singleTask"
-                  android:exported="true" />
+                  android:exported="true"
+                  android:configChanges="orientation|screenSize" />
 
         <activity android:name="CellBroadcastAlertDialog"
                   android:theme="@android:style/Theme.Holo.Dialog"
