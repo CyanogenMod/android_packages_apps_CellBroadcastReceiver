@@ -48,6 +48,7 @@
     <string name="enable_emergency_alerts_title" msgid="1411195469162410084">"روشن کردن اعلان‌ها"</string>
     <string name="enable_emergency_alerts_summary" msgid="5932655529367149358">"نمایش پخش‌های هشدار اضطراری"</string>
     <string name="alert_sound_duration_title" msgid="4712853569849108005">"هشدار مدت زمان صدا"</string>
+    <string name="alert_reminder_interval_title" msgid="3283595202268218149">"یادآور هشدار"</string>
     <string name="enable_alert_speech_title" msgid="8052104771053526941">"گفتن پیام هشدار"</string>
     <string name="enable_alert_speech_summary" msgid="356086178962268831">"برای گفتن پیام‌های هشدار اضطراری از متن به گفتار استفاده کنید"</string>
     <string name="category_etws_settings_title" msgid="4072774251965938576">"تنظیمات ETWS"</string>
@@ -112,5 +113,11 @@
     <item msgid="253564899252909788">"۶ ثانیه"</item>
     <item msgid="7514102744524534421">"۸ ثانیه"</item>
     <item msgid="6062562309271376642">"۱۰ ثانیه"</item>
+  </string-array>
+  <string-array name="alert_reminder_interval_entries">
+    <item msgid="6595211083588795160">"یک بار"</item>
+    <item msgid="9097229303902157183">"هر ۲ دقیقه"</item>
+    <item msgid="5676933700148002666">"هر ۱۵ دقیقه"</item>
+    <item msgid="694355015442188708">"خاموش"</item>
   </string-array>
 </resources>

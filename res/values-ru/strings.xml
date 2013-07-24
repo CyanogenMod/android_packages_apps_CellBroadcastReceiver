@@ -48,6 +48,7 @@
     <string name="enable_emergency_alerts_title" msgid="1411195469162410084">"Включить оповещения"</string>
     <string name="enable_emergency_alerts_summary" msgid="5932655529367149358">"Показывать трансляции аварийного оповещения"</string>
     <string name="alert_sound_duration_title" msgid="4712853569849108005">"Длительность звукового сигнала"</string>
+    <string name="alert_reminder_interval_title" msgid="3283595202268218149">"Периодичность напоминаний"</string>
     <string name="enable_alert_speech_title" msgid="8052104771053526941">"Произносить аварийные сообщения"</string>
     <string name="enable_alert_speech_summary" msgid="356086178962268831">"Использовать функцию преобразования текста в речь для создания аварийных сообщений"</string>
     <string name="category_etws_settings_title" msgid="4072774251965938576">"Настройки системы предупреждения о землетрясении и цунами"</string>
@@ -112,5 +113,11 @@
     <item msgid="253564899252909788">"6 секунд"</item>
     <item msgid="7514102744524534421">"8 секунд"</item>
     <item msgid="6062562309271376642">"10 секунд"</item>
+  </string-array>
+  <string-array name="alert_reminder_interval_entries">
+    <item msgid="6595211083588795160">"Один раз"</item>
+    <item msgid="9097229303902157183">"Каждые 2 минуты"</item>
+    <item msgid="5676933700148002666">"Каждые 15 минут"</item>
+    <item msgid="694355015442188708">"Отключить"</item>
   </string-array>
 </resources>

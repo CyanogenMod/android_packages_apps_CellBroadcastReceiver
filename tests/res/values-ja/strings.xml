@@ -16,7 +16,7 @@
 
 <resources xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="app_label" msgid="2102435118079140813">"エリアメールのテスト"</string>
+    <string name="app_label" msgid="2102435118079140813">"緊急警報のテスト"</string>
     <string name="button_etws_normal_type" msgid="3852703138521119537">"ETWS標準放送を送信"</string>
     <string name="button_etws_cancel_type" msgid="7194264116649371175">"ETWSキャンセルブロードキャストを送信"</string>
     <string name="button_etws_test_type" msgid="6353906188028139901">"ETWSテストブロードキャストを送信"</string>

@@ -93,6 +93,10 @@
     <string name="alert_sound_duration_title">Alert sound duration</string>
     <!-- Do not translate. Empty summary for alert duration (set by CellBroadcastSettings). -->
     <string name="alert_sound_duration_summary" translatable="false"></string>
+    <!-- Preference title for alert reminder interval list. [CHAR LIMIT=30] -->
+    <string name="alert_reminder_interval_title">Alert reminder</string>
+    <!-- Do not translate. Empty summary for alert reminder (set by CellBroadcastSettings). -->
+    <string name="alert_reminder_interval_summary"></string>
     <!-- Preference title for enable text-to-speech checkbox. [CHAR LIMIT=30] -->
     <string name="enable_alert_speech_title">Speak alert message</string>
     <!-- Preference summary for enable text-to-speech checkbox. [CHAR LIMIT=100] -->
@@ -242,5 +246,22 @@
       <item>6</item>
       <item>8</item>
       <item>10</item>
+    </string-array>
+
+    <!-- Entries in the ListPreference for alert reminder intervals. [CHAR LIMIT=30] -->
+    <string-array name="alert_reminder_interval_entries">
+      <item>Once</item>
+      <item>Every 2 minutes</item>
+      <item>Every 15 minutes</item>
+      <item>Off</item>
+    </string-array>
+
+    <!-- Do not translate. Values that are retrieved from the ListPreference.
+         These must match the alert_reminder_interval_entries list above. -->
+    <string-array name="alert_reminder_interval_values">
+      <item>1</item>
+      <item>2</item>
+      <item>15</item>
+      <item>0</item>
     </string-array>
 </resources>
