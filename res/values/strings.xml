@@ -264,4 +264,17 @@
       <item>15</item>
       <item>0</item>
     </string-array>
+
+    <!-- GSM/UMTS Cell broadcast for DSDS strings -->
+    <string name="cell_broadcast_sms_title">Cell Broadcast</string>
+    <string name="category_brazil_settings_title_sub">Settings for Brazil</string>
+
+    <string name="cb_settings_sel_sub">Select Subscription</string>
+    <string name="summary_manage_subscriptions">Manage cellbroadcast settings of each subscriptions</string>
+
+    <!-- Subscription selection strings -->
+    <string name="select_subscription_title">Select Subscription</string>
+    <string name="subscription1_title">Subscription 1</string>
+    <string name="subscription2_title">Subscription 2</string>
+
 </resources>

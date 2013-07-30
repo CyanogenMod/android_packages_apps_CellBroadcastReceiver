@@ -24,6 +24,8 @@ import android.content.res.Resources;
 import android.os.SystemProperties;
 import android.preference.PreferenceManager;
 import android.telephony.CellBroadcastMessage;
+import android.telephony.MSimSmsManager;
+import android.telephony.MSimTelephonyManager;
 import android.telephony.SmsManager;
 import android.telephony.TelephonyManager;
 import android.text.TextUtils;
@@ -31,6 +33,7 @@ import android.util.Log;
 
 import com.android.internal.telephony.cdma.sms.SmsEnvelope;
 import com.android.internal.telephony.gsm.SmsCbConstants;
+import com.android.internal.telephony.MSimConstants;
 
 import static com.android.cellbroadcastreceiver.CellBroadcastReceiver.DBG;
 
@@ -52,6 +55,7 @@ public class CellBroadcastConfigService extends IntentService {
 
     static final String EMERGENCY_BROADCAST_RANGE_GSM =
             "ro.cb.gsm.emergencyids";
+    private int mSubscription;
 
     public CellBroadcastConfigService() {
         super(TAG);          // use class name for worker thread name
@@ -141,6 +145,7 @@ public class CellBroadcastConfigService extends IntentService {
     @Override
     protected void onHandleIntent(Intent intent) {
         if (ACTION_ENABLE_CHANNELS.equals(intent.getAction())) {
+            mSubscription = intent.getIntExtra(MSimConstants.SUBSCRIPTION_KEY, 0);
             try {
                 SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
                 Resources res = getResources();
@@ -157,9 +162,21 @@ public class CellBroadcastConfigService extends IntentService {
 
                 boolean enableChannel50Support = res.getBoolean(R.bool.show_brazil_settings) ||
                         "br".equals(tm.getSimCountryIso());
-
-                boolean enableChannel50Alerts = enableChannel50Support &&
+                boolean enableChannel50Alerts = enableChannel50Support;
+                if (MSimTelephonyManager.getDefault().isMultiSimEnabled()) {
+                    if (mSubscription == 0) {
+                        enableChannel50Alerts = enableChannel50Alerts &&
+                            prefs.getBoolean(
+                              CellBroadcastChannel50Alerts.KEY_ENABLE_CHANNEL_50_ALERTS_SUB1, true);
+                    } else {
+                        enableChannel50Alerts = enableChannel50Alerts &&
+                            prefs.getBoolean(
+                              CellBroadcastChannel50Alerts.KEY_ENABLE_CHANNEL_50_ALERTS_SUB2, true);
+                    }
+                } else {
+                    enableChannel50Alerts = enableChannel50Alerts &&
                         prefs.getBoolean(CellBroadcastSettings.KEY_ENABLE_CHANNEL_50_ALERTS, true);
+                }
 
                 // Note:  ETWS is for 3GPP only
                 boolean enableEtwsTestAlerts = prefs.getBoolean(
@@ -272,11 +289,21 @@ public class CellBroadcastConfigService extends IntentService {
                     if (DBG) log("channel 50 is not aplicable for cdma");
                 } else if (enableChannel50Alerts) {
                     if (DBG) log("enabling cell broadcast channel 50");
-                    manager.enableCellBroadcast(50);
+                    if (MSimTelephonyManager.getDefault().isMultiSimEnabled()) {
+                        MSimSmsManager smsManagerMSim = MSimSmsManager.getDefault();
+                        smsManagerMSim.enableCellBroadcast(50, mSubscription);
+                    } else {
+                        manager.enableCellBroadcast(50);
+                    }
                     if (DBG) log("enabled cell broadcast channel 50");
                 } else {
                     if (DBG) log("disabling cell broadcast channel 50");
-                    manager.disableCellBroadcast(50);
+                    if (MSimTelephonyManager.getDefault().isMultiSimEnabled()) {
+                        MSimSmsManager smsManagerMSim = MSimSmsManager.getDefault();
+                        smsManagerMSim.disableCellBroadcast(50, mSubscription);
+                    } else {
+                        manager.disableCellBroadcast(50);
+                    }
                     if (DBG) log("disabled cell broadcast channel 50");
                 }
 
