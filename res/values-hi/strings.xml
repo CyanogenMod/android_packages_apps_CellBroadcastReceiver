@@ -66,7 +66,7 @@
     <string name="enable_alert_vibrate_summary" msgid="4328060563316778589">"अलर्ट पर कंपन"</string>
     <string name="category_brazil_settings_title" msgid="6343130548572319922">"ब्राज़ील के लिए सेटिंग"</string>
     <string name="enable_channel_50_alerts_title" msgid="2818924064446974167">"चैनल 50 प्रसारण दिखाएं"</string>
-    <string name="enable_channel_50_alerts_summary" msgid="7507770011325273009">"ब्राज़ील में चैनल 50 को क्षेत्र अपडेट जानकारी के लिए उपयोग किया जाता है"</string>
+    <string name="enable_channel_50_alerts_summary" msgid="7507770011325273009">"ब्राज़ील में चैनल 50 को क्षेत्र के लिए नई जानकारी के लिए उपयोग किया जाता है"</string>
     <string name="category_dev_settings_title" msgid="6194393458398329994">"डेवलपर विकल्प"</string>
     <string name="cmas_category_heading" msgid="3923503130776640717">"अलर्ट श्रेणी:"</string>
     <string name="cmas_category_geo" msgid="4979494217069688527">"भूभौतिकीय"</string>
