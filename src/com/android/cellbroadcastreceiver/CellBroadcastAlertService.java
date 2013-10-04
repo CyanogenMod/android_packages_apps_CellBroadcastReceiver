@@ -58,18 +58,21 @@ public class CellBroadcastAlertService extends Service {
             "android.cellbroadcastreceiver.CB_AREA_INFO_RECEIVED";
 
     /** Container for message ID and geographical scope, for duplicate message detection. */
-    private static final class MessageIdAndScope {
-        private final int mMessageId;
+    private static final class MessageServiceCategoryAndScope {
+        private final int mServiceCategory;
+        private final int mSerialNumber;
         private final SmsCbLocation mLocation;
 
-        MessageIdAndScope(int messageId, SmsCbLocation location) {
-            mMessageId = messageId;
+        MessageServiceCategoryAndScope(int serviceCategory, int serialNumber,
+                SmsCbLocation location) {
+            mServiceCategory = serviceCategory;
+            mSerialNumber = serialNumber;
             mLocation = location;
         }
 
         @Override
         public int hashCode() {
-            return mMessageId * 31 + mLocation.hashCode();
+            return mLocation.hashCode() + 5 * mServiceCategory + 7 * mSerialNumber;
         }
 
         @Override
@@ -77,28 +80,32 @@ public class CellBroadcastAlertService extends Service {
             if (o == this) {
                 return true;
             }
-            if (o instanceof MessageIdAndScope) {
-                MessageIdAndScope other = (MessageIdAndScope) o;
-                return (mMessageId == other.mMessageId && mLocation.equals(other.mLocation));
+            if (o instanceof MessageServiceCategoryAndScope) {
+                MessageServiceCategoryAndScope other = (MessageServiceCategoryAndScope) o;
+                return (mServiceCategory == other.mServiceCategory &&
+                        mSerialNumber == other.mSerialNumber &&
+                        mLocation.equals(other.mLocation));
             }
             return false;
         }
 
         @Override
         public String toString() {
-            return "{messageId: " + mMessageId + " location: " + mLocation.toString() + '}';
+            return "{mServiceCategory: " + mServiceCategory + " serial number: " + mSerialNumber +
+                    " location: " + mLocation.toString() + '}';
         }
     }
 
     /** Cache of received message IDs, for duplicate message detection. */
-    private static final HashSet<MessageIdAndScope> sCmasIdSet = new HashSet<MessageIdAndScope>(8);
+    private static final HashSet<MessageServiceCategoryAndScope> sCmasIdSet =
+            new HashSet<MessageServiceCategoryAndScope>(8);
 
     /** Maximum number of message IDs to save before removing the oldest message ID. */
     private static final int MAX_MESSAGE_ID_SIZE = 65535;
 
     /** List of message IDs received, for removing oldest ID when max message IDs are received. */
-    private static final ArrayList<MessageIdAndScope> sCmasIdList =
-            new ArrayList<MessageIdAndScope>(8);
+    private static final ArrayList<MessageServiceCategoryAndScope> sCmasIdList =
+            new ArrayList<MessageServiceCategoryAndScope>(8);
 
     /** Index of message ID to replace with new message ID when max message IDs are received. */
     private static int sCmasIdListIndex = 0;
@@ -141,27 +148,27 @@ public class CellBroadcastAlertService extends Service {
         // Check for duplicate message IDs according to CMAS carrier requirements. Message IDs
         // are stored in volatile memory. If the maximum of 65535 messages is reached, the
         // message ID of the oldest message is deleted from the list.
-        MessageIdAndScope newMessageId = new MessageIdAndScope(message.getSerialNumber(),
-                message.getLocation());
+        MessageServiceCategoryAndScope newCmasId = new MessageServiceCategoryAndScope(
+                message.getServiceCategory(), message.getSerialNumber(), message.getLocation());
 
         // Add the new message ID to the list. It's okay if this is a duplicate message ID,
         // because the list is only used for removing old message IDs from the hash set.
         if (sCmasIdList.size() < MAX_MESSAGE_ID_SIZE) {
-            sCmasIdList.add(newMessageId);
+            sCmasIdList.add(newCmasId);
         } else {
             // Get oldest message ID from the list and replace with the new message ID.
-            MessageIdAndScope oldestId = sCmasIdList.get(sCmasIdListIndex);
-            sCmasIdList.set(sCmasIdListIndex, newMessageId);
-            Log.d(TAG, "message ID limit reached, removing oldest message ID " + oldestId);
+            MessageServiceCategoryAndScope oldestCmasId = sCmasIdList.get(sCmasIdListIndex);
+            sCmasIdList.set(sCmasIdListIndex, newCmasId);
+            Log.d(TAG, "message ID limit reached, removing oldest message ID " + oldestCmasId);
             // Remove oldest message ID from the set.
-            sCmasIdSet.remove(oldestId);
+            sCmasIdSet.remove(oldestCmasId);
             if (++sCmasIdListIndex >= MAX_MESSAGE_ID_SIZE) {
                 sCmasIdListIndex = 0;
             }
         }
         // Set.add() returns false if message ID has already been added
-        if (!sCmasIdSet.add(newMessageId)) {
-            Log.d(TAG, "ignoring duplicate alert with " + newMessageId);
+        if (!sCmasIdSet.add(newCmasId)) {
+            Log.d(TAG, "ignoring duplicate alert with " + newCmasId);
             return;
         }
 
