@@ -23,7 +23,8 @@ import android.preference.PreferenceManager;
 
 import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicInteger;
-
+import java.util.HashMap;
+import java.util.Map;
 /**
  * The application class loads the default preferences at first start,
  * and remembers the time of the most recently received broadcast.
@@ -43,7 +44,8 @@ public class CellBroadcastReceiverApp extends Application {
             new ArrayList<CellBroadcastMessage>(4);
 
     /** Latest area info cell broadcast received. */
-    private static CellBroadcastMessage sLatestAreaInfo;
+    private static Map<Integer, CellBroadcastMessage> sLatestAreaInfo =
+                                new HashMap<Integer,CellBroadcastMessage>();
 
     /** Adds a new unread non-emergency message and returns the current list. */
     static ArrayList<CellBroadcastMessage> addNewMessageToList(CellBroadcastMessage message) {
@@ -58,11 +60,11 @@ public class CellBroadcastReceiverApp extends Application {
 
     /** Saves the latest area info broadcast received. */
     static void setLatestAreaInfo(CellBroadcastMessage areaInfo) {
-        sLatestAreaInfo = areaInfo;
+        sLatestAreaInfo.put(areaInfo.getSubId(), areaInfo);
     }
 
     /** Returns the latest area info broadcast received. */
-    static CellBroadcastMessage getLatestAreaInfo() {
-        return sLatestAreaInfo;
+    static CellBroadcastMessage getLatestAreaInfo(int subId ) {
+        return sLatestAreaInfo.get(subId);
     }
 }

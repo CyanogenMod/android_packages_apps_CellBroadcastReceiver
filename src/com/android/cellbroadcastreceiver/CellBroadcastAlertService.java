@@ -27,12 +27,14 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.os.UserHandle;
+import android.os.SystemProperties;
 import android.preference.PreferenceManager;
 import android.provider.Telephony;
 import android.telephony.CellBroadcastMessage;
 import android.telephony.SmsCbCmasInfo;
 import android.telephony.SmsCbLocation;
 import android.telephony.SmsCbMessage;
+import com.android.internal.telephony.MSimConstants;
 import android.util.Log;
 
 import java.util.ArrayList;
@@ -56,20 +58,30 @@ public class CellBroadcastAlertService extends Service {
     /** Sticky broadcast for latest area info broadcast received. */
     static final String CB_AREA_INFO_RECEIVED_ACTION =
             "android.cellbroadcastreceiver.CB_AREA_INFO_RECEIVED";
+    /** system property to enable/disable broadcast duplicate detecion.  */
+    private static final String CB_DUP_DETECTION = "persist.cb.dup_detection";
+
+    /** Check for system property to enable/disable duplicate detection.  */
+    static boolean mUseDupDetection = SystemProperties.getBoolean(CB_DUP_DETECTION, true);
 
     /** Container for message ID and geographical scope, for duplicate message detection. */
     private static final class MessageIdAndScope {
         private final int mMessageId;
+        private final int mSerialNumber;
         private final SmsCbLocation mLocation;
 
-        MessageIdAndScope(int messageId, SmsCbLocation location) {
+        MessageIdAndScope(int messageId, int serialNumber, SmsCbLocation location) {
             mMessageId = messageId;
+            mSerialNumber = serialNumber;
             mLocation = location;
         }
 
         @Override
         public int hashCode() {
-            return mMessageId * 31 + mLocation.hashCode();
+            int hash = mLocation.hashCode();
+            hash = hash * 31 + mMessageId;
+            hash = hash * 31 + mSerialNumber;
+            return hash;
         }
 
         @Override
@@ -79,14 +91,17 @@ public class CellBroadcastAlertService extends Service {
             }
             if (o instanceof MessageIdAndScope) {
                 MessageIdAndScope other = (MessageIdAndScope) o;
-                return (mMessageId == other.mMessageId && mLocation.equals(other.mLocation));
+                return (mMessageId == other.mMessageId &&
+                        mSerialNumber == other.mSerialNumber &&
+                        mLocation.equals(other.mLocation));
             }
             return false;
         }
 
         @Override
         public String toString() {
-            return "{messageId: " + mMessageId + " location: " + mLocation.toString() + '}';
+            return "{messageId: " + mMessageId + " serial number: " + mSerialNumber +
+                    " location: " + mLocation.toString() + '}';
         }
     }
 
@@ -125,6 +140,7 @@ public class CellBroadcastAlertService extends Service {
         }
 
         SmsCbMessage message = (SmsCbMessage) extras.get("message");
+        int subId = intent.getIntExtra(MSimConstants.SUBSCRIPTION_KEY, 0);
 
         if (message == null) {
             Log.e(TAG, "received SMS_CB_RECEIVED_ACTION with no message extra");
@@ -132,37 +148,40 @@ public class CellBroadcastAlertService extends Service {
         }
 
         final CellBroadcastMessage cbm = new CellBroadcastMessage(message);
+        cbm.setSubId(subId);
         if (!isMessageEnabledByUser(cbm)) {
             Log.d(TAG, "ignoring alert of type " + cbm.getServiceCategory() +
                     " by user preference");
             return;
         }
 
-        // Check for duplicate message IDs according to CMAS carrier requirements. Message IDs
-        // are stored in volatile memory. If the maximum of 65535 messages is reached, the
-        // message ID of the oldest message is deleted from the list.
-        MessageIdAndScope newMessageId = new MessageIdAndScope(message.getSerialNumber(),
-                message.getLocation());
+        if (mUseDupDetection) {
+            // Check for duplicate message IDs according to CMAS carrier requirements. Message IDs
+            // are stored in volatile memory. If the maximum of 65535 messages is reached, the
+            // message ID of the oldest message is deleted from the list.
+            MessageIdAndScope newMessageId = new MessageIdAndScope(message.getServiceCategory(),
+                message.getSerialNumber(), message.getLocation());
 
-        // Add the new message ID to the list. It's okay if this is a duplicate message ID,
-        // because the list is only used for removing old message IDs from the hash set.
-        if (sCmasIdList.size() < MAX_MESSAGE_ID_SIZE) {
-            sCmasIdList.add(newMessageId);
-        } else {
-            // Get oldest message ID from the list and replace with the new message ID.
-            MessageIdAndScope oldestId = sCmasIdList.get(sCmasIdListIndex);
-            sCmasIdList.set(sCmasIdListIndex, newMessageId);
-            Log.d(TAG, "message ID limit reached, removing oldest message ID " + oldestId);
-            // Remove oldest message ID from the set.
-            sCmasIdSet.remove(oldestId);
-            if (++sCmasIdListIndex >= MAX_MESSAGE_ID_SIZE) {
-                sCmasIdListIndex = 0;
+            // Add the new message ID to the list. It's okay if this is a duplicate message ID,
+            // because the list is only used for removing old message IDs from the hash set.
+            if (sCmasIdList.size() < MAX_MESSAGE_ID_SIZE) {
+                sCmasIdList.add(newMessageId);
+            } else {
+                // Get oldest message ID from the list and replace with the new message ID.
+                MessageIdAndScope oldestId = sCmasIdList.get(sCmasIdListIndex);
+                sCmasIdList.set(sCmasIdListIndex, newMessageId);
+                Log.d(TAG, "message ID limit reached, removing oldest message ID " + oldestId);
+                // Remove oldest message ID from the set.
+                sCmasIdSet.remove(oldestId);
+                if (++sCmasIdListIndex >= MAX_MESSAGE_ID_SIZE) {
+                    sCmasIdListIndex = 0;
+                }
             }
-        }
-        // Set.add() returns false if message ID has already been added
-        if (!sCmasIdSet.add(newMessageId)) {
-            Log.d(TAG, "ignoring duplicate alert with " + newMessageId);
-            return;
+            // Set.add() returns false if message ID has already been added
+            if (!sCmasIdSet.add(newMessageId)) {
+                Log.d(TAG, "ignoring duplicate alert with " + newMessageId);
+                return;
+            }
         }
 
         final Intent alertIntent = new Intent(SHOW_NEW_ALERT_ACTION);
