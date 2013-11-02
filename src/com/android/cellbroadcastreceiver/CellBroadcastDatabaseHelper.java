@@ -234,14 +234,14 @@ public class CellBroadcastDatabaseHelper extends SQLiteOpenHelper {
                 break;
 
             case SmsCbConstants.MESSAGE_ID_CMAS_ALERT_EXTREME_EXPECTED_OBSERVED:
-                cmasMessageClass = SmsCbCmasInfo.CMAS_CLASS_EXTREME_THREAT;
+                cmasMessageClass = SmsCbCmasInfo.CMAS_CLASS_SEVERE_THREAT;
                 cmasSeverity = SmsCbCmasInfo.CMAS_SEVERITY_EXTREME;
                 cmasUrgency = SmsCbCmasInfo.CMAS_URGENCY_EXPECTED;
                 cmasCertainty = SmsCbCmasInfo.CMAS_CERTAINTY_OBSERVED;
                 break;
 
             case SmsCbConstants.MESSAGE_ID_CMAS_ALERT_EXTREME_EXPECTED_LIKELY:
-                cmasMessageClass = SmsCbCmasInfo.CMAS_CLASS_EXTREME_THREAT;
+                cmasMessageClass = SmsCbCmasInfo.CMAS_CLASS_SEVERE_THREAT;
                 cmasSeverity = SmsCbCmasInfo.CMAS_SEVERITY_EXTREME;
                 cmasUrgency = SmsCbCmasInfo.CMAS_URGENCY_EXPECTED;
                 cmasCertainty = SmsCbCmasInfo.CMAS_CERTAINTY_LIKELY;

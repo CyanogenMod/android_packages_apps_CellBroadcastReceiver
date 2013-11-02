@@ -17,7 +17,7 @@
 <resources xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="app_label" msgid="7559008249836700599">"Transmissões Celulares"</string>
-    <string name="sms_cb_settings" msgid="971917159442705371">"Definições de Transmissão Celular"</string>
+    <string name="sms_cb_settings" msgid="971917159442705371">"Definições de transmissão celular"</string>
     <string name="button_dismiss" msgid="1234221657930516287">"OK"</string>
     <string name="no_cell_broadcasts" msgid="5409324337492758562">"Não existem alertas ativos na sua área. Pode alterar as definições de Alerta utilizando a opção do menu Definições."</string>
     <string name="menu_preferences" msgid="3596514894131599202">"Definições"</string>

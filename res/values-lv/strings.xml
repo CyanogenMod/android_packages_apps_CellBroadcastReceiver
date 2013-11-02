@@ -58,7 +58,7 @@
     <string name="enable_cmas_extreme_threat_alerts_summary" msgid="2493139961243300290">"Rādīt brīdinājumus par ārkārtas draudiem dzīvībai un īpašumam"</string>
     <string name="enable_cmas_severe_threat_alerts_title" msgid="8008941231371565775">"Rādīt nopietnus draudus"</string>
     <string name="enable_cmas_severe_threat_alerts_summary" msgid="4089299793459943222">"Rādīt brīdinājumus par nopietniem draudiem dzīvībai un īpašumam"</string>
-    <string name="enable_cmas_amber_alerts_title" msgid="997138378272381777">"Rādīt Amber brīdinājumus"</string>
+    <string name="enable_cmas_amber_alerts_title" msgid="997138378272381777">"Rādīt AMBER brīdinājumus"</string>
     <string name="enable_cmas_amber_alerts_summary" msgid="8423617548641801387">"Rādīt bērnu nolaupīšanas ārkārtas gadījumu biļetenus (AMBER brīdinājumus)"</string>
     <string name="enable_cmas_test_alerts_title" msgid="8620213090932770270">"Rādīt CMAS testa apraides"</string>
     <string name="enable_cmas_test_alerts_summary" msgid="2935171596891733844">"Rādīt komerciālās mobilo ierīču brīdinājumu sistēmas testa apraides"</string>
