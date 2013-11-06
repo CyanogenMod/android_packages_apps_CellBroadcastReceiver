@@ -17,9 +17,9 @@
 <resources>
     <string name="cell_broadcast_sms_title">Cell Broadcast</string>
     <string name="category_brazil_settings_title_sub">Impostazioni per il Brasile</string>
-    <string name="cb_settings_sel_sub">Seleziona sottoscrizione</string>
-    <string name="summary_manage_subscriptions">Gestisci le impostazioni cellbroadcast di ogni sottoscrizione</string>
-    <string name="select_subscription_title">Seleziona sottoscrizione</string>
-    <string name="subscription1_title">Sottoscrizione 1</string>
-    <string name="subscription2_title">Sottoscrizione 2</string>
+    <string name="cb_settings_sel_sub">Seleziona abbonamento</string>
+    <string name="summary_manage_subscriptions">Gestisci le impostazioni cellbroadcast di ogni abbonamento</string>
+    <string name="select_subscription_title">Seleziona abbonamento</string>
+    <string name="subscription1_title">Abbonamento 1</string>
+    <string name="subscription2_title">Abbonamento 2</string>
 </resources>
