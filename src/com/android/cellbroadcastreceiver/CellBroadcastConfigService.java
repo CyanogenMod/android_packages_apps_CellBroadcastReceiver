@@ -91,10 +91,10 @@ public class CellBroadcastConfigService extends IntentService {
 
     private void disableCellBroadcastRange(int startMessageId, int endMessageId, boolean isMSim) {
         if (isMSim) {
-            MSimSmsManager.getDefault().enableCellBroadcastRange(startMessageId, endMessageId,
+            MSimSmsManager.getDefault().disableCellBroadcastRange(startMessageId, endMessageId,
                     mSubscription);
         } else {
-            SmsManager.getDefault().enableCellBroadcastRange(startMessageId, endMessageId);
+            SmsManager.getDefault().disableCellBroadcastRange(startMessageId, endMessageId);
         }
     }
 
