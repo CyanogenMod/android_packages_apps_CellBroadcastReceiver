@@ -54,8 +54,8 @@
     <string name="category_etws_settings_title" msgid="4072774251965938576">"ការ​កំណត់ ETWS"</string>
     <string name="enable_etws_test_alerts_title" msgid="2569886288897109169">"បង្ហាញ​​ការ​ផ្សាយ​សាកល្បង ETWS"</string>
     <string name="enable_etws_test_alerts_summary" msgid="7988690174166347072">"បង្ហាញ​ការ​ផ្សាយ​សាកល្បង​សម្រាប់​​ប្រព័ន្ធ​​ការ​ព្រមាន​ពី​ការ​រញ្ជួយ​ដី​​​រលក​យក្ស​ស៊ូ​ណាមិ"</string>
-    <string name="enable_cmas_extreme_threat_alerts_title" msgid="215650211797464620">"បង្ហាញ​ការ​គំរាម​កំហែង​​ខ្លាំង"</string>
-    <string name="enable_cmas_extreme_threat_alerts_summary" msgid="2493139961243300290">"បង្ហាញ​ការ​ជូន​ដំណឹង​សម្រាប់​ការ​គំរាមកំហែង​ខ្លាំង​ចំពោះ​អាយុជីវិត និង​ទ្រព្យសម្បត្តិ"</string>
+    <string name="enable_cmas_extreme_threat_alerts_title" msgid="215650211797464620">"បង្ហាញ​ការ​គំរាម​កំហែងដ៏កំពូល"</string>
+    <string name="enable_cmas_extreme_threat_alerts_summary" msgid="2493139961243300290">"បង្ហាញ​ការ​ជូន​ដំណឹង​សម្រាប់​ការ​គំរាមកំហែង​ដ៏កំពូល​​ចំពោះ​អាយុជីវិត និង​ទ្រព្យសម្បត្តិ"</string>
     <string name="enable_cmas_severe_threat_alerts_title" msgid="8008941231371565775">"បង្ហាញ​ការ​គំរាម​កំហែង​​ខ្លាំង"</string>
     <string name="enable_cmas_severe_threat_alerts_summary" msgid="4089299793459943222">"បង្ហាញ​ការ​ជូន​ដំណឹង​សម្រាប់​ការ​គំរាមកំហែង​ខ្លាំង​ដល់​អាយុជីវិត និង​ទ្រព្យសម្បត្តិ"</string>
     <string name="enable_cmas_amber_alerts_title" msgid="997138378272381777">"បង្ហាញ​ការ​​​ជូន​ដំណឹង​ពណ៌​លឿង"</string>
