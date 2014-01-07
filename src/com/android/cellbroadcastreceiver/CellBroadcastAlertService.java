@@ -68,6 +68,12 @@ public class CellBroadcastAlertService extends Service {
     /** Check for system property to enable/disable duplicate detection.  */
     static boolean mUseDupDetection = SystemProperties.getBoolean(CB_DUP_DETECTION, true);
 
+    /** Channel 50 Cell Broadcast. */
+    static final int CB_CHANNEL_50 = 50;
+
+    /** Channel 60 Cell Broadcast. */
+    static final int CB_CHANNEL_60 = 60;
+
     /** Container for message ID and geographical scope, for duplicate message detection. */
     private static final class MessageServiceCategoryAndScope {
         private final int mServiceCategory;
@@ -245,6 +251,7 @@ public class CellBroadcastAlertService extends Service {
     private boolean isMessageEnabledByUser(CellBroadcastMessage message) {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
         int subscription = message.getSubId();
+        int serviceCategory = message.getServiceCategory();
         if (message.isEtwsTestMessage()) {
             return prefs.getBoolean(CellBroadcastSettings.KEY_ENABLE_ETWS_TEST_ALERTS
                     + subscription, false);
@@ -277,9 +284,12 @@ public class CellBroadcastAlertService extends Service {
             }
         }
 
-        if (message.getServiceCategory() == 50) {
-            // save latest area info broadcast for Settings display and send as broadcast
-            CellBroadcastReceiverApp.setLatestAreaInfo(message);
+        if (serviceCategory == CB_CHANNEL_50 || serviceCategory == CB_CHANNEL_60) {
+            if (serviceCategory == CB_CHANNEL_50) {
+                // save latest area info on channel 50 for Settings display
+                CellBroadcastReceiverApp.setLatestAreaInfo(message);
+            }
+            // send broadcasts for channel 50 and 60
             Intent intent = new Intent(CB_AREA_INFO_RECEIVED_ACTION);
             intent.putExtra("message", message);
             sendBroadcastAsUser(intent, UserHandle.ALL,

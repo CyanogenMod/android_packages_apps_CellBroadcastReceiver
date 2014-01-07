@@ -197,13 +197,27 @@ public class CellBroadcastConfigService extends IntentService {
 
                 TelephonyManager tm = (TelephonyManager) getSystemService(
                         Context.TELEPHONY_SERVICE);
+                boolean isMSim = MSimTelephonyManager.getDefault().isMultiSimEnabled();
+                String country = "";
+                if (isMSim) {
+                    country = MSimTelephonyManager.getDefault().getSimCountryIso(mSubscription);
+                } else {
+                    country = tm.getSimCountryIso();
+                }
+                boolean enableChannel50Support = res.getBoolean(R.bool.show_brazil_settings)
+                        || "br".equals(country) || res.getBoolean(R.bool.show_india_settings)
+                        || "in".equals(country);
 
-                boolean enableChannel50Support = res.getBoolean(R.bool.show_brazil_settings) ||
-                        "br".equals(tm.getSimCountryIso());
+                boolean enableChannel60Support = res.getBoolean(R.bool.show_india_settings)
+                        || "in".equals(country);
 
                 boolean enableChannel50Alerts = enableChannel50Support &&
                         prefs.getBoolean(CellBroadcastSettings.KEY_ENABLE_CHANNEL_50_ALERTS
                         + mSubscription, true);
+
+                boolean enableChannel60Alerts = enableChannel60Support &&
+                        prefs.getBoolean(CellBroadcastSettings.KEY_ENABLE_CHANNEL_60_ALERTS
+                                + mSubscription, true);
 
                 // Note:  ETWS is for 3GPP only
                 boolean enableEtwsTestAlerts = prefs.getBoolean(
@@ -234,8 +248,6 @@ public class CellBroadcastConfigService extends IntentService {
                 int cmasTestStart = SmsCbConstants.MESSAGE_ID_CMAS_ALERT_REQUIRED_MONTHLY_TEST;
                 int cmasTestEnd = SmsCbConstants.MESSAGE_ID_CMAS_ALERT_OPERATOR_DEFINED_USE;
                 int cmasPresident = SmsCbConstants.MESSAGE_ID_CMAS_ALERT_PRESIDENTIAL_LEVEL;
-
-                boolean isMSim = MSimTelephonyManager.getDefault().isMultiSimEnabled();
 
                 // set to CDMA broadcast ID rage if phone is in CDMA mode.
                 boolean isCdma = CellBroadcastReceiver.phoneIsCdma(mSubscription);
@@ -327,6 +339,19 @@ public class CellBroadcastConfigService extends IntentService {
                     if (DBG) log("disabling cell broadcast channel 50");
                     disableCellBroadcast(50, isMSim);
                     if (DBG) log("disabled cell broadcast channel 50");
+                }
+
+                // Enable Channel 60 for India
+                if (isCdma) {
+                    if (DBG) log("channel 60 is not applicable for cdma");
+                } else if (enableChannel60Alerts) {
+                    if (DBG) log("enabling cell broadcast channel 60");
+                    enableCellBroadcast(60, isMSim);
+                    if (DBG) log("enabled cell broadcast channel 60");
+                } else {
+                    if (DBG) log("disabling cell broadcast channel 60");
+                    disableCellBroadcast(60, isMSim);
+                    if (DBG) log("disabled cell broadcast channel 60");
                 }
 
                 if ("il".equals(tm.getSimCountryIso()) || "il".equals(tm.getNetworkCountryIso())) {
