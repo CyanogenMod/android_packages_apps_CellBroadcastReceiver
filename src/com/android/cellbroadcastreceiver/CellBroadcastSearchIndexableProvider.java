@@ -33,7 +33,7 @@ import static android.provider.SearchIndexablesContract.INDEXABLES_RAW_COLUMNS;
 import static android.provider.SearchIndexablesContract.INDEXABLES_XML_RES_COLUMNS;
 
 public class CellBroadcastSearchIndexableProvider extends SearchIndexablesProvider {
-    private static final String TAG = "PhoneSearchIndexablesProvider";
+    private static final String TAG = "CellBroadcastSearchIndexableProvider";
 
     private static SearchIndexableResource[] INDEXABLE_RES = new SearchIndexableResource[] {
             new SearchIndexableResource(1, R.xml.preferences,
