@@ -31,6 +31,7 @@ import static android.provider.SearchIndexablesContract.COLUMN_INDEX_XML_RES_INT
 
 import static android.provider.SearchIndexablesContract.INDEXABLES_RAW_COLUMNS;
 import static android.provider.SearchIndexablesContract.INDEXABLES_XML_RES_COLUMNS;
+import static android.provider.SearchIndexablesContract.NON_INDEXABLES_KEYS_COLUMNS;
 
 public class CellBroadcastSearchIndexableProvider extends SearchIndexablesProvider {
     private static final String TAG = "CellBroadcastSearchIndexableProvider";
@@ -66,6 +67,12 @@ public class CellBroadcastSearchIndexableProvider extends SearchIndexablesProvid
     @Override
     public Cursor queryRawData(String[] projection) {
         MatrixCursor cursor = new MatrixCursor(INDEXABLES_RAW_COLUMNS);
+        return cursor;
+    }
+
+    @Override
+    public Cursor queryNonIndexableKeys(String[] projection) {
+        MatrixCursor cursor = new MatrixCursor(NON_INDEXABLES_KEYS_COLUMNS);
         return cursor;
     }
 }
