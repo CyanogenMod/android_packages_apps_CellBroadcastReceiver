@@ -16,11 +16,16 @@
 
 package com.android.cellbroadcastreceiver;
 
+import android.content.Context;
+import android.content.res.Resources;
 import android.database.Cursor;
 import android.database.MatrixCursor;
 import android.provider.SearchIndexableResource;
 import android.provider.SearchIndexablesProvider;
+import android.provider.Settings;
+import android.telephony.TelephonyManager;
 
+import static android.provider.SearchIndexablesContract.COLUMN_INDEX_NON_INDEXABLE_KEYS_KEY_VALUE;
 import static android.provider.SearchIndexablesContract.COLUMN_INDEX_XML_RES_RANK;
 import static android.provider.SearchIndexablesContract.COLUMN_INDEX_XML_RES_RESID;
 import static android.provider.SearchIndexablesContract.COLUMN_INDEX_XML_RES_CLASS_NAME;
@@ -73,6 +78,79 @@ public class CellBroadcastSearchIndexableProvider extends SearchIndexablesProvid
     @Override
     public Cursor queryNonIndexableKeys(String[] projection) {
         MatrixCursor cursor = new MatrixCursor(NON_INDEXABLES_KEYS_COLUMNS);
+
+        // Show extra settings when developer options is enabled in settings.
+        boolean enableDevSettings = Settings.Global.getInt(getContext().getContentResolver(),
+                Settings.Global.DEVELOPMENT_SETTINGS_ENABLED, 0) != 0;
+
+        Resources res = getContext().getResources();
+        boolean showEtwsSettings = res.getBoolean(R.bool.show_etws_settings);
+
+        Object[] ref;
+
+        // Show alert settings and ETWS categories for ETWS builds and developer mode.
+        if (!enableDevSettings && !showEtwsSettings) {
+            // Remove general emergency alert preference items (not shown for CMAS builds).
+            ref = new Object[1];
+            ref[COLUMN_INDEX_NON_INDEXABLE_KEYS_KEY_VALUE] =
+                    CellBroadcastSettings.KEY_ENABLE_EMERGENCY_ALERTS;
+            cursor.addRow(ref);
+
+            ref = new Object[1];
+            ref[COLUMN_INDEX_NON_INDEXABLE_KEYS_KEY_VALUE] =
+                    CellBroadcastSettings.KEY_ALERT_SOUND_DURATION;
+            cursor.addRow(ref);
+
+            ref = new Object[1];
+            ref[COLUMN_INDEX_NON_INDEXABLE_KEYS_KEY_VALUE] =
+                    CellBroadcastSettings.KEY_ENABLE_ALERT_SPEECH;
+            cursor.addRow(ref);
+
+            // Remove ETWS preference category.
+            ref = new Object[1];
+            ref[COLUMN_INDEX_NON_INDEXABLE_KEYS_KEY_VALUE] =
+                    CellBroadcastSettings.KEY_CATEGORY_ETWS_SETTINGS;
+            cursor.addRow(ref);
+        }
+
+        if (!res.getBoolean(R.bool.show_cmas_settings)) {
+            // Remove CMAS preference items in emergency alert category.
+            ref = new Object[1];
+            ref[COLUMN_INDEX_NON_INDEXABLE_KEYS_KEY_VALUE] =
+                    CellBroadcastSettings.KEY_ENABLE_CMAS_EXTREME_THREAT_ALERTS;
+            cursor.addRow(ref);
+
+            ref = new Object[1];
+            ref[COLUMN_INDEX_NON_INDEXABLE_KEYS_KEY_VALUE] =
+                    CellBroadcastSettings.KEY_ENABLE_CMAS_SEVERE_THREAT_ALERTS;
+            cursor.addRow(ref);
+
+            ref = new Object[1];
+            ref[COLUMN_INDEX_NON_INDEXABLE_KEYS_KEY_VALUE] =
+                    CellBroadcastSettings.KEY_ENABLE_CMAS_AMBER_ALERTS;
+            cursor.addRow(ref);
+        }
+
+        TelephonyManager tm = (TelephonyManager) getContext().getSystemService(
+                Context.TELEPHONY_SERVICE);
+
+        boolean enableChannel50Support = res.getBoolean(R.bool.show_brazil_settings) ||
+                "br".equals(tm.getSimCountryIso());
+
+        if (!enableChannel50Support) {
+            ref = new Object[1];
+            ref[COLUMN_INDEX_NON_INDEXABLE_KEYS_KEY_VALUE] =
+                    CellBroadcastSettings.KEY_CATEGORY_BRAZIL_SETTINGS;
+            cursor.addRow(ref);
+        }
+
+        if (!enableDevSettings) {
+            ref = new Object[1];
+            ref[COLUMN_INDEX_NON_INDEXABLE_KEYS_KEY_VALUE] =
+                    CellBroadcastSettings.KEY_CATEGORY_DEV_SETTINGS;
+            cursor.addRow(ref);
+        }
+
         return cursor;
     }
 }
