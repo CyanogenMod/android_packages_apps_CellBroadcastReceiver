@@ -18,7 +18,7 @@
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="app_label" msgid="7559008249836700599">"सेल प्रसारण"</string>
     <string name="sms_cb_settings" msgid="971917159442705371">"सेल प्रसारण सेटिंग"</string>
-    <string name="button_dismiss" msgid="1234221657930516287">"ठीक"</string>
+    <string name="button_dismiss" msgid="1234221657930516287">"ठीक है"</string>
     <string name="no_cell_broadcasts" msgid="5409324337492758562">"आपके क्षेत्र में कोई सक्रिय अलर्ट नहीं है. आप सेटिंग मेनू विकल्‍प का उपयोग करके अलर्ट सेटिंग बदल सकते हैं."</string>
     <string name="menu_preferences" msgid="3596514894131599202">"सेटिंग"</string>
     <string name="menu_delete_all" msgid="3940997343921149800">"प्रसारण हटाएं"</string>
@@ -66,7 +66,7 @@
     <string name="enable_alert_vibrate_summary" msgid="4328060563316778589">"अलर्ट पर कंपन"</string>
     <string name="category_brazil_settings_title" msgid="6343130548572319922">"ब्राज़ील के लिए सेटिंग"</string>
     <string name="enable_channel_50_alerts_title" msgid="2818924064446974167">"चैनल 50 प्रसारण दिखाएं"</string>
-    <string name="enable_channel_50_alerts_summary" msgid="7507770011325273009">"ब्राज़ील में चैनल 50 को क्षेत्र अपडेट जानकारी के लिए उपयोग किया जाता है"</string>
+    <string name="enable_channel_50_alerts_summary" msgid="7507770011325273009">"ब्राज़ील में चैनल 50 को क्षेत्र के लिए नई जानकारी के लिए उपयोग किया जाता है"</string>
     <string name="category_dev_settings_title" msgid="6194393458398329994">"डेवलपर विकल्प"</string>
     <string name="cmas_category_heading" msgid="3923503130776640717">"अलर्ट श्रेणी:"</string>
     <string name="cmas_category_geo" msgid="4979494217069688527">"भूभौतिकीय"</string>
