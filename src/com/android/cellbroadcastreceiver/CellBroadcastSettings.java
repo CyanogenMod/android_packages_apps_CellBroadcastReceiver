@@ -19,6 +19,7 @@ package com.android.cellbroadcastreceiver;
 import android.content.Context;
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.os.UserManager;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
@@ -90,6 +91,13 @@ public class CellBroadcastSettings extends PreferenceActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        UserManager userManager = (UserManager) getSystemService(Context.USER_SERVICE);
+
+        if (userManager.hasUserRestriction(UserManager.DISALLOW_CONFIG_CELL_BROADCASTS)) {
+            setContentView(R.layout.cell_broadcast_disallowed_preference_screen);
+            return;
+        }
 
         // Display the fragment as the main content.
         getFragmentManager().beginTransaction().replace(android.R.id.content,

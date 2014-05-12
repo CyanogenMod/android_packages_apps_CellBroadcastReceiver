@@ -23,6 +23,9 @@
     <!-- Label for settings screen. [CHAR LIMIT=NONE] -->
     <string name="sms_cb_settings">Cell Broadcast settings</string>
 
+    <!-- Error message for users that aren't allowed to modify Cell broadcast settings [CHAR LIMIT=none] -->
+    <string name="cell_broadcast_settings_not_available">Cell Broadcast settings are not available for this user</string>
+
     <!-- Text for dismiss button in broadcast message view dialog. [CHAR LIMIT=25] -->
     <string name="button_dismiss">OK</string>
 
