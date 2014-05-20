@@ -18,6 +18,8 @@
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="app_label" msgid="7559008249836700599">"ການແຈ້ງຜ່ານເຄືອຂ່າຍ"</string>
     <string name="sms_cb_settings" msgid="971917159442705371">"ການຕັ້ງຄ່າການກະຈາຍຂໍ້ມູນ"</string>
+    <!-- no translation found for cell_broadcast_settings_not_available (2612364350745967915) -->
+    <skip />
     <string name="button_dismiss" msgid="1234221657930516287">"ຕົກລົງ"</string>
     <string name="no_cell_broadcasts" msgid="5409324337492758562">"ບໍ່ມີການແຈ້ງເຕືອນທີ່ດຳເນີນຢູ່ໃນພື້ນທີ່ຂອງທ່ານ. ທ່ານສາມາດປ່ຽນການຕັ້ງຄ່າແຈ້ງເຕືອນໄດ້ ໂດຍການນຳໃຊ້ໂຕເລືອກເມນູການຕັ້ງຄ່າ."</string>
     <string name="menu_preferences" msgid="3596514894131599202">"ການຕັ້ງຄ່າ"</string>

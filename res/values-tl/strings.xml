@@ -18,6 +18,8 @@
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="app_label" msgid="7559008249836700599">"Mga Cell Broadcast"</string>
     <string name="sms_cb_settings" msgid="971917159442705371">"Mga setting ng Cell Broadcast"</string>
+    <!-- no translation found for cell_broadcast_settings_not_available (2612364350745967915) -->
+    <skip />
     <string name="button_dismiss" msgid="1234221657930516287">"OK"</string>
     <string name="no_cell_broadcasts" msgid="5409324337492758562">"Walang mga aktibong alerto sa iyong lugar. Mababago mo ang mga setting ng Alerto gamit ang pagpipilian ng menu ng Mga Setting."</string>
     <string name="menu_preferences" msgid="3596514894131599202">"Mga Setting"</string>
