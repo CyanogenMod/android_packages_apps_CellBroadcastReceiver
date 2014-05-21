@@ -14,4 +14,11 @@
      See the License for the specific language governing permissions and
      limitations under the License.
 -->
-<resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2"/>
+<resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+  <string name="button_dismiss">OK</string>
+  <string name="menu_preferences">Astellungen</string>
+  <string name="enable_alert_vibrate_title">Vibréieren</string>
+  <string name="cmas_response_execute">Ausféieren</string>
+  <string name="cmas_opt_out_button_yes">Jo</string>
+  <string name="cmas_opt_out_button_no">Nee</string>
+</resources>
