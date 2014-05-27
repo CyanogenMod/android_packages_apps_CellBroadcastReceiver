@@ -18,8 +18,7 @@
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="app_label" msgid="7559008249836700599">"Cellán belüli adások"</string>
     <string name="sms_cb_settings" msgid="971917159442705371">"Cellán belüli adások beállításai"</string>
-    <!-- no translation found for cell_broadcast_settings_not_available (2612364350745967915) -->
-    <skip />
+    <string name="cell_broadcast_settings_not_available" msgid="2612364350745967915">"A cellán belüli üzenetszórásra vonatkozó beállítások nem érhetők el ennél a felhasználónál"</string>
     <string name="button_dismiss" msgid="1234221657930516287">"OK"</string>
     <string name="no_cell_broadcasts" msgid="5409324337492758562">"Jelenleg nincsenek aktív értesítések a tartózkodási helyén. A Beállítások menüben módosíthatja az Értesítés beállításait."</string>
     <string name="menu_preferences" msgid="3596514894131599202">"Beállítások"</string>

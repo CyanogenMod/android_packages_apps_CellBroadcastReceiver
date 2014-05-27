@@ -18,8 +18,7 @@
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="app_label" msgid="7559008249836700599">"小区广播"</string>
     <string name="sms_cb_settings" msgid="971917159442705371">"小区广播设置"</string>
-    <!-- no translation found for cell_broadcast_settings_not_available (2612364350745967915) -->
-    <skip />
+    <string name="cell_broadcast_settings_not_available" msgid="2612364350745967915">"此用户无权修改小区广播设置"</string>
     <string name="button_dismiss" msgid="1234221657930516287">"确定"</string>
     <string name="no_cell_broadcasts" msgid="5409324337492758562">"您所在的区域没有任何活动的警报。您可以使用“设置”菜单选项更改警报设置。"</string>
     <string name="menu_preferences" msgid="3596514894131599202">"设置"</string>

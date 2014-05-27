@@ -18,8 +18,7 @@
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="app_label" msgid="7559008249836700599">"셀 브로드캐스트"</string>
     <string name="sms_cb_settings" msgid="971917159442705371">"셀 브로드캐스트 설정"</string>
-    <!-- no translation found for cell_broadcast_settings_not_available (2612364350745967915) -->
-    <skip />
+    <string name="cell_broadcast_settings_not_available" msgid="2612364350745967915">"이 사용자는 셀 브로드캐스트 설정을 사용할 수 없습니다."</string>
     <string name="button_dismiss" msgid="1234221657930516287">"확인"</string>
     <string name="no_cell_broadcasts" msgid="5409324337492758562">"사용자 지역에 표시된 경보가 없습니다. 설정 메뉴 옵션을 사용하여 경보 설정을 변경할 수 있습니다."</string>
     <string name="menu_preferences" msgid="3596514894131599202">"설정"</string>

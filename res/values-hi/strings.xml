@@ -18,8 +18,7 @@
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="app_label" msgid="7559008249836700599">"सेल प्रसारण"</string>
     <string name="sms_cb_settings" msgid="971917159442705371">"सेल प्रसारण सेटिंग"</string>
-    <!-- no translation found for cell_broadcast_settings_not_available (2612364350745967915) -->
-    <skip />
+    <string name="cell_broadcast_settings_not_available" msgid="2612364350745967915">"सेल प्रसारण सेटिंग इस उपयोगकर्ता के लिए उपलब्ध नहीं हैं"</string>
     <string name="button_dismiss" msgid="1234221657930516287">"ठीक है"</string>
     <string name="no_cell_broadcasts" msgid="5409324337492758562">"आपके क्षेत्र में कोई सक्रिय अलर्ट नहीं है. आप सेटिंग मेनू विकल्‍प का उपयोग करके अलर्ट सेटिंग बदल सकते हैं."</string>
     <string name="menu_preferences" msgid="3596514894131599202">"सेटिंग"</string>
