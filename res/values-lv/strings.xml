@@ -18,8 +18,7 @@
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="app_label" msgid="7559008249836700599">"Šūnu apraides"</string>
     <string name="sms_cb_settings" msgid="971917159442705371">"Šūnu apraides iestatījumi"</string>
-    <!-- no translation found for cell_broadcast_settings_not_available (2612364350745967915) -->
-    <skip />
+    <string name="cell_broadcast_settings_not_available" msgid="2612364350745967915">"Šūnu apraides iestatījumi nav pieejami šim lietotājam."</string>
     <string name="button_dismiss" msgid="1234221657930516287">"Labi"</string>
     <string name="no_cell_broadcasts" msgid="5409324337492758562">"Jūsu reģionā nav neviena aktīva brīdinājuma. Varat mainīt brīdinājumu iestatījumus, izmantojot izvēlnes opciju Iestatījumi."</string>
     <string name="menu_preferences" msgid="3596514894131599202">"Iestatījumi"</string>
