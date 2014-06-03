@@ -48,7 +48,7 @@
     <string name="enable_emergency_alerts_title" msgid="1411195469162410084">"Wezesha taarifa"</string>
     <string name="enable_emergency_alerts_summary" msgid="5932655529367149358">"Onyesha matangazo ya ilani ya dharura"</string>
     <string name="alert_sound_duration_title" msgid="4712853569849108005">"Muda wa kengele ya sauti"</string>
-    <string name="alert_reminder_interval_title" msgid="3283595202268218149">"Kumbusho la arifa"</string>
+    <string name="alert_reminder_interval_title" msgid="3283595202268218149">"Kikumbusho cha arifa"</string>
     <string name="enable_alert_speech_title" msgid="8052104771053526941">"Tamka ujumbe wa ilani"</string>
     <string name="enable_alert_speech_summary" msgid="356086178962268831">"Tumia usemi-hadi-maandishi ili kuzungumzia ujumbe wa kengele ya dharura"</string>
     <string name="category_etws_settings_title" msgid="4072774251965938576">"Mipangilio ya ETWS"</string>
