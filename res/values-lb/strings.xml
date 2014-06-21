@@ -17,8 +17,12 @@
 <resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
   <string name="button_dismiss">OK</string>
   <string name="menu_preferences">Astellungen</string>
+  <string name="button_cancel">Ofbriechen</string>
   <string name="enable_alert_vibrate_title">Vibréieren</string>
+  <string name="cmas_category_other">Aner</string>
   <string name="cmas_response_execute">Ausféieren</string>
+  <string name="cmas_response_none">Keen</string>
+  <string name="delivery_time_heading">Empfaangen:</string>
   <string name="cmas_opt_out_button_yes">Jo</string>
   <string name="cmas_opt_out_button_no">Nee</string>
 </resources>
