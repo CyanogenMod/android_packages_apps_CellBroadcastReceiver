@@ -39,6 +39,7 @@ import android.telephony.SubInfoRecord;
 import android.telephony.SubscriptionManager;
 import android.telephony.TelephonyManager;
 import android.util.Log;
+import android.view.MenuItem;
 
 import java.util.List;
 
@@ -111,9 +112,12 @@ public class CellBroadcastSettings extends PreferenceActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        final ActionBar actionBar = getActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
+
         sPhoneId = SubscriptionManager.getPhoneId(SubscriptionManager.getDefaultSmsSubId());
         if (TelephonyManager.getDefault().getPhoneCount() > 1) {
-            final ActionBar actionBar = getActionBar();
             actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
             actionBar.setDisplayShowTitleEnabled(true);
             for (int i = 0; i < TelephonyManager.getDefault().getPhoneCount(); i++) {
@@ -393,5 +397,14 @@ public class CellBroadcastSettings extends PreferenceActivity {
                 interval.setOnPreferenceChangeListener(startListener);
             }
         }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            finish();
+            return true;
+        }
+        return false;
     }
 }
