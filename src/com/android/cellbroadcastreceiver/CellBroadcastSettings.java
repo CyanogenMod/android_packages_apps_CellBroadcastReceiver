@@ -39,6 +39,7 @@ import android.telephony.MSimSmsManager;
 import android.telephony.MSimTelephonyManager;
 import android.telephony.TelephonyManager;
 import android.util.Log;
+import android.view.MenuItem;
 import com.android.internal.telephony.MSimConstants;
 
 /**
@@ -110,15 +111,22 @@ public class CellBroadcastSettings extends PreferenceActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        ActionBar actionBar = getActionBar();
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
+
         if (MSimTelephonyManager.getDefault().isMultiSimEnabled()) {
             mSubscription = MSimConstants.SUB1;
-            final ActionBar actionBar = getActionBar();
-            actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
-            actionBar.setDisplayShowTitleEnabled(true);
-            for (int i = 0; i < MSimTelephonyManager.getDefault().getPhoneCount(); i++) {
-                actionBar.addTab(actionBar.newTab().setText(subTag+(i+1)).setTabListener(
-                        new MySubTabListener(new CellBroadcastSettingsFragment(),
-                        subTag+(i+1), i)));
+            if (actionBar != null) {
+                actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
+                actionBar.setDisplayShowTitleEnabled(true);
+                for (int i = 0; i < MSimTelephonyManager.getDefault().getPhoneCount(); i++) {
+                    mActionBar.addTab(actionBar.newTab().setText(subTag+(i+1)).setTabListener(
+                            new MySubTabListener(new CellBroadcastSettingsFragment(),
+                            subTag+(i+1), i)));
+                }
             }
         } else {
             // Display the fragment as the main content.
@@ -384,5 +392,14 @@ public class CellBroadcastSettings extends PreferenceActivity {
                 interval.setOnPreferenceChangeListener(startListener);
             }
         }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            finish();
+            return true;
+        }
+        return false;
     }
 }
