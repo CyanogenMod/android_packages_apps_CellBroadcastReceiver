@@ -39,6 +39,7 @@ import android.telephony.MSimSmsManager;
 import android.telephony.MSimTelephonyManager;
 import android.telephony.TelephonyManager;
 import android.util.Log;
+import android.view.MenuItem;
 import com.android.internal.telephony.MSimConstants;
 
 /**
@@ -110,9 +111,12 @@ public class CellBroadcastSettings extends PreferenceActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        final ActionBar actionBar = getActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
+
         if (MSimTelephonyManager.getDefault().isMultiSimEnabled()) {
             mSubscription = MSimConstants.SUB1;
-            final ActionBar actionBar = getActionBar();
             actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
             actionBar.setDisplayShowTitleEnabled(true);
             for (int i = 0; i < MSimTelephonyManager.getDefault().getPhoneCount(); i++) {
@@ -384,5 +388,14 @@ public class CellBroadcastSettings extends PreferenceActivity {
                 interval.setOnPreferenceChangeListener(startListener);
             }
         }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            finish();
+            return true;
+        }
+        return false;
     }
 }
