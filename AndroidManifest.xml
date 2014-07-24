@@ -75,6 +75,7 @@
                   android:label="@string/sms_cb_settings"
                   android:launchMode="singleTask"
                   android:exported="true" />
+                  android:configChanges="orientation|screenSize|fontScale|locale|layoutDirection" />
 
         <activity android:name="CellBroadcastAlertDialog"
                   android:theme="@android:style/Theme.Material.Light.Dialog"
