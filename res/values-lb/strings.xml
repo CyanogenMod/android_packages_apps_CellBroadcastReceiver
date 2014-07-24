@@ -17,7 +17,10 @@
 <resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
   <string name="button_dismiss">OK</string>
   <string name="menu_preferences">Astellungen</string>
+  <string name="menu_view_details">Detailer ukucken</string>
+  <string name="button_delete">Läschen</string>
   <string name="button_cancel">Ofbriechen</string>
+  <string name="etws_tsunami_warning">Tsunami-Warnung</string>
   <string name="enable_alert_vibrate_title">Vibréieren</string>
   <string name="cmas_category_other">Aner</string>
   <string name="cmas_response_execute">Ausféieren</string>
@@ -25,4 +28,11 @@
   <string name="delivery_time_heading">Empfaangen:</string>
   <string name="cmas_opt_out_button_yes">Jo</string>
   <string name="cmas_opt_out_button_no">Nee</string>
+  <string-array name="alert_sound_duration_entries">
+    <item>2 Sekonnen</item>
+    <item>4 Sekonnen</item>
+    <item>6 Sekonnen</item>
+    <item>8 seconds</item>
+    <item>10 Sekonnen</item>
+  </string-array>
 </resources>
