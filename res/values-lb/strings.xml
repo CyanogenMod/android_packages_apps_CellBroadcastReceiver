@@ -18,21 +18,60 @@
   <string name="button_dismiss">OK</string>
   <string name="menu_preferences">Astellungen</string>
   <string name="menu_view_details">Detailer ukucken</string>
+  <string name="view_details_title">Detailer vun der Warnung</string>
   <string name="button_delete">Läschen</string>
   <string name="button_cancel">Ofbriechen</string>
   <string name="etws_tsunami_warning">Tsunami-Warnung</string>
+  <string name="cmas_presidential_level_alert">Warnung vum President</string>
+  <string name="alert_reminder_interval_title">Warnungserënnerung</string>
   <string name="enable_alert_vibrate_title">Vibréieren</string>
+  <string name="category_brazil_settings_title">Astellunge fir Brasilien</string>
+  <string name="category_dev_settings_title">Entwéckleroptiounen</string>
+  <string name="cmas_category_heading">Warnungskategorie:</string>
+  <string name="cmas_category_geo">Geophysesch</string>
+  <string name="cmas_category_met">Meterologesch</string>
+  <string name="cmas_category_safety">Noutfallsituatiounen</string>
+  <string name="cmas_category_security">Sécherheetsgeforen</string>
+  <string name="cmas_category_rescue">Rettung</string>
+  <string name="cmas_category_fire">Feier</string>
+  <string name="cmas_category_health">Gesondheet</string>
+  <string name="cmas_category_transport">Transport</string>
+  <string name="cmas_category_infra">Infrastruktur</string>
+  <string name="cmas_category_cbrne">Chemesch/Biologesch/Nuklear/Explosiv</string>
   <string name="cmas_category_other">Aner</string>
+  <string name="cmas_response_prepare">Preparéieren</string>
   <string name="cmas_response_execute">Ausféieren</string>
+  <string name="cmas_response_avoid">Vermeiden</string>
   <string name="cmas_response_none">Keen</string>
+  <string name="cmas_severity_heading">Seriositéit:</string>
+  <string name="cmas_severity_extreme">Extrem</string>
+  <string name="cmas_severity_severe">Eescht</string>
+  <string name="cmas_urgency_immediate">Direkt</string>
+  <string name="cmas_urgency_expected">Erwaart</string>
+  <string name="cmas_certainty_heading">Gewëssheet:</string>
+  <string name="cmas_certainty_observed">Observéiert</string>
+  <string name="cmas_certainty_likely">Wahrscheinlech</string>
   <string name="delivery_time_heading">Empfaangen:</string>
+  <string name="notification_multiple_title">Nei Warnungen</string>
   <string name="cmas_opt_out_button_yes">Jo</string>
   <string name="cmas_opt_out_button_no">Nee</string>
   <string-array name="alert_sound_duration_entries">
     <item>2 Sekonnen</item>
     <item>4 Sekonnen</item>
     <item>6 Sekonnen</item>
-    <item>8 seconds</item>
+    <item>8 Sekonnen</item>
     <item>10 Sekonnen</item>
+  </string-array>
+  <string-array name="alert_reminder_interval_entries">
+    <item>Eng Kéier</item>
+    <item>All 2 Minutten</item>
+    <item>All 15 Minutten</item>
+    <item>Aus</item>
+  </string-array>
+  <string-array name="alert_reminder_interval_values">
+    <item>1</item>
+    <item>2</item>
+    <item>15</item>
+    <item>0</item>
   </string-array>
 </resources>
