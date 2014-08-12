@@ -31,6 +31,7 @@ import android.preference.PreferenceManager;
 import android.provider.Telephony;
 import android.telephony.CellBroadcastMessage;
 import android.telephony.SmsCbCmasInfo;
+import android.telephony.SubscriptionManager;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -355,7 +356,8 @@ public class CellBroadcastAlertFullScreen extends Activity {
         ((TextView) findViewById(R.id.message)).setText(message.getMessageBody());
 
         // Set alert reminder depending on user preference
-        CellBroadcastAlertReminder.queueAlertReminder(this, true);
+        CellBroadcastAlertReminder.queueAlertReminder(this, true,
+                SubscriptionManager.getPhoneId(message.getSubId()));
     }
 
     /**

@@ -28,12 +28,14 @@ import android.preference.PreferenceManager;
 import android.provider.Telephony;
 import android.telephony.CellBroadcastMessage;
 import android.telephony.ServiceState;
+import android.telephony.SubscriptionManager;
 import android.telephony.TelephonyManager;
 import android.telephony.cdma.CdmaSmsCbProgramData;
 import android.util.Log;
 
 import com.android.internal.telephony.ITelephony;
 import com.android.internal.telephony.cdma.sms.SmsEnvelope;
+import com.android.internal.telephony.PhoneConstants;
 import com.android.internal.telephony.TelephonyIntents;
 
 public class CellBroadcastReceiver extends BroadcastReceiver {
@@ -42,6 +44,20 @@ public class CellBroadcastReceiver extends BroadcastReceiver {
     private int mServiceState = -1;
     private static final String GET_LATEST_CB_AREA_INFO_ACTION =
             "android.cellbroadcastreceiver.GET_LATEST_CB_AREA_INFO";
+
+    private static int mPhoneId = SubscriptionManager.getPhoneId(
+            SubscriptionManager.getDefaultSmsSubId());
+
+      // FIXME on latest AOSP refresh, google removed PhoneStateListener and
+      // listening for SERVICE STATE intent. Same way for MSIM also we need
+      // to listen for intent.
+      // private PhoneStateListener[] mPhoneStateListener;
+
+    private int mPhoneCount = 0;
+
+    private long[] mSubId;
+
+    private TelephonyManager mPhone;
 
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -70,7 +86,9 @@ public class CellBroadcastReceiver extends BroadcastReceiver {
             boolean airplaneModeOn = intent.getBooleanExtra("state", false);
             if (DBG) log("airplaneModeOn: " + airplaneModeOn);
             if (!airplaneModeOn) {
-                startConfigService(context);
+                for (int i = 0; i < TelephonyManager.getDefault().getPhoneCount(); i++){
+                    startConfigService(context, i);
+                }
             }
         } else if (Telephony.Sms.Intents.SMS_EMERGENCY_CB_RECEIVED_ACTION.equals(action) ||
                 Telephony.Sms.Intents.SMS_CB_RECEIVED_ACTION.equals(action)) {
@@ -87,6 +105,10 @@ public class CellBroadcastReceiver extends BroadcastReceiver {
         } else if (Telephony.Sms.Intents.SMS_SERVICE_CATEGORY_PROGRAM_DATA_RECEIVED_ACTION
                 .equals(action)) {
             if (privileged) {
+                int phoneId = intent.getIntExtra(PhoneConstants.SLOT_KEY,
+                        SubscriptionManager.getPhoneId(
+                        SubscriptionManager.getDefaultSmsSubId()));
+                Log.d(TAG, "onReceive SMS_CATEGORY_PROGRAM_DATA phoneId :" + phoneId);
                 CdmaSmsCbProgramData[] programDataList = (CdmaSmsCbProgramData[])
                         intent.getParcelableArrayExtra("program_data_list");
                 if (programDataList != null) {
@@ -99,7 +121,10 @@ public class CellBroadcastReceiver extends BroadcastReceiver {
             }
         } else if (GET_LATEST_CB_AREA_INFO_ACTION.equals(action)) {
             if (privileged) {
-                CellBroadcastMessage message = CellBroadcastReceiverApp.getLatestAreaInfo();
+                int phoneId = intent.getIntExtra(PhoneConstants.SLOT_KEY,
+                        SubscriptionManager.getPhoneId(
+                        SubscriptionManager.getDefaultSmsSubId()));
+                CellBroadcastMessage message = CellBroadcastReceiverApp.getLatestAreaInfo(phoneId);
                 if (message != null) {
                     Intent areaInfoIntent = new Intent(
                             CellBroadcastAlertService.CB_AREA_INFO_RECEIVED_ACTION);
@@ -110,6 +135,12 @@ public class CellBroadcastReceiver extends BroadcastReceiver {
             } else {
                 Log.e(TAG, "caller missing READ_PHONE_STATE permission, returning");
             }
+        } else if (action.equals(TelephonyIntents.ACTION_SUBINFO_RECORD_UPDATED)) {
+            // FIXME on latest AOSP refresh, google removed PhoneStateListener and
+            // listening for SERVICE STATE intent. Same way for MSIM also we need
+            // to listen for intent.
+            //unregisterPhoneStateListener();
+            //registerPhoneStateListener(context);
         } else {
             Log.w(TAG, "onReceive() unexpected action " + action);
         }
@@ -153,34 +184,30 @@ public class CellBroadcastReceiver extends BroadcastReceiver {
 
     private void tryCdmaSetCategory(Context context, int category, boolean enable) {
         SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(context);
+        String key = null;
 
         switch (category) {
             case SmsEnvelope.SERVICE_CATEGORY_CMAS_EXTREME_THREAT:
-                sharedPrefs.edit().putBoolean(
-                        CellBroadcastSettings.KEY_ENABLE_CMAS_EXTREME_THREAT_ALERTS, enable)
-                        .apply();
+                key = CellBroadcastSettings.KEY_ENABLE_CMAS_EXTREME_THREAT_ALERTS + mPhoneId;
                 break;
 
             case SmsEnvelope.SERVICE_CATEGORY_CMAS_SEVERE_THREAT:
-                sharedPrefs.edit().putBoolean(
-                        CellBroadcastSettings.KEY_ENABLE_CMAS_SEVERE_THREAT_ALERTS, enable)
-                        .apply();
+                key = CellBroadcastSettings.KEY_ENABLE_CMAS_SEVERE_THREAT_ALERTS + mPhoneId;
                 break;
 
             case SmsEnvelope.SERVICE_CATEGORY_CMAS_CHILD_ABDUCTION_EMERGENCY:
-                sharedPrefs.edit().putBoolean(
-                        CellBroadcastSettings.KEY_ENABLE_CMAS_AMBER_ALERTS, enable).apply();
+                key = CellBroadcastSettings.KEY_ENABLE_CMAS_AMBER_ALERTS + mPhoneId;
                 break;
 
             case SmsEnvelope.SERVICE_CATEGORY_CMAS_TEST_MESSAGE:
-                sharedPrefs.edit().putBoolean(
-                        CellBroadcastSettings.KEY_ENABLE_CMAS_TEST_ALERTS, enable).apply();
+                key = CellBroadcastSettings.KEY_ENABLE_CMAS_TEST_ALERTS + mPhoneId;
                 break;
 
             default:
                 Log.w(TAG, "Ignoring SCPD command to " + (enable ? "enable" : "disable")
                         + " alerts in category " + category);
         }
+        if (null != key) sharedPrefs.edit().putBoolean(key, enable).apply();
     }
 
     /**
@@ -193,15 +220,23 @@ public class CellBroadcastReceiver extends BroadcastReceiver {
         context.startService(serviceIntent);
     }
 
+    static void startConfigService(Context context, int phoneId) {
+        Intent serviceIntent = new Intent(CellBroadcastConfigService.ACTION_ENABLE_CHANNELS, null,
+                context, CellBroadcastConfigService.class);
+        serviceIntent.putExtra(PhoneConstants.SLOT_KEY, phoneId);
+        context.startService(serviceIntent);
+    }
+
     /**
      * @return true if the phone is a CDMA phone type
      */
-    static boolean phoneIsCdma() {
+    static boolean phoneIsCdma(long subId) {
         boolean isCdma = false;
         try {
             ITelephony phone = ITelephony.Stub.asInterface(ServiceManager.checkService("phone"));
             if (phone != null) {
-                isCdma = (phone.getActivePhoneType() == TelephonyManager.PHONE_TYPE_CDMA);
+                isCdma = (phone.getActivePhoneTypeForSubscriber(subId) ==
+                        TelephonyManager.PHONE_TYPE_CDMA);
             }
         } catch (RemoteException e) {
             Log.w(TAG, "phone.getActivePhoneType() failed", e);
