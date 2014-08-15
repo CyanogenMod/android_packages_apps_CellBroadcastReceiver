@@ -47,15 +47,15 @@
     <string name="emergency_alert_settings_title" msgid="5427868392642771940">"आपातकालीन अलर्ट सेटिंग"</string>
     <string name="enable_emergency_alerts_title" msgid="1411195469162410084">"सूचनाएं चालू करें"</string>
     <string name="enable_emergency_alerts_summary" msgid="5932655529367149358">"आपातकालीन अलर्ट प्रसारण दिखाएं"</string>
-    <string name="alert_sound_duration_title" msgid="4712853569849108005">"अलर्ट ध्‍वनि अवधि"</string>
-    <string name="alert_reminder_interval_title" msgid="3283595202268218149">"अलर्ट अनुस्मारक"</string>
+    <string name="alert_sound_duration_title" msgid="4712853569849108005">"अलर्ट ध्‍वनि की अवधि"</string>
+    <string name="alert_reminder_interval_title" msgid="3283595202268218149">"याद दिलाने के लिए अलर्ट"</string>
     <string name="enable_alert_speech_title" msgid="8052104771053526941">"अलर्ट संदेश बोलें"</string>
-    <string name="enable_alert_speech_summary" msgid="356086178962268831">"आपातकालीन अलर्ट संदेश बोलने के लिए पाठ-से-वाक् का उपयोग करें"</string>
+    <string name="enable_alert_speech_summary" msgid="356086178962268831">"आपातकालीन अलर्ट संदेश बोलने के लिए पाठ-से-बोली का उपयोग करें"</string>
     <string name="category_etws_settings_title" msgid="4072774251965938576">"ETWS सेटिंग"</string>
     <string name="enable_etws_test_alerts_title" msgid="2569886288897109169">"ETWS परीक्षण प्रसारण दिखाएं"</string>
     <string name="enable_etws_test_alerts_summary" msgid="7988690174166347072">"भूकंप सुनामी चेतावनी सिस्‍टम के लिए परीक्षण प्रसारण दिखाएं"</string>
     <string name="enable_cmas_extreme_threat_alerts_title" msgid="215650211797464620">"अत्यधिक खतरे दिखाएं"</string>
-    <string name="enable_cmas_extreme_threat_alerts_summary" msgid="2493139961243300290">"जीवन और संपत्ति के अत्यधिक खतरों के लिए अलर्ट दिखाएं"</string>
+    <string name="enable_cmas_extreme_threat_alerts_summary" msgid="2493139961243300290">"जीवन और संपत्ति से जुड़े हुए अत्यधिक खतरों के अलर्ट दिखाएं"</string>
     <string name="enable_cmas_severe_threat_alerts_title" msgid="8008941231371565775">"गंभीर खतरे दिखाएं"</string>
     <string name="enable_cmas_severe_threat_alerts_summary" msgid="4089299793459943222">"जीवन और संपत्ति के गंभीर खतरों के लिए अलर्ट दिखाएं"</string>
     <string name="enable_cmas_amber_alerts_title" msgid="997138378272381777">"AMBER अलर्ट दिखाएं"</string>
@@ -102,8 +102,8 @@
     <string name="delivery_time_heading" msgid="5980836543433619329">"प्राप्त:"</string>
     <string name="notification_multiple" msgid="5121978148152124860">"<xliff:g id="COUNT">%s</xliff:g> बिना पढ़े अलर्ट."</string>
     <string name="notification_multiple_title" msgid="1523638925739947855">"नए अलर्ट"</string>
-    <string name="show_cmas_opt_out_summary" msgid="4370292554938680862">"पहला CMAS अलर्ट (प्रेसिडेंशियल अलर्ट के अलावा) दिखाने के बाद ऑप्ट-आउट संवाद दिखाएं."</string>
-    <string name="show_cmas_opt_out_title" msgid="9182104842820171132">"ऑप्ट-आउट संवाद दिखाएं"</string>
+    <string name="show_cmas_opt_out_summary" msgid="4370292554938680862">"पहला CMAS अलर्ट (प्रेसिडेंशियल अलर्ट के अलावा) दिखाने के बाद ऑप्ट-आउट डॉयलॉग दिखाएं."</string>
+    <string name="show_cmas_opt_out_title" msgid="9182104842820171132">"ऑप्ट-आउट डॉयलॉग दिखाएं"</string>
     <string name="cmas_opt_out_dialog_text" msgid="7529010670998259128">"आपको वर्तमान में आपातकालीन अलर्ट प्राप्त हो रहे हैं. क्या आप आगे भी आपातकालीन अलर्ट प्राप्त करना चाहते हैं?"</string>
     <string name="cmas_opt_out_button_yes" msgid="7248930667195432936">"हां"</string>
     <string name="cmas_opt_out_button_no" msgid="3110484064328538553">"नहीं"</string>
