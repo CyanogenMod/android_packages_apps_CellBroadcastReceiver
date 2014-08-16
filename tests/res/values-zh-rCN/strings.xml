@@ -39,7 +39,7 @@
     <string name="button_gsm_ucs2_multipage_umts_type" msgid="4557772309524939206">"发送 UMTS UCS-2 多页广播"</string>
     <string name="button_gsm_ucs2_with_language_type" msgid="8992961254390480388">"发送特定语言的 GSM UCS-2 编码信息"</string>
     <string name="button_gsm_ucs2_with_language_umts_type" msgid="1080788762601688380">"发送特定语言的 UMTS UCS-2 编码信息"</string>
-    <string name="button_delay_broadcast" msgid="5138650276363839541">"延迟 5 秒后发送"</string>
+    <string name="button_delay_broadcast" msgid="5138650276363839541">"延迟5秒发送"</string>
     <string name="message_id_label" msgid="4365322663037110887">"讯息 ID："</string>
     <string name="category_id_label" msgid="8472814003810180738">"类别："</string>
 </resources>
