@@ -371,6 +371,10 @@ public class CellBroadcastAlertService extends Service {
                 .setTicker(channelName)
                 .setWhen(System.currentTimeMillis())
                 .setContentIntent(pi)
+                .setCategory(Notification.CATEGORY_SYSTEM)
+                .setPriority(Notification.PRIORITY_HIGH)
+                .setColor(getResources().getColor(R.color.notification_color))
+                .setVisibility(Notification.VISIBILITY_PUBLIC)
                 .setDefaults(Notification.DEFAULT_ALL);
 
         builder.setDefaults(Notification.DEFAULT_ALL);
