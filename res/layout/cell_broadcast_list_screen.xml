@@ -26,9 +26,7 @@
                 android:layout_height="match_parent"
                 android:drawSelectorOnTop="false"
                 android:scrollbarStyle="insideOverlay"
-                android:background="@android:color/white"
-                android:cacheColorHint="@android:color/white"
-                android:fadingEdgeLength="16dip" />
+                />
 
         <TextView android:id="@+android:id/empty"
                 android:layout_width="match_parent"
