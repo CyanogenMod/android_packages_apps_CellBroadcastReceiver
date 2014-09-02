@@ -20,5 +20,6 @@
     <!-- the background color used for unread broadcasts -->
     <color name="unread_bgcolor">#ffffffff</color>
     <color name="read_bgcolor">#ffeeeeee</color>
+    <color name="notification_color">#FFFF9800</color><!-- Orange 800 -->
 </resources>
 
