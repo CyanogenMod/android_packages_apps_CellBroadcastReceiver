@@ -23,6 +23,7 @@
   <string name="button_cancel">Ofbriechen</string>
   <string name="etws_tsunami_warning">Tsunami-Warnung</string>
   <string name="cmas_presidential_level_alert">Warnung vum President</string>
+  <string name="enable_emergency_alerts_title">Notifikatiounen umaachen</string>
   <string name="alert_reminder_interval_title">Warnungserënnerung</string>
   <string name="enable_alert_vibrate_title">Vibréieren</string>
   <string name="category_brazil_settings_title">Astellunge fir Brasilien</string>
