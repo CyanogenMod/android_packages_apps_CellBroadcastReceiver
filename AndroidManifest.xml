@@ -71,12 +71,13 @@
 
         <!-- Settings opened by ListActivity menu, Settings app link or opt-out dialog. -->
         <activity android:name="CellBroadcastSettings"
+                  android:theme="@style/CellBroadcastSettingsTheme"
                   android:label="@string/sms_cb_settings"
                   android:launchMode="singleTask"
                   android:exported="true" />
 
         <activity android:name="CellBroadcastAlertDialog"
-                  android:theme="@android:style/Theme.Holo.Dialog"
+                  android:theme="@android:style/Theme.Material.Light.Dialog"
                   android:launchMode="singleTask"
                   android:exported="false"
                   android:configChanges="orientation|keyboardHidden|keyboard|navigation" />
