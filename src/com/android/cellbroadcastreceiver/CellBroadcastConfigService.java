@@ -94,6 +94,8 @@ public class CellBroadcastConfigService extends IntentService {
             manager.enableCellBroadcast(SmsEnvelope.SERVICE_CATEGORY_CMAS_PRESIDENTIAL_LEVEL_ALERT);
         } else {
             manager.enableCellBroadcast(SmsCbConstants.MESSAGE_ID_CMAS_ALERT_PRESIDENTIAL_LEVEL);
+            // register Taiwan PWS 4383 also, by default
+            manager.enableCellBroadcast(SmsCbConstants.MESSAGE_ID_CMAS_ALERT_PRESIDENTIAL_LEVEL_LANGUAGE);
         }
     }
 
@@ -188,6 +190,7 @@ public class CellBroadcastConfigService extends IntentService {
                 int cmasTestStart = SmsCbConstants.MESSAGE_ID_CMAS_ALERT_REQUIRED_MONTHLY_TEST;
                 int cmasTestEnd = SmsCbConstants.MESSAGE_ID_CMAS_ALERT_OPERATOR_DEFINED_USE;
                 int cmasPresident = SmsCbConstants.MESSAGE_ID_CMAS_ALERT_PRESIDENTIAL_LEVEL;
+                int cmasTaiwanPWS = SmsCbConstants.MESSAGE_ID_CMAS_ALERT_PRESIDENTIAL_LEVEL_LANGUAGE;
 
                 // set to CDMA broadcast ID rage if phone is in CDMA mode.
                 boolean isCdma = CellBroadcastReceiver.phoneIsCdma();
@@ -238,6 +241,10 @@ public class CellBroadcastConfigService extends IntentService {
                         }
                         // CMAS Presidential must be on (See 3GPP TS 22.268 Section 6.2).
                         manager.enableCellBroadcast(cmasPresident);
+                        if (!isCdma) {
+                            // register Taiwan PWS 4383 also, by default
+                            manager.enableCellBroadcast(cmasTaiwanPWS);
+                        }
                     }
                     if (DBG) log("enabled emergency cell broadcast channels");
                 } else {
@@ -264,6 +271,10 @@ public class CellBroadcastConfigService extends IntentService {
 
                         // CMAS Presidential must be on (See 3GPP TS 22.268 Section 6.2).
                         manager.enableCellBroadcast(cmasPresident);
+                        if (!isCdma) {
+                            // register Taiwan PWS 4383 also, by default
+                            manager.enableCellBroadcast(cmasTaiwanPWS);
+                        }
                     }
                     if (DBG) log("disabled emergency cell broadcast channels");
                 }
