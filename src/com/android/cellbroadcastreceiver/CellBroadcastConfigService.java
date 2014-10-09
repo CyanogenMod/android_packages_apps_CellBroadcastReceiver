@@ -192,20 +192,9 @@ public class CellBroadcastConfigService extends IntentService {
                 int cmasPresident = SmsCbConstants.MESSAGE_ID_CMAS_ALERT_PRESIDENTIAL_LEVEL;
                 int cmasTaiwanPWS = SmsCbConstants.MESSAGE_ID_CMAS_ALERT_PRESIDENTIAL_LEVEL_LANGUAGE;
 
-                // set to CDMA broadcast ID rage if phone is in CDMA mode.
-                boolean isCdma = CellBroadcastReceiver.phoneIsCdma();
-                if (isCdma) {
-                    cmasExtremeStart = SmsEnvelope.SERVICE_CATEGORY_CMAS_EXTREME_THREAT;
-                    cmasExtremeEnd = cmasExtremeStart;
-                    cmasSevereStart = SmsEnvelope.SERVICE_CATEGORY_CMAS_SEVERE_THREAT;
-                    cmasSevereEnd = cmasSevereStart;
-                    cmasAmber = SmsEnvelope.SERVICE_CATEGORY_CMAS_CHILD_ABDUCTION_EMERGENCY;
-                    cmasTestStart = SmsEnvelope.SERVICE_CATEGORY_CMAS_TEST_MESSAGE;
-                    cmasTestEnd = cmasTestStart;
-                    cmasPresident = SmsEnvelope.SERVICE_CATEGORY_CMAS_PRESIDENTIAL_LEVEL_ALERT;
-                }
-
                 SmsManager manager = SmsManager.getDefault();
+                boolean isCdma = CellBroadcastReceiver.phoneIsCdma();
+
                 // Check for system property defining the emergency channel ranges to enable
                 String emergencyIdRange = isCdma ?
                         "" : SystemProperties.get(EMERGENCY_BROADCAST_RANGE_GSM);
@@ -227,17 +216,26 @@ public class CellBroadcastConfigService extends IntentService {
                             manager.enableCellBroadcast(
                                     SmsCbConstants.MESSAGE_ID_ETWS_OTHER_EMERGENCY_TYPE);
                         }
+                        //LTE support - Always enable CMAS SMS-B and CB channels irrespective of NW
                         if (enableCmasExtremeAlerts) {
                             manager.enableCellBroadcastRange(cmasExtremeStart, cmasExtremeEnd);
+                            manager.enableCellBroadcast(
+                                    SmsEnvelope.SERVICE_CATEGORY_CMAS_EXTREME_THREAT);
                         }
                         if (enableCmasSevereAlerts) {
                             manager.enableCellBroadcastRange(cmasSevereStart, cmasSevereEnd);
+                            manager.enableCellBroadcast(
+                                    SmsEnvelope.SERVICE_CATEGORY_CMAS_SEVERE_THREAT);
                         }
                         if (enableCmasAmberAlerts) {
                             manager.enableCellBroadcast(cmasAmber);
+                            manager.enableCellBroadcast(
+                                    SmsEnvelope.SERVICE_CATEGORY_CMAS_CHILD_ABDUCTION_EMERGENCY);
                         }
                         if (enableCmasTestAlerts) {
                             manager.enableCellBroadcastRange(cmasTestStart, cmasTestEnd);
+                            manager.enableCellBroadcast(
+                                    SmsEnvelope.SERVICE_CATEGORY_CMAS_TEST_MESSAGE);
                         }
                         // CMAS Presidential must be on (See 3GPP TS 22.268 Section 6.2).
                         manager.enableCellBroadcast(cmasPresident);
@@ -245,6 +243,8 @@ public class CellBroadcastConfigService extends IntentService {
                             // register Taiwan PWS 4383 also, by default
                             manager.enableCellBroadcast(cmasTaiwanPWS);
                         }
+                        manager.enableCellBroadcast(
+                                SmsEnvelope.SERVICE_CATEGORY_CMAS_PRESIDENTIAL_LEVEL_ALERT);
                     }
                     if (DBG) log("enabled emergency cell broadcast channels");
                 } else {
@@ -264,10 +264,11 @@ public class CellBroadcastConfigService extends IntentService {
                             manager.disableCellBroadcast(
                                     SmsCbConstants.MESSAGE_ID_ETWS_OTHER_EMERGENCY_TYPE);
                         }
-                        manager.disableCellBroadcastRange(cmasExtremeStart, cmasExtremeEnd);
-                        manager.disableCellBroadcastRange(cmasSevereStart, cmasSevereEnd);
-                        manager.disableCellBroadcast(cmasAmber);
-                        manager.disableCellBroadcastRange(cmasTestStart, cmasTestEnd);
+                        //LTE support - Always disable CMAS SMS-B and CB channels irrespective of NW
+                        manager.disableCellBroadcastRange(cmasExtremeStart, cmasTestEnd);
+                        manager.disableCellBroadcastRange(
+                                SmsEnvelope.SERVICE_CATEGORY_CMAS_EXTREME_THREAT,
+                                SmsEnvelope.SERVICE_CATEGORY_CMAS_TEST_MESSAGE);
 
                         // CMAS Presidential must be on (See 3GPP TS 22.268 Section 6.2).
                         manager.enableCellBroadcast(cmasPresident);
@@ -275,6 +276,8 @@ public class CellBroadcastConfigService extends IntentService {
                             // register Taiwan PWS 4383 also, by default
                             manager.enableCellBroadcast(cmasTaiwanPWS);
                         }
+                        manager.enableCellBroadcast(
+                                SmsEnvelope.SERVICE_CATEGORY_CMAS_PRESIDENTIAL_LEVEL_ALERT);
                     }
                     if (DBG) log("disabled emergency cell broadcast channels");
                 }
@@ -308,18 +311,23 @@ public class CellBroadcastConfigService extends IntentService {
                 if (!enableCmasExtremeAlerts) {
                     if (DBG) Log.d(TAG, "disabling cell broadcast CMAS extreme");
                     manager.disableCellBroadcastRange(cmasExtremeStart, cmasExtremeEnd);
+                    manager.disableCellBroadcast(SmsEnvelope.SERVICE_CATEGORY_CMAS_EXTREME_THREAT);
                 }
                 if (!enableCmasSevereAlerts) {
                     if (DBG) Log.d(TAG, "disabling cell broadcast CMAS severe");
                     manager.disableCellBroadcastRange(cmasSevereStart, cmasSevereEnd);
+                    manager.disableCellBroadcast(SmsEnvelope.SERVICE_CATEGORY_CMAS_SEVERE_THREAT);
                 }
                 if (!enableCmasAmberAlerts) {
                     if (DBG) Log.d(TAG, "disabling cell broadcast CMAS amber");
                     manager.disableCellBroadcast(cmasAmber);
+                    manager.disableCellBroadcast(
+                            SmsEnvelope.SERVICE_CATEGORY_CMAS_CHILD_ABDUCTION_EMERGENCY);
                 }
                 if (!enableCmasTestAlerts) {
                     if (DBG) Log.d(TAG, "disabling cell broadcast CMAS test messages");
                     manager.disableCellBroadcastRange(cmasTestStart, cmasTestEnd);
+                    manager.disableCellBroadcast(SmsEnvelope.SERVICE_CATEGORY_CMAS_TEST_MESSAGE);
                 }
             } catch (Exception ex) {
                 Log.e(TAG, "exception enabling cell broadcast channels", ex);
