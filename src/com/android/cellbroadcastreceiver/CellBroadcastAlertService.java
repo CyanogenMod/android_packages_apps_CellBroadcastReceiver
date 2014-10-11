@@ -34,7 +34,10 @@ import android.telephony.CellBroadcastMessage;
 import android.telephony.SmsCbCmasInfo;
 import android.telephony.SmsCbLocation;
 import android.telephony.SmsCbMessage;
+import android.telephony.SubscriptionManager;
 import android.util.Log;
+
+import com.android.internal.telephony.PhoneConstants;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -145,6 +148,11 @@ public class CellBroadcastAlertService extends Service {
         }
 
         final CellBroadcastMessage cbm = new CellBroadcastMessage(message);
+        long defaultSubId = SubscriptionManager.getDefaultSmsSubId();
+        int phoneId = intent.getIntExtra(PhoneConstants.PHONE_KEY,
+                SubscriptionManager.getPhoneId(defaultSubId));
+        long [] subId = SubscriptionManager.getSubId(phoneId);
+        cbm.setSubId(subId[0]);
         if (!isMessageEnabledByUser(cbm)) {
             Log.d(TAG, "ignoring alert of type " + cbm.getServiceCategory() +
                     " by user preference");
