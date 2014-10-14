@@ -15,7 +15,7 @@
      limitations under the License.
 -->
 <resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-  <string name="category_india_settings_title">Nustatymai Indijai</string>
-  <string name="enable_channel_60_alerts_title">Rodyti 60 kanalo transliacijas</string>
-  <string name="enable_channel_60_alerts_summary">Indijoje 60 kanalas naudojamas konkrečiai operatorius informacijai</string>
+  <string name="category_india_settings_title">הגדרות עבור הודו</string>
+  <string name="enable_channel_60_alerts_title">הצג את שידורי ערוץ 60</string>
+  <string name="enable_channel_60_alerts_summary">ערוץ 60 משמש בהודו בשביל לקבל מידע ספציפי מהמפעיל שלך</string>
 </resources>
