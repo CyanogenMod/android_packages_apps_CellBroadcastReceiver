@@ -36,7 +36,7 @@
         android:layout_alignWithParentIfMissing="true"
         android:layout_toStartOf="@+id/date"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textColor="#DD000000"
+        android:textColor="?android:attr/textColorPrimary"
         android:singleLine="true"
         android:ellipsize="marquee"
         />

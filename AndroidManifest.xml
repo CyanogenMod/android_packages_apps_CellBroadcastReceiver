@@ -51,6 +51,7 @@
 
         <activity android:name="CellBroadcastListActivity"
                   android:label="@string/app_label"
+                  android:theme="@android:style/Theme.Material.Light"
                   android:configChanges="orientation|keyboardHidden"
                   android:launchMode="singleTask">
             <intent-filter>
