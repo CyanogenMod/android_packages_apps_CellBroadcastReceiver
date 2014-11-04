@@ -30,7 +30,7 @@ import android.os.SystemClock;
 import android.preference.PreferenceManager;
 import android.telephony.SubscriptionManager;
 import android.util.Log;
-
+import android.media.AudioManager;
 import static com.android.cellbroadcastreceiver.CellBroadcastReceiver.DBG;
 import com.android.internal.telephony.PhoneConstants;
 
@@ -87,12 +87,14 @@ public class CellBroadcastAlertReminder extends Service {
      */
     private void playAlertReminderSound() {
         Uri notificationUri = RingtoneManager.getDefaultUri(
-                RingtoneManager.TYPE_NOTIFICATION | RingtoneManager.TYPE_ALARM);
+                RingtoneManager.TYPE_NOTIFICATION);
         if (notificationUri == null) {
             loge("Can't get URI for alert reminder sound");
             return;
         }
         Ringtone r = RingtoneManager.getRingtone(this, notificationUri);
+        r.setStreamType(AudioManager.STREAM_NOTIFICATION);
+
         if (r != null) {
             log("playing alert reminder sound");
             r.play();
