@@ -121,9 +121,10 @@ public class CellBroadcastReceiver extends BroadcastReceiver {
             }
         } else if (GET_LATEST_CB_AREA_INFO_ACTION.equals(action)) {
             if (privileged) {
-                int phoneId = intent.getIntExtra(PhoneConstants.SLOT_KEY,
+                int phoneId = intent.getIntExtra(PhoneConstants.PHONE_KEY,
                         SubscriptionManager.getPhoneId(
                         SubscriptionManager.getDefaultSmsSubId()));
+                Log.d(TAG, "onReceive GET_LATEST_CB_AREA_INFO_ACTION phoneId :" + phoneId);
                 CellBroadcastMessage message = CellBroadcastReceiverApp.getLatestAreaInfo(phoneId);
                 if (message != null) {
                     Intent areaInfoIntent = new Intent(
