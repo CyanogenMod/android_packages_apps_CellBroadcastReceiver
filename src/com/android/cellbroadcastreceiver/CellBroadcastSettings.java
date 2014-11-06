@@ -125,9 +125,12 @@ public class CellBroadcastSettings extends PreferenceActivity {
             actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
             actionBar.setDisplayShowTitleEnabled(true);
             for (int i = 0; i < MSimTelephonyManager.getDefault().getPhoneCount(); i++) {
-                actionBar.addTab(actionBar.newTab().setText(subTag+(i+1)).setTabListener(
-                        new MySubTabListener(new CellBroadcastSettingsFragment(),
-                        subTag+(i+1), i)));
+                actionBar.addTab(actionBar.newTab()
+                        .setText(MSimTelephonyManager.getFormattedSimName(this, i))
+                        .setTabListener(new MySubTabListener(
+                                new CellBroadcastSettingsFragment(), subTag + (i + 1), i)
+                        )
+                );
             }
         } else {
             // Display the fragment as the main content.
