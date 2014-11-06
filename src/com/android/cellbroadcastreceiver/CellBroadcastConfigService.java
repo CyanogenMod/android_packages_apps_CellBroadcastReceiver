@@ -314,8 +314,9 @@ public class CellBroadcastConfigService extends IntentService {
                     manager.disableCellBroadcast(SmsCbConstants.MESSAGE_ID_ETWS_TEST_MESSAGE);
                 }
                 if (!enableCmasExtremeAlerts) {
-                    if (DBG) Log.d(TAG, "disabling cell broadcast CMAS extreme");
-                    manager.disableCellBroadcastRange(cmasExtremeStart, cmasExtremeEnd);
+                    // Unregister Severe alerts also, if Extreme alerts are disabled
+                    if (DBG) Log.d(TAG, "disabling cell broadcast CMAS extreme and severe");
+                    manager.disableCellBroadcastRange(cmasExtremeStart, cmasSevereEnd);
                 }
                 if (!enableCmasSevereAlerts) {
                     if (DBG) Log.d(TAG, "disabling cell broadcast CMAS severe");

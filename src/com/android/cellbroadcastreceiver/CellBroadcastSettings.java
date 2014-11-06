@@ -27,6 +27,7 @@ import android.content.res.Resources;
 import android.os.Bundle;
 import android.preference.CheckBoxPreference;
 import android.os.UserManager;
+import android.preference.CheckBoxPreference;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
@@ -239,6 +240,20 @@ public class CellBroadcastSettings extends PreferenceActivity {
                     new Preference.OnPreferenceChangeListener() {
                 @Override
                 public boolean onPreferenceChange(Preference pref, Object newValue) {
+
+                    boolean isExtreme =
+                        (pref.getKey()).equals(KEY_ENABLE_CMAS_EXTREME_THREAT_ALERTS);
+                    if (isExtreme) {
+                        boolean isExtremeAlertChecked =
+                            ((Boolean) newValue).booleanValue();
+                        CheckBoxPreference severeCheckBox = (CheckBoxPreference)
+                            findPreference(KEY_ENABLE_CMAS_SEVERE_THREAT_ALERTS);
+                        if (severeCheckBox != null) {
+                            severeCheckBox.setEnabled(isExtremeAlertChecked);
+                            severeCheckBox.setChecked(false);
+                        }
+                    }
+
                     String value = String.valueOf(newValue);
                     SharedPreferences.Editor editor = prefs.edit();
 
@@ -363,6 +378,11 @@ public class CellBroadcastSettings extends PreferenceActivity {
             }
             if (enableCmasSevereAlerts != null) {
                 enableCmasSevereAlerts.setOnPreferenceChangeListener(startConfigServiceListener);
+                if (enableCmasExtremeAlerts != null) {
+                    boolean isExtremeAlertChecked =
+                            ((CheckBoxPreference)enableCmasExtremeAlerts).isChecked();
+                    enableCmasSevereAlerts.setEnabled(isExtremeAlertChecked);
+                }
             }
             if (enableCmasAmberAlerts != null) {
                 enableCmasAmberAlerts.setOnPreferenceChangeListener(startConfigServiceListener);
