@@ -51,7 +51,7 @@
   <string name="enable_alert_speech_title">Warnmessage virliesen</string>
   <string name="enable_alert_speech_summary">Text-zu-Sprooch benotze fir Noutfallwarnunge virzeliesen</string>
   <string name="category_etws_settings_title">ETWS-Astellungen</string>
-  <string name="enable_etws_test_alerts_title">ETWS-Testiwwerddroungen uweisen</string>
+  <string name="enable_etws_test_alerts_title">ETWS-Testiwwerdroungen uweisen</string>
   <string name="enable_etws_test_alerts_summary">Test-Iwwerdrounge benotze fir den Äerdbiewen- an Tsunami-Warnsystem</string>
   <string name="enable_cmas_extreme_threat_alerts_title">Eescht Geforen uweisen</string>
   <string name="enable_cmas_extreme_threat_alerts_summary">Warnungen zu eeschte Gefore fir Liewen an Eegentum uweisen</string>
