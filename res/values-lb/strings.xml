@@ -119,10 +119,4 @@
     <item>All 15 Minutten</item>
     <item>Aus</item>
   </string-array>
-  <string-array name="alert_reminder_interval_values">
-    <item>1</item>
-    <item>2</item>
-    <item>15</item>
-    <item>0</item>
-  </string-array>
 </resources>
