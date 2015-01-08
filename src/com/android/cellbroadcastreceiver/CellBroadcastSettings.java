@@ -35,9 +35,12 @@ import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 import android.preference.PreferenceScreen;
 import android.provider.Settings;
+import android.telephony.SubInfoRecord;
 import android.telephony.SubscriptionManager;
 import android.telephony.TelephonyManager;
 import android.util.Log;
+
+import java.util.List;
 
 /**
  * Settings activity for the cell broadcast receiver.
@@ -103,8 +106,6 @@ public class CellBroadcastSettings extends PreferenceActivity {
     // Default reminder interval is off.
     public static final String ALERT_REMINDER_INTERVAL_DEFAULT_DURATION = "0";
 
-    public static String subTag = "SUB";
-
     public static int sPhoneId;
 
     @Override
@@ -116,14 +117,25 @@ public class CellBroadcastSettings extends PreferenceActivity {
             actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
             actionBar.setDisplayShowTitleEnabled(true);
             for (int i = 0; i < TelephonyManager.getDefault().getPhoneCount(); i++) {
-                actionBar.addTab(actionBar.newTab().setText(subTag+(i+1)).setTabListener(
+                String title = getTitleBySlotId(i);
+                actionBar.addTab(actionBar.newTab().setText(title).setTabListener(
                         new SubTabListener(new CellBroadcastSettingsFragment(),
-                        subTag + (i+1), i)));
+                        title, i)));
             }
         } else {
             // Display the fragment as the main content.
             getFragmentManager().beginTransaction().replace(android.R.id.content,
                     new CellBroadcastSettingsFragment()).commit();
+        }
+    }
+
+    private String getTitleBySlotId(int slotId) {
+        List<SubInfoRecord> sir =
+                SubscriptionManager.getSubInfoUsingSlotId(slotId);
+        if (sir != null && sir.size() > 0) {
+            return sir.get(0).displayName;
+        } else {
+            return getResources().getString(R.string.sim_card_number_title, slotId+1);
         }
     }
 
