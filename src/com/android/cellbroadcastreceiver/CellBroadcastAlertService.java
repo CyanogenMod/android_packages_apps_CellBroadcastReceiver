@@ -159,10 +159,10 @@ public class CellBroadcastAlertService extends Service {
         }
 
         final CellBroadcastMessage cbm = new CellBroadcastMessage(message);
-        long defaultSubId = SubscriptionManager.getDefaultSmsSubId();
+        int defaultSubId = SubscriptionManager.getDefaultSmsSubId();
         int phoneId = intent.getIntExtra(PhoneConstants.PHONE_KEY,
                 SubscriptionManager.getPhoneId(defaultSubId));
-        long [] subId = SubscriptionManager.getSubId(phoneId);
+        int [] subId = SubscriptionManager.getSubId(phoneId);
         cbm.setSubId(subId[0]);
         if (!isMessageEnabledByUser(cbm)) {
             Log.d(TAG, "ignoring alert of type " + cbm.getServiceCategory() +

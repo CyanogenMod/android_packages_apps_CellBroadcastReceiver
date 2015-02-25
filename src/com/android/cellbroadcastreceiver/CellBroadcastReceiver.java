@@ -224,7 +224,7 @@ public class CellBroadcastReceiver extends BroadcastReceiver {
     /**
      * @return true if the phone is a CDMA phone type
      */
-    static boolean phoneIsCdma(long subId) {
+    static boolean phoneIsCdma(int subId) {
         boolean isCdma = false;
         try {
             ITelephony phone = ITelephony.Stub.asInterface(ServiceManager.checkService("phone"));

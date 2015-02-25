@@ -149,7 +149,7 @@ public class CellBroadcastConfigService extends IntentService {
         if (ACTION_ENABLE_CHANNELS.equals(intent.getAction())) {
             int phoneId = intent.getIntExtra(PhoneConstants.SLOT_KEY,
                  SubscriptionManager.getPhoneId(SubscriptionManager.getDefaultSmsSubId()));
-            long[] subId = SubscriptionManager.getSubId(phoneId);
+            int[] subId = SubscriptionManager.getSubId(phoneId);
             try {
                 SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
                 Resources res = getResources();
@@ -205,7 +205,7 @@ public class CellBroadcastConfigService extends IntentService {
                 // set to CDMA broadcast ID rage if phone is in CDMA mode.
                 boolean isCdma = CellBroadcastReceiver.phoneIsCdma(subId[0]);
 
-                SmsManager manager = SmsManager.getSmsManagerForSubscriber(subId[0]);
+                SmsManager manager = SmsManager.getSmsManagerForSubscriptionId(subId[0]);
                 // Check for system property defining the emergency channel ranges to enable
                 String emergencyIdRange = isCdma ?
                         "" : SystemProperties.get(EMERGENCY_BROADCAST_RANGE_GSM);
