@@ -21,11 +21,13 @@ import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
+import android.app.ActivityManagerNative;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.IBinder;
+import android.os.RemoteException;
 import android.os.UserHandle;
 import android.os.SystemProperties;
 import android.preference.PreferenceManager;
@@ -126,7 +128,16 @@ public class CellBroadcastAlertService extends Service {
                 Telephony.Sms.Intents.SMS_CB_RECEIVED_ACTION.equals(action)) {
             handleCellBroadcastIntent(intent);
         } else if (SHOW_NEW_ALERT_ACTION.equals(action)) {
-            showNewAlert(intent);
+            try {
+                if (UserHandle.myUserId() ==
+                        ActivityManagerNative.getDefault().getCurrentUser().id) {
+                    showNewAlert(intent);
+                } else {
+                    Log.d(TAG,"Not active user, ignore the alert display");
+                }
+            } catch (RemoteException e) {
+                e.printStackTrace();
+            }
         } else {
             Log.e(TAG, "Unrecognized intent action: " + action);
         }
@@ -148,10 +159,10 @@ public class CellBroadcastAlertService extends Service {
         }
 
         final CellBroadcastMessage cbm = new CellBroadcastMessage(message);
-        long defaultSubId = SubscriptionManager.getDefaultSmsSubId();
+        int defaultSubId = SubscriptionManager.getDefaultSmsSubId();
         int phoneId = intent.getIntExtra(PhoneConstants.PHONE_KEY,
                 SubscriptionManager.getPhoneId(defaultSubId));
-        long [] subId = SubscriptionManager.getSubId(phoneId);
+        int [] subId = SubscriptionManager.getSubId(phoneId);
         cbm.setSubId(subId[0]);
         if (!isMessageEnabledByUser(cbm)) {
             Log.d(TAG, "ignoring alert of type " + cbm.getServiceCategory() +
