@@ -36,7 +36,7 @@ import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 import android.preference.PreferenceScreen;
 import android.provider.Settings;
-import android.telephony.SubInfoRecord;
+import android.telephony.SubscriptionInfo;
 import android.telephony.SubscriptionManager;
 import android.telephony.TelephonyManager;
 import android.util.Log;
@@ -135,10 +135,10 @@ public class CellBroadcastSettings extends PreferenceActivity {
     }
 
     private String getTitleBySlotId(int slotId) {
-        List<SubInfoRecord> sir =
-                SubscriptionManager.getSubInfoUsingSlotId(slotId);
-        if (sir != null && sir.size() > 0) {
-            return sir.get(0).displayName;
+        SubscriptionInfo sir = SubscriptionManager.from(this)
+                .getActiveSubscriptionInfoForSimSlotIndex(slotId);
+        if (sir != null) {
+            return sir.getDisplayName().toString();
         } else {
             return getResources().getString(R.string.sim_card_number_title, slotId+1);
         }
