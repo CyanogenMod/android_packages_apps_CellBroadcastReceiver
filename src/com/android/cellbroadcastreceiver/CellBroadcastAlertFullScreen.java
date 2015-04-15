@@ -223,9 +223,8 @@ public class CellBroadcastAlertFullScreen extends Activity {
 
     /** Returns the currently displayed message. */
     CellBroadcastMessage getLatestMessage() {
-        int index = mMessageList.size() - 1;
-        if (index >= 0) {
-            return mMessageList.get(index);
+        if (mMessageList.size() > 0) {
+            return mMessageList.get(0);
         } else {
             return null;
         }
@@ -233,9 +232,8 @@ public class CellBroadcastAlertFullScreen extends Activity {
 
     /** Removes and returns the currently displayed message. */
     private CellBroadcastMessage removeLatestMessage() {
-        int index = mMessageList.size() - 1;
-        if (index >= 0) {
-            return mMessageList.remove(index);
+        if (mMessageList.size() > 0) {
+            return mMessageList.remove(0);
         } else {
             return null;
         }
