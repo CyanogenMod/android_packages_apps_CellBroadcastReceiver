@@ -68,7 +68,7 @@
     <string name="category_brazil_settings_title" msgid="6343130548572319922">"Braziliya uchun sozlamalar"</string>
     <string name="enable_channel_50_alerts_title" msgid="2818924064446974167">"50-kanal xabar-ni ko‘rsatish"</string>
     <string name="enable_channel_50_alerts_summary" msgid="7507770011325273009">"Braziliyada hududlarga oid favqulodda ogohlantirishlarni tarqatish uchun 50-kanaldan foydalaniladi"</string>
-    <string name="category_dev_settings_title" msgid="6194393458398329994">"Dasturchi sozlamalari"</string>
+    <string name="category_dev_settings_title" msgid="6194393458398329994">"Dasturchilar uchun"</string>
     <string name="cmas_category_heading" msgid="3923503130776640717">"Ogohlantirish toifasi:"</string>
     <string name="cmas_category_geo" msgid="4979494217069688527">"Zilzila"</string>
     <string name="cmas_category_met" msgid="7563732573851773537">"Ob-havo"</string>
@@ -90,7 +90,7 @@
     <string name="cmas_response_monitor" msgid="681400164440495749">"Nazorat qilish"</string>
     <string name="cmas_response_avoid" msgid="156419597612629270">"Qochib qutulish"</string>
     <string name="cmas_response_assess" msgid="9043534222710563415">"Baholash"</string>
-    <string name="cmas_response_none" msgid="5149009359674452959">"Hech biri"</string>
+    <string name="cmas_response_none" msgid="5149009359674452959">"Hech narsa qilinmasin"</string>
     <string name="cmas_severity_heading" msgid="8437057117822305243">"Jiddiylik darajasi:"</string>
     <string name="cmas_severity_extreme" msgid="1312013282860183082">"Keskin"</string>
     <string name="cmas_severity_severe" msgid="7504359209737074524">"Yuqori"</string>
