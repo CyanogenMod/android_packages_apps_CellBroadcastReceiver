@@ -83,6 +83,12 @@ public class CellBroadcastReceiver extends BroadcastReceiver {
                     startConfigService(context.getApplicationContext());
                 }
             }
+        } else if (Intent.ACTION_AIRPLANE_MODE_CHANGED.equals(action)) {
+            boolean airplaneModeOn = intent.getBooleanExtra("state", false);
+            if (DBG) log("airplaneModeOn: " + airplaneModeOn);
+            if (!airplaneModeOn) {
+                startConfigService(context.getApplicationContext());
+            }
         } else if (Telephony.Sms.Intents.SMS_EMERGENCY_CB_RECEIVED_ACTION.equals(action) ||
                 Telephony.Sms.Intents.SMS_CB_RECEIVED_ACTION.equals(action)) {
             // If 'privileged' is false, it means that the intent was delivered to the base
