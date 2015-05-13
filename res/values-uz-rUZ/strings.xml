@@ -68,7 +68,7 @@
     <string name="category_brazil_settings_title" msgid="6343130548572319922">"Braziliya uchun sozlamalar"</string>
     <string name="enable_channel_50_alerts_title" msgid="2818924064446974167">"50-kanal xabar-ni ko‘rsatish"</string>
     <string name="enable_channel_50_alerts_summary" msgid="7507770011325273009">"Braziliyada hududlarga oid favqulodda ogohlantirishlarni tarqatish uchun 50-kanaldan foydalaniladi"</string>
-    <string name="category_dev_settings_title" msgid="6194393458398329994">"Dasturchilar uchun"</string>
+    <string name="category_dev_settings_title" msgid="6194393458398329994">"Dasturchi sozlamalari"</string>
     <string name="cmas_category_heading" msgid="3923503130776640717">"Ogohlantirish toifasi:"</string>
     <string name="cmas_category_geo" msgid="4979494217069688527">"Zilzila"</string>
     <string name="cmas_category_met" msgid="7563732573851773537">"Ob-havo"</string>
