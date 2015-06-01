@@ -28,11 +28,9 @@ import android.net.Uri;
 import android.os.IBinder;
 import android.os.SystemClock;
 import android.preference.PreferenceManager;
-import android.telephony.SubscriptionManager;
 import android.util.Log;
 import android.media.AudioManager;
 import static com.android.cellbroadcastreceiver.CellBroadcastReceiver.DBG;
-import com.android.internal.telephony.PhoneConstants;
 
 /**
  * Manages alert reminder notification.
@@ -70,10 +68,7 @@ public class CellBroadcastAlertReminder extends Service {
         log("playing alert reminder");
         playAlertReminderSound();
 
-        int phoneId = intent.getIntExtra(PhoneConstants.SLOT_KEY,
-                SubscriptionManager.getPhoneId(SubscriptionManager.getDefaultSmsSubId()));
-
-        if (queueAlertReminder(this, false, phoneId)) {
+        if (queueAlertReminder(this, false)) {
             return START_STICKY;
         } else {
             log("no reminders queued");
@@ -107,13 +102,12 @@ public class CellBroadcastAlertReminder extends Service {
      * Helper method to start the alert reminder service to queue the alert reminder.
      * @return true if a pending reminder was set; false if there are no more reminders
      */
-    static boolean queueAlertReminder(Context context, boolean firstTime, int phoneId) {
+    static boolean queueAlertReminder(Context context, boolean firstTime) {
         // Stop any alert reminder sound and cancel any previously queued reminders.
         cancelAlertReminder();
 
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
-        String prefStr = prefs.getString(CellBroadcastSettings.KEY_ALERT_REMINDER_INTERVAL +
-                phoneId, null);
+        String prefStr = prefs.getString(CellBroadcastSettings.KEY_ALERT_REMINDER_INTERVAL, null);
 
         if (prefStr == null) {
             if (DBG) log("no preference value for alert reminder");
@@ -139,7 +133,6 @@ public class CellBroadcastAlertReminder extends Service {
 
         Intent playIntent = new Intent(context, CellBroadcastAlertReminder.class);
         playIntent.setAction(ACTION_PLAY_ALERT_REMINDER);
-        playIntent.putExtra(PhoneConstants.SLOT_KEY, phoneId);
         sPlayReminderIntent = PendingIntent.getService(context, 0, playIntent,
                 PendingIntent.FLAG_UPDATE_CURRENT);
 
