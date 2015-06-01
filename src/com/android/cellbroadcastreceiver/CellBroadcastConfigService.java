@@ -59,8 +59,7 @@ public class CellBroadcastConfigService extends IntentService {
         super(TAG);          // use class name for worker thread name
     }
 
-    private static void setChannelRange(SmsManager manager, String ranges, boolean enable,
-            long subId) {
+    private static void setChannelRange(SmsManager manager, String ranges, boolean enable) {
         if (DBG)log("setChannelRange: " + ranges);
 
         try {
@@ -115,7 +114,7 @@ public class CellBroadcastConfigService extends IntentService {
         }
 
         // Check for system property defining the emergency channel ranges to enable
-        String emergencyIdRange = (CellBroadcastReceiver.phoneIsCdma(message.getSubId())) ?
+        String emergencyIdRange = CellBroadcastReceiver.phoneIsCdma() ?
                 "" : SystemProperties.get(EMERGENCY_BROADCAST_RANGE_GSM);
 
         if (TextUtils.isEmpty(emergencyIdRange)) {
@@ -147,9 +146,8 @@ public class CellBroadcastConfigService extends IntentService {
     @Override
     protected void onHandleIntent(Intent intent) {
         if (ACTION_ENABLE_CHANNELS.equals(intent.getAction())) {
-            int phoneId = intent.getIntExtra(PhoneConstants.SLOT_KEY,
-                 SubscriptionManager.getPhoneId(SubscriptionManager.getDefaultSmsSubId()));
-            int[] subId = SubscriptionManager.getSubId(phoneId);
+            int subId = intent.getIntExtra(PhoneConstants.SUBSCRIPTION_KEY,
+                    SubscriptionManager.getDefaultSmsSubId());
             try {
                 SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
                 Resources res = getResources();
@@ -159,7 +157,7 @@ public class CellBroadcastConfigService extends IntentService {
                 // except for cmas presidential. i.e. to receive cmas severe alerts, both
                 // enableEmergencyAlerts AND enableCmasSevereAlerts must be true.
                 boolean enableEmergencyAlerts = prefs.getBoolean(
-                        CellBroadcastSettings.KEY_ENABLE_EMERGENCY_ALERTS + phoneId, true);
+                        CellBroadcastSettings.KEY_ENABLE_EMERGENCY_ALERTS, true);
 
                 TelephonyManager tm = (TelephonyManager) getSystemService(
                         Context.TELEPHONY_SERVICE);
@@ -168,26 +166,23 @@ public class CellBroadcastConfigService extends IntentService {
                         "br".equals(tm.getSimCountryIso());
 
                 boolean enableChannel50Alerts = enableChannel50Support &&
-                        prefs.getBoolean(CellBroadcastSettings.KEY_ENABLE_CHANNEL_50_ALERTS
-                        + phoneId, true);
+                        prefs.getBoolean(CellBroadcastSettings.KEY_ENABLE_CHANNEL_50_ALERTS, true);
 
                 // Note:  ETWS is for 3GPP only
                 boolean enableEtwsTestAlerts = prefs.getBoolean(
-                        CellBroadcastSettings.KEY_ENABLE_ETWS_TEST_ALERTS + phoneId, false);
+                        CellBroadcastSettings.KEY_ENABLE_ETWS_TEST_ALERTS, false);
 
                 boolean enableCmasExtremeAlerts = prefs.getBoolean(
-                        CellBroadcastSettings.KEY_ENABLE_CMAS_EXTREME_THREAT_ALERTS
-                        + phoneId, true);
+                        CellBroadcastSettings.KEY_ENABLE_CMAS_EXTREME_THREAT_ALERTS, true);
 
                 boolean enableCmasSevereAlerts = prefs.getBoolean(
-                        CellBroadcastSettings.KEY_ENABLE_CMAS_SEVERE_THREAT_ALERTS
-                        + phoneId, true);
+                        CellBroadcastSettings.KEY_ENABLE_CMAS_SEVERE_THREAT_ALERTS, true);
 
                 boolean enableCmasAmberAlerts = prefs.getBoolean(
-                        CellBroadcastSettings.KEY_ENABLE_CMAS_AMBER_ALERTS + phoneId, true);
+                        CellBroadcastSettings.KEY_ENABLE_CMAS_AMBER_ALERTS, true);
 
                 boolean enableCmasTestAlerts = prefs.getBoolean(
-                        CellBroadcastSettings.KEY_ENABLE_CMAS_TEST_ALERTS + phoneId, false);
+                        CellBroadcastSettings.KEY_ENABLE_CMAS_TEST_ALERTS, false);
 
                 // set up broadcast ID ranges to be used for each category
                 int cmasExtremeStart =
@@ -203,16 +198,16 @@ public class CellBroadcastConfigService extends IntentService {
                 int cmasTaiwanPWS = SmsCbConstants.MESSAGE_ID_CMAS_ALERT_PRESIDENTIAL_LEVEL_LANGUAGE;
 
                 // set to CDMA broadcast ID rage if phone is in CDMA mode.
-                boolean isCdma = CellBroadcastReceiver.phoneIsCdma(subId[0]);
+                boolean isCdma = CellBroadcastReceiver.phoneIsCdma();
 
-                SmsManager manager = SmsManager.getSmsManagerForSubscriptionId(subId[0]);
+                SmsManager manager = SmsManager.getSmsManagerForSubscriptionId(subId);
                 // Check for system property defining the emergency channel ranges to enable
                 String emergencyIdRange = isCdma ?
                         "" : SystemProperties.get(EMERGENCY_BROADCAST_RANGE_GSM);
                 if (enableEmergencyAlerts) {
                     if (DBG) log("enabling emergency cell broadcast channels");
                     if (!TextUtils.isEmpty(emergencyIdRange)) {
-                        setChannelRange(manager, emergencyIdRange, true, subId[0]);
+                        setChannelRange(manager, emergencyIdRange, true);
                     } else {
                         // No emergency channel system property, enable all emergency channels
                         // that have checkbox checked
@@ -274,7 +269,7 @@ public class CellBroadcastConfigService extends IntentService {
                     // we may have enabled these channels previously, so try to disable them
                     if (DBG) log("disabling emergency cell broadcast channels");
                     if (!TextUtils.isEmpty(emergencyIdRange)) {
-                        setChannelRange(manager, emergencyIdRange, false, subId[0]);
+                        setChannelRange(manager, emergencyIdRange, false);
                     } else {
                         // No emergency channel system property, disable all emergency channels
                         // except for CMAS Presidential (See 3GPP TS 22.268 Section 6.2)

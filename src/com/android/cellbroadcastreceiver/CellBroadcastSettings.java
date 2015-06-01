@@ -19,13 +19,9 @@
 package com.android.cellbroadcastreceiver;
 
 import android.app.ActionBar;
-import android.app.ActionBar.Tab;
-import android.app.FragmentTransaction;
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.os.Bundle;
-import android.preference.CheckBoxPreference;
 import android.os.UserManager;
 import android.preference.CheckBoxPreference;
 import android.preference.ListPreference;
@@ -33,13 +29,11 @@ import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceCategory;
 import android.preference.PreferenceFragment;
-import android.preference.PreferenceManager;
 import android.preference.PreferenceScreen;
 import android.provider.Settings;
 import android.telephony.SubscriptionInfo;
 import android.telephony.SubscriptionManager;
 import android.telephony.TelephonyManager;
-import android.util.Log;
 import android.view.MenuItem;
 
 import java.util.List;
@@ -48,9 +42,6 @@ import java.util.List;
  * Settings activity for the cell broadcast receiver.
  */
 public class CellBroadcastSettings extends PreferenceActivity {
-
-    public static final String TAG = "CellBroadcastSettings";
-
     // Preference key for whether to enable emergency notifications (default enabled).
     public static final String KEY_ENABLE_EMERGENCY_ALERTS = "enable_emergency_alerts";
 
@@ -108,8 +99,6 @@ public class CellBroadcastSettings extends PreferenceActivity {
     // Default reminder interval is off.
     public static final String ALERT_REMINDER_INTERVAL_DEFAULT_DURATION = "0";
 
-    public static int sPhoneId;
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -117,63 +106,15 @@ public class CellBroadcastSettings extends PreferenceActivity {
         final ActionBar actionBar = getActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
 
-        sPhoneId = SubscriptionManager.getPhoneId(SubscriptionManager.getDefaultSmsSubId());
-        if (TelephonyManager.getDefault().getPhoneCount() > 1) {
-            actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
-            actionBar.setDisplayShowTitleEnabled(true);
-            for (int i = 0; i < TelephonyManager.getDefault().getPhoneCount(); i++) {
-                String title = getTitleBySlotId(i);
-                actionBar.addTab(actionBar.newTab().setText(title).setTabListener(
-                        new SubTabListener(new CellBroadcastSettingsFragment(),
-                        title, i)));
-            }
-        } else {
-            // Display the fragment as the main content.
-            getFragmentManager().beginTransaction().replace(android.R.id.content,
-                    new CellBroadcastSettingsFragment()).commit();
-        }
-    }
-
-    private String getTitleBySlotId(int slotId) {
-        SubscriptionInfo sir = SubscriptionManager.from(this)
-                .getActiveSubscriptionInfoForSimSlotIndex(slotId);
-        if (sir != null) {
-            return sir.getDisplayName().toString();
-        } else {
-            return getResources().getString(R.string.sim_card_number_title, slotId+1);
-        }
-    }
-
-    private class SubTabListener implements ActionBar.TabListener {
-
-        private CellBroadcastSettingsFragment mFragment;
-        private String tag;
-        private int phoneId;
-
-        public SubTabListener(CellBroadcastSettingsFragment cbFragment, String tag,
-                int phoneId) {
-            this.mFragment = cbFragment;
-            this.tag = tag;
-            this.phoneId = phoneId;
+        UserManager userManager = (UserManager) getSystemService(Context.USER_SERVICE);
+        if (userManager.hasUserRestriction(UserManager.DISALLOW_CONFIG_CELL_BROADCASTS)) {
+            setContentView(R.layout.cell_broadcast_disallowed_preference_screen);
+            return;
         }
 
-        @Override
-        public void onTabSelected(Tab tab, FragmentTransaction ft) {
-            ft.add(android.R.id.content, mFragment, tag);
-            sPhoneId = phoneId;
-            Log.d(TAG, "onTabSelected  sPhoneId:" + sPhoneId);
-        }
-
-        @Override
-        public void onTabUnselected(Tab tab, FragmentTransaction ft) {
-            if (mFragment != null) {
-                ft.remove(mFragment);
-            }
-        }
-
-        @Override
-        public void onTabReselected(Tab tab, FragmentTransaction ft) {
-        }
+        // Display the fragment as the main content.
+        getFragmentManager().beginTransaction().replace(android.R.id.content,
+                new CellBroadcastSettingsFragment()).commit();
     }
 
     /**
@@ -185,71 +126,10 @@ public class CellBroadcastSettings extends PreferenceActivity {
         public void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
 
-            Log.d(TAG, "onCreate CellBroadcastSettingsFragment  sPhoneId :" + sPhoneId);
             // Load the preferences from an XML resource
             addPreferencesFromResource(R.xml.preferences);
 
-            final SharedPreferences prefs = PreferenceManager
-                    .getDefaultSharedPreferences(getActivity());
             PreferenceScreen preferenceScreen = getPreferenceScreen();
-            // Emergency alert preference category (general and CMAS preferences).
-            PreferenceCategory alertCategory =
-                    (PreferenceCategory) findPreference(KEY_CATEGORY_ALERT_SETTINGS);
-            final CheckBoxPreference enablePwsAlerts =
-                    (CheckBoxPreference) findPreference(KEY_ENABLE_EMERGENCY_ALERTS);
-            final ListPreference duration =
-                    (ListPreference) findPreference(KEY_ALERT_SOUND_DURATION);
-            final ListPreference interval =
-                    (ListPreference) findPreference(KEY_ALERT_REMINDER_INTERVAL);
-            final CheckBoxPreference enableChannel50Alerts =
-                    (CheckBoxPreference) findPreference(KEY_ENABLE_CHANNEL_50_ALERTS);
-            final CheckBoxPreference enableEtwsAlerts =
-                    (CheckBoxPreference) findPreference(KEY_ENABLE_ETWS_TEST_ALERTS);
-            final CheckBoxPreference enableCmasExtremeAlerts =
-                    (CheckBoxPreference) findPreference(KEY_ENABLE_CMAS_EXTREME_THREAT_ALERTS);
-            final CheckBoxPreference enableCmasSevereAlerts =
-                    (CheckBoxPreference) findPreference(KEY_ENABLE_CMAS_SEVERE_THREAT_ALERTS);
-            final CheckBoxPreference enableCmasAmberAlerts =
-                    (CheckBoxPreference) findPreference(KEY_ENABLE_CMAS_AMBER_ALERTS);
-            final CheckBoxPreference enableCmasTestAlerts =
-                    (CheckBoxPreference) findPreference(KEY_ENABLE_CMAS_TEST_ALERTS);
-            final CheckBoxPreference enableSpeakerAlerts =
-                    (CheckBoxPreference) findPreference(KEY_ENABLE_ALERT_SPEECH);
-            final CheckBoxPreference enableVibrateAlerts =
-                    (CheckBoxPreference) findPreference(KEY_ENABLE_ALERT_VIBRATE);
-
-            final int idx = interval.findIndexOfValue(
-                    (String)prefs.getString(KEY_ALERT_REMINDER_INTERVAL + sPhoneId,
-                    ALERT_REMINDER_INTERVAL_DEFAULT_DURATION));
-            interval.setSummary(interval.getEntries()[idx]);
-            interval.setValue(prefs.getString(KEY_ALERT_REMINDER_INTERVAL
-                    + sPhoneId, ALERT_REMINDER_INTERVAL_DEFAULT_DURATION));
-
-            final int index = duration.findIndexOfValue(
-                    (String)prefs.getString(KEY_ALERT_SOUND_DURATION + sPhoneId,
-                    ALERT_SOUND_DEFAULT_DURATION));
-            duration.setSummary(duration.getEntries()[index]);
-            duration.setValue(prefs.getString(KEY_ALERT_SOUND_DURATION
-                    + sPhoneId, ALERT_SOUND_DEFAULT_DURATION));
-
-            enablePwsAlerts.setChecked(prefs.getBoolean( KEY_ENABLE_EMERGENCY_ALERTS
-                    + sPhoneId, true));
-            enableChannel50Alerts.setChecked(prefs.getBoolean(
-                    KEY_ENABLE_CHANNEL_50_ALERTS + sPhoneId, true));
-            enableEtwsAlerts.setChecked(prefs.getBoolean(
-                    KEY_ENABLE_ETWS_TEST_ALERTS + sPhoneId, false));
-            enableCmasExtremeAlerts.setChecked(prefs.getBoolean(
-                    KEY_ENABLE_CMAS_EXTREME_THREAT_ALERTS + sPhoneId, true));
-            enableCmasSevereAlerts.setChecked(prefs.getBoolean(
-                    KEY_ENABLE_CMAS_SEVERE_THREAT_ALERTS + sPhoneId, true));
-            enableCmasAmberAlerts.setChecked(prefs.getBoolean(
-                    KEY_ENABLE_CMAS_AMBER_ALERTS + sPhoneId, true));
-            enableCmasTestAlerts.setChecked(prefs.getBoolean(
-                    KEY_ENABLE_CMAS_TEST_ALERTS + sPhoneId, false));
-            enableSpeakerAlerts.setChecked(prefs.getBoolean(
-                    KEY_ENABLE_ALERT_SPEECH + sPhoneId, true));
-            enableVibrateAlerts.setChecked(prefs.getBoolean(
-                    KEY_ENABLE_ALERT_VIBRATE + sPhoneId, true));
 
             // Handler for settings that require us to reconfigure enabled channels in radio
             Preference.OnPreferenceChangeListener startConfigServiceListener =
@@ -270,60 +150,7 @@ public class CellBroadcastSettings extends PreferenceActivity {
                         }
                     }
 
-                    String value = String.valueOf(newValue);
-                    SharedPreferences.Editor editor = prefs.edit();
-
-                    if (pref == enablePwsAlerts) {
-                        editor.putBoolean(KEY_ENABLE_EMERGENCY_ALERTS
-                                + sPhoneId, Boolean.valueOf((value)));
-                    } else if (pref == enableChannel50Alerts) {
-                        editor.putBoolean(KEY_ENABLE_CHANNEL_50_ALERTS
-                                + sPhoneId, Boolean.valueOf((value)));
-                    } else if (pref == enableEtwsAlerts) {
-                        editor.putBoolean(KEY_ENABLE_ETWS_TEST_ALERTS
-                                + sPhoneId, Boolean.valueOf((value)));
-                    } else if (pref == enableCmasExtremeAlerts) {
-                        editor.putBoolean(KEY_ENABLE_CMAS_EXTREME_THREAT_ALERTS
-                                + sPhoneId, Boolean.valueOf((value)));
-                    } else if (pref == enableCmasSevereAlerts) {
-                        editor.putBoolean(KEY_ENABLE_CMAS_SEVERE_THREAT_ALERTS
-                                + sPhoneId, Boolean.valueOf((value)));
-                    } else if (pref == enableCmasAmberAlerts) {
-                        editor.putBoolean(KEY_ENABLE_CMAS_AMBER_ALERTS
-                                + sPhoneId, Boolean.valueOf((value)));
-                    } else if (pref == enableCmasTestAlerts) {
-                        editor.putBoolean(KEY_ENABLE_CMAS_TEST_ALERTS
-                                + sPhoneId, Boolean.valueOf((value)));
-                    }
-                    editor.commit();
-                    CellBroadcastReceiver.startConfigService(pref.getContext(), sPhoneId);
-
-                    return true;
-                }
-            };
-
-            //Listener for non-radio functionality
-            Preference.OnPreferenceChangeListener startListener =
-                    new Preference.OnPreferenceChangeListener() {
-                @Override
-                public boolean onPreferenceChange(Preference pref, Object newValue) {
-                    String value = String.valueOf(newValue);
-                    SharedPreferences.Editor editor = prefs.edit();
-
-                    if (pref == enableSpeakerAlerts) {
-                        editor.putBoolean(KEY_ENABLE_ALERT_SPEECH
-                                + sPhoneId, Boolean.valueOf((value)));
-                    } else if (pref == enableVibrateAlerts) {
-                        editor.putBoolean(KEY_ENABLE_ALERT_VIBRATE
-                                + sPhoneId, Boolean.valueOf((value)));
-                    } else if (pref == interval) {
-                        final int idx = interval.findIndexOfValue((String) newValue);
-
-                        editor.putString(KEY_ALERT_REMINDER_INTERVAL  + sPhoneId,
-                                String.valueOf(newValue));
-                        interval.setSummary(interval.getEntries()[idx]);
-                    }
-                    editor.commit();
+                    CellBroadcastReceiver.startConfigService(pref.getContext());
                     return true;
                 }
             };
@@ -335,24 +162,17 @@ public class CellBroadcastSettings extends PreferenceActivity {
             Resources res = getResources();
             boolean showEtwsSettings = res.getBoolean(R.bool.show_etws_settings);
 
+            // Emergency alert preference category (general and CMAS preferences).
+            PreferenceCategory alertCategory = (PreferenceCategory)
+                    findPreference(KEY_CATEGORY_ALERT_SETTINGS);
+
             // Show alert settings and ETWS categories for ETWS builds and developer mode.
             if (enableDevSettings || showEtwsSettings) {
                 // enable/disable all alerts
+                Preference enablePwsAlerts = findPreference(KEY_ENABLE_EMERGENCY_ALERTS);
                 if (enablePwsAlerts != null) {
                     enablePwsAlerts.setOnPreferenceChangeListener(startConfigServiceListener);
                 }
-
-                // alert sound duration
-                duration.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
-                    @Override
-                    public boolean onPreferenceChange(Preference pref, Object newValue) {
-                        final int idx = duration.findIndexOfValue((String) newValue);
-                        duration.setSummary(duration.getEntries()[idx]);
-                        prefs.edit().putString(KEY_ALERT_SOUND_DURATION  + sPhoneId,
-                            String.valueOf(newValue)).commit();
-                        return true;
-                    }
-                });
             } else {
                 // Remove general emergency alert preference items (not shown for CMAS builds).
                 alertCategory.removePreference(findPreference(KEY_ENABLE_EMERGENCY_ALERTS));
@@ -383,15 +203,21 @@ public class CellBroadcastSettings extends PreferenceActivity {
             if (!enableDevSettings) {
                 preferenceScreen.removePreference(findPreference(KEY_CATEGORY_DEV_SETTINGS));
             }
+            Preference enableChannel50Alerts = findPreference(KEY_ENABLE_CHANNEL_50_ALERTS);
             if (enableChannel50Alerts != null) {
                 enableChannel50Alerts.setOnPreferenceChangeListener(startConfigServiceListener);
             }
+            Preference enableEtwsAlerts = findPreference(KEY_ENABLE_ETWS_TEST_ALERTS);
             if (enableEtwsAlerts != null) {
                 enableEtwsAlerts.setOnPreferenceChangeListener(startConfigServiceListener);
             }
+            Preference enableCmasExtremeAlerts =
+                    findPreference(KEY_ENABLE_CMAS_EXTREME_THREAT_ALERTS);
             if (enableCmasExtremeAlerts != null) {
                 enableCmasExtremeAlerts.setOnPreferenceChangeListener(startConfigServiceListener);
             }
+            Preference enableCmasSevereAlerts =
+                    findPreference(KEY_ENABLE_CMAS_SEVERE_THREAT_ALERTS);
             if (enableCmasSevereAlerts != null) {
                 enableCmasSevereAlerts.setOnPreferenceChangeListener(startConfigServiceListener);
                 if (enableCmasExtremeAlerts != null) {
@@ -400,21 +226,13 @@ public class CellBroadcastSettings extends PreferenceActivity {
                     enableCmasSevereAlerts.setEnabled(isExtremeAlertChecked);
                 }
             }
+            Preference enableCmasAmberAlerts = findPreference(KEY_ENABLE_CMAS_AMBER_ALERTS);
             if (enableCmasAmberAlerts != null) {
                 enableCmasAmberAlerts.setOnPreferenceChangeListener(startConfigServiceListener);
             }
+            Preference enableCmasTestAlerts = findPreference(KEY_ENABLE_CMAS_TEST_ALERTS);
             if (enableCmasTestAlerts != null) {
                 enableCmasTestAlerts.setOnPreferenceChangeListener(startConfigServiceListener);
-            }
-            //Setting the listerner for non-radio functionality
-            if (enableSpeakerAlerts != null) {
-                enableSpeakerAlerts.setOnPreferenceChangeListener(startListener);
-            }
-            if (enableVibrateAlerts != null) {
-                enableVibrateAlerts.setOnPreferenceChangeListener(startListener);
-            }
-            if (interval != null) {
-                interval.setOnPreferenceChangeListener(startListener);
             }
         }
     }

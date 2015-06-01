@@ -45,20 +45,6 @@ public class CellBroadcastReceiver extends BroadcastReceiver {
     private static final String GET_LATEST_CB_AREA_INFO_ACTION =
             "android.cellbroadcastreceiver.GET_LATEST_CB_AREA_INFO";
 
-    private static int mPhoneId = SubscriptionManager.getPhoneId(
-            SubscriptionManager.getDefaultSmsSubId());
-
-      // FIXME on latest AOSP refresh, google removed PhoneStateListener and
-      // listening for SERVICE STATE intent. Same way for MSIM also we need
-      // to listen for intent.
-      // private PhoneStateListener[] mPhoneStateListener;
-
-    private int mPhoneCount = 0;
-
-    private long[] mSubId;
-
-    private TelephonyManager mPhone;
-
     @Override
     public void onReceive(Context context, Intent intent) {
         onReceiveWithPrivilege(context, intent, false);
@@ -98,10 +84,6 @@ public class CellBroadcastReceiver extends BroadcastReceiver {
         } else if (Telephony.Sms.Intents.SMS_SERVICE_CATEGORY_PROGRAM_DATA_RECEIVED_ACTION
                 .equals(action)) {
             if (privileged) {
-                int phoneId = intent.getIntExtra(PhoneConstants.SLOT_KEY,
-                        SubscriptionManager.getPhoneId(
-                        SubscriptionManager.getDefaultSmsSubId()));
-                Log.d(TAG, "onReceive SMS_CATEGORY_PROGRAM_DATA phoneId :" + phoneId);
                 CdmaSmsCbProgramData[] programDataList = (CdmaSmsCbProgramData[])
                         intent.getParcelableArrayExtra("program_data_list");
                 if (programDataList != null) {
@@ -114,11 +96,7 @@ public class CellBroadcastReceiver extends BroadcastReceiver {
             }
         } else if (GET_LATEST_CB_AREA_INFO_ACTION.equals(action)) {
             if (privileged) {
-                int phoneId = intent.getIntExtra(PhoneConstants.PHONE_KEY,
-                        SubscriptionManager.getPhoneId(
-                        SubscriptionManager.getDefaultSmsSubId()));
-                Log.d(TAG, "onReceive GET_LATEST_CB_AREA_INFO_ACTION phoneId :" + phoneId);
-                CellBroadcastMessage message = CellBroadcastReceiverApp.getLatestAreaInfo(phoneId);
+                CellBroadcastMessage message = CellBroadcastReceiverApp.getLatestAreaInfo();
                 if (message != null) {
                     Intent areaInfoIntent = new Intent(
                             CellBroadcastAlertService.CB_AREA_INFO_RECEIVED_ACTION);
@@ -182,19 +160,19 @@ public class CellBroadcastReceiver extends BroadcastReceiver {
 
         switch (category) {
             case SmsEnvelope.SERVICE_CATEGORY_CMAS_EXTREME_THREAT:
-                key = CellBroadcastSettings.KEY_ENABLE_CMAS_EXTREME_THREAT_ALERTS + mPhoneId;
+                key = CellBroadcastSettings.KEY_ENABLE_CMAS_EXTREME_THREAT_ALERTS;
                 break;
 
             case SmsEnvelope.SERVICE_CATEGORY_CMAS_SEVERE_THREAT:
-                key = CellBroadcastSettings.KEY_ENABLE_CMAS_SEVERE_THREAT_ALERTS + mPhoneId;
+                key = CellBroadcastSettings.KEY_ENABLE_CMAS_SEVERE_THREAT_ALERTS;
                 break;
 
             case SmsEnvelope.SERVICE_CATEGORY_CMAS_CHILD_ABDUCTION_EMERGENCY:
-                key = CellBroadcastSettings.KEY_ENABLE_CMAS_AMBER_ALERTS + mPhoneId;
+                key = CellBroadcastSettings.KEY_ENABLE_CMAS_AMBER_ALERTS;
                 break;
 
             case SmsEnvelope.SERVICE_CATEGORY_CMAS_TEST_MESSAGE:
-                key = CellBroadcastSettings.KEY_ENABLE_CMAS_TEST_ALERTS + mPhoneId;
+                key = CellBroadcastSettings.KEY_ENABLE_CMAS_TEST_ALERTS;
                 break;
 
             default:
@@ -211,26 +189,21 @@ public class CellBroadcastReceiver extends BroadcastReceiver {
     static void startConfigService(Context context) {
         Intent serviceIntent = new Intent(CellBroadcastConfigService.ACTION_ENABLE_CHANNELS,
                 null, context, CellBroadcastConfigService.class);
-        context.startService(serviceIntent);
-    }
-
-    static void startConfigService(Context context, int phoneId) {
-        Intent serviceIntent = new Intent(CellBroadcastConfigService.ACTION_ENABLE_CHANNELS, null,
-                context, CellBroadcastConfigService.class);
-        serviceIntent.putExtra(PhoneConstants.SLOT_KEY, phoneId);
-        context.startService(serviceIntent);
+        for (int subId : SubscriptionManager.from(context).getActiveSubscriptionIdList()) {
+            serviceIntent.putExtra(PhoneConstants.SUBSCRIPTION_KEY, subId);
+            context.startService(serviceIntent);
+        }
     }
 
     /**
      * @return true if the phone is a CDMA phone type
      */
-    static boolean phoneIsCdma(int subId) {
+    static boolean phoneIsCdma() {
         boolean isCdma = false;
         try {
             ITelephony phone = ITelephony.Stub.asInterface(ServiceManager.checkService("phone"));
             if (phone != null) {
-                isCdma = (phone.getActivePhoneTypeForSubscriber(subId) ==
-                        TelephonyManager.PHONE_TYPE_CDMA);
+                isCdma = phone.getActivePhoneType() == TelephonyManager.PHONE_TYPE_CDMA;
             }
         } catch (RemoteException e) {
             Log.w(TAG, "phone.getActivePhoneType() failed", e);

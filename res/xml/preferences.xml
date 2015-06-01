@@ -50,6 +50,7 @@
                         android:entries="@array/alert_sound_duration_entries"
                         android:entryValues="@array/alert_sound_duration_values"
                         android:defaultValue="4"
+                        android:summary="%s"
                         android:dialogTitle="@string/alert_sound_duration_title" />
 
         <ListPreference android:key="alert_reminder_interval"
@@ -57,6 +58,7 @@
                         android:entries="@array/alert_reminder_interval_entries"
                         android:entryValues="@array/alert_reminder_interval_values"
                         android:defaultValue="0"
+                        android:summary="%s"
                         android:dialogTitle="@string/alert_reminder_interval_title" />
 
         <CheckBoxPreference android:defaultValue="true"
