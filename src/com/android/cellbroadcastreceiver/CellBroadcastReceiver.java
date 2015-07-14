@@ -99,6 +99,10 @@ public class CellBroadcastReceiver extends BroadcastReceiver {
                     Intent areaInfoIntent = new Intent(
                             CellBroadcastAlertService.CB_AREA_INFO_RECEIVED_ACTION);
                     areaInfoIntent.putExtra("message", message);
+                    // Send broadcast twice, once for apps that have PRIVILEGED permission and once
+                    // for those that have the runtime one
+                    context.sendBroadcastAsUser(areaInfoIntent, UserHandle.ALL,
+                            android.Manifest.permission.READ_PRIVILEGED_PHONE_STATE);
                     context.sendBroadcastAsUser(areaInfoIntent, UserHandle.ALL,
                             android.Manifest.permission.READ_PHONE_STATE);
                 }
