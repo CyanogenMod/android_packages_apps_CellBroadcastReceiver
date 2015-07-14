@@ -281,6 +281,10 @@ public class CellBroadcastAlertService extends Service {
             CellBroadcastReceiverApp.setLatestAreaInfo(message);
             Intent intent = new Intent(CB_AREA_INFO_RECEIVED_ACTION);
             intent.putExtra("message", message);
+            // Send broadcast twice, once for apps that have PRIVILEGED permission and once
+            // for those that have the runtime one
+            sendBroadcastAsUser(intent, UserHandle.ALL,
+                    android.Manifest.permission.READ_PRIVILEGED_PHONE_STATE);
             sendBroadcastAsUser(intent, UserHandle.ALL,
                     android.Manifest.permission.READ_PHONE_STATE);
             return false;   // area info broadcasts are displayed in Settings status screen
