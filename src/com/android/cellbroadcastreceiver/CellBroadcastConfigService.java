@@ -176,7 +176,13 @@ public class CellBroadcastConfigService extends IntentService {
                                 SubscriptionManager.CB_CHANNEL_50_ALERT, true, this);
 
                 // Note:  ETWS is for 3GPP only
-                boolean enableEtwsTestAlerts = SubscriptionManager.getBooleanSubscriptionProperty(
+
+                // Check if ETWS/CMAS test message is forced disabled on the device.
+                boolean forceDisableEtwsCmasTest =
+                        CellBroadcastSettings.isEtwsCmasTestMessageForcedDisabled(this, subId);
+
+                boolean enableEtwsTestAlerts = !forceDisableEtwsCmasTest &&
+                        SubscriptionManager.getBooleanSubscriptionProperty(
                         subId, SubscriptionManager.CB_ETWS_TEST_ALERT, false, this);
 
                 boolean enableCmasExtremeAlerts = SubscriptionManager
@@ -189,7 +195,8 @@ public class CellBroadcastConfigService extends IntentService {
                 boolean enableCmasAmberAlerts = SubscriptionManager.getBooleanSubscriptionProperty(
                         subId, SubscriptionManager.CB_AMBER_ALERT, true, this);
 
-                boolean enableCmasTestAlerts = SubscriptionManager.getBooleanSubscriptionProperty(
+                boolean enableCmasTestAlerts = !forceDisableEtwsCmasTest &&
+                        SubscriptionManager.getBooleanSubscriptionProperty(
                         subId, SubscriptionManager.CB_CMAS_TEST_ALERT, false, this);
 
                 // set up broadcast ID ranges to be used for each category
