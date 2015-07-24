@@ -24,12 +24,10 @@ import android.app.Service;
 import android.app.ActivityManagerNative;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.os.RemoteException;
 import android.os.UserHandle;
-import android.preference.PreferenceManager;
 import android.provider.Telephony;
 import android.telephony.CellBroadcastMessage;
 import android.telephony.SmsCbCmasInfo;
@@ -254,8 +252,14 @@ public class CellBroadcastAlertService extends Service {
      * @return true if the user has enabled this message type; false otherwise
      */
     private boolean isMessageEnabledByUser(CellBroadcastMessage message) {
+
+        // Check if ETWS/CMAS test message is forced to disabled on the device.
+        boolean forceDisableEtwsCmasTest =
+                CellBroadcastSettings.isEtwsCmasTestMessageForcedDisabled(this, message.getSubId());
+
         if (message.isEtwsTestMessage()) {
-            return SubscriptionManager.getBooleanSubscriptionProperty(
+            return !forceDisableEtwsCmasTest &&
+                    SubscriptionManager.getBooleanSubscriptionProperty(
                     message.getSubId(), SubscriptionManager.CB_ETWS_TEST_ALERT, false, this);
         }
 
@@ -276,9 +280,9 @@ public class CellBroadcastAlertService extends Service {
                 case SmsCbCmasInfo.CMAS_CLASS_REQUIRED_MONTHLY_TEST:
                 case SmsCbCmasInfo.CMAS_CLASS_CMAS_EXERCISE:
                 case SmsCbCmasInfo.CMAS_CLASS_OPERATOR_DEFINED_USE:
-                    return SubscriptionManager.getBooleanSubscriptionProperty(
+                    return !forceDisableEtwsCmasTest &&
+                            SubscriptionManager.getBooleanSubscriptionProperty(
                             message.getSubId(), SubscriptionManager.CB_CMAS_TEST_ALERT, false, this);
-
                 default:
                     return true;    // presidential-level CMAS alerts are always enabled
             }
