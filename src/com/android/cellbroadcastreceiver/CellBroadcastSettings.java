@@ -18,6 +18,7 @@ package com.android.cellbroadcastreceiver;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.os.PersistableBundle;
 import android.os.UserManager;
 import android.preference.CheckBoxPreference;
 import android.preference.ListPreference;
@@ -26,6 +27,7 @@ import android.preference.PreferenceActivity;
 import android.preference.PreferenceCategory;
 import android.preference.PreferenceScreen;
 import android.provider.Settings;
+import android.telephony.CarrierConfigManager;
 import android.telephony.TelephonyManager;
 import android.telephony.SubscriptionManager;
 import android.telephony.SubscriptionInfo;
@@ -320,6 +322,9 @@ public class CellBroadcastSettings extends PreferenceActivity {
                         }
                     });
 
+            boolean forceDisableEtwsCmasTest =
+                    isEtwsCmasTestMessageForcedDisabled(this, mSir.getSubscriptionId());
+
             // Show alert settings and ETWS categories for ETWS builds and developer mode.
             if (enableDevSettings || showEtwsSettings) {
                 // enable/disable all alerts
@@ -354,12 +359,25 @@ public class CellBroadcastSettings extends PreferenceActivity {
                                 return true;
                             }
                         });
+                if (forceDisableEtwsCmasTest) {
+                    // Remove ETWS test preference.
+                    prefScreen.removePreference(findPreference(KEY_CATEGORY_ETWS_SETTINGS));
+
+                    PreferenceCategory devSettingCategory =
+                            (PreferenceCategory) findPreference(KEY_CATEGORY_DEV_SETTINGS);
+
+                    // Remove CMAS test preference.
+                    if (devSettingCategory != null) {
+                        devSettingCategory.removePreference(
+                                findPreference(KEY_ENABLE_CMAS_TEST_ALERTS));
+                    }
+                }
             } else {
                 // Remove general emergency alert preference items (not shown for CMAS builds).
                 mAlertCategory.removePreference(findPreference(KEY_ENABLE_EMERGENCY_ALERTS));
                 mAlertCategory.removePreference(findPreference(KEY_ALERT_SOUND_DURATION));
                 mAlertCategory.removePreference(findPreference(KEY_ENABLE_ALERT_SPEECH));
-                // Remove ETWS preference category.
+                // Remove ETWS test preference category.
                 prefScreen.removePreference(findPreference(KEY_CATEGORY_ETWS_SETTINGS));
             }
 
@@ -456,7 +474,8 @@ public class CellBroadcastSettings extends PreferenceActivity {
             }
 
             if (mEtwsTestCheckBox != null) {
-                if (SubscriptionManager.getBooleanSubscriptionProperty(mSir.getSubscriptionId(),
+                if (!forceDisableEtwsCmasTest &&
+                        SubscriptionManager.getBooleanSubscriptionProperty(mSir.getSubscriptionId(),
                         SubscriptionManager.CB_ETWS_TEST_ALERT, false, this)) {
                     mEtwsTestCheckBox.setChecked(true);
                 } else {
@@ -501,7 +520,8 @@ public class CellBroadcastSettings extends PreferenceActivity {
             }
 
             if (mCmasCheckBox != null) {
-                if (SubscriptionManager.getBooleanSubscriptionProperty(mSir.getSubscriptionId(),
+                if (!forceDisableEtwsCmasTest &&
+                        SubscriptionManager.getBooleanSubscriptionProperty(mSir.getSubscriptionId(),
                         SubscriptionManager.CB_CMAS_TEST_ALERT, false, this)) {
                     mCmasCheckBox.setChecked(true);
                 } else {
@@ -510,7 +530,29 @@ public class CellBroadcastSettings extends PreferenceActivity {
                 mCmasCheckBox.setOnPreferenceChangeListener(startConfigServiceListener);
             }
         }
+    }
 
+    // Check if ETWS/CMAS test message is forced disabled on the device.
+    public static boolean isEtwsCmasTestMessageForcedDisabled(Context context, int subId) {
+
+        if (context == null) {
+            return false;
+        }
+
+        CarrierConfigManager configManager =
+                (CarrierConfigManager) context.getSystemService(Context.CARRIER_CONFIG_SERVICE);
+
+        if (configManager != null) {
+            PersistableBundle carrierConfig =
+                    configManager.getConfigForSubId(subId);
+
+            if (carrierConfig != null) {
+                return carrierConfig.getBoolean(
+                        CarrierConfigManager.KEY_CARRIER_FORCE_DISABLE_ETWS_CMAS_TEST_BOOL);
+            }
+        }
+
+        return false;
     }
 
     private OnTabChangeListener mTabListener = new OnTabChangeListener() {
