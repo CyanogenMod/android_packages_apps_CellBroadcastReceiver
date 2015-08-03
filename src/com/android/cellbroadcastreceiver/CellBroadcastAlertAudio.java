@@ -270,6 +270,7 @@ public class CellBroadcastAlertAudio extends Service implements TextToSpeech.OnI
             case AudioManager.RINGER_MODE_SILENT:
                 if (DBG) log("Ringer mode: silent");
                 mEnableAudio = false;
+                mEnableVibrate = false;
                 break;
 
             case AudioManager.RINGER_MODE_VIBRATE:
