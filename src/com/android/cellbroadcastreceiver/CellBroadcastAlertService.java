@@ -168,12 +168,19 @@ public class CellBroadcastAlertService extends Service {
             return;
         }
 
+        // If this is an ETWS message, then we want to include the body message to be a factor for
+        // duplicate detection. We found that some Japanese carriers send ETWS messages
+        // with the same serial number, therefore the subsequent messages were all ignored.
+        // In the other hand, US carriers have the requirement that only serial number, location,
+        // and category should be used for duplicate detection.
+        int hashCode = message.isEtwsMessage() ? message.getMessageBody().hashCode() : 0;
+
         // Check for duplicate message IDs according to CMAS carrier requirements. Message IDs
         // are stored in volatile memory. If the maximum of 65535 messages is reached, the
         // message ID of the oldest message is deleted from the list.
         MessageServiceCategoryAndScope newCmasId = new MessageServiceCategoryAndScope(
                 message.getServiceCategory(), message.getSerialNumber(), message.getLocation(),
-                message.getMessageBody().hashCode());
+                hashCode);
 
         // Add the new message ID to the list. It's okay if this is a duplicate message ID,
         // because the list is only used for removing old message IDs from the hash set.
