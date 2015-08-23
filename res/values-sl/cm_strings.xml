@@ -15,7 +15,7 @@
      limitations under the License.
 -->
 <resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-  <string name="category_india_settings_title">Setări pentru India</string>
-  <string name="enable_channel_60_alerts_title">Arată transmisiuni ale canalului 60</string>
-  <string name="enable_channel_60_alerts_summary">Canal 60 este utilizat în India pentru informații specifice operatorului</string>
+  <string name="category_india_settings_title">Nastavitve za Indijo</string>
+  <string name="enable_channel_60_alerts_title">Prikaži oddaje kanala 60</string>
+  <string name="enable_channel_60_alerts_summary">Kanal 60 se uporablja v Indiji za podatke operaterja</string>
 </resources>
