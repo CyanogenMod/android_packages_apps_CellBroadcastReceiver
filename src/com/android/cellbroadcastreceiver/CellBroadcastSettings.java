@@ -398,6 +398,12 @@ public class CellBroadcastSettings extends PreferenceActivity {
                     boolean isExtremeAlertChecked =
                             ((CheckBoxPreference)enableCmasExtremeAlerts).isChecked();
                     enableCmasSevereAlerts.setEnabled(isExtremeAlertChecked);
+                    // If extreme alert is not checked, regardless of what the value is
+                    // we shouldn't have severe alerts checked since its dependent.  Even if the
+                    // value is set to true for 'severe'
+                    if (!isExtremeAlertChecked) {
+                        enableCmasSevereAlerts.setChecked(false);
+                    }
                 }
             }
             if (enableCmasAmberAlerts != null) {
