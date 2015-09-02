@@ -247,12 +247,11 @@ public class CellBroadcastSettings extends PreferenceActivity {
                                             .setSubscriptionProperty(mSir.getSubscriptionId(),
                                                     SubscriptionManager.CB_EXTREME_THREAT_ALERT,
                                                     newVal + "");
-                                    if (newVal == 1) {
-                                        SubscriptionManager
-                                                .setSubscriptionProperty(mSir.getSubscriptionId(),
-                                                        SubscriptionManager.CB_SEVERE_THREAT_ALERT,
-                                                        "0");
-                                    }
+                                    SubscriptionManager
+                                            .setSubscriptionProperty(mSir.getSubscriptionId(),
+                                                    SubscriptionManager.CB_SEVERE_THREAT_ALERT,
+                                                    "0");
+
                                     boolean isExtremeAlertChecked =
                                             ((Boolean) newValue).booleanValue();
 
