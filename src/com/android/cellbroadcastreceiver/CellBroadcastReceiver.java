@@ -121,18 +121,20 @@ public class CellBroadcastReceiver extends BroadcastReceiver {
             }
         } else if (GET_LATEST_CB_AREA_INFO_ACTION.equals(action)) {
             if (privileged) {
-                CellBroadcastMessage message = CellBroadcastReceiverApp.getLatestAreaInfo();
-                if (message != null) {
-                    Intent areaInfoIntent = new Intent(
-                            CellBroadcastAlertService.CB_AREA_INFO_RECEIVED_ACTION);
-                    areaInfoIntent.putExtra("message", message);
-                    // Send broadcast twice, once for apps that have PRIVILEGED permission and once
-                    // for those that have the runtime one
-                    context.sendBroadcastAsUser(areaInfoIntent, UserHandle.ALL,
-                            android.Manifest.permission.READ_PRIVILEGED_PHONE_STATE);
-                    context.sendBroadcastAsUser(areaInfoIntent, UserHandle.ALL,
-                            android.Manifest.permission.READ_PHONE_STATE);
-                }
+                int subId = intent.getIntExtra(PhoneConstants.SUBSCRIPTION_KEY,
+                        SubscriptionManager.getDefaultSmsSubId());
+                CellBroadcastMessage message = CellBroadcastReceiverApp.getLatestAreaInfo(subId);
+                Log.d(TAG, "onReceive GET_LATEST_CB_AREA_INFO_ACTION subId :" + subId
+                        + "message :" + message);
+                Intent areaInfoIntent = new Intent(
+                        CellBroadcastAlertService.CB_AREA_INFO_RECEIVED_ACTION);
+                areaInfoIntent.putExtra("message", message);
+                // Send broadcast twice, once for apps that have PRIVILEGED permission and once
+                // for those that have the runtime one
+                context.sendBroadcastAsUser(areaInfoIntent, UserHandle.ALL,
+                        android.Manifest.permission.READ_PRIVILEGED_PHONE_STATE);
+                context.sendBroadcastAsUser(areaInfoIntent, UserHandle.ALL,
+                        android.Manifest.permission.READ_PHONE_STATE);
             } else {
                 Log.e(TAG, "caller missing READ_PHONE_STATE permission, returning");
             }

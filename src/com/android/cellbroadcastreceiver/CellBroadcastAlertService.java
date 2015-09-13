@@ -29,8 +29,10 @@ import android.os.IBinder;
 import android.os.RemoteException;
 import android.os.UserHandle;
 import android.os.SystemProperties;
+import android.preference.PreferenceManager;
 import android.provider.Telephony;
 import android.telephony.CellBroadcastMessage;
+import android.telephony.TelephonyManager;
 import android.telephony.SmsCbCmasInfo;
 import android.telephony.SmsCbEtwsInfo;
 import android.telephony.SmsCbLocation;
@@ -65,6 +67,12 @@ public class CellBroadcastAlertService extends Service {
 
     /** Check for system property to enable/disable duplicate detection.  */
     static boolean mUseDupDetection = SystemProperties.getBoolean(CB_DUP_DETECTION, true);
+
+    /** Channel 50 Cell Broadcast. */
+    static final int CB_CHANNEL_50 = 50;
+
+    /** Channel 60 Cell Broadcast. */
+    static final int CB_CHANNEL_60 = 60;
 
     /**
      *  Container for service category, serial number, location, and message body hash code for
@@ -294,7 +302,6 @@ public class CellBroadcastAlertService extends Service {
      * @return true if the user has enabled this message type; false otherwise
      */
     private boolean isMessageEnabledByUser(CellBroadcastMessage message) {
-
         // Check if ETWS/CMAS test message is forced to disabled on the device.
         boolean forceDisableEtwsCmasTest =
                 CellBroadcastSettings.isEtwsCmasTestMessageForcedDisabled(this, message.getSubId());
@@ -339,10 +346,23 @@ public class CellBroadcastAlertService extends Service {
                     return true;    // presidential-level CMAS alerts are always enabled
             }
         }
-
-        if (message.getServiceCategory() == 50) {
-            // save latest area info broadcast for Settings display and send as broadcast
-            CellBroadcastReceiverApp.setLatestAreaInfo(message);
+        int serviceCategory = message.getServiceCategory();
+        if (serviceCategory == CB_CHANNEL_50 || serviceCategory == CB_CHANNEL_60) {
+            boolean channel60Preference = false;
+            if (serviceCategory == CB_CHANNEL_50) {
+                // save latest area info on channel 50 for Settings display
+                CellBroadcastReceiverApp.setLatestAreaInfo(message);
+            } else { //it is Channel 60 CB
+                boolean enable60Channel =  SubscriptionManager.getResourcesForSubId(
+                        getApplicationContext(), message.getSubId()).getBoolean(
+                        R.bool.show_india_settings);
+                if (enable60Channel) {
+                    channel60Preference = PreferenceManager.getDefaultSharedPreferences(this).
+                            getBoolean(CellBroadcastSettings.KEY_ENABLE_CHANNEL_60_ALERTS,
+                            enable60Channel);
+                }
+            }
+            // send broadcasts for channel 50 and 60
             Intent intent = new Intent(CB_AREA_INFO_RECEIVED_ACTION);
             intent.putExtra("message", message);
             // Send broadcast twice, once for apps that have PRIVILEGED permission and once
@@ -351,9 +371,15 @@ public class CellBroadcastAlertService extends Service {
                     android.Manifest.permission.READ_PRIVILEGED_PHONE_STATE);
             sendBroadcastAsUser(intent, UserHandle.ALL,
                     android.Manifest.permission.READ_PHONE_STATE);
-            return false;   // area info broadcasts are displayed in Settings status screen
-        }
 
+            String country = TelephonyManager.getDefault().getSimCountryIso(message.getSubId());
+            // In Brazil(50)/India(50/60) the area info broadcasts are displayed in Settings,
+            // CBwidget or Mms.
+            // But in other country it should be displayed as a normal CB alert.
+            boolean needIgnore = "in".equals(country)
+                    || ("br".equals(country) && (message.getServiceCategory() == CB_CHANNEL_50));
+            return ((!needIgnore) || channel60Preference);
+        }
         return true;    // other broadcast messages are always enabled
     }
 
@@ -368,7 +394,6 @@ public class CellBroadcastAlertService extends Service {
         // Close dialogs and window shade
         Intent closeDialogs = new Intent(Intent.ACTION_CLOSE_SYSTEM_DIALOGS);
         sendBroadcast(closeDialogs);
-
         // start audio/vibration/speech service for emergency alerts
         Intent audioIntent = new Intent(this, CellBroadcastAlertAudio.class);
         audioIntent.setAction(CellBroadcastAlertAudio.ACTION_START_ALERT_AUDIO);

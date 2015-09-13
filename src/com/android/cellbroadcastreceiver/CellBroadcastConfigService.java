@@ -168,12 +168,21 @@ public class CellBroadcastConfigService extends IntentService {
                 TelephonyManager tm = (TelephonyManager) getSystemService(
                         Context.TELEPHONY_SERVICE);
 
-                boolean enableChannel50Support = res.getBoolean(R.bool.show_brazil_settings) ||
-                        "br".equals(tm.getSimCountryIso());
+                String country = tm.getSimCountryIso(subId);
+                boolean enableChannel50Support = res.getBoolean(R.bool.show_brazil_settings)
+                        || "br".equals(country) || res.getBoolean(R.bool.show_india_settings)
+                        || "in".equals(country);
+
+                boolean enableChannel60Support = res.getBoolean(R.bool.show_india_settings)
+                        || "in".equals(tm.getSimCountryIso());
 
                 boolean enableChannel50Alerts = enableChannel50Support &&
                         SubscriptionManager.getBooleanSubscriptionProperty(subId,
                                 SubscriptionManager.CB_CHANNEL_50_ALERT, true, this);
+
+                boolean enableChannel60Alerts = enableChannel60Support &&
+                        SubscriptionManager.getBooleanSubscriptionProperty(subId,
+                                SubscriptionManager.CB_CHANNEL_60_ALERT, true, this);
 
                 // Note:  ETWS is for 3GPP only
 
@@ -344,6 +353,21 @@ public class CellBroadcastConfigService extends IntentService {
                 } else {
                     if (DBG) log("disabling cell broadcast channel 50");
                     manager.disableCellBroadcast(50, SmsManager.CELL_BROADCAST_RAN_TYPE_GSM);
+                }
+
+                // Enable Channel 60 for India
+                if (isCdma) {
+                    if (DBG) log("channel 60 is not applicable for cdma");
+                } else { //gsm type
+                    if (enableChannel60Alerts) {
+                        if (DBG) log("enabling cell broadcast channel 60");
+                        manager.enableCellBroadcast(60, SmsManager.CELL_BROADCAST_RAN_TYPE_GSM);
+                        if (DBG) log("enabled cell broadcast channel 60");
+                    } else {
+                        if (DBG) log("disabling cell broadcast channel 60");
+                        manager.disableCellBroadcast(60, SmsManager.CELL_BROADCAST_RAN_TYPE_GSM);
+                        if (DBG) log("disabled cell broadcast channel 60");
+                    }
                 }
 
                 if ("il".equals(tm.getSimCountryIso()) || "il".equals(tm.getNetworkCountryIso())) {

@@ -91,9 +91,14 @@ public class CellBroadcastSettings extends PreferenceActivity {
     // Preference category for Brazil specific settings.
     public static final String KEY_CATEGORY_BRAZIL_SETTINGS = "category_brazil_settings";
 
+    // Preference category for India specific settings.
+    public static final String KEY_CATEGORY_INDIA_SETTINGS = "category_india_settings";
+
     // Preference key for whether to enable channel 50 notifications
     // Enabled by default for phones sold in Brazil, otherwise this setting may be hidden.
     public static final String KEY_ENABLE_CHANNEL_50_ALERTS = "enable_channel_50_alerts";
+    // Preference key for whether to enable channel 60 notifications
+    public static final String KEY_ENABLE_CHANNEL_60_ALERTS = "enable_channel_60_alerts";
 
     // Preference key for initial opt-in/opt-out dialog.
     public static final String KEY_SHOW_CMAS_OPT_OUT_DIALOG = "show_cmas_opt_out_dialog";
@@ -122,6 +127,7 @@ public class CellBroadcastSettings extends PreferenceActivity {
     private CheckBoxPreference mSpeechCheckBox;
     private CheckBoxPreference mEtwsTestCheckBox;
     private CheckBoxPreference mChannel50CheckBox;
+    private CheckBoxPreference mChannel60CheckBox;
     private CheckBoxPreference mCmasCheckBox;
     private CheckBoxPreference mOptOutCheckBox;
     private PreferenceCategory mAlertCategory;
@@ -194,6 +200,8 @@ public class CellBroadcastSettings extends PreferenceActivity {
                     findPreference(KEY_ENABLE_ETWS_TEST_ALERTS);
             mChannel50CheckBox = (CheckBoxPreference)
                     findPreference(KEY_ENABLE_CHANNEL_50_ALERTS);
+            mChannel60CheckBox = (CheckBoxPreference)
+                    findPreference(KEY_ENABLE_CHANNEL_60_ALERTS);
             mCmasCheckBox = (CheckBoxPreference)
                     findPreference(KEY_ENABLE_CMAS_TEST_ALERTS);
             mOptOutCheckBox = (CheckBoxPreference)
@@ -220,6 +228,7 @@ public class CellBroadcastSettings extends PreferenceActivity {
                 mSpeechCheckBox.setEnabled(false);
                 mEtwsTestCheckBox.setEnabled(false);
                 mChannel50CheckBox.setEnabled(false);
+                mChannel60CheckBox.setEnabled(false);
                 mCmasCheckBox.setEnabled(false);
                 mOptOutCheckBox.setEnabled(false);
                 if (!enableDevSettings) {
@@ -248,6 +257,12 @@ public class CellBroadcastSettings extends PreferenceActivity {
                                     SubscriptionManager
                                             .setSubscriptionProperty(mSir.getSubscriptionId(),
                                                     SubscriptionManager.CB_CHANNEL_50_ALERT,
+                                                    newVal + "");
+                                    break;
+                                case KEY_ENABLE_CHANNEL_60_ALERTS:
+                                    SubscriptionManager
+                                            .setSubscriptionProperty(mSir.getSubscriptionId(),
+                                                    SubscriptionManager.CB_CHANNEL_60_ALERT,
                                                     newVal + "");
                                     break;
                                 case KEY_ENABLE_ETWS_TEST_ALERTS:
@@ -411,10 +426,23 @@ public class CellBroadcastSettings extends PreferenceActivity {
             boolean enableChannel50Support = SubscriptionManager.getResourcesForSubId(
                     getApplicationContext(), mSir.getSubscriptionId()).getBoolean(
                     R.bool.show_brazil_settings)
-                    || "br".equals(mTelephonyManager.getSimCountryIso());
+                    || "br".equals(mTelephonyManager.getSimCountryIso(mSir.getSubscriptionId()))
+                    || SubscriptionManager.getResourcesForSubId(
+                    getApplicationContext(), mSir.getSubscriptionId()).getBoolean(
+                    R.bool.show_india_settings)
+                    || "in".equals(mTelephonyManager.getSimCountryIso(mSir.getSubscriptionId()));
 
             if (!enableChannel50Support) {
                 prefScreen.removePreference(findPreference(KEY_CATEGORY_BRAZIL_SETTINGS));
+            }
+
+            boolean enableChannel60Support = SubscriptionManager.getResourcesForSubId(
+                    getApplicationContext(), mSir.getSubscriptionId()).getBoolean(
+                    R.bool.show_india_settings)
+                    || "in".equals(mTelephonyManager.getSimCountryIso(mSir.getSubscriptionId()));
+
+            if (!enableChannel60Support) {
+                prefScreen.removePreference(findPreference(KEY_CATEGORY_INDIA_SETTINGS));
             }
             if (!enableDevSettings) {
                 prefScreen.removePreference(findPreference(KEY_CATEGORY_DEV_SETTINGS));
@@ -488,6 +516,16 @@ public class CellBroadcastSettings extends PreferenceActivity {
                     mChannel50CheckBox.setChecked(false);
                 }
                 mChannel50CheckBox.setOnPreferenceChangeListener(startConfigServiceListener);
+            }
+
+            if (mChannel60CheckBox != null) {
+                if (SubscriptionManager.getBooleanSubscriptionProperty(mSir.getSubscriptionId(),
+                        SubscriptionManager.CB_CHANNEL_60_ALERT, true, this)) {
+                    mChannel60CheckBox.setChecked(true);
+                } else {
+                    mChannel60CheckBox.setChecked(false);
+                }
+                mChannel60CheckBox.setOnPreferenceChangeListener(startConfigServiceListener);
             }
 
             if (mEtwsTestCheckBox != null) {

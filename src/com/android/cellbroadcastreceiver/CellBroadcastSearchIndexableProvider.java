@@ -144,6 +144,16 @@ public class CellBroadcastSearchIndexableProvider extends SearchIndexablesProvid
             cursor.addRow(ref);
         }
 
+        boolean enableChannel60Support = res.getBoolean(R.bool.show_india_settings) ||
+                "in".equals(tm.getSimCountryIso());
+
+        if (!enableChannel60Support) {
+            ref = new Object[1];
+            ref[COLUMN_INDEX_NON_INDEXABLE_KEYS_KEY_VALUE] =
+                    CellBroadcastSettings.KEY_CATEGORY_INDIA_SETTINGS;
+            cursor.addRow(ref);
+        }
+
         if (!enableDevSettings) {
             ref = new Object[1];
             ref[COLUMN_INDEX_NON_INDEXABLE_KEYS_KEY_VALUE] =

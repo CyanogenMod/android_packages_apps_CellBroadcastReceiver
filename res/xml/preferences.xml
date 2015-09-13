@@ -94,6 +94,17 @@
 
     </PreferenceCategory>
 
+    <!-- This preference is ignored and hidden
+         unless the boolean "show_india_settings" is set to true in config.xml. -->
+    <PreferenceCategory android:title="@string/category_india_settings_title"
+                        android:key="category_india_settings">
+
+        <CheckBoxPreference android:key="enable_channel_60_alerts"
+                            android:summary="@string/enable_channel_60_alerts_summary"
+                            android:title="@string/enable_channel_60_alerts_title" />
+
+    </PreferenceCategory>
+
     <!-- Only visible when Developer options toggle is enabled in Settings. -->
     <PreferenceCategory android:title="@string/category_dev_settings_title"
                         android:key="category_dev_settings">

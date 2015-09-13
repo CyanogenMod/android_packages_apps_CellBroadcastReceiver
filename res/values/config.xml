@@ -25,4 +25,8 @@
     <bool name="use_sound_duration">false</bool>
     <!-- Whether to enable broadcast channels for Colombia -->
     <bool name="enable_colombia_channels">false</bool>
+    <!-- Whether to enable channel 50 and 60 settings (India) -->
+    <bool name="show_india_settings">false</bool>
+    <!-- CellBroadcast channel 60 enabled or not,default value is true -->
+    <bool name="def_channel_60_enabled">true</bool>
 </resources>
