@@ -273,14 +273,9 @@ public class CellBroadcastConfigService extends IntentService {
                             manager.enableCellBroadcast(
                                     SmsEnvelope.SERVICE_CATEGORY_CMAS_TEST_MESSAGE,
                                     SmsManager.CELL_BROADCAST_RAN_TYPE_CDMA);
-                            if ("tw".equals(tm.getSimCountryIso()) ||
-                                    "tw".equals(tm.getNetworkCountryIso())) {
-                                if (DBG) log("enabling channels 4393-4395 for Taiwan");
-
-                                manager.enableCellBroadcastRange(
-                                        cmasTestLanguageStart, cmasTestLanguageEnd,
-                                        SmsManager.CELL_BROADCAST_RAN_TYPE_GSM);
-                            }
+                            manager.enableCellBroadcastRange(
+                                    cmasTestLanguageStart, cmasTestLanguageEnd,
+                                    SmsManager.CELL_BROADCAST_RAN_TYPE_GSM);
                         }
                     }
                     if (DBG) log("enabled emergency cell broadcast channels");
@@ -400,14 +395,9 @@ public class CellBroadcastConfigService extends IntentService {
                             SmsManager.CELL_BROADCAST_RAN_TYPE_GSM);
                     manager.disableCellBroadcast(SmsEnvelope.SERVICE_CATEGORY_CMAS_TEST_MESSAGE,
                             SmsManager.CELL_BROADCAST_RAN_TYPE_CDMA);
-                    if ("tw".equals(tm.getSimCountryIso()) ||
-                            "tw".equals(tm.getNetworkCountryIso())) {
-                        if (DBG) log("disabling channels 4393-4395 for Taiwan");
-
-                        manager.disableCellBroadcastRange(
-                                cmasTestLanguageStart, cmasTestLanguageEnd,
-                                SmsManager.CELL_BROADCAST_RAN_TYPE_GSM);
-                    }
+                    manager.disableCellBroadcastRange(
+                            cmasTestLanguageStart, cmasTestLanguageEnd,
+                            SmsManager.CELL_BROADCAST_RAN_TYPE_GSM);
                 }
             } catch (Exception ex) {
                 Log.e(TAG, "exception enabling cell broadcast channels", ex);
