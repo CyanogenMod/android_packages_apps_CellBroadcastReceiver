@@ -335,7 +335,8 @@ public class CellBroadcastAlertService extends Service {
         } else {
             duration = SubscriptionManager.getIntegerSubscriptionProperty(message.getSubId(),
                     SubscriptionManager.CB_ALERT_SOUND_DURATION,
-                    Integer.parseInt(CellBroadcastSettings.ALERT_SOUND_DEFAULT_DURATION), this);
+                    Integer.parseInt(CellBroadcastSettings.ALERT_SOUND_DEFAULT_DURATION), this)
+                    * 1000;
         }
         audioIntent.putExtra(CellBroadcastAlertAudio.ALERT_AUDIO_DURATION_EXTRA, duration);
 
