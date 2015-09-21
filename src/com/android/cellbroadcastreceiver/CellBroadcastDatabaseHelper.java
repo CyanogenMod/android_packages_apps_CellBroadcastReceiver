@@ -42,7 +42,7 @@ public class CellBroadcastDatabaseHelper extends SQLiteOpenHelper {
 
     static final String DATABASE_NAME = "cell_broadcasts.db";
     static final String TABLE_NAME = "broadcasts";
-
+    static final String CHANNEL_TABLE = "channel";
     /** Temporary table for upgrading the database version. */
     static final String TEMP_TABLE_NAME = "old_broadcasts";
 
@@ -81,12 +81,18 @@ public class CellBroadcastDatabaseHelper extends SQLiteOpenHelper {
                 + Telephony.CellBroadcasts.CMAS_SEVERITY + " INTEGER,"
                 + Telephony.CellBroadcasts.CMAS_URGENCY + " INTEGER,"
                 + Telephony.CellBroadcasts.CMAS_CERTAINTY + " INTEGER);");
-
+        db.execSQL("CREATE TABLE " + CHANNEL_TABLE + " ("
+                   + "_id"+" INTEGER PRIMARY KEY AUTOINCREMENT,"
+                   + "name"+" TEXT,"
+                   + "number"+" INTEGER,"
+                   + "enable"+" BOOLEAN);");
         createDeliveryTimeIndex(db);
     }
 
     private void createDeliveryTimeIndex(SQLiteDatabase db) {
         db.execSQL("CREATE INDEX IF NOT EXISTS deliveryTimeIndex ON " + TABLE_NAME
+                + " (" + Telephony.CellBroadcasts.DELIVERY_TIME + ");");
+        db.execSQL("CREATE INDEX IF NOT EXISTS deliveryTimeIndex ON " + CHANNEL_TABLE
                 + " (" + Telephony.CellBroadcasts.DELIVERY_TIME + ");");
     }
 

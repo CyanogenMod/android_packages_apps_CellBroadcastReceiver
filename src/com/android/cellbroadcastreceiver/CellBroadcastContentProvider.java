@@ -17,10 +17,13 @@
 package com.android.cellbroadcastreceiver;
 
 import android.app.AppOpsManager;
+import android.content.Context;
 import android.content.ContentProvider;
 import android.content.ContentProviderClient;
 import android.content.ContentResolver;
 import android.content.ContentValues;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.UriMatcher;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -28,10 +31,15 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.database.sqlite.SQLiteQueryBuilder;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.preference.PreferenceManager;
 import android.provider.Telephony;
 import android.telephony.CellBroadcastMessage;
 import android.text.TextUtils;
 import android.util.Log;
+
+import java.util.ArrayList;
+import java.util.Set;
+import java.util.HashSet;
 
 /**
  * ContentProvider for the database of received cell broadcasts.
@@ -48,6 +56,9 @@ public class CellBroadcastContentProvider extends ContentProvider {
     /** Content URI for notifying observers. */
     static final Uri CONTENT_URI = Uri.parse("content://cellbroadcasts/");
 
+    /** Content URI for channel customized */
+    private static final Uri CHANNEL_URI =  Uri.parse("content://cellbroadcasts/channel/");
+
     /** URI matcher type to get all cell broadcasts. */
     private static final int CB_ALL = 0;
 
@@ -60,9 +71,23 @@ public class CellBroadcastContentProvider extends ContentProvider {
     /** MIME type for an individual cell broadcast. */
     private static final String CB_TYPE = "vnd.android.cursor.item/cellbroadcast";
 
+    private static final String CB_CHANNEL_TYPE ="vnd.android.cursor.item/chanel";
+
+    private static final int CB_CHANNEL_ID = 2;
+
+    /** The projection and the index for query the channel */
+    private static final String[] PROJECTION_CHANNEL
+            = new String[] { "_id", "name", "number", "enable" };
+    private static final int INDEX_NAME = 1;
+    private static final int INDEX_CATEGORY = 2;
+    private static final int INDEX_ENALBE = 3;
+
+    private static final int ENABLE_VALUE_TRUE = 1;
+
     static {
         sUriMatcher.addURI(CB_AUTHORITY, null, CB_ALL);
         sUriMatcher.addURI(CB_AUTHORITY, "#", CB_ALL_ID);
+        sUriMatcher.addURI(CB_AUTHORITY, "channel", CB_CHANNEL_ID);
     }
 
     /** The database for this content provider. */
@@ -96,6 +121,7 @@ public class CellBroadcastContentProvider extends ContentProvider {
         qb.setTables(CellBroadcastDatabaseHelper.TABLE_NAME);
 
         int match = sUriMatcher.match(uri);
+
         switch (match) {
             case CB_ALL:
                 // get all broadcasts
@@ -104,6 +130,10 @@ public class CellBroadcastContentProvider extends ContentProvider {
             case CB_ALL_ID:
                 // get broadcast by ID
                 qb.appendWhere("(_id=" + uri.getPathSegments().get(0) + ')');
+                break;
+
+            case CB_CHANNEL_ID:
+                qb.setTables(CellBroadcastDatabaseHelper.CHANNEL_TABLE);
                 break;
 
             default:
@@ -141,6 +171,8 @@ public class CellBroadcastContentProvider extends ContentProvider {
             case CB_ALL_ID:
                 return CB_TYPE;
 
+            case CB_CHANNEL_ID:
+                return CB_CHANNEL_TYPE;
             default:
                 return null;
         }
@@ -154,8 +186,43 @@ public class CellBroadcastContentProvider extends ContentProvider {
      * @return the URI for the newly inserted item.
      */
     @Override
-    public Uri insert(Uri uri, ContentValues values) {
-        throw new UnsupportedOperationException("insert not supported");
+    public Uri insert(Uri uri, ContentValues initialValues) {
+        Uri result = null;
+        SQLiteDatabase db = mOpenHelper.getWritableDatabase();
+        int match = sUriMatcher.match(uri);
+        ContentValues values;
+        long rowID;
+        String table = null;
+
+        Log.d(TAG, " insert match = "+match);
+        switch (match) {
+        case CB_CHANNEL_ID:
+            table = CellBroadcastDatabaseHelper.CHANNEL_TABLE;
+            if (initialValues != null) {
+                values = new ContentValues(initialValues);
+            } else {
+                values = new ContentValues();
+            }
+            if (!values.containsKey(PROJECTION_CHANNEL[INDEX_NAME])) {
+                values.put(PROJECTION_CHANNEL[INDEX_NAME], "");
+            }
+            if (!values.containsKey(PROJECTION_CHANNEL[INDEX_CATEGORY])) {
+                values.put(PROJECTION_CHANNEL[INDEX_CATEGORY], "");
+            }
+            if (!values.containsKey(PROJECTION_CHANNEL[INDEX_ENALBE])) {
+                values.put(PROJECTION_CHANNEL[INDEX_ENALBE], false);
+            }
+            rowID = db.insert(table, null, values);
+            if (rowID > 0) {
+                notifyChange();
+                result = Uri.parse("content://channel/" + rowID);
+            }
+            break;
+
+        default:
+            throw new UnsupportedOperationException("insert not supported");
+        }
+        return result;
     }
 
     /**
@@ -167,9 +234,31 @@ public class CellBroadcastContentProvider extends ContentProvider {
      */
     @Override
     public int delete(Uri uri, String selection, String[] selectionArgs) {
-        throw new UnsupportedOperationException("delete not supported");
-    }
+        int deletedRows = 0;
+        Uri deleteUri = null;
+        SQLiteDatabase db = mOpenHelper.getWritableDatabase();
 
+        deletedRows = deleteOnce(uri, selection, selectionArgs);
+        notifyChange();
+
+        return deletedRows;
+    }
+    public int deleteOnce(Uri uri, String where, String[] whereArgs) {
+        int count = 0;
+        SQLiteDatabase db = mOpenHelper.getWritableDatabase();
+        int match = sUriMatcher.match(uri);
+        switch (match) {
+            case CB_CHANNEL_ID:
+                count = db.delete(CellBroadcastDatabaseHelper.CHANNEL_TABLE, where, whereArgs);
+                break;
+
+            default:
+                throw new UnsupportedOperationException("Cannot delete that URL: "
+                        + uri);
+        }
+        notifyChange();
+        return count;
+    }
     /**
      * Update one or more rows. This throws an exception, as the database can only be modified by
      * calling custom methods in this class, and not via the ContentProvider interface.
@@ -180,7 +269,22 @@ public class CellBroadcastContentProvider extends ContentProvider {
      */
     @Override
     public int update(Uri uri, ContentValues values, String selection, String[] selectionArgs) {
-        throw new UnsupportedOperationException("update not supported");
+        int count = 0;
+        SQLiteDatabase db = mOpenHelper.getWritableDatabase();
+        String extraWhere = null;
+        int match = sUriMatcher.match(uri);
+        switch (match) {
+            case CB_CHANNEL_ID:
+               count = db.update(CellBroadcastDatabaseHelper.CHANNEL_TABLE, values, selection,
+                    selectionArgs);
+               break;
+
+            default:
+               throw new UnsupportedOperationException("Cannot update that URL: "
+                    + uri);
+        }
+        notifyChange();
+        return count;
     }
 
     /**
@@ -322,5 +426,48 @@ public class CellBroadcastContentProvider extends ContentProvider {
             mContentResolver = null;    // free reference to content resolver
             return null;
         }
+    }
+
+    private void notifyChange() {
+        Log.i(TAG, "Notify change");
+        Context context = getContext();
+        Set<String> enabledChannels = new HashSet<String>();
+        Set<String> disabledChannels = new HashSet<String>();
+        Cursor cursor = null;
+        try {
+            Log.i(TAG, "notifyChange() before query");
+            cursor = query(CHANNEL_URI, PROJECTION_CHANNEL, null, null,
+                    PROJECTION_CHANNEL[INDEX_CATEGORY]);
+            if (cursor != null) {
+                while (cursor.moveToNext()) {
+                    if (cursor.getInt(INDEX_ENALBE) == ENABLE_VALUE_TRUE) {
+                        enabledChannels.add(cursor.getString(INDEX_CATEGORY));
+                    } else {
+                        disabledChannels.add(cursor.getString(INDEX_CATEGORY));
+                    }
+                }
+            } else {
+                return;
+            }
+        } catch (IllegalArgumentException e) {
+            Log.e(TAG, "IllegalArgumentException e: " + e);
+            return;
+        } finally {
+            Log.i(TAG, "notifyChange() finally");
+            if (cursor != null) {
+                cursor.close();
+            }
+        }
+
+        final SharedPreferences prefs = PreferenceManager
+                .getDefaultSharedPreferences(context);
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putStringSet(CellBroadcastSettings.KEY_ENABLE_CHANNELS_ALERTS, enabledChannels);
+        editor.putStringSet(CellBroadcastSettings.KEY_DISABLE_CHANNELS_ALERTS, disabledChannels);
+        editor.commit();
+
+        Intent serviceIntent = new Intent(CellBroadcastConfigService.ACTION_ENABLE_CHANNELS,
+                null, context, CellBroadcastConfigService.class);
+        context.startService(serviceIntent);
     }
 }
