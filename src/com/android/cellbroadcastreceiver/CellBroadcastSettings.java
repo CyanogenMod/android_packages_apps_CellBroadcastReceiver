@@ -327,9 +327,8 @@ public class CellBroadcastSettings extends PreferenceActivity {
             boolean emergencyAlertOnOffOptionEnabled =
                     isEmergencyAlertOnOffOptionEnabled(this, mSir.getSubscriptionId());
 
-            // Show alert settings and ETWS categories for ETWS builds and developer mode.
-            if (enableDevSettings || showEtwsSettings) {
-                // enable/disable all alerts
+            if (enableDevSettings || showEtwsSettings || emergencyAlertOnOffOptionEnabled) {
+                // enable/disable all alerts except CMAS presidential alerts.
                 if (mEmergencyCheckBox != null) {
                     if (SubscriptionManager.getBooleanSubscriptionProperty(mSir.getSubscriptionId(),
                             SubscriptionManager.CB_EMERGENCY_ALERT, true, this)) {
@@ -339,6 +338,12 @@ public class CellBroadcastSettings extends PreferenceActivity {
                     }
                     mEmergencyCheckBox.setOnPreferenceChangeListener(startConfigServiceListener);
                 }
+            } else {
+                mAlertCategory.removePreference(findPreference(KEY_ENABLE_EMERGENCY_ALERTS));
+            }
+
+            // Show alert settings and ETWS categories for ETWS builds and developer mode.
+            if (enableDevSettings || showEtwsSettings) {
 
                 // alert sound duration
                 queryReturnVal = SubscriptionManager.getIntegerSubscriptionProperty(
@@ -376,11 +381,6 @@ public class CellBroadcastSettings extends PreferenceActivity {
                 }
             } else {
                 // Remove general emergency alert preference items (not shown for CMAS builds).
-
-                // Some carriers would like to have "Turn on Notifications" option always show up
-                // regardless of developer options turned on or not.
-                if (!emergencyAlertOnOffOptionEnabled)
-                    mAlertCategory.removePreference(findPreference(KEY_ENABLE_EMERGENCY_ALERTS));
 
                 mAlertCategory.removePreference(findPreference(KEY_ALERT_SOUND_DURATION));
                 mAlertCategory.removePreference(findPreference(KEY_ENABLE_ALERT_SPEECH));
