@@ -270,15 +270,24 @@ public class CellBroadcastAlertService extends Service {
                     message.getSubId(), SubscriptionManager.CB_ETWS_TEST_ALERT, false, this);
         }
 
+        if (message.isEtwsMessage()) {
+            // ETWS messages.
+            // Turn on/off emergency notifications is the only way to turn on/off ETWS messages.
+            return SubscriptionManager.getBooleanSubscriptionProperty(message.getSubId(),
+                    SubscriptionManager.CB_EMERGENCY_ALERT, true, this);
+        }
+
         if (message.isCmasMessage()) {
             switch (message.getCmasMessageClass()) {
                 case SmsCbCmasInfo.CMAS_CLASS_EXTREME_THREAT:
                     return SubscriptionManager.getBooleanSubscriptionProperty(
-                            message.getSubId(), SubscriptionManager.CB_EXTREME_THREAT_ALERT, true, this);
+                            message.getSubId(),
+                            SubscriptionManager.CB_EXTREME_THREAT_ALERT, true, this);
 
                 case SmsCbCmasInfo.CMAS_CLASS_SEVERE_THREAT:
                     return SubscriptionManager.getBooleanSubscriptionProperty(
-                            message.getSubId(), SubscriptionManager.CB_SEVERE_THREAT_ALERT, true, this);
+                            message.getSubId(),
+                            SubscriptionManager.CB_SEVERE_THREAT_ALERT, true, this);
 
                 case SmsCbCmasInfo.CMAS_CLASS_CHILD_ABDUCTION_EMERGENCY:
                     return SubscriptionManager.getBooleanSubscriptionProperty(
@@ -289,7 +298,8 @@ public class CellBroadcastAlertService extends Service {
                 case SmsCbCmasInfo.CMAS_CLASS_OPERATOR_DEFINED_USE:
                     return !forceDisableEtwsCmasTest &&
                             SubscriptionManager.getBooleanSubscriptionProperty(
-                            message.getSubId(), SubscriptionManager.CB_CMAS_TEST_ALERT, false, this);
+                            message.getSubId(),
+                                    SubscriptionManager.CB_CMAS_TEST_ALERT, false, this);
                 default:
                     return true;    // presidential-level CMAS alerts are always enabled
             }
