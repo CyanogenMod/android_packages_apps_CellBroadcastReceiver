@@ -69,7 +69,7 @@
     <string name="enable_channel_50_alerts_title" msgid="2818924064446974167">"ચૅનલ 50 બ્રોડકાસ્ટ્સ બતાવો"</string>
     <string name="enable_channel_50_alerts_summary" msgid="7507770011325273009">"ચૅનલ 50 નો ઉપયોગ બ્રાઝિલમાં ક્ષેત્રનાં અપડેટની માહિતી માટે થાય છે"</string>
     <string name="category_dev_settings_title" msgid="6194393458398329994">"વિકાસકર્તાનાં વિકલ્પો"</string>
-    <string name="cmas_category_heading" msgid="3923503130776640717">"ચેતવણીની કેટેગરી:"</string>
+    <string name="cmas_category_heading" msgid="3923503130776640717">"ચેતવણીની કૅટેગરી:"</string>
     <string name="cmas_category_geo" msgid="4979494217069688527">"ભૂભૌતિકીય"</string>
     <string name="cmas_category_met" msgid="7563732573851773537">"હવામાનશાસ્ત્ર સંબંધી"</string>
     <string name="cmas_category_safety" msgid="2986472639641883453">"સલામતી"</string>
