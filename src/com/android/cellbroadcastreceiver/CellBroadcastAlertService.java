@@ -32,6 +32,7 @@ import android.os.SystemProperties;
 import android.provider.Telephony;
 import android.telephony.CellBroadcastMessage;
 import android.telephony.SmsCbCmasInfo;
+import android.telephony.SmsCbEtwsInfo;
 import android.telephony.SmsCbLocation;
 import android.telephony.SmsCbMessage;
 import android.telephony.SubscriptionManager;
@@ -74,6 +75,7 @@ public class CellBroadcastAlertService extends Service {
         private final int mSerialNumber;
         private final SmsCbLocation mLocation;
         private final int mBodyHash;
+        private final SmsCbEtwsInfo mEtwsWarningInfo;
 
         MessageServiceCategoryAndScope(int serviceCategory, int serialNumber,
                 SmsCbLocation location, int bodyHash) {
@@ -81,10 +83,23 @@ public class CellBroadcastAlertService extends Service {
             mSerialNumber = serialNumber;
             mLocation = location;
             mBodyHash = bodyHash;
+            mEtwsWarningInfo = null;
+        }
+        MessageServiceCategoryAndScope(int serviceCategory, int serialNumber,
+                SmsCbLocation location, int bodyHash, SmsCbEtwsInfo etwsWarningInfo) {
+            mServiceCategory = serviceCategory;
+            mSerialNumber = serialNumber;
+            mLocation = location;
+            mBodyHash = bodyHash;
+            mEtwsWarningInfo = etwsWarningInfo;
         }
 
         @Override
         public int hashCode() {
+            if (mEtwsWarningInfo != null) {
+                return mEtwsWarningInfo.hashCode() + mLocation.hashCode() + 5 * mServiceCategory
+                        + 7 * mSerialNumber + 13 * mBodyHash;
+            }
             return mLocation.hashCode() + 5 * mServiceCategory + 7 * mSerialNumber + 13 * mBodyHash;
         }
 
@@ -95,6 +110,14 @@ public class CellBroadcastAlertService extends Service {
             }
             if (o instanceof MessageServiceCategoryAndScope) {
                 MessageServiceCategoryAndScope other = (MessageServiceCategoryAndScope) o;
+                if (mEtwsWarningInfo == null && other.mEtwsWarningInfo != null) {
+                    return false;
+                } else if (mEtwsWarningInfo != null && other.mEtwsWarningInfo == null) {
+                    return false;
+                } else if (mEtwsWarningInfo != null && other.mEtwsWarningInfo != null
+                        && !mEtwsWarningInfo.equals(other.mEtwsWarningInfo)) {
+                    return false;
+                }
                 return (mServiceCategory == other.mServiceCategory &&
                         mSerialNumber == other.mSerialNumber &&
                         mLocation.equals(other.mLocation) &&
@@ -105,8 +128,10 @@ public class CellBroadcastAlertService extends Service {
 
         @Override
         public String toString() {
-            return "{mServiceCategory: " + mServiceCategory + " serial number: " + mSerialNumber +
-                    " location: " + mLocation.toString() + " body hash: " + mBodyHash + '}';
+            return "{mServiceCategory: " + mServiceCategory + " serial number: " + mSerialNumber
+                    + " location: " + mLocation.toString() + " mEtwsWarningInfo: "
+                    + (mEtwsWarningInfo == null ? "NULL" : mEtwsWarningInfo.toString())
+                    + " body hash: " + mBodyHash +'}';
         }
     }
 
@@ -187,7 +212,9 @@ public class CellBroadcastAlertService extends Service {
             // message ID of the oldest message is deleted from the list.
             MessageServiceCategoryAndScope newCmasId = new MessageServiceCategoryAndScope(
                     message.getServiceCategory(), message.getSerialNumber(), message.getLocation(),
-                    hashCode);
+                            hashCode, message.getEtwsWarningInfo());
+            Log.v(TAG,"newCmasId:" + newCmasId + " hash: " + newCmasId.hashCode()
+                + "body hash:" + hashCode);
 
             // Add the new message ID to the list. It's okay if this is a duplicate message ID,
             // because the list is only used for removing old message IDs from the hash set.
