@@ -82,6 +82,7 @@ public class CellBroadcastAlertService extends Service {
         private final SmsCbLocation mLocation;
         private final int mBodyHash;
         private final boolean mIsEtwsPrimary;
+        private final SmsCbEtwsInfo mEtwsWarningInfo;
 
         MessageServiceCategoryAndScope(int serviceCategory, int serialNumber,
                 SmsCbLocation location, int bodyHash, boolean isEtwsPrimary) {
@@ -90,12 +91,27 @@ public class CellBroadcastAlertService extends Service {
             mLocation = location;
             mBodyHash = bodyHash;
             mIsEtwsPrimary = isEtwsPrimary;
+            mEtwsWarningInfo = null;
+        }
+
+        MessageServiceCategoryAndScope(int serviceCategory, int serialNumber,
+                SmsCbLocation location, int bodyHash, boolean isEtwsPrimary,
+                SmsCbEtwsInfo etwsWarningInfo) {
+            mServiceCategory = serviceCategory;
+            mSerialNumber = serialNumber;
+            mLocation = location;
+            mBodyHash = bodyHash;
+            mIsEtwsPrimary = isEtwsPrimary;
+            mEtwsWarningInfo = etwsWarningInfo;
         }
 
         @Override
         public int hashCode() {
-            return mLocation.hashCode() + 5 * mServiceCategory + 7 * mSerialNumber + 13 * mBodyHash
-                    + 17 * Boolean.hashCode(mIsEtwsPrimary);
+            if (mEtwsWarningInfo != null) {
+                return mEtwsWarningInfo.hashCode() + mLocation.hashCode() + 5 * mServiceCategory
+                        + 7 * mSerialNumber + 13 * mBodyHash;
+            }
+            return mLocation.hashCode() + 5 * mServiceCategory + 7 * mSerialNumber + 13 * mBodyHash;
         }
 
         @Override
@@ -105,6 +121,14 @@ public class CellBroadcastAlertService extends Service {
             }
             if (o instanceof MessageServiceCategoryAndScope) {
                 MessageServiceCategoryAndScope other = (MessageServiceCategoryAndScope) o;
+                if (mEtwsWarningInfo == null && other.mEtwsWarningInfo != null) {
+                    return false;
+                } else if (mEtwsWarningInfo != null && other.mEtwsWarningInfo == null) {
+                    return false;
+                } else if (mEtwsWarningInfo != null && other.mEtwsWarningInfo != null
+                        && !mEtwsWarningInfo.equals(other.mEtwsWarningInfo)) {
+                    return false;
+                }
                 return (mServiceCategory == other.mServiceCategory &&
                         mSerialNumber == other.mSerialNumber &&
                         mLocation.equals(other.mLocation) &&
@@ -116,9 +140,10 @@ public class CellBroadcastAlertService extends Service {
 
         @Override
         public String toString() {
-            return "{mServiceCategory: " + mServiceCategory + " serial number: " + mSerialNumber +
-                    " location: " + mLocation.toString() + " body hash: " + mBodyHash +
-                    " mIsEtwsPrimary: " + mIsEtwsPrimary + "}";
+            return "{mServiceCategory: " + mServiceCategory + " serial number: " + mSerialNumber
+                    + " location: " + mLocation.toString() + " mEtwsWarningInfo: "
+                    + (mEtwsWarningInfo == null ? "NULL" : mEtwsWarningInfo.toString())
+                    + " body hash: " + mBodyHash + " mIsEtwsPrimary: " + mIsEtwsPrimary +'}';
         }
     }
 
@@ -207,9 +232,10 @@ public class CellBroadcastAlertService extends Service {
         // message ID of the oldest message is deleted from the list.
         MessageServiceCategoryAndScope newCmasId = new MessageServiceCategoryAndScope(
                 message.getServiceCategory(), message.getSerialNumber(), message.getLocation(),
-                hashCode, isEtwsPrimary);
+                hashCode, isEtwsPrimary, message.getEtwsWarningInfo());
 
-        Log.d(TAG, "message ID = " + newCmasId);
+        Log.v(TAG,"newCmasId:" + newCmasId + " hash: " + newCmasId.hashCode()
+                + "body hash:" + hashCode);
 
         // Add the new message ID to the list. It's okay if this is a duplicate message ID,
         // because the list is only used for removing old message IDs from the hash set.
