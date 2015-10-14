@@ -39,6 +39,7 @@ import com.android.internal.telephony.PhoneConstants;
 
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Locale;
 
 /**
  * This service manages the display and animation of broadcast messages.
@@ -367,16 +368,33 @@ public class CellBroadcastAlertService extends Service {
                 SubscriptionManager.CB_ALERT_SPEECH, true, this)) {
             audioIntent.putExtra(CellBroadcastAlertAudio.ALERT_AUDIO_MESSAGE_BODY, messageBody);
 
-            String language = message.getLanguageCode();
-            if (message.isEtwsMessage() && !"ja".equals(language)) {
-                Log.w(TAG, "bad language code for ETWS - using Japanese TTS");
-                language = "ja";
-            } else if (message.isCmasMessage() && !"en".equals(language)) {
-                Log.w(TAG, "bad language code for CMAS - using English TTS");
-                language = "en";
+            String preferredLanguage = message.getLanguageCode();
+            String defaultLanguage = null;
+            if (message.isEtwsMessage()) {
+                // Only do TTS for ETWS secondary message.
+                // There is no text in ETWS primary message. When we construct the ETWS primary
+                // message, we hardcode "ETWS" as the body hence we don't want to speak that out here.
+                
+                // Also in many cases we see the secondary message comes few milliseconds after
+                // the primary one. If we play TTS for the primary one, It will be overwritten by
+                // the secondary one immediately anyway.
+                if (!message.getEtwsWarningInfo().isPrimary()) {
+                    // Since only Japanese carriers are using ETWS, if there is no language specified
+                    // in the ETWS message, we'll use Japanese as the default language.
+                    defaultLanguage = "ja";
+                }
+            } else {
+                // If there is no language specified in the CMAS message, use device's
+                // default language.
+                defaultLanguage = Locale.getDefault().getLanguage();
             }
-            audioIntent.putExtra(CellBroadcastAlertAudio.ALERT_AUDIO_MESSAGE_LANGUAGE,
-                    language);
+
+            Log.d(TAG, "Preferred language = " + preferredLanguage +
+                    ", Default language = " + defaultLanguage);
+            audioIntent.putExtra(CellBroadcastAlertAudio.ALERT_AUDIO_MESSAGE_PREFERRED_LANGUAGE,
+                    preferredLanguage);
+            audioIntent.putExtra(CellBroadcastAlertAudio.ALERT_AUDIO_MESSAGE_DEFAULT_LANGUAGE,
+                    defaultLanguage);
         }
         startService(audioIntent);
 
