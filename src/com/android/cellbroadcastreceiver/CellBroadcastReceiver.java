@@ -25,6 +25,7 @@ import android.os.Bundle;
 import android.os.RemoteException;
 import android.os.ServiceManager;
 import android.os.UserHandle;
+import android.os.UserManager;
 import android.preference.PreferenceManager;
 import android.provider.Telephony;
 import android.telephony.CellBroadcastMessage;
@@ -77,7 +78,7 @@ public class CellBroadcastReceiver extends BroadcastReceiver {
 
                 if (((newState == ServiceState.STATE_IN_SERVICE) ||
                         (newState == ServiceState.STATE_EMERGENCY_ONLY)) &&
-                        (UserHandle.myUserId() == UserHandle.USER_OWNER)) {
+                        (UserManager.get(context).isSystemUser())) {
                     startConfigService(context.getApplicationContext(), subId);
                 }
             }
