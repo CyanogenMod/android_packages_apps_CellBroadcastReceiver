@@ -31,7 +31,6 @@ import android.preference.PreferenceManager;
 import android.provider.Telephony;
 import android.telephony.CellBroadcastMessage;
 import android.telephony.SmsCbCmasInfo;
-import android.telephony.SubscriptionManager;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -356,7 +355,7 @@ public class CellBroadcastAlertFullScreen extends Activity {
         ((TextView) findViewById(R.id.message)).setText(message.getMessageBody());
 
         // Set alert reminder depending on user preference
-        CellBroadcastAlertReminder.queueAlertReminder(this, true, message.getSubId());
+        CellBroadcastAlertReminder.queueAlertReminder(this, true);
     }
 
     /**
@@ -436,14 +435,12 @@ public class CellBroadcastAlertFullScreen extends Activity {
 
         // Show opt-in/opt-out dialog when the first CMAS alert is received.
         if (mShowOptOutDialog) {
-            boolean boolResult = SubscriptionManager.getBooleanSubscriptionProperty(
-                    lastMessage.getSubId(), SubscriptionManager.CB_OPT_OUT_DIALOG, true, this);
-
-            if (boolResult) {
+            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+            if (prefs.getBoolean(CellBroadcastSettings.KEY_SHOW_CMAS_OPT_OUT_DIALOG, true)) {
                 // Clear the flag so the user will only see the opt-out dialog once.
-                Log.d(TAG, "subscriptionId of last message = " + lastMessage.getSubId());
-                SubscriptionManager.setSubscriptionProperty(lastMessage.getSubId(),
-                        SubscriptionManager.CB_OPT_OUT_DIALOG, "0");
+                prefs.edit().putBoolean(CellBroadcastSettings.KEY_SHOW_CMAS_OPT_OUT_DIALOG, false)
+                        .apply();
+
                 KeyguardManager km = (KeyguardManager) getSystemService(Context.KEYGUARD_SERVICE);
                 if (km.inKeyguardRestrictedInputMode()) {
                     Log.d(TAG, "Showing opt-out dialog in new activity (secure keyguard)");

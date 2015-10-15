@@ -24,10 +24,12 @@ import android.app.Service;
 import android.app.ActivityManagerNative;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.os.RemoteException;
 import android.os.UserHandle;
+import android.preference.PreferenceManager;
 import android.provider.Telephony;
 import android.telephony.CellBroadcastMessage;
 import android.telephony.SmsCbCmasInfo;
@@ -35,7 +37,6 @@ import android.telephony.SmsCbLocation;
 import android.telephony.SmsCbMessage;
 import android.telephony.SubscriptionManager;
 import android.util.Log;
-import com.android.internal.telephony.PhoneConstants;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -157,12 +158,7 @@ public class CellBroadcastAlertService extends Service {
         }
 
         final CellBroadcastMessage cbm = new CellBroadcastMessage(message);
-        int subId = intent.getExtras().getInt(PhoneConstants.SUBSCRIPTION_KEY);
-        if (SubscriptionManager.isValidSubscriptionId(subId)) {
-            cbm.setSubId(subId);
-        } else {
-            Log.e(TAG, "Invalid subscription id");
-        }
+
         if (!isMessageEnabledByUser(cbm)) {
             Log.d(TAG, "ignoring alert of type " + cbm.getServiceCategory() +
                     " by user preference");
@@ -261,46 +257,53 @@ public class CellBroadcastAlertService extends Service {
      */
     private boolean isMessageEnabledByUser(CellBroadcastMessage message) {
 
+        // Check if all emergency alerts are disabled.
+        boolean emergencyAlertEnabled = PreferenceManager.getDefaultSharedPreferences(this).
+                getBoolean(CellBroadcastSettings.KEY_ENABLE_EMERGENCY_ALERTS, true);
+
         // Check if ETWS/CMAS test message is forced to disabled on the device.
         boolean forceDisableEtwsCmasTest =
-                CellBroadcastSettings.isEtwsCmasTestMessageForcedDisabled(this, message.getSubId());
+                CellBroadcastSettings.isEtwsCmasTestMessageForcedDisabled(this);
 
         if (message.isEtwsTestMessage()) {
-            return !forceDisableEtwsCmasTest &&
-                    SubscriptionManager.getBooleanSubscriptionProperty(
-                    message.getSubId(), SubscriptionManager.CB_ETWS_TEST_ALERT, false, this);
+            return emergencyAlertEnabled &&
+                    !forceDisableEtwsCmasTest &&
+                    PreferenceManager.getDefaultSharedPreferences(this)
+                    .getBoolean(CellBroadcastSettings.KEY_ENABLE_ETWS_TEST_ALERTS, false);
         }
 
         if (message.isEtwsMessage()) {
             // ETWS messages.
             // Turn on/off emergency notifications is the only way to turn on/off ETWS messages.
-            return SubscriptionManager.getBooleanSubscriptionProperty(message.getSubId(),
-                    SubscriptionManager.CB_EMERGENCY_ALERT, true, this);
+            return emergencyAlertEnabled;
+
         }
 
         if (message.isCmasMessage()) {
             switch (message.getCmasMessageClass()) {
                 case SmsCbCmasInfo.CMAS_CLASS_EXTREME_THREAT:
-                    return SubscriptionManager.getBooleanSubscriptionProperty(
-                            message.getSubId(),
-                            SubscriptionManager.CB_EXTREME_THREAT_ALERT, true, this);
+                    return emergencyAlertEnabled &&
+                            PreferenceManager.getDefaultSharedPreferences(this).getBoolean(
+                            CellBroadcastSettings.KEY_ENABLE_CMAS_EXTREME_THREAT_ALERTS, true);
 
                 case SmsCbCmasInfo.CMAS_CLASS_SEVERE_THREAT:
-                    return SubscriptionManager.getBooleanSubscriptionProperty(
-                            message.getSubId(),
-                            SubscriptionManager.CB_SEVERE_THREAT_ALERT, true, this);
+                    return emergencyAlertEnabled &&
+                            PreferenceManager.getDefaultSharedPreferences(this).getBoolean(
+                            CellBroadcastSettings.KEY_ENABLE_CMAS_SEVERE_THREAT_ALERTS, true);
 
                 case SmsCbCmasInfo.CMAS_CLASS_CHILD_ABDUCTION_EMERGENCY:
-                    return SubscriptionManager.getBooleanSubscriptionProperty(
-                            message.getSubId(), SubscriptionManager.CB_AMBER_ALERT, true, this);
+                    return emergencyAlertEnabled &&
+                            PreferenceManager.getDefaultSharedPreferences(this)
+                            .getBoolean(CellBroadcastSettings.KEY_ENABLE_CMAS_AMBER_ALERTS, true);
 
                 case SmsCbCmasInfo.CMAS_CLASS_REQUIRED_MONTHLY_TEST:
                 case SmsCbCmasInfo.CMAS_CLASS_CMAS_EXERCISE:
                 case SmsCbCmasInfo.CMAS_CLASS_OPERATOR_DEFINED_USE:
-                    return !forceDisableEtwsCmasTest &&
-                            SubscriptionManager.getBooleanSubscriptionProperty(
-                            message.getSubId(),
-                                    SubscriptionManager.CB_CMAS_TEST_ALERT, false, this);
+                    return emergencyAlertEnabled &&
+                            !forceDisableEtwsCmasTest &&
+                            PreferenceManager.getDefaultSharedPreferences(this)
+                                    .getBoolean(CellBroadcastSettings.KEY_ENABLE_CMAS_TEST_ALERTS,
+                                            false);
                 default:
                     return true;    // presidential-level CMAS alerts are always enabled
             }
@@ -338,16 +341,16 @@ public class CellBroadcastAlertService extends Service {
         // start audio/vibration/speech service for emergency alerts
         Intent audioIntent = new Intent(this, CellBroadcastAlertAudio.class);
         audioIntent.setAction(CellBroadcastAlertAudio.ACTION_START_ALERT_AUDIO);
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
 
         int duration;   // alert audio duration in ms
         if (message.isCmasMessage()) {
             // CMAS requirement: duration of the audio attention signal is 10.5 seconds.
             duration = 10500;
         } else {
-            duration = SubscriptionManager.getIntegerSubscriptionProperty(message.getSubId(),
-                    SubscriptionManager.CB_ALERT_SOUND_DURATION,
-                    Integer.parseInt(CellBroadcastSettings.ALERT_SOUND_DEFAULT_DURATION), this)
-                    * 1000;
+            duration = Integer.parseInt(prefs.getString(
+                    CellBroadcastSettings.KEY_ALERT_SOUND_DURATION,
+                    CellBroadcastSettings.ALERT_SOUND_DEFAULT_DURATION)) * 1000;
         }
         audioIntent.putExtra(CellBroadcastAlertAudio.ALERT_AUDIO_DURATION_EXTRA, duration);
 
@@ -357,15 +360,13 @@ public class CellBroadcastAlertService extends Service {
             audioIntent.putExtra(CellBroadcastAlertAudio.ALERT_AUDIO_ETWS_VIBRATE_EXTRA, true);
         } else {
             // For other alerts, vibration can be disabled in app settings.
-            boolean vibrateFlag = SubscriptionManager.getBooleanSubscriptionProperty(
-                    message.getSubId(), SubscriptionManager.CB_ALERT_VIBRATE, true, this);
-            audioIntent.putExtra(CellBroadcastAlertAudio.ALERT_AUDIO_VIBRATE_EXTRA, vibrateFlag);
+            audioIntent.putExtra(CellBroadcastAlertAudio.ALERT_AUDIO_VIBRATE_EXTRA,
+                    prefs.getBoolean(CellBroadcastSettings.KEY_ENABLE_ALERT_VIBRATE, true));
         }
 
         String messageBody = message.getMessageBody();
 
-        if (SubscriptionManager.getBooleanSubscriptionProperty(message.getSubId(),
-                SubscriptionManager.CB_ALERT_SPEECH, true, this)) {
+        if (prefs.getBoolean(CellBroadcastSettings.KEY_ENABLE_ALERT_SPEECH, true)) {
             audioIntent.putExtra(CellBroadcastAlertAudio.ALERT_AUDIO_MESSAGE_BODY, messageBody);
 
             String preferredLanguage = message.getLanguageCode();
