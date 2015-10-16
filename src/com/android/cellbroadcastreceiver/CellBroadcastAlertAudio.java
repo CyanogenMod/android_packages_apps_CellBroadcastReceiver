@@ -28,6 +28,7 @@ import android.media.MediaPlayer.OnErrorListener;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
@@ -129,6 +130,9 @@ public class CellBroadcastAlertAudio extends Service implements TextToSpeech.OnI
                                 PAUSE_DURATION_BEFORE_SPEAKING_MSEC);
                         mState = STATE_PAUSING;
                     } else {
+                        if (DBG) log("MessageEmpty = " + (mMessageBody == null) +
+                                ", mTtsEngineReady = " + mTtsEngineReady +
+                                ", mTtsLanguageSupported = " + mTtsLanguageSupported);
                         stopSelf();
                         mState = STATE_IDLE;
                     }
@@ -139,11 +143,16 @@ public class CellBroadcastAlertAudio extends Service implements TextToSpeech.OnI
                     int res = TextToSpeech.ERROR;
                     if (mMessageBody != null && mTtsEngineReady && mTtsLanguageSupported) {
                         if (DBG) log("Speaking broadcast text: " + mMessageBody);
+
+                        Bundle params = new Bundle();
+                        // Play TTS in notification stream.
+                        params.putInt(TextToSpeech.Engine.KEY_PARAM_STREAM,
+                                AudioManager.STREAM_NOTIFICATION);
                         // Use the non-public parameter 2 --> TextToSpeech.QUEUE_DESTROY for TTS.
                         // The entire playback queue is purged. This is different from QUEUE_FLUSH
                         // in that all entries are purged, not just entries from a given caller.
                         // This is for emergency so we want to kill all other TTS sessions.
-                        res = mTts.speak(mMessageBody, 2, null, TTS_UTTERANCE_ID);
+                        res = mTts.speak(mMessageBody, 2, params, TTS_UTTERANCE_ID);
                         mState = STATE_SPEAKING;
                     }
                     if (res != TextToSpeech.SUCCESS) {
@@ -228,7 +237,11 @@ public class CellBroadcastAlertAudio extends Service implements TextToSpeech.OnI
     @Override
     public void onUtteranceCompleted(String utteranceId) {
         if (utteranceId.equals(TTS_UTTERANCE_ID)) {
-            stopSelf();
+            // When we reach here, it could be TTS completed or TTS was cut due to another
+            // new alert started playing. We don't want to stop the service in the later case.
+            if (mState == STATE_SPEAKING) {
+                stopSelf();
+            }
         }
     }
 
@@ -257,6 +270,12 @@ public class CellBroadcastAlertAudio extends Service implements TextToSpeech.OnI
                 // catch "Unable to retrieve AudioTrack pointer for stop()" exception
                 loge("exception trying to shutdown text-to-speech");
             }
+        }
+        if (mEnableAudio) {
+            // Release the audio focus so other audio (e.g. music) can resume.
+            // Do not do this in stop() because stop() is also called when we stop the tone (before
+            // TTS is playing). We only want to release the focus when tone and TTS are played.
+            mAudioManager.abandonAudioFocus(null);
         }
         // release CPU wake lock acquired by CellBroadcastAlertService
         CellBroadcastAlertWakeLock.releaseCpuLock();
@@ -458,7 +477,6 @@ public class CellBroadcastAlertAudio extends Service implements TextToSpeech.OnI
                 loge("exception trying to stop text-to-speech");
             }
         }
-        mAudioManager.abandonAudioFocus(null);
         mState = STATE_IDLE;
     }
 
