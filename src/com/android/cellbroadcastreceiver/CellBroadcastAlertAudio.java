@@ -122,6 +122,9 @@ public class CellBroadcastAlertAudio extends Service implements TextToSpeech.OnI
                                 PAUSE_DURATION_BEFORE_SPEAKING_MSEC);
                         mState = STATE_PAUSING;
                     } else {
+                        if (DBG) log("MessageEmpty = " + (mMessageBody == null) +
+                                ", mTtsEngineReady = " + mTtsEngineReady +
+                                ", mTtsLanguageSupported = " + mTtsLanguageSupported);
                         stopSelf();
                         mState = STATE_IDLE;
                     }
@@ -135,6 +138,10 @@ public class CellBroadcastAlertAudio extends Service implements TextToSpeech.OnI
                         HashMap<String, String> ttsHashMap = new HashMap<String, String>();
                         ttsHashMap.put(TextToSpeech.Engine.KEY_PARAM_UTTERANCE_ID,
                                 TTS_UTTERANCE_ID);
+                        // Play TTS on notification stream.
+                        ttsHashMap.put(TextToSpeech.Engine.KEY_PARAM_STREAM,
+                                Integer.toString(AudioManager.STREAM_NOTIFICATION));
+
                         res = mTts.speak(mMessageBody, TextToSpeech.QUEUE_FLUSH, ttsHashMap);
                         mState = STATE_SPEAKING;
                     }
@@ -206,7 +213,11 @@ public class CellBroadcastAlertAudio extends Service implements TextToSpeech.OnI
     @Override
     public void onUtteranceCompleted(String utteranceId) {
         if (utteranceId.equals(TTS_UTTERANCE_ID)) {
-            stopSelf();
+            // When we reach here, it could be TTS completed or TTS was cut due to another
+            // new alert started playing. We don't want to stop the service in the later case.
+            if (mState == STATE_SPEAKING) {
+                stopSelf();
+            }
         }
     }
 
@@ -236,6 +247,14 @@ public class CellBroadcastAlertAudio extends Service implements TextToSpeech.OnI
                 loge("exception trying to shutdown text-to-speech");
             }
         }
+
+        if (mEnableAudio) {
+            // Release the audio focus so other audio (e.g. music) can resume.
+            // Do not do this in stop() because stop() is also called when we stop the tone (before
+            // TTS is playing). We only want to release the focus when tone and TTS are played.
+            mAudioManager.abandonAudioFocus(null);
+        }
+
         // release CPU wake lock acquired by CellBroadcastAlertService
         CellBroadcastAlertWakeLock.releaseCpuLock();
     }
@@ -435,7 +454,7 @@ public class CellBroadcastAlertAudio extends Service implements TextToSpeech.OnI
                 loge("exception trying to stop text-to-speech");
             }
         }
-        mAudioManager.abandonAudioFocus(null);
+
         mState = STATE_IDLE;
     }
 
