@@ -92,7 +92,7 @@ public class CellBroadcastReceiver extends BroadcastReceiver {
                 if (((newState == ServiceState.STATE_IN_SERVICE) ||
                         (newState == ServiceState.STATE_EMERGENCY_ONLY)) &&
                         (UserHandle.myUserId() == UserHandle.USER_OWNER)) {
-                    startConfigService(context.getApplicationContext(), slotId);;
+                    startConfigService(context.getApplicationContext(), subId);
                 }
             }
         } else if (IccCardProxy.ACTION_INTERNAL_SIM_STATE_CHANGED.equals(action)){
