@@ -209,8 +209,12 @@ public class CellBroadcastConfigService extends IntentService {
                 int cmasAmber = SmsCbConstants.MESSAGE_ID_CMAS_ALERT_CHILD_ABDUCTION_EMERGENCY;
                 int cmasTestStart = SmsCbConstants.MESSAGE_ID_CMAS_ALERT_REQUIRED_MONTHLY_TEST;
                 int cmasTestEnd = SmsCbConstants.MESSAGE_ID_CMAS_ALERT_OPERATOR_DEFINED_USE;
+                int cmasTestLanguageStart =
+                        SmsCbConstants.MESSAGE_ID_CMAS_ALERT_REQUIRED_MONTHLY_TEST_LANGUAGE;
+                int cmasTestLanguageEnd =
+                        SmsCbConstants.MESSAGE_ID_CMAS_ALERT_OPERATOR_DEFINED_USE_LANGUAGE;
                 int cmasPresident = SmsCbConstants.MESSAGE_ID_CMAS_ALERT_PRESIDENTIAL_LEVEL;
-                int cmasTaiwanPWS =
+                int cmasPresidentLanguage =
                         SmsCbConstants.MESSAGE_ID_CMAS_ALERT_PRESIDENTIAL_LEVEL_LANGUAGE;
 
                 // set to CDMA broadcast ID rage if phone is in CDMA mode.
@@ -269,16 +273,10 @@ public class CellBroadcastConfigService extends IntentService {
                             manager.enableCellBroadcast(
                                     SmsEnvelope.SERVICE_CATEGORY_CMAS_TEST_MESSAGE,
                                     SmsManager.CELL_BROADCAST_RAN_TYPE_CDMA);
+                            manager.enableCellBroadcastRange(
+                                    cmasTestLanguageStart, cmasTestLanguageEnd,
+                                    SmsManager.CELL_BROADCAST_RAN_TYPE_GSM);
                         }
-                        // CMAS Presidential must be on (See 3GPP TS 22.268 Section 6.2).
-                        manager.enableCellBroadcast(cmasPresident,
-                                SmsManager.CELL_BROADCAST_RAN_TYPE_GSM);
-                        manager.enableCellBroadcast(
-                                SmsEnvelope.SERVICE_CATEGORY_CMAS_PRESIDENTIAL_LEVEL_ALERT,
-                                SmsManager.CELL_BROADCAST_RAN_TYPE_CDMA);
-                        // register Taiwan PWS 4383 also, by default
-                        manager.enableCellBroadcast(cmasTaiwanPWS,
-                                SmsManager.CELL_BROADCAST_RAN_TYPE_GSM);
                     }
                     if (DBG) log("enabled emergency cell broadcast channels");
                 } else {
@@ -321,18 +319,24 @@ public class CellBroadcastConfigService extends IntentService {
                         manager.disableCellBroadcast(
                                 SmsEnvelope.SERVICE_CATEGORY_CMAS_TEST_MESSAGE,
                                 SmsManager.CELL_BROADCAST_RAN_TYPE_CDMA);
-                        // CMAS Presidential must be on (See 3GPP TS 22.268 Section 6.2).
-                        manager.enableCellBroadcast(cmasPresident,
-                                SmsManager.CELL_BROADCAST_RAN_TYPE_GSM);
-                        manager.enableCellBroadcast(
-                                SmsEnvelope.SERVICE_CATEGORY_CMAS_PRESIDENTIAL_LEVEL_ALERT,
-                                SmsManager.CELL_BROADCAST_RAN_TYPE_CDMA);
-                        // register Taiwan PWS 4383 also, by default
-                        manager.enableCellBroadcast(cmasTaiwanPWS,
-                                SmsManager.CELL_BROADCAST_RAN_TYPE_GSM);
+
                     }
                     if (DBG) log("disabled emergency cell broadcast channels");
                 }
+
+                // CMAS Presidential must be on (See 3GPP TS 22.268 Section 6.2).
+                manager.enableCellBroadcast(cmasPresident,
+                        SmsManager.CELL_BROADCAST_RAN_TYPE_GSM);
+                manager.enableCellBroadcast(
+                        SmsEnvelope.SERVICE_CATEGORY_CMAS_PRESIDENTIAL_LEVEL_ALERT,
+                        SmsManager.CELL_BROADCAST_RAN_TYPE_CDMA);
+
+                // CMAS Presidential additional language must be on per Taiwan regulation.
+                // Technical Specifications of the Telecommunications Land Mobile 10 (PLMN10)
+                // 5.14.2.3 Channel 4383 shows public warning messages in English and shall not
+                // be turned off.
+                manager.enableCellBroadcast(cmasPresidentLanguage,
+                        SmsManager.CELL_BROADCAST_RAN_TYPE_GSM);
 
                 if (enableChannel50Alerts) {
                     if (DBG) log("enabling cell broadcast channel 50");
@@ -391,6 +395,9 @@ public class CellBroadcastConfigService extends IntentService {
                             SmsManager.CELL_BROADCAST_RAN_TYPE_GSM);
                     manager.disableCellBroadcast(SmsEnvelope.SERVICE_CATEGORY_CMAS_TEST_MESSAGE,
                             SmsManager.CELL_BROADCAST_RAN_TYPE_CDMA);
+                    manager.disableCellBroadcastRange(
+                            cmasTestLanguageStart, cmasTestLanguageEnd,
+                            SmsManager.CELL_BROADCAST_RAN_TYPE_GSM);
                 }
             } catch (Exception ex) {
                 Log.e(TAG, "exception enabling cell broadcast channels", ex);
