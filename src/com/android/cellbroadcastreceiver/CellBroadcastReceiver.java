@@ -29,7 +29,6 @@ import android.provider.Telephony;
 import android.telephony.CellBroadcastMessage;
 import android.telephony.ServiceState;
 import android.telephony.SubscriptionManager;
-import android.telephony.SubscriptionManager.OnSubscriptionsChangedListener;
 import android.telephony.TelephonyManager;
 import android.telephony.cdma.CdmaSmsCbProgramData;
 import android.util.Log;
@@ -44,6 +43,9 @@ public class CellBroadcastReceiver extends BroadcastReceiver {
     private static int mServiceState = -1;
     private static final String GET_LATEST_CB_AREA_INFO_ACTION =
             "android.cellbroadcastreceiver.GET_LATEST_CB_AREA_INFO";
+
+    public static final String CELLBROADCAST_START_CONFIG_ACTION =
+            "android.cellbroadcastreceiver.START_CONFIG";
 
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -71,11 +73,17 @@ public class CellBroadcastReceiver extends BroadcastReceiver {
                     }
                 }
             }
-        } else if (TelephonyIntents.ACTION_DEFAULT_SMS_SUBSCRIPTION_CHANGED.equals(action)) {
+        } else if (TelephonyIntents.ACTION_DEFAULT_SMS_SUBSCRIPTION_CHANGED.equals(action) ||
+                CELLBROADCAST_START_CONFIG_ACTION.equals(action)) {
             // Todo: Add the service state check once the new get service state API is done.
             // Do not rely on mServiceState as it gets reset to -1 time to time because
             // the process of CellBroadcastReceiver gets killed every time once the job is done.
-            startConfigService(context.getApplicationContext());
+            if (UserManager.get(context).isSystemUser()) {
+                startConfigService(context.getApplicationContext());
+            }
+            else {
+                Log.e(TAG, "Not system user. Ignored the intent " + action);
+            }
         } else if (Telephony.Sms.Intents.SMS_EMERGENCY_CB_RECEIVED_ACTION.equals(action) ||
                 Telephony.Sms.Intents.SMS_CB_RECEIVED_ACTION.equals(action)) {
             // If 'privileged' is false, it means that the intent was delivered to the base
@@ -118,7 +126,6 @@ public class CellBroadcastReceiver extends BroadcastReceiver {
             } else {
                 Log.e(TAG, "caller missing READ_PHONE_STATE permission, returning");
             }
-
         } else {
             Log.w(TAG, "onReceive() unexpected action " + action);
         }
@@ -199,6 +206,7 @@ public class CellBroadcastReceiver extends BroadcastReceiver {
     static void startConfigService(Context context) {
         Intent serviceIntent = new Intent(CellBroadcastConfigService.ACTION_ENABLE_CHANNELS,
                 null, context, CellBroadcastConfigService.class);
+        Log.d(TAG, "Start Cell Broadcast configuration.");
         context.startService(serviceIntent);
     }
 
