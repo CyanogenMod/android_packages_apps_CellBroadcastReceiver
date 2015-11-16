@@ -33,7 +33,11 @@
 
     <application android:name="CellBroadcastReceiverApp"
             android:label="@string/app_label"
-            android:icon="@mipmap/ic_launcher_cell_broadcast">
+            android:icon="@mipmap/ic_launcher_cell_broadcast"
+            android:backupAgent="CellBroadcastBackupAgent">
+
+        <meta-data android:name="com.google.android.backup.api_key"
+            android:value="AEdPqrEAAAAI2_Lb4sDI0e0twL-kf6GIqXpZIfrR0OhnM1pNJQ" />
 
         <service android:name="CellBroadcastAlertAudio"
                  android:exported="false" />
@@ -110,7 +114,9 @@
             <intent-filter>
                 <action android:name="android.provider.Telephony.SMS_CB_RECEIVED" />
             </intent-filter>
-
+            <intent-filter>
+                <action android:name="android.cellbroadcastreceiver.START_CONFIG" />
+            </intent-filter>
             <intent-filter>
                 <action android:name="android.provider.Telephony.SMS_SERVICE_CATEGORY_PROGRAM_DATA_RECEIVED" />
             </intent-filter>
