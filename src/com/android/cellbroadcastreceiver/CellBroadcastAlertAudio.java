@@ -28,6 +28,7 @@ import android.media.MediaPlayer.OnErrorListener;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
@@ -39,6 +40,7 @@ import android.util.Log;
 
 import java.util.HashMap;
 import java.util.Locale;
+import java.util.MissingResourceException;
 
 import static com.android.cellbroadcastreceiver.CellBroadcastReceiver.DBG;
 
@@ -61,9 +63,14 @@ public class CellBroadcastAlertAudio extends Service implements TextToSpeech.OnI
     public static final String ALERT_AUDIO_MESSAGE_BODY =
             "com.android.cellbroadcastreceiver.ALERT_AUDIO_MESSAGE_BODY";
 
-    /** Extra for text-to-speech language (if speech enabled in settings). */
-    public static final String ALERT_AUDIO_MESSAGE_LANGUAGE =
-            "com.android.cellbroadcastreceiver.ALERT_AUDIO_MESSAGE_LANGUAGE";
+    /** Extra for text-to-speech preferred language (if speech enabled in settings). */
+    public static final String ALERT_AUDIO_MESSAGE_PREFERRED_LANGUAGE =
+            "com.android.cellbroadcastreceiver.ALERT_AUDIO_MESSAGE_PREFERRED_LANGUAGE";
+
+    /** Extra for text-to-speech default language when preferred language is
+        not available (if speech enabled in settings). */
+    public static final String ALERT_AUDIO_MESSAGE_DEFAULT_LANGUAGE =
+            "com.android.cellbroadcastreceiver.ALERT_AUDIO_MESSAGE_DEFAULT_LANGUAGE";
 
     /** Extra for alert audio vibration enabled (from settings). */
     public static final String ALERT_AUDIO_VIBRATE_EXTRA =
@@ -93,7 +100,8 @@ public class CellBroadcastAlertAudio extends Service implements TextToSpeech.OnI
     private boolean mTtsEngineReady;
 
     private String mMessageBody;
-    private String mMessageLanguage;
+    private String mMessagePreferredLanguage;
+    private String mMessageDefaultLanguage;
     private boolean mTtsLanguageSupported;
     private boolean mEnableVibrate;
     private boolean mEnableAudio;
@@ -135,14 +143,16 @@ public class CellBroadcastAlertAudio extends Service implements TextToSpeech.OnI
                     int res = TextToSpeech.ERROR;
                     if (mMessageBody != null && mTtsEngineReady && mTtsLanguageSupported) {
                         if (DBG) log("Speaking broadcast text: " + mMessageBody);
-                        HashMap<String, String> ttsHashMap = new HashMap<String, String>();
-                        ttsHashMap.put(TextToSpeech.Engine.KEY_PARAM_UTTERANCE_ID,
-                                TTS_UTTERANCE_ID);
-                        // Play TTS on notification stream.
-                        ttsHashMap.put(TextToSpeech.Engine.KEY_PARAM_STREAM,
-                                Integer.toString(AudioManager.STREAM_NOTIFICATION));
 
-                        res = mTts.speak(mMessageBody, TextToSpeech.QUEUE_FLUSH, ttsHashMap);
+                        Bundle params = new Bundle();
+                        // Play TTS in notification stream.
+                        params.putInt(TextToSpeech.Engine.KEY_PARAM_STREAM,
+                                AudioManager.STREAM_NOTIFICATION);
+                        // Use the non-public parameter 2 --> TextToSpeech.QUEUE_DESTROY for TTS.
+                        // The entire playback queue is purged. This is different from QUEUE_FLUSH
+                        // in that all entries are purged, not just entries from a given caller.
+                        // This is for emergency so we want to kill all other TTS sessions.
+                        res = mTts.speak(mMessageBody, 2, params, TTS_UTTERANCE_ID);
                         mState = STATE_SPEAKING;
                     }
                     if (res != TextToSpeech.SUCCESS) {
@@ -189,20 +199,34 @@ public class CellBroadcastAlertAudio extends Service implements TextToSpeech.OnI
     }
 
     /**
-     * Try to set the TTS engine language to the value of mMessageLanguage.
-     * mTtsLanguageSupported will be updated based on the response.
+     * Try to set the TTS engine language to the preferred language. If failed, set
+     * it to the default language. mTtsLanguageSupported will be updated based on the response.
      */
     private void setTtsLanguage() {
-        if (mMessageLanguage != null) {
-            if (DBG) log("Setting TTS language to '" + mMessageLanguage + '\'');
-            int result = mTts.setLanguage(new Locale(mMessageLanguage));
-            // success values are >= 0, failure returns negative value
+
+        String language = mMessagePreferredLanguage;
+        if (language == null || language.isEmpty() ||
+                TextToSpeech.LANG_AVAILABLE != mTts.isLanguageAvailable(new Locale(language))) {
+            language = mMessageDefaultLanguage;
+            if (language == null || language.isEmpty() ||
+                    TextToSpeech.LANG_AVAILABLE != mTts.isLanguageAvailable(new Locale(language))) {
+                mTtsLanguageSupported = false;
+                return;
+            }
+            if (DBG) log("Language '" + mMessagePreferredLanguage + "' is not available, using" +
+                    "the default language '" + mMessageDefaultLanguage + "'");
+        }
+
+        if (DBG) log("Setting TTS language to '" + language + '\'');
+
+        try {
+            int result = mTts.setLanguage(new Locale(language));
             if (DBG) log("TTS setLanguage() returned: " + result);
-            mTtsLanguageSupported = result >= 0;
-        } else {
-            // try to use the default TTS language for broadcasts with no language specified
-            if (DBG) log("No language specified in broadcast: using default");
-            mTtsLanguageSupported = true;
+            mTtsLanguageSupported = (result == TextToSpeech.LANG_AVAILABLE);
+        }
+        catch (MissingResourceException e) {
+            mTtsLanguageSupported = false;
+            loge("Language '" + language + "' is not available.");
         }
     }
 
@@ -247,14 +271,12 @@ public class CellBroadcastAlertAudio extends Service implements TextToSpeech.OnI
                 loge("exception trying to shutdown text-to-speech");
             }
         }
-
         if (mEnableAudio) {
             // Release the audio focus so other audio (e.g. music) can resume.
             // Do not do this in stop() because stop() is also called when we stop the tone (before
             // TTS is playing). We only want to release the focus when tone and TTS are played.
             mAudioManager.abandonAudioFocus(null);
         }
-
         // release CPU wake lock acquired by CellBroadcastAlertService
         CellBroadcastAlertWakeLock.releaseCpuLock();
     }
@@ -278,7 +300,8 @@ public class CellBroadcastAlertAudio extends Service implements TextToSpeech.OnI
 
         // Get text to speak (if enabled by user)
         mMessageBody = intent.getStringExtra(ALERT_AUDIO_MESSAGE_BODY);
-        mMessageLanguage = intent.getStringExtra(ALERT_AUDIO_MESSAGE_LANGUAGE);
+        mMessagePreferredLanguage = intent.getStringExtra(ALERT_AUDIO_MESSAGE_PREFERRED_LANGUAGE);
+        mMessageDefaultLanguage = intent.getStringExtra(ALERT_AUDIO_MESSAGE_DEFAULT_LANGUAGE);
 
         mEnableVibrate = intent.getBooleanExtra(ALERT_AUDIO_VIBRATE_EXTRA, true);
         if (intent.getBooleanExtra(ALERT_AUDIO_ETWS_VIBRATE_EXTRA, false)) {
@@ -454,7 +477,6 @@ public class CellBroadcastAlertAudio extends Service implements TextToSpeech.OnI
                 loge("exception trying to stop text-to-speech");
             }
         }
-
         mState = STATE_IDLE;
     }
 
