@@ -183,14 +183,14 @@ public class CellBroadcastConfigService extends IntentService {
                                 if (id == subId) {
                                     // Enable cell broadcast messages on this sub.
                                     log("Enable CellBroadcast on sub " + id);
-                                    setCellBroadcastOnSub(manager, true);
+                                    setCellBroadcastOnSub(manager, id, true);
                                 }
                                 else {
                                     // Disable all cell broadcast message on this sub.
                                     // This is only for multi-sim scenario. For single SIM device
                                     // we should not reach here.
                                     log("Disable CellBroadcast on sub " + id);
-                                    setCellBroadcastOnSub(manager, false);
+                                    setCellBroadcastOnSub(manager, id, false);
                                 }
                             }
                         }
@@ -199,7 +199,8 @@ public class CellBroadcastConfigService extends IntentService {
                         // For no sim scenario.
                         SmsManager manager = SmsManager.getDefault();
                         if (manager != null) {
-                            setCellBroadcastOnSub(manager, true);
+                            setCellBroadcastOnSub(manager,
+                                    SubscriptionManager.INVALID_SUBSCRIPTION_ID, true);
                         }
                     }
                 }
@@ -213,10 +214,11 @@ public class CellBroadcastConfigService extends IntentService {
      * Enable/disable cell broadcast messages id on one subscription
      * This includes all ETWS and CMAS alerts.
      * @param manager SMS manager
+     * @param subId Subscription id
      * @param enableForSub True if want to enable messages on this sub (e.g default SMS). False
      *                     will disable all messages
      */
-    private void setCellBroadcastOnSub(SmsManager manager, boolean enableForSub) {
+    private void setCellBroadcastOnSub(SmsManager manager, int subId, boolean enableForSub) {
 
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
         Resources res = getResources();
@@ -275,7 +277,7 @@ public class CellBroadcastConfigService extends IntentService {
                 Context.TELEPHONY_SERVICE);
 
         boolean enableChannel50Support = res.getBoolean(R.bool.show_brazil_settings) ||
-                COUNTRY_BRAZIL.equals(tm.getSimCountryIso());
+                COUNTRY_BRAZIL.equals(tm.getSimCountryIso(subId));
 
         boolean enableChannel50Alerts = enableChannel50Support &&
                 prefs.getBoolean(CellBroadcastSettings.KEY_ENABLE_CHANNEL_50_ALERTS, true);
@@ -283,18 +285,18 @@ public class CellBroadcastConfigService extends IntentService {
         // Current Israel requires enable certain CMAS messages ids.
         // Todo: Move this to CarrierConfig later.
         boolean enableIsraelPwsAlerts = enableEmergencyAlerts &&
-                (COUNTRY_ISRAEL.equals(tm.getSimCountryIso()) ||
-                 COUNTRY_ISRAEL.equals(tm.getNetworkCountryIso()));
+                (COUNTRY_ISRAEL.equals(tm.getSimCountryIso(subId)) ||
+                 COUNTRY_ISRAEL.equals(tm.getNetworkCountryIsoForSubscription(subId)));
 
         boolean enableTaiwanPwsAlerts = enableEmergencyAlerts &&
-                (COUNTRY_TAIWAN.equals(tm.getSimCountryIso()) ||
-                 COUNTRY_TAIWAN.equals(tm.getNetworkCountryIso()));
+                (COUNTRY_TAIWAN.equals(tm.getSimCountryIso(subId)) ||
+                 COUNTRY_TAIWAN.equals(tm.getNetworkCountryIsoForSubscription(subId)));
 
         // Per Taiwan PWS regulatory requirement, table 8, we need to enable CMAS additional
         // language support. We can add more countries here as they require it in the future.
         boolean additionalLanguageSupport =
-                (COUNTRY_TAIWAN.equals(tm.getSimCountryIso()) ||
-                COUNTRY_TAIWAN.equals(tm.getNetworkCountryIso()));
+                (COUNTRY_TAIWAN.equals(tm.getSimCountryIso(subId)) ||
+                COUNTRY_TAIWAN.equals(tm.getNetworkCountryIsoForSubscription(subId)));
 
         if (DBG) {
             log("enableEmergencyAlerts = " + enableEmergencyAlerts);

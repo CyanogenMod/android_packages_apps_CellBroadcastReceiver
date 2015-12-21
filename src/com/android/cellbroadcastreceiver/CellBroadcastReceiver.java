@@ -41,8 +41,6 @@ public class CellBroadcastReceiver extends BroadcastReceiver {
     private static final String TAG = "CellBroadcastReceiver";
     static final boolean DBG = false;    // STOPSHIP: change to false before ship
     private static int mServiceState = -1;
-    private static final String GET_LATEST_CB_AREA_INFO_ACTION =
-            "android.cellbroadcastreceiver.GET_LATEST_CB_AREA_INFO";
 
     public static final String CELLBROADCAST_START_CONFIG_ACTION =
             "android.cellbroadcastreceiver.START_CONFIG";
@@ -108,23 +106,6 @@ public class CellBroadcastReceiver extends BroadcastReceiver {
                 }
             } else {
                 loge("ignoring unprivileged action received " + action);
-            }
-        } else if (GET_LATEST_CB_AREA_INFO_ACTION.equals(action)) {
-            if (privileged) {
-                CellBroadcastMessage message = CellBroadcastReceiverApp.getLatestAreaInfo();
-                if (message != null) {
-                    Intent areaInfoIntent = new Intent(
-                            CellBroadcastAlertService.CB_AREA_INFO_RECEIVED_ACTION);
-                    areaInfoIntent.putExtra("message", message);
-                    // Send broadcast twice, once for apps that have PRIVILEGED permission and once
-                    // for those that have the runtime one
-                    context.sendBroadcastAsUser(areaInfoIntent, UserHandle.ALL,
-                            android.Manifest.permission.READ_PRIVILEGED_PHONE_STATE);
-                    context.sendBroadcastAsUser(areaInfoIntent, UserHandle.ALL,
-                            android.Manifest.permission.READ_PHONE_STATE);
-                }
-            } else {
-                Log.e(TAG, "caller missing READ_PHONE_STATE permission, returning");
             }
         } else {
             Log.w(TAG, "onReceive() unexpected action " + action);

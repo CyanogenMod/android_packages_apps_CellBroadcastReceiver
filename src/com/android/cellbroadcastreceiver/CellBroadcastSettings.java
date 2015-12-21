@@ -101,6 +101,9 @@ public class CellBroadcastSettings extends PreferenceActivity {
     // First time use
     public static final String KEY_FIRST_TIME = "first_time";
 
+    // Brazil country code
+    private static final String COUNTRY_BRAZIL = "br";
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -266,8 +269,13 @@ public class CellBroadcastSettings extends PreferenceActivity {
             TelephonyManager tm = (TelephonyManager) getActivity().getSystemService(
                     Context.TELEPHONY_SERVICE);
 
+            int subId = SubscriptionManager.getDefaultSmsSubId();
+            if (subId == SubscriptionManager.INVALID_SUBSCRIPTION_ID) {
+                subId = SubscriptionManager.getDefaultSubId();
+            }
+
             boolean enableChannel50Support = res.getBoolean(R.bool.show_brazil_settings) ||
-                    "br".equals(tm.getSimCountryIso());
+                    COUNTRY_BRAZIL.equals(tm.getSimCountryIso(subId));
 
             if (!enableChannel50Support) {
                 preferenceScreen.removePreference(findPreference(KEY_CATEGORY_BRAZIL_SETTINGS));
