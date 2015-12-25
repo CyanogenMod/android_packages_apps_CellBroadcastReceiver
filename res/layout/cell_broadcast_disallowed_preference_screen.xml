@@ -26,8 +26,8 @@
                 android:layout_height="match_parent"
                 android:drawSelectorOnTop="false"
                 android:scrollbarStyle="insideOverlay"
-                android:background="@android:color/white"
-                android:cacheColorHint="@android:color/white"
+                android:background="@color/list_container_background_color"
+                android:cacheColorHint="@color/list_container_cache_color_hint_color"
                 android:fadingEdgeLength="16dip" />
 
         <TextView android:id="@+android:id/empty"
