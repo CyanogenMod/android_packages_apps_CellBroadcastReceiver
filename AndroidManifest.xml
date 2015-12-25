@@ -59,7 +59,7 @@
 
         <activity android:name="CellBroadcastListActivity"
                   android:label="@string/app_label"
-                  android:theme="@android:style/Theme.Material.Light"
+                  android:theme="@style/CellBroadcastListActivityTheme"
                   android:configChanges="orientation|keyboardHidden"
                   android:launchMode="singleTask">
             <intent-filter>
@@ -85,14 +85,14 @@
                   android:exported="true" />
 
         <activity android:name="CellBroadcastAlertDialog"
-                  android:theme="@android:style/Theme.Material.Light.Dialog"
+                  android:theme="@style/CellBroadcastAlertDialog"
                   android:launchMode="singleTask"
                   android:exported="false"
                   android:configChanges="orientation|keyboardHidden|keyboard|navigation">
             <intent-filter>
                 <action android:name="android.provider.Telephony.SMS_CB_RECEIVED" />
             </intent-filter>
-        </activity> 
+        </activity>
 
         <!-- Full-screen version of CellBroadcastAlertDialog to display alerts over lock screen. -->
         <activity android:name="CellBroadcastAlertFullScreen"
