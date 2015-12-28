@@ -284,19 +284,16 @@ public class CellBroadcastConfigService extends IntentService {
 
         // Current Israel requires enable certain CMAS messages ids.
         // Todo: Move this to CarrierConfig later.
-        boolean enableIsraelPwsAlerts = enableEmergencyAlerts &&
-                (COUNTRY_ISRAEL.equals(tm.getSimCountryIso(subId)) ||
-                 COUNTRY_ISRAEL.equals(tm.getNetworkCountryIsoForSubscription(subId)));
+        boolean supportIsraelPwsAlerts = (COUNTRY_ISRAEL.equals(tm.getSimCountryIso(subId))
+                || COUNTRY_ISRAEL.equals(tm.getNetworkCountryIsoForSubscription(subId)));
 
-        boolean enableTaiwanPwsAlerts = enableEmergencyAlerts &&
-                (COUNTRY_TAIWAN.equals(tm.getSimCountryIso(subId)) ||
-                 COUNTRY_TAIWAN.equals(tm.getNetworkCountryIsoForSubscription(subId)));
+        boolean supportTaiwanPwsAlerts = (COUNTRY_TAIWAN.equals(tm.getSimCountryIso(subId))
+                || COUNTRY_TAIWAN.equals(tm.getNetworkCountryIsoForSubscription(subId)));
 
         // Per Taiwan PWS regulatory requirement, table 8, we need to enable CMAS additional
         // language support. We can add more countries here as they require it in the future.
-        boolean additionalLanguageSupport =
-                (COUNTRY_TAIWAN.equals(tm.getSimCountryIso(subId)) ||
-                COUNTRY_TAIWAN.equals(tm.getNetworkCountryIsoForSubscription(subId)));
+        boolean supportAdditionalLanguage = (COUNTRY_TAIWAN.equals(tm.getSimCountryIso(subId))
+                || COUNTRY_TAIWAN.equals(tm.getNetworkCountryIsoForSubscription(subId)));
 
         if (DBG) {
             log("enableEmergencyAlerts = " + enableEmergencyAlerts);
@@ -309,8 +306,9 @@ public class CellBroadcastConfigService extends IntentService {
             log("enableEtwsTestAlerts = " + enableEtwsTestAlerts);
             log("enableCmasTestAlerts = " + enableCmasTestAlerts);
             log("enableChannel50Alerts = " + enableChannel50Alerts);
-            log("enableIsraelPwsAlerts = " + enableIsraelPwsAlerts);
-            log("enableTaiwanPwsAlerts = " + enableTaiwanPwsAlerts);
+            log("supportIsraelPwsAlerts = " + supportIsraelPwsAlerts);
+            log("supportTaiwanPwsAlerts = " + supportTaiwanPwsAlerts);
+            log("supportAdditionalLanguage = " + supportAdditionalLanguage);
         }
 
         /** Enable CDMA CMAS series messages. */
@@ -391,7 +389,7 @@ public class CellBroadcastConfigService extends IntentService {
                 SmsCbConstants.MESSAGE_ID_CMAS_ALERT_REQUIRED_MONTHLY_TEST,
                 SmsCbConstants.MESSAGE_ID_CMAS_ALERT_OPERATOR_DEFINED_USE);
 
-        if (additionalLanguageSupport) {
+        if (supportAdditionalLanguage) {
 
             /** Enable GSM CMAS series messages for additional languages. */
 
@@ -432,23 +430,26 @@ public class CellBroadcastConfigService extends IntentService {
                 SmsCbConstants.MESSAGE_ID_GSMA_ALLOCATED_CHANNEL_50,
                 SmsCbConstants.MESSAGE_ID_GSMA_ALLOCATED_CHANNEL_50);
 
-        // Enable/Disable Israel PWS channels (919~928).
-        setCellBroadcastRange(manager, enableIsraelPwsAlerts,
-                SmsManager.CELL_BROADCAST_RAN_TYPE_GSM,
-                SmsCbConstants.MESSAGE_ID_GSMA_ALLOCATED_CHANNEL_919,
-                SmsCbConstants.MESSAGE_ID_GSMA_ALLOCATED_CHANNEL_928);
+        if (supportIsraelPwsAlerts) {
+            // Enable/Disable Israel PWS channels (919~928).
+            setCellBroadcastRange(manager, enableEmergencyAlerts,
+                    SmsManager.CELL_BROADCAST_RAN_TYPE_GSM,
+                    SmsCbConstants.MESSAGE_ID_GSMA_ALLOCATED_CHANNEL_919,
+                    SmsCbConstants.MESSAGE_ID_GSMA_ALLOCATED_CHANNEL_928);
+        }
+        else if (supportTaiwanPwsAlerts) {
+            // Enable/Disable Taiwan PWS Chinese channel (911).
+            setCellBroadcastRange(manager, enableEmergencyAlerts,
+                    SmsManager.CELL_BROADCAST_RAN_TYPE_GSM,
+                    SmsCbConstants.MESSAGE_ID_GSMA_ALLOCATED_CHANNEL_911,
+                    SmsCbConstants.MESSAGE_ID_GSMA_ALLOCATED_CHANNEL_911);
 
-        // Enable/Disable Taiwan PWS Chinese channel (911).
-        setCellBroadcastRange(manager, enableTaiwanPwsAlerts,
-                SmsManager.CELL_BROADCAST_RAN_TYPE_GSM,
-                SmsCbConstants.MESSAGE_ID_GSMA_ALLOCATED_CHANNEL_911,
-                SmsCbConstants.MESSAGE_ID_GSMA_ALLOCATED_CHANNEL_911);
-
-        // Enable/Disable Taiwan PWS English channel (919).
-        setCellBroadcastRange(manager, enableTaiwanPwsAlerts,
-                SmsManager.CELL_BROADCAST_RAN_TYPE_GSM,
-                SmsCbConstants.MESSAGE_ID_GSMA_ALLOCATED_CHANNEL_919,
-                SmsCbConstants.MESSAGE_ID_GSMA_ALLOCATED_CHANNEL_919);
+            // Enable/Disable Taiwan PWS English channel (919).
+            setCellBroadcastRange(manager, enableEmergencyAlerts,
+                    SmsManager.CELL_BROADCAST_RAN_TYPE_GSM,
+                    SmsCbConstants.MESSAGE_ID_GSMA_ALLOCATED_CHANNEL_919,
+                    SmsCbConstants.MESSAGE_ID_GSMA_ALLOCATED_CHANNEL_919);
+        }
     }
     /**
      * Enable/disable cell broadcast with messages id range
