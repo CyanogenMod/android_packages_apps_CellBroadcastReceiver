@@ -197,9 +197,9 @@ public class CellBroadcastReceiver extends BroadcastReceiver {
     static boolean phoneIsCdma() {
         boolean isCdma = false;
 
-        int subId = SubscriptionManager.getDefaultSmsSubId();
+        int subId = SubscriptionManager.getDefaultSmsSubscriptionId();
         if (subId == SubscriptionManager.INVALID_SUBSCRIPTION_ID) {
-            subId = SubscriptionManager.getDefaultSubId();
+            subId = SubscriptionManager.getDefaultSubscriptionId();
         }
 
         try {

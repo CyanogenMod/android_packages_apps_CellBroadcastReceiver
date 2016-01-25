@@ -135,9 +135,9 @@ public class CellBroadcastSearchIndexableProvider extends SearchIndexablesProvid
         TelephonyManager tm = (TelephonyManager) getContext().getSystemService(
                 Context.TELEPHONY_SERVICE);
 
-        int subId = SubscriptionManager.getDefaultSmsSubId();
+        int subId = SubscriptionManager.getDefaultSmsSubscriptionId();
         if (subId == SubscriptionManager.INVALID_SUBSCRIPTION_ID) {
-            subId = SubscriptionManager.getDefaultSubId();
+            subId = SubscriptionManager.getDefaultSubscriptionId();
         }
 
         boolean enableChannel50Support = res.getBoolean(R.bool.show_brazil_settings) ||
