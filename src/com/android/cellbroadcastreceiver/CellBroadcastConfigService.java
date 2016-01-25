@@ -157,9 +157,9 @@ public class CellBroadcastConfigService extends IntentService {
             try {
 
                 SubscriptionManager subManager = SubscriptionManager.from(getApplicationContext());
-                int subId = SubscriptionManager.getDefaultSmsSubId();
+                int subId = SubscriptionManager.getDefaultSmsSubscriptionId();
                 if (subId == SubscriptionManager.INVALID_SUBSCRIPTION_ID) {
-                    subId = SubscriptionManager.getDefaultSubId();
+                    subId = SubscriptionManager.getDefaultSubscriptionId();
                     if (subId == SubscriptionManager.INVALID_SUBSCRIPTION_ID &&
                             subManager != null) {
                         int [] subIds = subManager.getActiveSubscriptionIdList();
@@ -285,15 +285,15 @@ public class CellBroadcastConfigService extends IntentService {
         // Current Israel requires enable certain CMAS messages ids.
         // Todo: Move this to CarrierConfig later.
         boolean supportIsraelPwsAlerts = (COUNTRY_ISRAEL.equals(tm.getSimCountryIso(subId))
-                || COUNTRY_ISRAEL.equals(tm.getNetworkCountryIsoForSubscription(subId)));
+                || COUNTRY_ISRAEL.equals(tm.getNetworkCountryIso(subId)));
 
         boolean supportTaiwanPwsAlerts = (COUNTRY_TAIWAN.equals(tm.getSimCountryIso(subId))
-                || COUNTRY_TAIWAN.equals(tm.getNetworkCountryIsoForSubscription(subId)));
+                || COUNTRY_TAIWAN.equals(tm.getNetworkCountryIso(subId)));
 
         // Per Taiwan PWS regulatory requirement, table 8, we need to enable CMAS additional
         // language support. We can add more countries here as they require it in the future.
         boolean supportAdditionalLanguage = (COUNTRY_TAIWAN.equals(tm.getSimCountryIso(subId))
-                || COUNTRY_TAIWAN.equals(tm.getNetworkCountryIsoForSubscription(subId)));
+                || COUNTRY_TAIWAN.equals(tm.getNetworkCountryIso(subId)));
 
         if (DBG) {
             log("enableEmergencyAlerts = " + enableEmergencyAlerts);

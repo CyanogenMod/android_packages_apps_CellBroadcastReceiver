@@ -269,9 +269,9 @@ public class CellBroadcastSettings extends PreferenceActivity {
             TelephonyManager tm = (TelephonyManager) getActivity().getSystemService(
                     Context.TELEPHONY_SERVICE);
 
-            int subId = SubscriptionManager.getDefaultSmsSubId();
+            int subId = SubscriptionManager.getDefaultSmsSubscriptionId();
             if (subId == SubscriptionManager.INVALID_SUBSCRIPTION_ID) {
-                subId = SubscriptionManager.getDefaultSubId();
+                subId = SubscriptionManager.getDefaultSubscriptionId();
             }
 
             boolean enableChannel50Support = res.getBoolean(R.bool.show_brazil_settings) ||
@@ -315,9 +315,9 @@ public class CellBroadcastSettings extends PreferenceActivity {
             return false;
         }
 
-        int subId = SubscriptionManager.getDefaultSmsSubId();
+        int subId = SubscriptionManager.getDefaultSmsSubscriptionId();
         if (subId == SubscriptionManager.INVALID_SUBSCRIPTION_ID) {
-            subId = SubscriptionManager.getDefaultSubId();
+            subId = SubscriptionManager.getDefaultSubscriptionId();
             if (subId == SubscriptionManager.INVALID_SUBSCRIPTION_ID)
                 return false;
         }
@@ -346,9 +346,9 @@ public class CellBroadcastSettings extends PreferenceActivity {
             return false;
         }
 
-        int subId = SubscriptionManager.getDefaultSmsSubId();
+        int subId = SubscriptionManager.getDefaultSmsSubscriptionId();
         if (subId == SubscriptionManager.INVALID_SUBSCRIPTION_ID) {
-            subId = SubscriptionManager.getDefaultSubId();
+            subId = SubscriptionManager.getDefaultSubscriptionId();
             if (subId == SubscriptionManager.INVALID_SUBSCRIPTION_ID)
                 return false;
         }
