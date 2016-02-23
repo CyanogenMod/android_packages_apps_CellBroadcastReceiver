@@ -17,6 +17,7 @@
 package com.android.cellbroadcastreceiver;
 
 import android.content.Context;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.os.UserManager;
@@ -200,6 +201,14 @@ public class CellBroadcastSettings extends PreferenceActivity {
             mAlertCategory = (PreferenceCategory)
                     findPreference(KEY_CATEGORY_ALERT_SETTINGS);
 
+            // Show extra settings when developer options is enabled in settings
+            // AND build type is not user
+            boolean enableDevSettings = false;
+            if (!Build.TYPE.equals("user")) {
+                enableDevSettings = Settings.Global.getInt(getContentResolver(),
+                        Settings.Global.DEVELOPMENT_SETTINGS_ENABLED, 0) != 0;
+            }
+
             if(mSir == null) {
                 mExtremeCheckBox.setEnabled(false);
                 mSevereCheckBox.setEnabled(false);
@@ -213,6 +222,11 @@ public class CellBroadcastSettings extends PreferenceActivity {
                 mChannel50CheckBox.setEnabled(false);
                 mCmasCheckBox.setEnabled(false);
                 mOptOutCheckBox.setEnabled(false);
+                if (!enableDevSettings) {
+                    PreferenceCategory devSettingCategory =
+                            (PreferenceCategory) findPreference(KEY_CATEGORY_DEV_SETTINGS);
+                    if (devSettingCategory != null) prefScreen.removePreference(devSettingCategory);
+                }
                 return;
             }
 
@@ -288,10 +302,6 @@ public class CellBroadcastSettings extends PreferenceActivity {
                             return true;
                         }
                     };
-
-            // Show extra settings when developer options is enabled in settings.
-            boolean enableDevSettings = Settings.Global.getInt(getContentResolver(),
-                    Settings.Global.DEVELOPMENT_SETTINGS_ENABLED, 0) != 0;
 
             boolean showEtwsSettings = SubscriptionManager.getResourcesForSubId(
                     getApplicationContext(), mSir.getSubscriptionId())
