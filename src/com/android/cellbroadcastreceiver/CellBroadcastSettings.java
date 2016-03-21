@@ -85,9 +85,16 @@ public class CellBroadcastSettings extends PreferenceActivity {
     // Preference category for Brazil specific settings.
     public static final String KEY_CATEGORY_BRAZIL_SETTINGS = "category_brazil_settings";
 
+    // Preference category for India specific settings.
+    public static final String KEY_CATEGORY_INDIA_SETTINGS = "category_india_settings";
+
     // Preference key for whether to enable channel 50 notifications
     // Enabled by default for phones sold in Brazil, otherwise this setting may be hidden.
     public static final String KEY_ENABLE_CHANNEL_50_ALERTS = "enable_channel_50_alerts";
+
+    // Preference key for whether to enable channel 60 notifications
+    // Enabled by default for phones sold in India, otherwise this setting may be hidden.
+    public static final String KEY_ENABLE_CHANNEL_60_ALERTS = "enable_channel_60_alerts";
 
     // Preference key for initial opt-in/opt-out dialog.
     public static final String KEY_SHOW_CMAS_OPT_OUT_DIALOG = "show_cmas_opt_out_dialog";
@@ -103,6 +110,9 @@ public class CellBroadcastSettings extends PreferenceActivity {
 
     // Brazil country code
     private static final String COUNTRY_BRAZIL = "br";
+
+    // India country code
+    private static final String COUNTRY_INDIA = "in";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -133,6 +143,7 @@ public class CellBroadcastSettings extends PreferenceActivity {
         private CheckBoxPreference mSpeechCheckBox;
         private CheckBoxPreference mEtwsTestCheckBox;
         private CheckBoxPreference mChannel50CheckBox;
+        private CheckBoxPreference mChannel60CheckBox;
         private CheckBoxPreference mCmasTestCheckBox;
         private PreferenceCategory mAlertCategory;
         private PreferenceCategory mETWSSettingCategory;
@@ -164,6 +175,8 @@ public class CellBroadcastSettings extends PreferenceActivity {
                     findPreference(KEY_ENABLE_ETWS_TEST_ALERTS);
             mChannel50CheckBox = (CheckBoxPreference)
                     findPreference(KEY_ENABLE_CHANNEL_50_ALERTS);
+            mChannel60CheckBox = (CheckBoxPreference)
+                    findPreference(KEY_ENABLE_CHANNEL_60_ALERTS);
             mCmasTestCheckBox = (CheckBoxPreference)
                     findPreference(KEY_ENABLE_CMAS_TEST_ALERTS);
             mAlertCategory = (PreferenceCategory)
@@ -274,12 +287,24 @@ public class CellBroadcastSettings extends PreferenceActivity {
                 subId = SubscriptionManager.getDefaultSubscriptionId();
             }
 
+            String country = tm.getSimCountryIso(subId);
+
             boolean enableChannel50Support = res.getBoolean(R.bool.show_brazil_settings) ||
-                    COUNTRY_BRAZIL.equals(tm.getSimCountryIso(subId));
+                    COUNTRY_BRAZIL.equals(country) ||
+                    res.getBoolean(R.bool.show_india_settings) ||
+                    COUNTRY_INDIA.equals(country);
 
             if (!enableChannel50Support) {
                 preferenceScreen.removePreference(findPreference(KEY_CATEGORY_BRAZIL_SETTINGS));
             }
+
+            boolean enableChannel60Support = res.getBoolean(R.bool.show_india_settings) ||
+                    COUNTRY_INDIA.equals(country);
+
+            if (!enableChannel60Support) {
+                preferenceScreen.removePreference(findPreference(KEY_CATEGORY_INDIA_SETTINGS));
+            }
+
             if (!enableDevSettings) {
                 preferenceScreen.removePreference(findPreference(KEY_CATEGORY_DEV_SETTINGS));
             }
@@ -287,6 +312,11 @@ public class CellBroadcastSettings extends PreferenceActivity {
             if (mChannel50CheckBox != null) {
                 mChannel50CheckBox.setOnPreferenceChangeListener(startConfigServiceListener);
             }
+
+            if (mChannel60CheckBox != null) {
+                mChannel60CheckBox.setOnPreferenceChangeListener(startConfigServiceListener);
+            }
+
             if (mEtwsTestCheckBox != null) {
                 mEtwsTestCheckBox.setOnPreferenceChangeListener(startConfigServiceListener);
             }
