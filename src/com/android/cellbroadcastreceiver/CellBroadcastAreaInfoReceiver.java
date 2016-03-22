@@ -22,6 +22,8 @@ import android.content.Intent;
 import android.os.UserHandle;
 import android.telephony.CellBroadcastMessage;
 import android.util.Log;
+import android.telephony.SubscriptionManager;
+import com.android.internal.telephony.PhoneConstants;
 
 public class CellBroadcastAreaInfoReceiver extends BroadcastReceiver {
     private static final String TAG = "CBAreaInfoReceiver";
@@ -36,7 +38,17 @@ public class CellBroadcastAreaInfoReceiver extends BroadcastReceiver {
         String action = intent.getAction();
 
         if (GET_LATEST_CB_AREA_INFO_ACTION.equals(action)) {
-            CellBroadcastMessage message = CellBroadcastReceiverApp.getLatestAreaInfo();
+            int subId = intent.getIntExtra(PhoneConstants.SUBSCRIPTION_KEY,
+                    SubscriptionManager.getDefaultSmsSubscriptionId());
+            if (!SubscriptionManager.isValidSubscriptionId(subId)) {
+                subId = SubscriptionManager.getDefaultSubscriptionId();
+            }
+
+            CellBroadcastMessage message = CellBroadcastReceiverApp.
+                    getLatestAreaInfo(subId);
+
+            Log.d(TAG, "onReceive GET_LATEST_CB_AREA_INFO_ACTION subId :"
+                    + subId + "message :" + message);
             if (message != null) {
                 Intent areaInfoIntent = new Intent(
                         CellBroadcastAlertService.CB_AREA_INFO_RECEIVED_ACTION);
