@@ -15,98 +15,194 @@
      limitations under the License.
 -->
 <resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+  <!-- The name of the Cell Broadcast Receiver app. [CHAR LIMIT=NONE] -->
   <string name="app_label">Zelliwwerdroungen</string>
+  <!-- Label for settings screen. [CHAR LIMIT=NONE] -->
   <string name="sms_cb_settings">Zelleniwwerdroungs-Astellungen</string>
+  <!-- Error message for users that aren't allowed to modify Cell broadcast settings [CHAR LIMIT=none] -->
   <string name="cell_broadcast_settings_not_available">Zelliwwerdroungsastellungen net fir dëse Benotzer disponibel</string>
+  <!-- Text for dismiss button in broadcast message view dialog. [CHAR LIMIT=25] -->
   <string name="button_dismiss">OK</string>
+  <!-- Text for list view when empty (no broadcasts). [CHAR LIMIT=200] -->
   <string name="no_cell_broadcasts">Et gi keng aktiv Warnunge an denger Regioun. Du kanns d\'Astellunge fir d\'Warnmessagen iwwer de Menüpunkt \"Astellungen\" änneren.</string>
+  <!-- Menu item for accessing application settings. [CHAR LIMIT=30] -->
   <string name="menu_preferences">Astellungen</string>
+  <!-- Menu item for deleting all broadcasts. [CHAR LIMIT=30] -->
   <string name="menu_delete_all">Iwwerdrounge läschen</string>
+  <!-- Header for context menu on an individual broadcast. [CHAR LIMIT=30] -->
   <string name="message_options">Messagenoptiounen</string>
+  <!-- Context menu item for viewing broadcast details such as time and date. [CHAR LIMIT=30] -->
   <string name="menu_view_details">Detailer ukucken</string>
+  <!-- Context menu item to delete a previously received broadcast. [CHAR LIMIT=30] -->
   <string name="menu_delete">Iwwerdroung läschen</string>
+  <!-- Title of "View details" dialog -->
   <string name="view_details_title">Detailer vun der Warnung</string>
+  <!-- Confirm Delete -->
+  <!-- Delete broadcast confirmation dialog message. [CHAR LIMIT=NONE] -->
   <string name="confirm_delete_broadcast">Dës Iwwerdroung läschen?</string>
+  <!-- Delete all broadcasts confirmation dialog message. [CHAR LIMIT=NONE] -->
   <string name="confirm_delete_all_broadcasts">All empfaangen Iwwerdrounge läschen?</string>
+  <!-- Delete button text for delete broadcast dialog. [CHAR LIMIT=25] -->
   <string name="button_delete">Läschen</string>
+  <!-- Cancel button text for delete broadcast dialog. [CHAR LIMIT=25] -->
   <string name="button_cancel">Ofbriechen</string>
+  <!-- ETWS dialog title for Earthquake Warning. [CHAR LIMIT=50] -->
   <string name="etws_earthquake_warning">Äerdbiewewarnung</string>
+  <!-- ETWS dialog title for Tsunami Warning. [CHAR LIMIT=50] -->
   <string name="etws_tsunami_warning">Tsunami-Warnung</string>
+  <!-- ETWS dialog title for Earthquake and Tsunami Warning. [CHAR LIMIT=50] -->
   <string name="etws_earthquake_and_tsunami_warning">Äerdbiewen- an Tsunamiwarnung</string>
+  <!-- ETWS dialog title for test message. [CHAR LIMIT=50] -->
   <string name="etws_test_message">ETWS-Test-Message</string>
+  <!-- ETWS dialog title for other emergency type. [CHAR LIMIT=50] -->
   <string name="etws_other_emergency_type">Noutfallwarnung</string>
+  <!-- CMAS dialog title for presidential level alert. [CHAR LIMIT=50] -->
   <string name="cmas_presidential_level_alert">Warnung vum President</string>
+  <!-- CMAS dialog title for extreme alert. [CHAR LIMIT=50] -->
   <string name="cmas_extreme_alert">Noutfallalarm: Extrem</string>
+  <!-- CMAS dialog title for severe alert. [CHAR LIMIT=50] -->
   <string name="cmas_severe_alert">Noutfallalarm: Eescht</string>
+  <!-- CMAS dialog title for child abduction emergency (Amber Alert). [CHAR LIMIT=50] -->
   <string name="cmas_amber_alert">Kandesentféierung (AMBER Alert)</string>
+  <!-- CMAS dialog title for required monthly test. [CHAR LIMIT=50] -->
   <string name="cmas_required_monthly_test">Test fir Noutfallalarm eemol de Mount</string>
+  <!-- CMAS dialog title for CMAS Exercise. [CHAR LIMIT=50] -->
   <string name="cmas_exercise_alert">Noutfallalarm (Übung)</string>
+  <!-- CMAS dialog title for operator defined use. [CHAR LIMIT=50] -->
   <string name="cmas_operator_defined_alert">Noutfallalarm (Bedreiwer)</string>
+  <!-- Dialog title for all other message identifiers in the PWS range. [CHAR LIMIT=50] -->
   <string name="pws_other_message_identifiers">Noutfallalarm</string>
+  <!-- Dialog title for all non-emergency cell broadcasts. [CHAR LIMIT=50] -->
   <string name="cb_other_message_identifiers">Zelliwwerdroung</string>
+  <!-- Preference category title for emergency alert settings. [CHAR LIMIT=50] -->
   <string name="emergency_alert_settings_title">Noutfallwarnungsastellungen</string>
+  <!-- Preference title for enable emergency alerts checkbox. [CHAR LIMIT=30] -->
   <string name="enable_emergency_alerts_title">Notifikatiounen umaachen</string>
+  <!-- Preference summary for enable notifications checkbox. [CHAR LIMIT=50] -->
   <string name="enable_emergency_alerts_summary">Noutfallwarnungen uweisen</string>
+  <!-- Preference title for alert sound duration list. [CHAR LIMIT=30] -->
   <string name="alert_sound_duration_title">Dauer vum Warntoun</string>
+  <!-- Do not translate. Empty summary for alert duration (set by CellBroadcastSettings). -->
+  <!-- Preference title for alert reminder interval list. [CHAR LIMIT=30] -->
   <string name="alert_reminder_interval_title">Warnungserënnerung</string>
+  <!-- Do not translate. Empty summary for alert reminder (set by CellBroadcastSettings). -->
+  <!-- Preference title for enable text-to-speech checkbox. [CHAR LIMIT=30] -->
   <string name="enable_alert_speech_title">Warnmessage virliesen</string>
+  <!-- Preference summary for enable text-to-speech checkbox. [CHAR LIMIT=100] -->
   <string name="enable_alert_speech_summary">Text-zu-Sprooch benotze fir Noutfallwarnunge virzeliesen</string>
+  <!-- Preference category title for ETWS settings. [CHAR LIMIT=50] -->
   <string name="category_etws_settings_title">ETWS-Astellungen</string>
+  <!-- Preference title for enable ETWS test alerts checkbox. [CHAR LIMIT=30] -->
   <string name="enable_etws_test_alerts_title">ETWS-Testiwwerdroungen uweisen</string>
+  <!-- Preference summary for enable ETWS test alerts checkbox. [CHAR LIMIT=100] -->
   <string name="enable_etws_test_alerts_summary">Test-Iwwerdrounge benotze fir den Äerdbiewen- an Tsunami-Warnsystem</string>
+  <!-- Preference title for enable CMAS extreme threat alerts checkbox. [CHAR LIMIT=30] -->
   <string name="enable_cmas_extreme_threat_alerts_title">Eescht Geforen uweisen</string>
+  <!-- Preference summary for enable CMAS extreme threat alerts checkbox. [CHAR LIMIT=100] -->
   <string name="enable_cmas_extreme_threat_alerts_summary">Warnungen zu eeschte Gefore fir Liewen an Eegentum uweisen</string>
+  <!-- Preference title for enable CMAS severe threat alerts checkbox. [CHAR LIMIT=30] -->
   <string name="enable_cmas_severe_threat_alerts_title">Eescht Geforen uweisen</string>
+  <!-- Preference summary for enable CMAS severe threat alerts checkbox. [CHAR LIMIT=100] -->
   <string name="enable_cmas_severe_threat_alerts_summary">Warnungen zu eeschte Gefore fir Liewen an Eegentum uweisen</string>
+  <!-- Preference title for enable CMAS amber alerts checkbox. [CHAR LIMIT=50] -->
   <string name="enable_cmas_amber_alerts_title">AMBER Alerts uweisen</string>
+  <!-- Preference summary for enable CMAS amber alerts checkbox. [CHAR LIMIT=100] -->
   <string name="enable_cmas_amber_alerts_summary">Noutfall-Bulletine bei Kandesentféierungen uweisen (AMBER Alert)</string>
+  <!-- Preference title for enable CMAS test alerts checkbox. [CHAR LIMIT=30] -->
   <string name="enable_cmas_test_alerts_title">CMAS-Testiwwerdroungen uweisen</string>
+  <!-- Preference summary for enable CMAS test alerts checkbox. [CHAR LIMIT=100] -->
   <string name="enable_cmas_test_alerts_summary">Testiwwerdrounge fir de \"Commercial Mobile Alert System\" (CMAS) uweisen</string>
+  <!-- Preference title for CMAS vibration on/off. [CHAR LIMIT=30] -->
   <string name="enable_alert_vibrate_title">Vibréieren</string>
+  <!-- Preference summary for CMAS vibration on/off. [CHAR LIMIT=60] -->
   <string name="enable_alert_vibrate_summary">Bei Warnung vibréieren</string>
+  <!-- Preference category title for Brazil settings. [CHAR LIMIT=50] -->
   <string name="category_brazil_settings_title">Astellunge fir Brasilien</string>
+  <!-- Preference title for enable channel 50 alerts (Brazil only). [CHAR LIMIT=30] -->
   <string name="enable_channel_50_alerts_title">\"Kanal 50\"-Iwwerdroungen uweisen</string>
+  <!-- Preference summary for enable channel 50 alerts (Brazil only). [CHAR LIMIT=100] -->
   <string name="enable_channel_50_alerts_summary">\"Kanal 50\" gëtt a Brasilien fir regional Informatiounsaktualiséierunge benotzt</string>
+  <!-- Preference category title for developer settings. [CHAR LIMIT=50] -->
   <string name="category_dev_settings_title">Entwéckleroptiounen</string>
+  <!-- CMAS alert category heading (including colon). [CHAR LIMIT=30] -->
   <string name="cmas_category_heading">Warnungskategorie:</string>
+  <!-- CMAS category for geophysical alerts. [CHAR LIMIT=50] -->
   <string name="cmas_category_geo">Geophysesch</string>
+  <!-- CMAS category for meteorological alerts. [CHAR LIMIT=50] -->
   <string name="cmas_category_met">Meterologesch</string>
+  <!-- CMAS category for general emergency and public safety alerts. [CHAR LIMIT=50] -->
   <string name="cmas_category_safety">Noutfallsituatiounen</string>
+  <!-- CMAS category for security alerts (law enforcement, military, etc.). [CHAR LIMIT=50] -->
   <string name="cmas_category_security">Sécherheetsgeforen</string>
+  <!-- CMAS category for rescue and recovery alerts. [CHAR LIMIT=50] -->
   <string name="cmas_category_rescue">Rettung</string>
+  <!-- CMAS category for fire suppression and rescue alerts. [CHAR LIMIT=50] -->
   <string name="cmas_category_fire">Feier</string>
+  <!-- CMAS category for medical and public health alerts. [CHAR LIMIT=50] -->
   <string name="cmas_category_health">Gesondheet</string>
+  <!-- CMAS category for pollution and other environmental alerts. [CHAR LIMIT=50] -->
   <string name="cmas_category_env">Ëmwelt</string>
+  <!-- CMAS category for transportation alerts. [CHAR LIMIT=50] -->
   <string name="cmas_category_transport">Transport</string>
+  <!-- CMAS category for utility, telecommunication, and other infrastructure alerts. [CHAR LIMIT=50] -->
   <string name="cmas_category_infra">Infrastruktur</string>
+  <!-- CMAS category for chemical, biological, radiological, nuclear alerts. [CHAR LIMIT=50] -->
   <string name="cmas_category_cbrne">Chemesch/Biologesch/Nuklear/Explosiv</string>
+  <!-- CMAS category for other alerts. [CHAR LIMIT=50] -->
   <string name="cmas_category_other">Aner</string>
+  <!-- CMAS response type heading (including colon). [CHAR LIMIT=30] -->
   <string name="cmas_response_heading">Äntwerttyp:</string>
+  <!-- CMAS response type: take shelter in place. [CHAR LIMIT=50] -->
   <string name="cmas_response_shelter">Ënnerdaach</string>
+  <!-- CMAS response type: evacuate (relocate). [CHAR LIMIT=50] -->
   <string name="cmas_response_evacuate">Evakuéieren</string>
+  <!-- CMAS response type: make preparations. [CHAR LIMIT=50] -->
   <string name="cmas_response_prepare">Preparéieren</string>
+  <!-- CMAS response type: execute a pre-planned activity. [CHAR LIMIT=50] -->
   <string name="cmas_response_execute">Ausféieren</string>
+  <!-- CMAS response type: monitor information sources. [CHAR LIMIT=50] -->
   <string name="cmas_response_monitor">Iwwerwaachen</string>
+  <!-- CMAS response type: avoid hazard. [CHAR LIMIT=50] -->
   <string name="cmas_response_avoid">Vermeiden</string>
+  <!-- CMAS response type: evaluate the information in this message. [CHAR LIMIT=50] -->
   <string name="cmas_response_assess">Bewäerten</string>
+  <!-- CMAS response type: no action recommended. [CHAR LIMIT=50] -->
   <string name="cmas_response_none">Keen</string>
+  <!-- CMAS severity heading (including colon). [CHAR LIMIT=30] -->
   <string name="cmas_severity_heading">Seriositéit:</string>
+  <!-- CMAS severity type: extreme. [CHAR LIMIT=30] -->
   <string name="cmas_severity_extreme">Extrem</string>
+  <!-- CMAS severity type: severe. [CHAR LIMIT=30] -->
   <string name="cmas_severity_severe">Eescht</string>
+  <!-- CMAS urgency heading (including colon). [CHAR LIMIT=30] -->
   <string name="cmas_urgency_heading">Drénglechkeet:</string>
+  <!-- CMAS urgency type: take responsive action immediately. [CHAR LIMIT=30] -->
   <string name="cmas_urgency_immediate">Direkt</string>
+  <!-- CMAS severity type: severe. [CHAR LIMIT=30] -->
   <string name="cmas_urgency_expected">Erwaart</string>
+  <!-- CMAS certainty heading (including colon). [CHAR LIMIT=30] -->
   <string name="cmas_certainty_heading">Gewëssheet:</string>
+  <!-- CMAS certainty type: observed. [CHAR LIMIT=30] -->
   <string name="cmas_certainty_observed">Observéiert</string>
+  <!-- CMAS severity type: severe. [CHAR LIMIT=30] -->
   <string name="cmas_certainty_likely">Wahrscheinlech</string>
+  <!-- Message delivery time (including colon). [CHAR LIMIT=30] -->
   <string name="delivery_time_heading">Empfaangen:</string>
+  <!-- Non-emergency broadcast notification description for multiple unread alerts. -->
   <string name="notification_multiple"><xliff:g id="count">%s</xliff:g> ongelies Warnungen.</string>
+  <!-- Non-emergency broadcast notification title for multiple unread alerts. -->
   <string name="notification_multiple_title">Nei Warnungen</string>
+  <!-- Show CMAS opt-out dialog on first non-Presidential alert. [CHAR LIMIT=100] -->
   <string name="show_cmas_opt_out_summary">No der éischter CMAS-Warnung en Opt-Out-Dialog uweisen (ausser bei Warnunge vum President).</string>
+  <!-- Show CMAS opt-out dialog on first non-Presidential alert. [CHAR LIMIT=40] -->
   <string name="show_cmas_opt_out_title">Opt-Out-Dialog uweisen</string>
+  <!-- CMAS opt-out dialog message. [CHAR LIMIT=160] -->
   <string name="cmas_opt_out_dialog_text">Du empfänks momentan Noutfallwarnungen. Wëlls du weiderhin Noutfallwarnungen empfänken?</string>
+  <!-- Text for positive button in CMAS opt-out dialog. [CHAR LIMIT=25] -->
   <string name="cmas_opt_out_button_yes">Jo</string>
+  <!-- Text for negative button in CMAS opt-out dialog. [CHAR LIMIT=25] -->
   <string name="cmas_opt_out_button_no">Nee</string>
+  <!-- Entries listed in the ListPreference for allowed alert durations. [CHAR LIMIT=30] -->
   <string-array name="alert_sound_duration_entries">
     <item>2 Sekonnen</item>
     <item>4 Sekonnen</item>
@@ -114,12 +210,17 @@
     <item>8 Sekonnen</item>
     <item>10 Sekonnen</item>
   </string-array>
+  <!-- Do not translate. Values that are retrieved from the ListPreference.
+         These must match the alert_sound_duration_entries above. -->
+  <!-- Entries in the ListPreference for alert reminder intervals. [CHAR LIMIT=30] -->
   <string-array name="alert_reminder_interval_entries">
     <item>Eng Kéier</item>
     <item>All 2 Minutten</item>
     <item>All 15 Minutten</item>
     <item>Aus</item>
   </string-array>
+  <!-- Do not translate. Values that are retrieved from the ListPreference.
+         These must match the alert_reminder_interval_entries list above. -->
   <string-array name="alert_reminder_interval_values">
     <item>1</item>
     <item>2</item>
