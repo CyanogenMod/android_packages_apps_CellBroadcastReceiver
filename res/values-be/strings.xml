@@ -19,11 +19,14 @@
   <!-- Label for settings screen. [CHAR LIMIT=NONE] -->
   <!-- Error message for users that aren't allowed to modify Cell broadcast settings [CHAR LIMIT=none] -->
   <!-- Text for dismiss button in broadcast message view dialog. [CHAR LIMIT=25] -->
+  <string name="button_dismiss">Добра</string>
   <!-- Text for list view when empty (no broadcasts). [CHAR LIMIT=200] -->
   <!-- Menu item for accessing application settings. [CHAR LIMIT=30] -->
+  <string name="menu_preferences">Налады</string>
   <!-- Menu item for deleting all broadcasts. [CHAR LIMIT=30] -->
   <!-- Header for context menu on an individual broadcast. [CHAR LIMIT=30] -->
   <!-- Context menu item for viewing broadcast details such as time and date. [CHAR LIMIT=30] -->
+  <string name="menu_view_details">Падрабязьней</string>
   <!-- Context menu item to delete a previously received broadcast. [CHAR LIMIT=30] -->
   <!-- Title of "View details" dialog -->
   <!-- Confirm Delete -->
