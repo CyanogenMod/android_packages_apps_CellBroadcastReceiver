@@ -15,97 +15,193 @@
      limitations under the License.
 -->
 <resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+  <!-- The name of the Cell Broadcast Receiver app. [CHAR LIMIT=NONE] -->
   <string name="app_label">كۆچمە ئاڭلىتىشلار</string>
+  <!-- Label for settings screen. [CHAR LIMIT=NONE] -->
   <string name="sms_cb_settings">كۆچمە ئاڭلىتىش تەڭشەكلىرى</string>
+  <!-- Error message for users that aren't allowed to modify Cell broadcast settings [CHAR LIMIT=none] -->
+  <!-- Text for dismiss button in broadcast message view dialog. [CHAR LIMIT=25] -->
   <string name="button_dismiss">جەزملە</string>
+  <!-- Text for list view when empty (no broadcasts). [CHAR LIMIT=200] -->
   <string name="no_cell_broadcasts">سىز تۇرۇشلۇق دائىرىدە ھېچقانداق ئاكتىپ ئاگاھلاندۇرۇش يوق. سىز تەڭشەكلەر تىزىملىكىدىكى تاللانمىدىن ئاگاھلاندۇرۇش تەڭشىكىنى ئۆزگەرتىڭ.</string>
+  <!-- Menu item for accessing application settings. [CHAR LIMIT=30] -->
   <string name="menu_preferences">تەڭشەكلەر</string>
+  <!-- Menu item for deleting all broadcasts. [CHAR LIMIT=30] -->
   <string name="menu_delete_all">ئاڭلىتىشلارنى ئۆچۈر</string>
+  <!-- Header for context menu on an individual broadcast. [CHAR LIMIT=30] -->
   <string name="message_options">ئۇچۇر تاللانما</string>
+  <!-- Context menu item for viewing broadcast details such as time and date. [CHAR LIMIT=30] -->
   <string name="menu_view_details">تەپسىلاتىنى كۆرسەت</string>
+  <!-- Context menu item to delete a previously received broadcast. [CHAR LIMIT=30] -->
   <string name="menu_delete">ئاڭلىتىشنى ئۆچۈر</string>
+  <!-- Title of "View details" dialog -->
   <string name="view_details_title">ئاگاھلاندۇرۇش تەپسىلاتى</string>
+  <!-- Confirm Delete -->
+  <!-- Delete broadcast confirmation dialog message. [CHAR LIMIT=NONE] -->
   <string name="confirm_delete_broadcast">بۇ ئاڭلىتىشنى ئۆچۈرەمدۇ؟</string>
+  <!-- Delete all broadcasts confirmation dialog message. [CHAR LIMIT=NONE] -->
   <string name="confirm_delete_all_broadcasts">تاپشۇرۇۋالغان ھەممە ئاڭلىتىش ئۇچۇرلىرىنى ئۆچۈرەمدۇ؟</string>
+  <!-- Delete button text for delete broadcast dialog. [CHAR LIMIT=25] -->
   <string name="button_delete">ئۆچۈر</string>
+  <!-- Cancel button text for delete broadcast dialog. [CHAR LIMIT=25] -->
   <string name="button_cancel">ۋاز كەچ</string>
+  <!-- ETWS dialog title for Earthquake Warning. [CHAR LIMIT=50] -->
   <string name="etws_earthquake_warning">يەر تەۋرەش ئاگاھلاندۇرۇشى</string>
+  <!-- ETWS dialog title for Tsunami Warning. [CHAR LIMIT=50] -->
   <string name="etws_tsunami_warning">دېڭىز تاشقىن ئاگاھلاندۇرۇشى</string>
+  <!-- ETWS dialog title for Earthquake and Tsunami Warning. [CHAR LIMIT=50] -->
   <string name="etws_earthquake_and_tsunami_warning">يەر تەۋرەش ۋە دېڭىز تاشقىن ئاگاھلاندۇرۇشى</string>
+  <!-- ETWS dialog title for test message. [CHAR LIMIT=50] -->
   <string name="etws_test_message">يەر تەۋرەش ۋە دېڭىز تاشقىن ئاگاھلاندۇرۇش سىستېمىسى سىناق ئۇچۇرى</string>
+  <!-- ETWS dialog title for other emergency type. [CHAR LIMIT=50] -->
   <string name="etws_other_emergency_type">جىددىي ئاگاھلاندۇرۇش</string>
+  <!-- CMAS dialog title for presidential level alert. [CHAR LIMIT=50] -->
   <string name="cmas_presidential_level_alert">ئەل باش ئاگاھلاندۇرۇشى</string>
+  <!-- CMAS dialog title for extreme alert. [CHAR LIMIT=50] -->
   <string name="cmas_extreme_alert">جىددىي ئاگاھلاندۇرۇش: بەك ئېغىر</string>
+  <!-- CMAS dialog title for severe alert. [CHAR LIMIT=50] -->
   <string name="cmas_severe_alert">جىددىي ئاگاھلاندۇرۇش: ئېغىر</string>
+  <!-- CMAS dialog title for child abduction emergency (Amber Alert). [CHAR LIMIT=50] -->
   <string name="cmas_amber_alert">بالىلار گۆرۈدە (سېرىق رەڭلىك (Amber) ئاگاھلاندۇرۇش)</string>
+  <!-- CMAS dialog title for required monthly test. [CHAR LIMIT=50] -->
   <string name="cmas_required_monthly_test">جىددىي ئاگاھلاندۇرۇش ئايلىق سىناق</string>
+  <!-- CMAS dialog title for CMAS Exercise. [CHAR LIMIT=50] -->
   <string name="cmas_exercise_alert">جىددىي ئاگاھلاندۇرۇش (مەشىق)</string>
+  <!-- CMAS dialog title for operator defined use. [CHAR LIMIT=50] -->
   <string name="cmas_operator_defined_alert">جىددىي ئاگاھلاندۇرۇش (مەشغۇلاتچى)</string>
+  <!-- Dialog title for all other message identifiers in the PWS range. [CHAR LIMIT=50] -->
   <string name="pws_other_message_identifiers">جىددىي ئاگاھلاندۇرۇش</string>
+  <!-- Dialog title for all non-emergency cell broadcasts. [CHAR LIMIT=50] -->
   <string name="cb_other_message_identifiers">كۆچمە ئاڭلىتىش</string>
+  <!-- Preference category title for emergency alert settings. [CHAR LIMIT=50] -->
   <string name="emergency_alert_settings_title">جىددىي ئاگاھلاندۇرۇش تەڭشەكلىرى</string>
+  <!-- Preference title for enable emergency alerts checkbox. [CHAR LIMIT=30] -->
   <string name="enable_emergency_alerts_title">ئۇقتۇرۇشنى ئاچ</string>
+  <!-- Preference summary for enable notifications checkbox. [CHAR LIMIT=50] -->
   <string name="enable_emergency_alerts_summary">جىددىي ئاگاھلاندۇرۇش ئاڭلىتىشلىرىنى كۆرسەت</string>
+  <!-- Preference title for alert sound duration list. [CHAR LIMIT=30] -->
   <string name="alert_sound_duration_title">ئاگاھلاندۇرۇش ئاۋازىنىڭ داۋاملىشىش ۋاقتى</string>
+  <!-- Do not translate. Empty summary for alert duration (set by CellBroadcastSettings). -->
+  <!-- Preference title for alert reminder interval list. [CHAR LIMIT=30] -->
   <string name="alert_reminder_interval_title">ئاگاھلاندۇرۇش ئەسكەرتىشى</string>
+  <!-- Do not translate. Empty summary for alert reminder (set by CellBroadcastSettings). -->
+  <!-- Preference title for enable text-to-speech checkbox. [CHAR LIMIT=30] -->
   <string name="enable_alert_speech_title">ئاگاھلاندۇرۇش ئۇچۇرىنى ئوقۇ</string>
+  <!-- Preference summary for enable text-to-speech checkbox. [CHAR LIMIT=100] -->
   <string name="enable_alert_speech_summary">تېكىستنى تاۋۇشقا ئايلاندۇرۇش ئىقتىدارى ئارقىلىق جىددىي ئاگاھلاندۇرۇش ئۇچۇرىنى ئوقۇيدۇ</string>
+  <!-- Preference category title for ETWS settings. [CHAR LIMIT=50] -->
   <string name="category_etws_settings_title">يەر تەۋرەش ۋە دېڭىز تاشقىن ئاگاھلاندۇرۇش سىستېما تەڭشەكلىرى</string>
+  <!-- Preference title for enable ETWS test alerts checkbox. [CHAR LIMIT=30] -->
   <string name="enable_etws_test_alerts_title">يەر تەۋرەش ۋە دېڭىز تاشقىن ئاگاھلاندۇرۇش سىستېما سىناق ئاڭلىتىشىنى كۆرسەت</string>
+  <!-- Preference summary for enable ETWS test alerts checkbox. [CHAR LIMIT=100] -->
   <string name="enable_etws_test_alerts_summary">يەر تەۋرەش ۋە دېڭىز تاشقىن ئاگاھلاندۇرۇش سىستېمىسىنىڭ سىناق ئاڭلىتىشىنى كۆرسەت</string>
+  <!-- Preference title for enable CMAS extreme threat alerts checkbox. [CHAR LIMIT=30] -->
   <string name="enable_cmas_extreme_threat_alerts_title">كەسكىن تەھدىتلەرنى كۆرسەت</string>
+  <!-- Preference summary for enable CMAS extreme threat alerts checkbox. [CHAR LIMIT=100] -->
   <string name="enable_cmas_extreme_threat_alerts_summary">ھاياتلىق ۋە مال-مۈلۈك كەسكىن تەھدىتكە ئۇچرىغان ئەھۋالدا ئاگاھلاندۇرۇشنى كۆرسەت</string>
+  <!-- Preference title for enable CMAS severe threat alerts checkbox. [CHAR LIMIT=30] -->
   <string name="enable_cmas_severe_threat_alerts_title">ئېغىر تەھدىتلەرنى كۆرسەت</string>
+  <!-- Preference summary for enable CMAS severe threat alerts checkbox. [CHAR LIMIT=100] -->
   <string name="enable_cmas_severe_threat_alerts_summary">ھاياتلىق ۋە مال-مۈلۈك ئېغىر تەھدىتكە ئۇچرىغان ئەھۋالدا ئاگاھلاندۇرۇشنى كۆرسەت</string>
+  <!-- Preference title for enable CMAS amber alerts checkbox. [CHAR LIMIT=50] -->
   <string name="enable_cmas_amber_alerts_title">AMBER ئاگاھلاندۇرۇشلىرىنى كۆرسەت</string>
+  <!-- Preference summary for enable CMAS amber alerts checkbox. [CHAR LIMIT=100] -->
   <string name="enable_cmas_amber_alerts_summary">بالىلارنى گۆرۈگە ئېلىش ھادىسە ئۇقتۇرۇشى (سېرىق رەڭلىك (Amber) ئاگاھلاندۇرۇش)</string>
+  <!-- Preference title for enable CMAS test alerts checkbox. [CHAR LIMIT=30] -->
   <string name="enable_cmas_test_alerts_title">CMAS سىناق ئاڭلىتىشىنى كۆرسەت</string>
+  <!-- Preference summary for enable CMAS test alerts checkbox. [CHAR LIMIT=100] -->
   <string name="enable_cmas_test_alerts_summary">سودا كۆچمە ئاگاھلاندۇرۇش سىستېمىسىنىڭ سىناق ئاڭلىتىشىنى كۆرسەت</string>
+  <!-- Preference title for CMAS vibration on/off. [CHAR LIMIT=30] -->
   <string name="enable_alert_vibrate_title">تىترەت</string>
+  <!-- Preference summary for CMAS vibration on/off. [CHAR LIMIT=60] -->
   <string name="enable_alert_vibrate_summary">تىترىتىپ ئاگاھلاندۇر</string>
+  <!-- Preference category title for Brazil settings. [CHAR LIMIT=50] -->
   <string name="category_brazil_settings_title">بىرازىلىيەنىڭ تەڭشەكلىرى</string>
+  <!-- Preference title for enable channel 50 alerts (Brazil only). [CHAR LIMIT=30] -->
   <string name="enable_channel_50_alerts_title">قانال 50 نىڭ ئاڭلىتىشىنى كۆرسەت</string>
+  <!-- Preference summary for enable channel 50 alerts (Brazil only). [CHAR LIMIT=100] -->
   <string name="enable_channel_50_alerts_summary">بىرازىلىيەدە قانال 50  ئارقىلىق دائىرىدىكى يېڭى ئۇچۇرلارنى تارقىتىدۇ</string>
+  <!-- Preference category title for developer settings. [CHAR LIMIT=50] -->
   <string name="category_dev_settings_title">ئىجادكارلار تاللانمىسى</string>
+  <!-- CMAS alert category heading (including colon). [CHAR LIMIT=30] -->
   <string name="cmas_category_heading">ئاگاھلاندۇرۇش تۈرى:</string>
+  <!-- CMAS category for geophysical alerts. [CHAR LIMIT=50] -->
   <string name="cmas_category_geo">گېئوفىزىكىلىق</string>
+  <!-- CMAS category for meteorological alerts. [CHAR LIMIT=50] -->
   <string name="cmas_category_met">مېتېئورولوگىيەلىك</string>
+  <!-- CMAS category for general emergency and public safety alerts. [CHAR LIMIT=50] -->
   <string name="cmas_category_safety">ئامانلىق</string>
+  <!-- CMAS category for security alerts (law enforcement, military, etc.). [CHAR LIMIT=50] -->
   <string name="cmas_category_security">بىخەتەرلىك</string>
+  <!-- CMAS category for rescue and recovery alerts. [CHAR LIMIT=50] -->
   <string name="cmas_category_rescue">قۇتقۇزۇش</string>
+  <!-- CMAS category for fire suppression and rescue alerts. [CHAR LIMIT=50] -->
   <string name="cmas_category_fire">ئوت ئاپىتى</string>
+  <!-- CMAS category for medical and public health alerts. [CHAR LIMIT=50] -->
   <string name="cmas_category_health">ساغلاملىق</string>
+  <!-- CMAS category for pollution and other environmental alerts. [CHAR LIMIT=50] -->
   <string name="cmas_category_env">مۇھىت</string>
+  <!-- CMAS category for transportation alerts. [CHAR LIMIT=50] -->
   <string name="cmas_category_transport">قاتناش</string>
+  <!-- CMAS category for utility, telecommunication, and other infrastructure alerts. [CHAR LIMIT=50] -->
   <string name="cmas_category_infra">ئاساسىي قۇرۇلۇش</string>
+  <!-- CMAS category for chemical, biological, radiological, nuclear alerts. [CHAR LIMIT=50] -->
   <string name="cmas_category_cbrne">خىمىيەلىك/بىيولوگىيەلىك/يادرو/پارتلاش</string>
+  <!-- CMAS category for other alerts. [CHAR LIMIT=50] -->
   <string name="cmas_category_other">باشقا</string>
+  <!-- CMAS response type heading (including colon). [CHAR LIMIT=30] -->
   <string name="cmas_response_heading">ئىنكاس تىپى:</string>
+  <!-- CMAS response type: take shelter in place. [CHAR LIMIT=50] -->
   <string name="cmas_response_shelter">پاناھلىنىش</string>
+  <!-- CMAS response type: evacuate (relocate). [CHAR LIMIT=50] -->
   <string name="cmas_response_evacuate">تارقاقلاشتۇرۇش</string>
+  <!-- CMAS response type: make preparations. [CHAR LIMIT=50] -->
   <string name="cmas_response_prepare">تەييارلىنىش</string>
+  <!-- CMAS response type: execute a pre-planned activity. [CHAR LIMIT=50] -->
   <string name="cmas_response_execute">ئىجرا قىل</string>
+  <!-- CMAS response type: monitor information sources. [CHAR LIMIT=50] -->
   <string name="cmas_response_monitor">كۆزەتكۈچ</string>
+  <!-- CMAS response type: avoid hazard. [CHAR LIMIT=50] -->
   <string name="cmas_response_avoid">خەتەردىن ساقلىنىش</string>
+  <!-- CMAS response type: evaluate the information in this message. [CHAR LIMIT=50] -->
   <string name="cmas_response_assess">مۆلچەرلەش</string>
+  <!-- CMAS response type: no action recommended. [CHAR LIMIT=50] -->
   <string name="cmas_response_none">يوق</string>
+  <!-- CMAS severity heading (including colon). [CHAR LIMIT=30] -->
   <string name="cmas_severity_heading">مۇھىملىقى:</string>
+  <!-- CMAS severity type: extreme. [CHAR LIMIT=30] -->
   <string name="cmas_severity_extreme">كەسكىن</string>
+  <!-- CMAS severity type: severe. [CHAR LIMIT=30] -->
   <string name="cmas_severity_severe">ئېغىر</string>
+  <!-- CMAS urgency heading (including colon). [CHAR LIMIT=30] -->
   <string name="cmas_urgency_heading">جىددىي:</string>
+  <!-- CMAS urgency type: take responsive action immediately. [CHAR LIMIT=30] -->
   <string name="cmas_urgency_immediate">دەرھال</string>
+  <!-- CMAS severity type: severe. [CHAR LIMIT=30] -->
   <string name="cmas_urgency_expected">مۆلچەردىكى</string>
+  <!-- CMAS certainty heading (including colon). [CHAR LIMIT=30] -->
   <string name="cmas_certainty_heading">ئىشەنچلىكلىكى:</string>
+  <!-- CMAS certainty type: observed. [CHAR LIMIT=30] -->
   <string name="cmas_certainty_observed">كۆزەتكەن</string>
+  <!-- CMAS severity type: severe. [CHAR LIMIT=30] -->
   <string name="cmas_certainty_likely">ئېھتىمال</string>
+  <!-- Message delivery time (including colon). [CHAR LIMIT=30] -->
   <string name="delivery_time_heading">تاپشۇرۇۋالغىنى:</string>
+  <!-- Non-emergency broadcast notification description for multiple unread alerts. -->
   <string name="notification_multiple"><xliff:g id="COUNT">%s</xliff:g> ئوقۇلمىغان ئاگاھلاندۇرۇش.</string>
+  <!-- Non-emergency broadcast notification title for multiple unread alerts. -->
   <string name="notification_multiple_title">يېڭى ئاگاھلاندۇرۇش</string>
+  <!-- Show CMAS opt-out dialog on first non-Presidential alert. [CHAR LIMIT=100] -->
   <string name="show_cmas_opt_out_summary">بىرىنچى CMAS ئاگاھلاندۇرۇشى(ئەلباش ئاگاھلاندۇرىشىدىن باشقا)نى كۆرسەتكەندىن كېيىن ئاگاھلاندۇرۇشنى توختىتىش سۆزلەشكۈنى كۆرسىتىدۇ.</string>
+  <!-- Show CMAS opt-out dialog on first non-Presidential alert. [CHAR LIMIT=40] -->
   <string name="show_cmas_opt_out_title">ئاگاھلاندۇرۇشنى توختىتىش سۆزلەشكۈنى كۆرسەت</string>
+  <!-- CMAS opt-out dialog message. [CHAR LIMIT=160] -->
   <string name="cmas_opt_out_dialog_text">نۆۋەتتە جىددىي ئاگاھلاندۇرۇشنى تاپشۇرۇۋالالايسىز. جىددىي ئاگاھلاندۇرۇش تاپشۇرۇۋېلىشنى داۋاملاشتۇرامسىز؟</string>
+  <!-- Text for positive button in CMAS opt-out dialog. [CHAR LIMIT=25] -->
   <string name="cmas_opt_out_button_yes">ھەئە</string>
+  <!-- Text for negative button in CMAS opt-out dialog. [CHAR LIMIT=25] -->
   <string name="cmas_opt_out_button_no">ياق</string>
+  <!-- Entries listed in the ListPreference for allowed alert durations. [CHAR LIMIT=30] -->
   <string-array name="alert_sound_duration_entries">
     <item>2 سېكۇنت</item>
     <item>4 سېكۇنت</item>
@@ -113,12 +209,17 @@
     <item>8 سېكۇنت</item>
     <item>10 سېكۇنت</item>
   </string-array>
+  <!-- Do not translate. Values that are retrieved from the ListPreference.
+         These must match the alert_sound_duration_entries above. -->
+  <!-- Entries in the ListPreference for alert reminder intervals. [CHAR LIMIT=30] -->
   <string-array name="alert_reminder_interval_entries">
     <item>بىر قېتىملىق</item>
     <item>ھەر 2 مىنۇتتا</item>
     <item>ھەر 15 مىنۇتتا</item>
     <item>تاقاق</item>
   </string-array>
+  <!-- Do not translate. Values that are retrieved from the ListPreference.
+         These must match the alert_reminder_interval_entries list above. -->
   <string-array name="alert_reminder_interval_values">
     <item>1</item>
     <item>2</item>
