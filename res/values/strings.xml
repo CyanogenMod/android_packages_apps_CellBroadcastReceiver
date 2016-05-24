@@ -239,6 +239,7 @@
       <item>6 seconds</item>
       <item>8 seconds</item>
       <item>10 seconds</item>
+      <item>Until dismissed</item>
     </string-array>
 
     <!-- Do not translate. Values that are retrieved from the ListPreference.
@@ -249,6 +250,7 @@
       <item>6</item>
       <item>8</item>
       <item>10</item>
+      <item>0</item>
     </string-array>
 
     <!-- Entries in the ListPreference for alert reminder intervals. [CHAR LIMIT=30] -->
