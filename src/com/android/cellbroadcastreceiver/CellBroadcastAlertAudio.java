@@ -275,6 +275,8 @@ public class CellBroadcastAlertAudio extends Service implements TextToSpeech.OnI
         // This extra should always be provided by CellBroadcastAlertService,
         // but default to 10.5 seconds just to be safe (CMAS requirement).
         int duration = intent.getIntExtra(ALERT_AUDIO_DURATION_EXTRA, 10500);
+        if (DBG) log(TAG + "Recvd intent = " + intent + " hasExtras = " +
+                                       intent.hasExtra(ALERT_AUDIO_DURATION_EXTRA) + duration);
 
         // Get text to speak (if enabled by user)
         mMessageBody = intent.getStringExtra(ALERT_AUDIO_MESSAGE_BODY);
@@ -339,9 +341,9 @@ public class CellBroadcastAlertAudio extends Service implements TextToSpeech.OnI
 
         if (DBG) log("play()");
 
-        // Start the vibration first.
+        // Start the vibration first, can be set to 0 = "Till Alert Dialog Dismissed"
         if (mEnableVibrate) {
-            mVibrator.vibrate(sVibratePattern, -1);
+            mVibrator.vibrate(sVibratePattern, (duration!=0?-1:0));
         }
 
         if (mEnableAudio) {
@@ -377,8 +379,9 @@ public class CellBroadcastAlertAudio extends Service implements TextToSpeech.OnI
             }
         }
 
-        // stop alert after the specified duration
-        mHandler.sendMessageDelayed(mHandler.obtainMessage(ALERT_SOUND_FINISHED), duration);
+        // stop alert after the specified duration, can be set to 0 = "Till Alert Dialog Dismissed"
+        if (DBG) log(TAG + " play() alert duration = " + duration);
+        if(duration!=0) mHandler.sendMessageDelayed(mHandler.obtainMessage(ALERT_SOUND_FINISHED), duration);
         mState = STATE_ALERTING;
     }
 
@@ -421,7 +424,7 @@ public class CellBroadcastAlertAudio extends Service implements TextToSpeech.OnI
      * Stops alert audio and speech.
      */
     public void stop() {
-        if (DBG) log("stop()");
+        if (DBG) log("stop() state = " + mState);
 
         if (mPlayReminderIntent != null) {
             mPlayReminderIntent.cancel();
@@ -453,6 +456,9 @@ public class CellBroadcastAlertAudio extends Service implements TextToSpeech.OnI
                 // catch "Unable to retrieve AudioTrack pointer for stop()" exception
                 loge("exception trying to stop text-to-speech");
             }
+
+            // Stop vibrator
+            mVibrator.cancel();
         }
 
         mState = STATE_IDLE;
