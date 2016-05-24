@@ -347,10 +347,13 @@ public class CellBroadcastAlertService extends Service {
         audioIntent.setAction(CellBroadcastAlertAudio.ACTION_START_ALERT_AUDIO);
 
         int duration;   // alert audio duration in ms
-        if (message.isCmasMessage()) {
+        if (message.isCmasMessage() &&
+            (this.getResources().getBoolean(R.bool.use_sound_duration) == false)) {
+            Log.d(TAG, "isCmasMessage == true");
             // CMAS requirement: duration of the audio attention signal is 10.5 seconds.
             duration = 10500;
         } else {
+            Log.d(TAG, "isCmasMessage == false");
             duration = SubscriptionManager.getIntegerSubscriptionProperty(message.getSubId(),
                     SubscriptionManager.CB_ALERT_SOUND_DURATION,
                     Integer.parseInt(CellBroadcastSettings.ALERT_SOUND_DEFAULT_DURATION), this)
