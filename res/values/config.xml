@@ -21,4 +21,6 @@
     <bool name="show_cmas_settings">true</bool>
     <!-- Whether to enable channel 50 settings (Brazil) -->
     <bool name="show_brazil_settings">false</bool>
+    <!-- Whether to use the sound duration settings for CMAS -->
+    <bool name="use_sound_duration">false</bool>
 </resources>
