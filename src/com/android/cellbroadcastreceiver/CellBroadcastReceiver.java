@@ -46,7 +46,7 @@ import java.util.List;
 
 public class CellBroadcastReceiver extends BroadcastReceiver {
     private static final String TAG = "CellBroadcastReceiver";
-    static final boolean DBG = false;    // STOPSHIP: change to false before ship
+    static final boolean DBG = true;    // STOPSHIP: change to false before ship
     private static int mServiceState = -1;
     private static final String GET_LATEST_CB_AREA_INFO_ACTION =
             "android.cellbroadcastreceiver.GET_LATEST_CB_AREA_INFO";
