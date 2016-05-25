@@ -356,6 +356,13 @@ public class CellBroadcastConfigService extends IntentService {
                             SmsManager.CELL_BROADCAST_RAN_TYPE_GSM);
                 }
 
+                if(this.getResources().getBoolean(R.bool.enable_colombia_channels) == true) {
+                     if (DBG) log("enabling channels 437, 919, 921");
+                     manager.enableCellBroadcast(437, SmsManager.CELL_BROADCAST_RAN_TYPE_GSM);
+                     manager.enableCellBroadcast(919, SmsManager.CELL_BROADCAST_RAN_TYPE_GSM);
+                     manager.enableCellBroadcast(921, SmsManager.CELL_BROADCAST_RAN_TYPE_GSM);
+                }
+
                 // Disable per user preference/checkbox.
                 // This takes care of the case where enableEmergencyAlerts is true,
                 // but check box is unchecked to receive such as cmas severe alerts.
