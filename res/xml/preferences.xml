@@ -47,8 +47,8 @@
 
         <ListPreference android:key="alert_sound_duration"
                         android:title="@string/alert_sound_duration_title"
-                        android:entries="@array/alert_sound_duration_entries"
-                        android:entryValues="@array/alert_sound_duration_values"
+                        android:entries="@array/cm_alert_sound_duration_entries"
+                        android:entryValues="@array/cm_alert_sound_duration_values"
                         android:defaultValue="4"
                         android:dialogTitle="@string/alert_sound_duration_title" />
 
