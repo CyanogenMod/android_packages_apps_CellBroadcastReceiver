@@ -394,8 +394,8 @@ public class CellBroadcastAlertService extends Service {
         // Decide which activity to start based on the state of the keyguard.
         Class c = CellBroadcastAlertDialog.class;
         KeyguardManager km = (KeyguardManager) getSystemService(Context.KEYGUARD_SERVICE);
-        if (km.inKeyguardRestrictedInputMode()) {
-            // Use the full screen activity for security.
+        if (km.inKeyguardRestrictedInputMode() || duration == 0) {
+            // Use the full screen activity for security and local gov law's.
             c = CellBroadcastAlertFullScreen.class;
         }
 
@@ -404,6 +404,7 @@ public class CellBroadcastAlertService extends Service {
 
         Intent alertDialogIntent = createDisplayMessageIntent(this, c, messageList);
         alertDialogIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        alertDialogIntent.putExtra(CellBroadcastAlertAudio.ALERT_AUDIO_DURATION_EXTRA, duration);
         startActivity(alertDialogIntent);
     }
 

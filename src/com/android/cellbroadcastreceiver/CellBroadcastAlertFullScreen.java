@@ -83,6 +83,9 @@ public class CellBroadcastAlertFullScreen extends Activity {
     /** Handler to add and remove screen on flags for emergency alerts. */
     private final ScreenOffHandler mScreenOffHandler = new ScreenOffHandler();
 
+    /** Duration of alert if set to 0 then do not allow system keys to dismiss the alert. */
+    private int mDuration = 1;
+
     /**
      * Animation handler for the flashing warning icon (emergency alerts only).
      */
@@ -182,6 +185,13 @@ public class CellBroadcastAlertFullScreen extends Activity {
         /** Package local constructor (called from outer class). */
         ScreenOffHandler() {}
 
+        /** Add screen on window flags. */
+        void keepScreenOn() {
+            addWindowFlags();
+            addSystemKeyFlag();
+            Log.d(TAG, "added FLAG_KEEP_SCREEN_ON & PRIVATE_FLAG_PREVENT_SYSTEM_KEYS");
+        }
+
         /** Add screen on window flags and queue a delayed message to remove them later. */
         void startScreenOnTimer() {
             addWindowFlags();
@@ -201,6 +211,11 @@ public class CellBroadcastAlertFullScreen extends Activity {
         private void addWindowFlags() {
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON
                     | WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+        }
+
+        /** Set the system keys flag. */
+        private void addSystemKeyFlag() {
+            getWindow().addPrivateFlags(WindowManager.LayoutParams.PRIVATE_FLAG_PREVENT_SYSTEM_KEYS);
         }
 
         /** Clear the screen on window flags. */
@@ -269,15 +284,15 @@ public class CellBroadcastAlertFullScreen extends Activity {
 
         // Get message list from saved Bundle or from Intent.
         if (savedInstanceState != null) {
-            Log.d(TAG, "onCreate getting message list from saved instance state");
+            Log.d(TAG, "onCreate getting message list from saved instance state, Duration=" + mDuration);
             mMessageList = savedInstanceState.getParcelableArrayList(
                     CellBroadcastMessage.SMS_CB_MESSAGE_EXTRA);
         } else {
-            Log.d(TAG, "onCreate getting message list from intent");
             Intent intent = getIntent();
             mMessageList = intent.getParcelableArrayListExtra(
                     CellBroadcastMessage.SMS_CB_MESSAGE_EXTRA);
-
+            mDuration = intent.getIntExtra(CellBroadcastAlertAudio.ALERT_AUDIO_DURATION_EXTRA, 1);
+            Log.d(TAG, "onCreate getting message list from intent, Duration=" + mDuration);
             // If we were started from a notification, dismiss it.
             clearNotification(intent);
         }
@@ -295,8 +310,13 @@ public class CellBroadcastAlertFullScreen extends Activity {
         if (CellBroadcastConfigService.isEmergencyAlertMessage(message) &&
                 (savedInstanceState != null ||
                         !getIntent().getBooleanExtra(SCREEN_OFF_EXTRA, false))) {
-            Log.d(TAG, "onCreate setting screen on timer for emergency alert");
-            mScreenOffHandler.startScreenOnTimer();
+            if (mDuration == 0) {
+                Log.d(TAG, "onCreate keep screen on for emergency alert");
+                mScreenOffHandler.keepScreenOn();
+            } else {
+                Log.d(TAG, "onCreate setting screen on timer for emergency alert");
+                mScreenOffHandler.startScreenOnTimer();
+            }
         }
 
         updateAlertText(message);
@@ -462,6 +482,10 @@ public class CellBroadcastAlertFullScreen extends Activity {
 
     @Override
     public boolean dispatchKeyEvent(KeyEvent event) {
+        if (mDuration == 0) {
+            Log.d(TAG, "Override all key events till the Alert Dialog is not dismissed");
+            return true;
+        }
         CellBroadcastMessage message = getLatestMessage();
         if (message != null && !message.isEtwsMessage()) {
             switch (event.getKeyCode()) {
@@ -488,6 +512,7 @@ public class CellBroadcastAlertFullScreen extends Activity {
      */
     @Override
     public void onBackPressed() {
+        Log.d(TAG, "Override back key events till the Alert Dialog is not dismissed");
         // ignored
     }
 }
