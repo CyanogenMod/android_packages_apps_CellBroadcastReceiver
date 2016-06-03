@@ -62,8 +62,8 @@
     <string name="enable_cmas_amber_alerts_summary" msgid="8423617548641801387">"ਬਾਲ ਅਗਵਾ ਐਮਰਜੈਂਸੀ ਬੁਲੇਟਿਨ ਪ੍ਰਦਰਸ਼ਿਤ ਕਰੋ (AMBER ਚਿਤਾਵਨੀ)"</string>
     <string name="enable_cmas_test_alerts_title" msgid="8620213090932770270">"CMAS ਜਾਂਚ ਪ੍ਰਸਾਰਨ ਦਿਖਾਓ"</string>
     <string name="enable_cmas_test_alerts_summary" msgid="2935171596891733844">"ਕਮਰਸ਼ੀਅਲ ਮੋਬਾਈਲ ਚਿਤਾਵਨੀ ਸਿਸਟਮ ਲਈ ਜਾਂਚ ਪ੍ਰਸਾਰਨ ਪ੍ਰਦਰਸ਼ਿਤ ਕਰੋ"</string>
-    <string name="enable_alert_vibrate_title" msgid="982817538757982090">"ਵਾਈਬ੍ਰੇਟ"</string>
-    <string name="enable_alert_vibrate_summary" msgid="4328060563316778589">"ਚਿਤਾਵਨੀ ਤੇ ਵਾਈਬ੍ਰੇਟ"</string>
+    <string name="enable_alert_vibrate_title" msgid="982817538757982090">"ਥਰਥਰਾਹਟ ਕਰੋ"</string>
+    <string name="enable_alert_vibrate_summary" msgid="4328060563316778589">"ਚਿਤਾਵਨੀ ਤੇ ਥਰਥਰਾਹਟ ਕਰੋ"</string>
     <string name="category_brazil_settings_title" msgid="6343130548572319922">"ਬ੍ਰਾਜ਼ੀਲ ਲਈ ਸੈਟਿੰਗਾਂ"</string>
     <string name="enable_channel_50_alerts_title" msgid="2818924064446974167">"ਚੈਨਲ 50 ਦੇ ਪ੍ਰਸਾਰਨ ਦਿਖਾਓ"</string>
     <string name="enable_channel_50_alerts_summary" msgid="7507770011325273009">"ਚੈਨਲ 50 ਖੇਤਰ ਅਪਡੇਟ ਜਾਣਕਾਰੀ ਲਈ ਬ੍ਰਾਜ਼ੀਲ ਵਿੱਚ ਵਰਤਿਆ ਜਾਂਦਾ ਹੈ"</string>
