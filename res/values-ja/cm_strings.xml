@@ -23,7 +23,7 @@
     <item>6秒</item>
     <item>8秒</item>
     <item>10秒</item>
-    <item>Until dismissed</item>
+    <item>閉じるまで</item>
   </string-array>
   <!-- Do not translate. Values that are retrieved from the ListPreference.
          These must match the alert_sound_duration_entries above. -->
