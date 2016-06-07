@@ -23,7 +23,7 @@
     <item>6 Sekunden</item>
     <item>8 Sekunden</item>
     <item>10 Sekunden</item>
-    <item>Until dismissed</item>
+    <item>Bis zur Deaktivierung</item>
   </string-array>
   <!-- Do not translate. Values that are retrieved from the ListPreference.
          These must match the alert_sound_duration_entries above. -->

@@ -17,6 +17,14 @@
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
   <!-- Entries listed in the ListPreference for allowed alert durations. [CHAR LIMIT=30] -->
+  <string-array name="cm_alert_sound_duration_entries">
+    <item>2 секунды</item>
+    <item>4 секунды</item>
+    <item>6 секундаў</item>
+    <item>8 секунд</item>
+    <item>10 секундаў</item>
+    <item>Until dismissed</item>
+  </string-array>
   <!-- Do not translate. Values that are retrieved from the ListPreference.
          These must match the alert_sound_duration_entries above. -->
 </resources>
