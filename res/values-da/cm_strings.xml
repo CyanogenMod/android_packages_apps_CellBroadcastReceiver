@@ -23,7 +23,7 @@
     <item>6 sekunder</item>
     <item>8 sekunder</item>
     <item>10 sekunder</item>
-    <item>Until dismissed</item>
+    <item>Indtil afvist</item>
   </string-array>
   <!-- Do not translate. Values that are retrieved from the ListPreference.
          These must match the alert_sound_duration_entries above. -->
