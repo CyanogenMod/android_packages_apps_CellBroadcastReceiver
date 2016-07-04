@@ -68,7 +68,6 @@
     <string name="category_brazil_settings_title" msgid="6343130548572319922">"针对巴西的设置"</string>
     <string name="enable_channel_50_alerts_title" msgid="2818924064446974167">"显示 50 频道的广播"</string>
     <string name="enable_channel_50_alerts_summary" msgid="7507770011325273009">"巴西使用频道 50 来广播区域动态信息"</string>
-    <string name="category_india_settings_title">针对印度的设置</string>
     <string name="category_dev_settings_title" msgid="6194393458398329994">"开发者选项"</string>
     <string name="cmas_category_heading" msgid="3923503130776640717">"警报类别："</string>
     <string name="cmas_category_geo" msgid="4979494217069688527">"地球物理"</string>
