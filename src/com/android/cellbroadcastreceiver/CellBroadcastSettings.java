@@ -18,6 +18,7 @@ package com.android.cellbroadcastreceiver;
 
 import android.content.Context;
 import android.content.res.Resources;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.os.UserManager;
@@ -96,6 +97,10 @@ public class CellBroadcastSettings extends PreferenceActivity {
     // Enabled by default for phones sold in India, otherwise this setting may be hidden.
     public static final String KEY_ENABLE_CHANNEL_60_ALERTS = "enable_channel_60_alerts";
 
+   // Customize the channel to enable
+    public static final String KEY_ENABLE_CHANNELS_ALERTS = "enable_channels_alerts";
+    public static final String KEY_DISABLE_CHANNELS_ALERTS = "disable_channels_alerts";
+
     // Preference key for initial opt-in/opt-out dialog.
     public static final String KEY_SHOW_CMAS_OPT_OUT_DIALOG = "show_cmas_opt_out_dialog";
 
@@ -121,6 +126,14 @@ public class CellBroadcastSettings extends PreferenceActivity {
         UserManager userManager = (UserManager) getSystemService(Context.USER_SERVICE);
         if (userManager.hasUserRestriction(UserManager.DISALLOW_CONFIG_CELL_BROADCASTS)) {
             setContentView(R.layout.cell_broadcast_disallowed_preference_screen);
+            return;
+        }
+
+        if (getResources().getBoolean(R.bool.def_custome_cell_broadcast_layout)) {
+            Intent intent = new Intent();
+            intent.setClass(this, CustomCellBroadcastSettingsActivity.class);
+            startActivity(intent);
+            this.finish();
             return;
         }
 
@@ -310,6 +323,13 @@ public class CellBroadcastSettings extends PreferenceActivity {
             }
 
             if (mChannel50CheckBox != null) {
+                if(SubscriptionManager.getBooleanSubscriptionProperty(subId,
+                    SubscriptionManager.CB_CHANNEL_50_ALERT,
+                    getResources().getBoolean(R.bool.def_channel_50_enabled),getContext())) {
+                    mChannel50CheckBox.setChecked(true);
+                } else {
+                    mChannel50CheckBox.setChecked(false);
+                }
                 mChannel50CheckBox.setOnPreferenceChangeListener(startConfigServiceListener);
             }
 
