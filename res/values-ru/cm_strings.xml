@@ -23,11 +23,14 @@
     <item>6 секунд</item>
     <item>8 секунд</item>
     <item>10 секунд</item>
-    <item>Until dismissed</item>
+    <item>До закрытия</item>
   </string-array>
   <!-- Do not translate. Values that are retrieved from the ListPreference.
          These must match the alert_sound_duration_entries above. -->
   <!-- Preference category title for India settings. [CHAR LIMIT=50] -->
+  <string name="category_india_settings_title">Настройки для Индии</string>
   <!-- Preference title for enable channel 60 alerts. [CHAR LIMIT=30] -->
+  <string name="enable_channel_60_alerts_title">Показывать сообщения 60-го канала</string>
   <!-- Preference summary for enable channel 60 alerts. [CHAR LIMIT=100] -->
+  <string name="enable_channel_60_alerts_summary">Канал №60 используется в Индии для передачи сообщений операторов связи</string>
 </resources>

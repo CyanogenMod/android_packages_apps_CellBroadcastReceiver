@@ -28,6 +28,9 @@
   <!-- Do not translate. Values that are retrieved from the ListPreference.
          These must match the alert_sound_duration_entries above. -->
   <!-- Preference category title for India settings. [CHAR LIMIT=50] -->
+  <string name="category_india_settings_title">印度的设置</string>
   <!-- Preference title for enable channel 60 alerts. [CHAR LIMIT=30] -->
+  <string name="enable_channel_60_alerts_title">显示通道 60 广播</string>
   <!-- Preference summary for enable channel 60 alerts. [CHAR LIMIT=100] -->
+  <string name="enable_channel_60_alerts_summary">通道 60 在印度被用于运营商特定信息</string>
 </resources>
