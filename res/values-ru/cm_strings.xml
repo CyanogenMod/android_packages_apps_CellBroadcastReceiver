@@ -23,7 +23,7 @@
     <item>6 секунд</item>
     <item>8 секунд</item>
     <item>10 секунд</item>
-    <item>Until dismissed</item>
+    <item>До закрытия</item>
   </string-array>
   <!-- Do not translate. Values that are retrieved from the ListPreference.
          These must match the alert_sound_duration_entries above. -->
