@@ -28,6 +28,9 @@
   <!-- Do not translate. Values that are retrieved from the ListPreference.
          These must match the alert_sound_duration_entries above. -->
   <!-- Preference category title for India settings. [CHAR LIMIT=50] -->
+  <string name="category_india_settings_title">Nastavitve za Indijo</string>
   <!-- Preference title for enable channel 60 alerts. [CHAR LIMIT=30] -->
+  <string name="enable_channel_60_alerts_title">Prikaži oddaje kanala 60</string>
   <!-- Preference summary for enable channel 60 alerts. [CHAR LIMIT=100] -->
+  <string name="enable_channel_60_alerts_summary">Kanal 60 se uporablja v Indiji za podatke operaterja</string>
 </resources>
