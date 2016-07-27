@@ -65,9 +65,9 @@
     <string name="enable_cmas_test_alerts_summary" msgid="2935171596891733844">"Mostrar emisiones de prueba del sistema comercial de alerta móvil"</string>
     <string name="enable_alert_vibrate_title" msgid="982817538757982090">"Vibrar"</string>
     <string name="enable_alert_vibrate_summary" msgid="4328060563316778589">"Vibrar al recibir alerta"</string>
-    <string name="category_brazil_settings_title" msgid="6343130548572319922">"Ajustes para Brasil"</string>
+    <string name="category_brazil_settings_title" msgid="6343130548572319922">"Ajustes canal 50"</string>
     <string name="enable_channel_50_alerts_title" msgid="2818924064446974167">"Mostrar emisiones de canal 50"</string>
-    <string name="enable_channel_50_alerts_summary" msgid="7507770011325273009">"En Brasil, se utiliza el canal 50 para obtener información actualizada sobre la zona."</string>
+    <string name="enable_channel_50_alerts_summary" msgid="7507770011325273009">"El canal 50 se utiliza para obtener información sobre la zona."</string>
     <string name="category_dev_settings_title" msgid="6194393458398329994">"Opciones de desarrollo"</string>
     <string name="cmas_category_heading" msgid="3923503130776640717">"Categoría de la alerta:"</string>
     <string name="cmas_category_geo" msgid="4979494217069688527">"Geofísicas"</string>
