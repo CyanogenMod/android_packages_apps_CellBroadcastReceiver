@@ -23,11 +23,14 @@
     <item>6 sekundit</item>
     <item>8 sekundit</item>
     <item>10 sekundit</item>
-    <item>Until dismissed</item>
+    <item>Kuni katkestatakse</item>
   </string-array>
   <!-- Do not translate. Values that are retrieved from the ListPreference.
          These must match the alert_sound_duration_entries above. -->
   <!-- Preference category title for India settings. [CHAR LIMIT=50] -->
+  <string name="category_india_settings_title">Seaded India jaoks</string>
   <!-- Preference title for enable channel 60 alerts. [CHAR LIMIT=30] -->
+  <string name="enable_channel_60_alerts_title">Kuva kanal 60 teated</string>
   <!-- Preference summary for enable channel 60 alerts. [CHAR LIMIT=100] -->
+  <string name="enable_channel_60_alerts_summary">Kanal 60 on kasutusel Indias operaatori-spetsiifilise teabe saatmiseks</string>
 </resources>
