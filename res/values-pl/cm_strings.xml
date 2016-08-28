@@ -30,6 +30,7 @@
   <!-- Preference category title for India settings. [CHAR LIMIT=50] -->
   <string name="category_india_settings_title">Ustawienia dla Indii</string>
   <!-- Preference title for enable channel 60 alerts. [CHAR LIMIT=30] -->
+  <string name="enable_channel_60_alerts_title">Pokaż 60 kanał transmisji</string>
   <!-- Preference summary for enable channel 60 alerts. [CHAR LIMIT=100] -->
   <string name="enable_channel_60_alerts_summary">Kanał 60 jest używany w Indiach dla konkretnych informacji Operatora</string>
 </resources>
