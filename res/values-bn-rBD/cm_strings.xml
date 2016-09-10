@@ -23,7 +23,7 @@
     <item>৬ সেকেন্ড</item>
     <item>৮ সেকেন্ড</item>
     <item>১০ সেকেন্ড</item>
-    <item>Until dismissed</item>
+    <item>নাকচ করা পর্যন্ত</item>
   </string-array>
   <!-- Do not translate. Values that are retrieved from the ListPreference.
          These must match the alert_sound_duration_entries above. -->
