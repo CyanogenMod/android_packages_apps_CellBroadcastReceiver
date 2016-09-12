@@ -173,6 +173,7 @@ public class CellBroadcastSettings extends PreferenceActivity {
         private CheckBoxPreference mCmasTestCheckBox;
         private PreferenceCategory mAlertCategory;
         private PreferenceCategory mETWSSettingCategory;
+        private PreferenceCategory mDEVSettingCategory;
 
         @Override
         public void onCreate(Bundle savedInstanceState) {
@@ -211,6 +212,8 @@ public class CellBroadcastSettings extends PreferenceActivity {
                     findPreference(KEY_CATEGORY_ALERT_SETTINGS);
             mETWSSettingCategory = (PreferenceCategory)
                     findPreference(KEY_CATEGORY_ETWS_SETTINGS);
+            mDEVSettingCategory = (PreferenceCategory)
+                    findPreference(KEY_CATEGORY_DEV_SETTINGS);
 
             if (getResources().getBoolean(
                         R.bool.config_regional_wea_alert_tone_enable)) {
@@ -418,6 +421,15 @@ public class CellBroadcastSettings extends PreferenceActivity {
                                 return true;
                             }
                         });
+            }
+            if (mETWSSettingCategory != null && getResources().getBoolean(
+                    R.bool.config_disable_etws_cellbroadcast_settings)) {
+                preferenceScreen.removePreference(mETWSSettingCategory);
+            }
+
+            if (mDEVSettingCategory != null && getResources().getBoolean(
+                    R.bool.config_disable_dev_cellbroadcast_settings)) {
+                preferenceScreen.removePreference(mDEVSettingCategory);
             }
         }
     }
