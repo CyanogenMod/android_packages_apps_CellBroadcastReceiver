@@ -21,6 +21,7 @@
   <!-- Text for dismiss button in broadcast message view dialog. [CHAR LIMIT=25] -->
   <!-- Text for list view when empty (no broadcasts). [CHAR LIMIT=200] -->
   <!-- Menu item for accessing application settings. [CHAR LIMIT=30] -->
+  <string name="menu_preferences">Agordoj</string>
   <!-- Menu item for deleting all broadcasts. [CHAR LIMIT=30] -->
   <!-- Header for context menu on an individual broadcast. [CHAR LIMIT=30] -->
   <!-- Context menu item for viewing broadcast details such as time and date. [CHAR LIMIT=30] -->
@@ -30,7 +31,9 @@
   <!-- Delete broadcast confirmation dialog message. [CHAR LIMIT=NONE] -->
   <!-- Delete all broadcasts confirmation dialog message. [CHAR LIMIT=NONE] -->
   <!-- Delete button text for delete broadcast dialog. [CHAR LIMIT=25] -->
+  <string name="button_delete">Forigi</string>
   <!-- Cancel button text for delete broadcast dialog. [CHAR LIMIT=25] -->
+  <string name="button_cancel">Nuligi</string>
   <!-- ETWS dialog title for Earthquake Warning. [CHAR LIMIT=50] -->
   <!-- ETWS dialog title for Tsunami Warning. [CHAR LIMIT=50] -->
   <!-- ETWS dialog title for Earthquake and Tsunami Warning. [CHAR LIMIT=50] -->
@@ -68,6 +71,7 @@
   <!-- Preference title for CMAS vibration on/off. [CHAR LIMIT=30] -->
   <!-- Preference summary for CMAS vibration on/off. [CHAR LIMIT=60] -->
   <!-- Preference category title for Brazil settings. [CHAR LIMIT=50] -->
+  <string name="category_brazil_settings_title">Agordoj por Brazilo</string>
   <!-- Preference title for enable channel 50 alerts (Brazil only). [CHAR LIMIT=30] -->
   <!-- Preference summary for enable channel 50 alerts (Brazil only). [CHAR LIMIT=100] -->
   <!-- Preference category title for developer settings. [CHAR LIMIT=50] -->
@@ -109,8 +113,17 @@
   <!-- Show CMAS opt-out dialog on first non-Presidential alert. [CHAR LIMIT=40] -->
   <!-- CMAS opt-out dialog message. [CHAR LIMIT=160] -->
   <!-- Text for positive button in CMAS opt-out dialog. [CHAR LIMIT=25] -->
+  <string name="cmas_opt_out_button_yes">Jes</string>
   <!-- Text for negative button in CMAS opt-out dialog. [CHAR LIMIT=25] -->
+  <string name="cmas_opt_out_button_no">Ne</string>
   <!-- Entries listed in the ListPreference for allowed alert durations. [CHAR LIMIT=30] -->
+  <string-array name="alert_sound_duration_entries">
+    <item>2 sekundoj</item>
+    <item>4 sekundoj</item>
+    <item>6 sekundoj</item>
+    <item>8 sekundoj</item>
+    <item>10 sekundoj</item>
+  </string-array>
   <!-- Do not translate. Values that are retrieved from the ListPreference.
          These must match the alert_sound_duration_entries above. -->
   <!-- Entries in the ListPreference for alert reminder intervals. [CHAR LIMIT=30] -->
