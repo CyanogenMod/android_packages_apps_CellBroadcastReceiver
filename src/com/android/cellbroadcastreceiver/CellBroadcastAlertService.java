@@ -517,8 +517,6 @@ public class CellBroadcastAlertService extends Service {
         intent.putExtra("message", message);
         sendBroadcastAsUser(intent, UserHandle.ALL,
                 android.Manifest.permission.READ_PRIVILEGED_PHONE_STATE);
-        sendBroadcastAsUser(intent, UserHandle.ALL,
-                android.Manifest.permission.READ_PHONE_STATE);
     }
 
     /**
