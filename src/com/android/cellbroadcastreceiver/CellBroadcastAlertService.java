@@ -466,7 +466,7 @@ public class CellBroadcastAlertService extends Service {
      * @param message the alert to display
      */
     private void addToNotificationBar(CellBroadcastMessage message) {
-        int channelTitleId = CellBroadcastResources.getDialogTitleResource(message);
+        int channelTitleId = CellBroadcastResources.getDialogTitleResource(this, message);
         CharSequence channelName = getText(channelTitleId);
         String messageBody = message.getMessageBody();
 
