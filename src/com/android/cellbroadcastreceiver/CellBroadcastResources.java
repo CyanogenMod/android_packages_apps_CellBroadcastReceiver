@@ -236,7 +236,7 @@ public class CellBroadcastResources {
         }
     }
 
-    public static int getDialogTitleResource(CellBroadcastMessage cbm) {
+    public static int getDialogTitleResource(Context context, CellBroadcastMessage cbm) {
         // ETWS warning types
         SmsCbEtwsInfo etwsInfo = cbm.getEtwsWarningInfo();
         if (etwsInfo != null) {
@@ -264,6 +264,9 @@ public class CellBroadcastResources {
         if (cmasInfo != null) {
             switch (cmasInfo.getMessageClass()) {
                 case SmsCbCmasInfo.CMAS_CLASS_PRESIDENTIAL_LEVEL_ALERT:
+                    if (context.getResources().getBoolean(R.bool.enable_colombia_channels)) {
+                        return R.string.etws_other_emergency_type;
+                    }
                     return R.string.cmas_presidential_level_alert;
 
                 case SmsCbCmasInfo.CMAS_CLASS_EXTREME_THREAT:

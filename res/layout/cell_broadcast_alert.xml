@@ -29,6 +29,7 @@
     <LinearLayout android:id="@+id/topPanel"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
         android:orientation="vertical">
         <View android:id="@+id/titleDividerTop"
             android:layout_width="match_parent"
@@ -55,6 +56,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
         </LinearLayout>
+        <TextView android:id="@+id/timestamp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="13sp"
+            android:visibility="gone"
+            />
         <View android:id="@+id/titleDivider"
             android:layout_width="match_parent"
             android:layout_height="2dip"
