@@ -33,6 +33,7 @@ import android.telephony.CellBroadcastMessage;
 import android.telephony.SmsCbCmasInfo;
 import android.telephony.SubscriptionManager;
 import android.util.Log;
+import android.text.format.DateFormat;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -43,7 +44,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.text.SimpleDateFormat;
 
 /**
  * Full-screen emergency alert with flashing warning icon.
@@ -370,8 +373,16 @@ public class CellBroadcastAlertFullScreen extends Activity {
 
     /** Update alert text when a new emergency alert arrives. */
     private void updateAlertText(CellBroadcastMessage message) {
-        int titleId = CellBroadcastResources.getDialogTitleResource(message);
+        int titleId = CellBroadcastResources.getDialogTitleResource(this, message);
         setTitle(titleId);
+        if (getResources().getBoolean(R.bool.enable_colombia_channels)) {
+            SimpleDateFormat formatter = new SimpleDateFormat("hh:mm:ss dd/MM/yyyy");
+            String timestampStr = formatter.format(new Date(message.getDeliveryTime()));
+
+            TextView timestampView = (TextView) findViewById(R.id.timestamp);
+            timestampView.setVisibility(View.VISIBLE);
+            timestampView.setText(timestampStr);
+        }
         ((TextView) findViewById(R.id.alertTitle)).setText(titleId);
         ((TextView) findViewById(R.id.message)).setText(message.getMessageBody());
 
