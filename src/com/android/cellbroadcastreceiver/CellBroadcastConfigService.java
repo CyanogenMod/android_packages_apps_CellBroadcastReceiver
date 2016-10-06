@@ -380,6 +380,13 @@ public class CellBroadcastConfigService extends IntentService {
                             SmsManager.CELL_BROADCAST_RAN_TYPE_GSM);
                 }
 
+                // Enable channels 50, 919 and 4370 for mexico
+                if ("mx".equals(tm.getSimCountryIso()) || "mx".equals(tm.getNetworkCountryIso())) {
+                    manager.enableCellBroadcast(50, SmsManager.CELL_BROADCAST_RAN_TYPE_GSM);
+                    manager.enableCellBroadcast(919, SmsManager.CELL_BROADCAST_RAN_TYPE_GSM);
+                    manager.enableCellBroadcast(4370, SmsManager.CELL_BROADCAST_RAN_TYPE_GSM);
+                }
+
                 if(this.getResources().getBoolean(R.bool.enable_colombia_channels) == true) {
                      if (DBG) log("enabling channels 919, 921, 4370");
                      manager.enableCellBroadcast(919, SmsManager.CELL_BROADCAST_RAN_TYPE_GSM);
