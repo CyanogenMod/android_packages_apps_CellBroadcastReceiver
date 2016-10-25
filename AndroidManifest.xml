@@ -106,14 +106,6 @@
         <activity android:name="CellBroadcastOptOutActivity"
                   android:exported="false" />
 
-        <activity android:name="com.android.cellbroadcastreceiver.CustomCellBroadcastSettingsActivity"
-                  android:label="@string/cell_broadcast_setting"
-                  android:theme="@style/CellBroadcastSettingsTheme"
-                  android:configChanges="orientation|keyboardHidden|screenSize">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-            </intent-filter>
-        </activity>
         <!-- Require sender permissions to prevent SMS spoofing -->
         <receiver android:name="PrivilegedCellBroadcastReceiver"
             android:permission="android.permission.BROADCAST_SMS">
