@@ -42,13 +42,6 @@ public class CellBroadcastDatabaseHelper extends SQLiteOpenHelper {
 
     static final String DATABASE_NAME = "cell_broadcasts.db";
     static final String TABLE_NAME = "broadcasts";
-
-    /**
-     * Sqlite content value key.
-     * <P>Type: INTEGER</P>
-     */
-    public static final String MESSAGE_DELETED = "flag_is_deleted";
-
     static final String CHANNEL_TABLE = "channel";
     /** Temporary table for upgrading the database version. */
     static final String TEMP_TABLE_NAME = "old_broadcasts";
@@ -58,15 +51,11 @@ public class CellBroadcastDatabaseHelper extends SQLiteOpenHelper {
      * Database version 2-9: (reserved for OEM database customization)
      * Database version 10: adds ETWS and CMAS columns and CDMA support
      * Database version 11: adds delivery time index
-     * Database version 12: add a field to check duplicate in deleted messages
      */
-    static final int DATABASE_VERSION = 12;
-    private boolean mDuplicateCheckDeletedRecords = false;
+    static final int DATABASE_VERSION = 11;
 
     CellBroadcastDatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
-        mDuplicateCheckDeletedRecords =
-            context.getResources().getBoolean(R.bool.config_regional_wea_duplicated_check_deleted_records);
     }
 
     @Override
@@ -92,13 +81,6 @@ public class CellBroadcastDatabaseHelper extends SQLiteOpenHelper {
                 + Telephony.CellBroadcasts.CMAS_SEVERITY + " INTEGER,"
                 + Telephony.CellBroadcasts.CMAS_URGENCY + " INTEGER,"
                 + Telephony.CellBroadcasts.CMAS_CERTAINTY + " INTEGER);");
-
-        if(mDuplicateCheckDeletedRecords) {
-            //adds deleted index to judge whether the message is deleted
-            db.execSQL("ALTER TABLE " + TABLE_NAME + " ADD COLUMN "
-                    + MESSAGE_DELETED + " INTEGER NOT NULL DEFAULT 0;");
-        }
-
         db.execSQL("CREATE TABLE " + CHANNEL_TABLE + " ("
                    + "_id"+" INTEGER PRIMARY KEY AUTOINCREMENT,"
                    + "name"+" TEXT,"
@@ -184,12 +166,6 @@ public class CellBroadcastDatabaseHelper extends SQLiteOpenHelper {
         if (oldVersion == 10) {
             createDeliveryTimeIndex(db);
             oldVersion++;
-        }
-        if(mDuplicateCheckDeletedRecords) {
-            if (oldVersion == 11) {
-                db.execSQL("ALTER TABLE " + TABLE_NAME + " ADD COLUMN " + MESSAGE_DELETED + " INTEGER NOT NULL DEFAULT 0;");
-                oldVersion++;
-            }
         }
     }
 

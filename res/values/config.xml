@@ -25,12 +25,4 @@
     <bool name="show_india_settings">false</bool>
     <!-- CellBroadcast channel 60 enabled or not,default value is true -->
     <bool name="def_channel_60_enabled">true</bool>
-    <bool name="config_regional_wea_alert_reminder_interval">false</bool>
-    <bool name="config_regional_presidential_wea_with_tone_vibrate">false</bool>
-    <bool name="config_regional_wea_duplicated_check_database">false</bool>
-    <bool name="config_regional_wea_duplicated_check_deleted_records">false</bool>
-    <bool name="config_regional_wea_show_presidential_alert">false</bool>
-    <bool name="config_regional_wea_rm_turn_on_notification">false</bool>
-    <bool name="config_regional_wea_rm_alert_reminder">false</bool>
-    <bool name="config_regional_wea_alert_tone_enable">false</bool>
 </resources>

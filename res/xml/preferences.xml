@@ -22,12 +22,6 @@
     <PreferenceCategory android:title="@string/emergency_alert_settings_title"
                         android:key="category_alert_settings">
 
-        <!-- Enable presidential alerts -->
-        <CheckBoxPreference android:defaultValue="true"
-                            android:key="enable_cmas_presidential_alerts"
-                            android:summary="@string/enable_cmas_presidential_alerts_summary"
-                            android:title="@string/enable_cmas_presidential_alerts_title" />
-
         <!-- Enable CMAS Extreme Threat alerts -->
         <CheckBoxPreference android:defaultValue="true"
                             android:key="enable_cmas_extreme_threat_alerts"
@@ -64,11 +58,6 @@
                         android:entryValues="@array/alert_reminder_interval_values"
                         android:defaultValue="0"
                         android:dialogTitle="@string/alert_reminder_interval_title" />
-
-        <CheckBoxPreference android:defaultValue="true"
-                            android:key="enable_alert_tone"
-                            android:summary="@string/enable_alert_tone_summary"
-                            android:title="@string/enable_alert_tone_title" />
 
         <CheckBoxPreference android:defaultValue="true"
                             android:key="enable_alert_vibrate"

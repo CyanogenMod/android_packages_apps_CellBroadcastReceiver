@@ -298,13 +298,6 @@ public class CellBroadcastAlertFullScreen extends Activity {
             mScreenOffHandler.startScreenOnTimer();
         }
 
-        if (getIntent().getBooleanExtra(SCREEN_OFF_EXTRA, false)) {
-            int titleId = CellBroadcastResources.getDialogTitleResource(message);
-            setTitle(titleId);
-            ((TextView) findViewById(R.id.alertTitle)).setText(titleId);
-            ((TextView) findViewById(R.id.message)).setText(message.getMessageBody());
-            return;
-        }
         updateAlertText(message);
     }
 
@@ -362,12 +355,7 @@ public class CellBroadcastAlertFullScreen extends Activity {
         ((TextView) findViewById(R.id.message)).setText(message.getMessageBody());
 
         // Set alert reminder depending on user preference
-        if (getResources().getBoolean(
-                    R.bool.config_regional_wea_alert_reminder_interval)) {
-            CellBroadcastAlertReminder.queueAlertReminderAudio(this, true, message);
-        } else {
-            CellBroadcastAlertReminder.queueAlertReminder(this, true);
-        }
+        CellBroadcastAlertReminder.queueAlertReminder(this, true);
     }
 
     /**

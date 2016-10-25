@@ -56,8 +56,6 @@ public class CellBroadcastContentProvider extends ContentProvider {
     /** Content URI for notifying observers. */
     static final Uri CONTENT_URI = Uri.parse("content://cellbroadcasts/");
 
-    /** Content URI for notifying observers. */
-    static final Uri PRESIDENT_PIN_URI = Uri.parse("content://cellbroadcasts/presidentpin/");
     /** Content URI for channel customized */
     private static final Uri CHANNEL_URI =  Uri.parse("content://cellbroadcasts/channel/");
 
@@ -67,8 +65,6 @@ public class CellBroadcastContentProvider extends ContentProvider {
     /** URI matcher type to get a cell broadcast by ID. */
     private static final int CB_ALL_ID = 1;
 
-    private static final int CB_PRESIDENT_PIN = 2;
-
     /** MIME type for the list of all cell broadcasts. */
     private static final String CB_LIST_TYPE = "vnd.android.cursor.dir/cellbroadcast";
 
@@ -77,7 +73,7 @@ public class CellBroadcastContentProvider extends ContentProvider {
 
     private static final String CB_CHANNEL_TYPE ="vnd.android.cursor.item/chanel";
 
-    private static final int CB_CHANNEL_ID = 3;
+    private static final int CB_CHANNEL_ID = 2;
 
     /** The projection and the index for query the channel */
     private static final String[] PROJECTION_CHANNEL
@@ -91,13 +87,12 @@ public class CellBroadcastContentProvider extends ContentProvider {
     static {
         sUriMatcher.addURI(CB_AUTHORITY, null, CB_ALL);
         sUriMatcher.addURI(CB_AUTHORITY, "#", CB_ALL_ID);
-        sUriMatcher.addURI(CB_AUTHORITY, "presidentpin", CB_PRESIDENT_PIN);
         sUriMatcher.addURI(CB_AUTHORITY, "channel", CB_CHANNEL_ID);
     }
 
     /** The database for this content provider. */
     private SQLiteOpenHelper mOpenHelper;
-    private static final long TIME12HOURS = 12*60*60*1000;
+
     /**
      * Initialize content provider.
      * @return true if the provider was successfully loaded, false otherwise
@@ -137,12 +132,6 @@ public class CellBroadcastContentProvider extends ContentProvider {
                 qb.appendWhere("(_id=" + uri.getPathSegments().get(0) + ')');
                 break;
 
-            case CB_PRESIDENT_PIN:
-                SQLiteDatabase tempDB = mOpenHelper.getReadableDatabase();
-                Cursor cs = tempDB.rawQuery(genPresidentPin(projection, selection, sortOrder), null);
-                cs.setNotificationUri(getContext().getContentResolver(), PRESIDENT_PIN_URI);
-                return cs;
-
             case CB_CHANNEL_ID:
                 qb.setTables(CellBroadcastDatabaseHelper.CHANNEL_TABLE);
                 break;
@@ -167,27 +156,6 @@ public class CellBroadcastContentProvider extends ContentProvider {
         return c;
     }
 
-    private String genPresidentPin(String[] projection,String selection,String strOrder) {
-        String strProject = "";
-        if (projection == null) return "";
-        for(int iIndex = 0; iIndex < projection.length; iIndex++) {
-            strProject += projection[iIndex];
-            if ( (iIndex >= 0) && (iIndex < projection.length -1)) {
-                strProject += ",";
-            }
-        }
-        String strClass =  Telephony.CellBroadcasts.CMAS_MESSAGE_CLASS;
-        String strTab = CellBroadcastDatabaseHelper.TABLE_NAME;
-        String strSel = "SELECT * FROM (SELECT ";
-        String strPresidentCon = " WHERE (" + selection + ") AND " + strClass
-                + " = 0 ORDER BY " + strOrder;
-        String strgenCon = " WHERE (" + selection + ") AND " + strClass
-                + " <> 0 ORDER BY " + strOrder;
-        String strPresident = strSel + strProject + " FROM " + strTab + strPresidentCon +") AS A";
-        String strGen = strSel + strProject + " FROM " + strTab + strgenCon +") AS B";
-        String strSQL = strPresident + " UNION ALL " + strGen;
-        return strSQL;
-    }
     /**
      * Return the MIME type of the data at the specified URI.
      * @param uri the URI to query.
@@ -378,44 +346,6 @@ public class CellBroadcastContentProvider extends ContentProvider {
             Log.e(TAG, "failed to delete all broadcasts");
             return false;
         }
-    }
-
-    boolean markItemDeleted(long rowId) {
-        deleteAllMarked();
-        SQLiteDatabase db = mOpenHelper.getWritableDatabase();
-        ContentValues value = new ContentValues(1);
-        value.put(CellBroadcastDatabaseHelper.MESSAGE_DELETED, 1);
-        int rowCount = db.update(CellBroadcastDatabaseHelper.TABLE_NAME, value,
-                Telephony.CellBroadcasts._ID + "=?",
-                new String[]{Long.toString(rowId)});
-        if (rowCount != 0) {
-            return true;
-        } else {
-            Log.e(TAG, "failed to delete broadcast at row " + rowId);
-            return false;
-        }
-    }
-
-    boolean markAllItemsDeleted() {
-        deleteAllMarked();
-        SQLiteDatabase db = mOpenHelper.getWritableDatabase();
-        ContentValues value = new ContentValues(1);
-        value.put(CellBroadcastDatabaseHelper.MESSAGE_DELETED, 1);
-        int rowCount = db.update(CellBroadcastDatabaseHelper.TABLE_NAME, value, CellBroadcastDatabaseHelper.MESSAGE_DELETED + "=0", null);
-        if (rowCount != 0) {
-            return true;
-        } else {
-            Log.e(TAG, "failed to delete all broadcasts");
-            return false;
-        }
-    }
-
-    void deleteAllMarked() {
-        SQLiteDatabase db = mOpenHelper.getWritableDatabase();
-        String strWhere = CellBroadcastDatabaseHelper.MESSAGE_DELETED + "=1 AND "+Telephony.CellBroadcasts.DELIVERY_TIME + "<?";
-        long time = System.currentTimeMillis();
-        String strExpired = Long.toString(time - TIME12HOURS);
-        db.delete(CellBroadcastDatabaseHelper.TABLE_NAME, strWhere,new String[]{strExpired});
     }
 
     /**

@@ -29,7 +29,6 @@ import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.UserHandle;
 import android.os.UserManager;
@@ -54,7 +53,7 @@ import java.util.ArrayList;
  * in the inner CursorLoaderListFragment class.
  */
 public class CellBroadcastListActivity extends Activity {
-    public static boolean mDuplicateCheckDeletedRecords = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,7 +63,6 @@ public class CellBroadcastListActivity extends Activity {
                 .cancel(CellBroadcastAlertService.NOTIFICATION_ID);
 
         FragmentManager fm = getFragmentManager();
-        mDuplicateCheckDeletedRecords = getResources().getBoolean(R.bool.config_regional_wea_duplicated_check_deleted_records);
 
         // Create the list fragment and add it as our sole content.
         if (fm.findFragmentById(android.R.id.content) == null) {
@@ -144,16 +142,7 @@ public class CellBroadcastListActivity extends Activity {
 
         @Override
         public Loader<Cursor> onCreateLoader(int id, Bundle args) {
-            Uri listUri = CellBroadcastContentProvider.CONTENT_URI;
-            if(getResources().getBoolean(R.bool.config_regional_wea_show_presidential_alert)) {
-                listUri = CellBroadcastContentProvider.PRESIDENT_PIN_URI;
-            }
-            if(mDuplicateCheckDeletedRecords) {
-               return new CursorLoader(getActivity(), listUri,
-                   Telephony.CellBroadcasts.QUERY_COLUMNS, CellBroadcastDatabaseHelper.MESSAGE_DELETED + "=0", null,
-                   Telephony.CellBroadcasts.DELIVERY_TIME + " ASC");
-            }
-            return new CursorLoader(getActivity(), listUri,
+            return new CursorLoader(getActivity(), CellBroadcastContentProvider.CONTENT_URI,
                     Telephony.CellBroadcasts.QUERY_COLUMNS, null, null,
                     Telephony.CellBroadcasts.DELIVERY_TIME + " DESC");
         }
@@ -288,14 +277,8 @@ public class CellBroadcastListActivity extends Activity {
                             @Override
                             public boolean execute(CellBroadcastContentProvider provider) {
                                 if (mRowId != -1) {
-                                    if(mDuplicateCheckDeletedRecords) {
-                                       return provider.markItemDeleted(mRowId);
-                                    }
                                     return provider.deleteBroadcast(mRowId);
                                 } else {
-                                    if(mDuplicateCheckDeletedRecords) {
-                                        return provider.markAllItemsDeleted();
-                                    }
                                     return provider.deleteAllBroadcasts();
                                 }
                             }

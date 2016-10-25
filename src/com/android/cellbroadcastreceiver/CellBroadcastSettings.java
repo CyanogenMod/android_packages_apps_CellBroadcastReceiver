@@ -18,7 +18,6 @@ package com.android.cellbroadcastreceiver;
 
 import android.content.Context;
 import android.content.res.Resources;
-import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.PersistableBundle;
@@ -29,7 +28,6 @@ import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceCategory;
 import android.preference.PreferenceFragment;
-import android.preference.PreferenceManager;
 import android.preference.PreferenceScreen;
 import android.provider.Settings;
 import android.telephony.CarrierConfigManager;
@@ -55,8 +53,6 @@ public class CellBroadcastSettings extends PreferenceActivity {
 
     // Enable vibration on alert (unless master volume is silent).
     public static final String KEY_ENABLE_ALERT_VIBRATE = "enable_alert_vibrate";
-
-    public static final String KEY_ENABLE_ALERT_TONE = "enable_alert_tone";
 
     // Speak contents of alert after playing the alert sound.
     public static final String KEY_ENABLE_ALERT_SPEECH = "enable_alert_speech";
@@ -107,10 +103,6 @@ public class CellBroadcastSettings extends PreferenceActivity {
     // Alert reminder interval ("once" = single 2 minute reminder).
     public static final String KEY_ALERT_REMINDER_INTERVAL = "alert_reminder_interval";
 
-    // Whether to display CMAS preidential alerts (default is enabled).
-    public static final String KEY_ENABLE_PRESIDENTIAL_ALERTS =
-            "enable_cmas_presidential_alerts";
-
     // Default reminder interval.
     public static final String ALERT_REMINDER_INTERVAL = "0";
 
@@ -123,15 +115,10 @@ public class CellBroadcastSettings extends PreferenceActivity {
     // India country code
     private static final String COUNTRY_INDIA = "in";
 
-    private static CheckBoxPreference mPresidentialCheckBox;
-    private static CheckBoxPreference mEnableAlertsTone;
-    private static SharedPreferences prefs;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        prefs = PreferenceManager
-            .getDefaultSharedPreferences(this);
         UserManager userManager = (UserManager) getSystemService(Context.USER_SERVICE);
         if (userManager.hasUserRestriction(UserManager.DISALLOW_CONFIG_CELL_BROADCASTS)) {
             setContentView(R.layout.cell_broadcast_disallowed_preference_screen);
@@ -171,8 +158,6 @@ public class CellBroadcastSettings extends PreferenceActivity {
 
             PreferenceScreen preferenceScreen = getPreferenceScreen();
 
-            mPresidentialCheckBox = (CheckBoxPreference)
-                    findPreference(KEY_ENABLE_PRESIDENTIAL_ALERTS);
             mExtremeCheckBox = (CheckBoxPreference)
                     findPreference(KEY_ENABLE_CMAS_EXTREME_THREAT_ALERTS);
             mSevereCheckBox = (CheckBoxPreference)
@@ -199,16 +184,6 @@ public class CellBroadcastSettings extends PreferenceActivity {
                     findPreference(KEY_CATEGORY_ALERT_SETTINGS);
             mETWSSettingCategory = (PreferenceCategory)
                     findPreference(KEY_CATEGORY_ETWS_SETTINGS);
-
-            if (getResources().getBoolean(
-                        R.bool.config_regional_wea_alert_tone_enable)) {
-                mEnableAlertsTone =
-                    (CheckBoxPreference) findPreference(KEY_ENABLE_ALERT_TONE);
-                mEnableAlertsTone.setChecked(prefs.getBoolean(
-                        KEY_ENABLE_ALERT_TONE, true));
-            } else {
-                preferenceScreen.removePreference(findPreference(KEY_ENABLE_ALERT_TONE));
-            }
 
             // Handler for settings that require us to reconfigure enabled channels in radio
             Preference.OnPreferenceChangeListener startConfigServiceListener =
@@ -312,20 +287,6 @@ public class CellBroadcastSettings extends PreferenceActivity {
             TelephonyManager tm = (TelephonyManager) getActivity().getSystemService(
                     Context.TELEPHONY_SERVICE);
 
-            if (getResources().getBoolean(
-                    R.bool.config_regional_wea_rm_turn_on_notification)) {
-                if (findPreference(KEY_ENABLE_EMERGENCY_ALERTS) != null) {
-                    mAlertCategory.removePreference(findPreference(KEY_ENABLE_EMERGENCY_ALERTS));
-                }
-            }
-
-            if (getResources().getBoolean(
-                    R.bool.config_regional_wea_rm_alert_reminder)) {
-                if (findPreference(KEY_ALERT_REMINDER_INTERVAL) != null) {
-                    mAlertCategory.removePreference(findPreference(KEY_ALERT_REMINDER_INTERVAL));
-                }
-            }
-
             int subId = SubscriptionManager.getDefaultSmsSubscriptionId();
             if (subId == SubscriptionManager.INVALID_SUBSCRIPTION_ID) {
                 subId = SubscriptionManager.getDefaultSubscriptionId();
@@ -378,31 +339,6 @@ public class CellBroadcastSettings extends PreferenceActivity {
             }
             if (mCmasTestCheckBox != null) {
                 mCmasTestCheckBox.setOnPreferenceChangeListener(startConfigServiceListener);
-            }
-           if (getResources().getBoolean(R.bool.config_regional_wea_show_presidential_alert) &&
-                   mPresidentialCheckBox != null) {
-               //Presidential Alerts should be always allowed.
-               //Hence the option should be greyed out.
-               mPresidentialCheckBox.setChecked(true);
-               mPresidentialCheckBox.setEnabled(false);
-           } else {
-               preferenceScreen.removePreference(mPresidentialCheckBox);
-           }
-
-            if (getResources().getBoolean(
-                    R.bool.config_regional_wea_alert_tone_enable)
-                    && mEnableAlertsTone != null) {
-                mEnableAlertsTone.setOnPreferenceChangeListener(
-                        new Preference.OnPreferenceChangeListener() {
-                            @Override
-                            public boolean onPreferenceChange(Preference pref, Object newValue) {
-                                SharedPreferences.Editor editor = prefs.edit();
-                                String value = String.valueOf(newValue);
-                                editor.putBoolean(KEY_ENABLE_ALERT_TONE,
-                                    Boolean.valueOf((value)));
-                                return true;
-                            }
-                        });
             }
         }
     }
