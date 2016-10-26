@@ -260,12 +260,8 @@ public class CellBroadcastSettings extends PreferenceActivity {
             // 1. The setting through resource overlay is set to true.
             // 2. At least one SIM inserted is Brazilian SIM.
 
-            String country = tm.getSimCountryIso(subId);
-
             boolean enableChannel50Support = res.getBoolean(R.bool.show_brazil_settings) ||
-                    COUNTRY_BRAZIL.equals(country) ||
-                    res.getBoolean(R.bool.show_india_settings) ||
-                    COUNTRY_INDIA.equals(country);
+                    res.getBoolean(R.bool.show_india_settings);
 
             if (!enableChannel50Support) {
                 SubscriptionManager sm = SubscriptionManager.from(getContext());
