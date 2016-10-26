@@ -178,8 +178,7 @@ public class CellBroadcastConfigService extends IntentService {
                 COUNTRY_INDIA.equals(country);
 
         boolean enableChannel50Alerts = enableChannel50Support &&
-                prefs.getBoolean(CellBroadcastSettings.KEY_ENABLE_CHANNEL_50_ALERTS, 
-                getResources().getBoolean(R.bool.def_channel_50_enabled));
+                prefs.getBoolean(CellBroadcastSettings.KEY_ENABLE_CHANNEL_50_ALERTS, true);
 
         boolean enableChannel60Support = res.getBoolean(R.bool.show_india_settings) ||
                 COUNTRY_INDIA.equals(country);

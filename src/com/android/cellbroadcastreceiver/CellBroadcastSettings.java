@@ -260,12 +260,8 @@ public class CellBroadcastSettings extends PreferenceActivity {
             // 1. The setting through resource overlay is set to true.
             // 2. At least one SIM inserted is Brazilian SIM.
 
-            String country = tm.getSimCountryIso(subId);
-
             boolean enableChannel50Support = res.getBoolean(R.bool.show_brazil_settings) ||
-                    COUNTRY_BRAZIL.equals(country) ||
-                    res.getBoolean(R.bool.show_india_settings) ||
-                    COUNTRY_INDIA.equals(country);
+                    res.getBoolean(R.bool.show_india_settings);
 
             if (!enableChannel50Support) {
                 SubscriptionManager sm = SubscriptionManager.from(getContext());
@@ -281,8 +277,17 @@ public class CellBroadcastSettings extends PreferenceActivity {
                 preferenceScreen.removePreference(findPreference(KEY_CATEGORY_BRAZIL_SETTINGS));
             }
 
-            boolean enableChannel60Support = res.getBoolean(R.bool.show_india_settings) ||
-                    COUNTRY_INDIA.equals(country);
+            boolean enableChannel60Support = res.getBoolean(R.bool.show_india_settings);
+
+            if (!enableChannel60Support) {
+                SubscriptionManager sm = SubscriptionManager.from(getContext());
+                for (int subId : sm.getActiveSubscriptionIdList()) {
+                    if (COUNTRY_INDIA.equals(tm.getSimCountryIso(subId))) {
+                        enableChannel60Support = true;
+                        break;
+                    }
+                }
+            }
 
             if (!enableChannel60Support) {
                 preferenceScreen.removePreference(findPreference(KEY_CATEGORY_INDIA_SETTINGS));
