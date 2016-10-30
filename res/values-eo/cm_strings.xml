@@ -17,6 +17,14 @@
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
   <!-- Entries listed in the ListPreference for allowed alert durations. [CHAR LIMIT=30] -->
+  <string-array name="cm_alert_sound_duration_entries">
+    <item>2 sekundoj</item>
+    <item>4 sekundoj</item>
+    <item>6 sekundoj</item>
+    <item>8 sekundoj</item>
+    <item>10 sekundoj</item>
+    <item>Until dismissed</item>
+  </string-array>
   <!-- Do not translate. Values that are retrieved from the ListPreference.
          These must match the alert_sound_duration_entries above. -->
   <!-- Preference category title for India settings. [CHAR LIMIT=50] -->
