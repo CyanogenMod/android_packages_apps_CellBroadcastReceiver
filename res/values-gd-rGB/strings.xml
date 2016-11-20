@@ -109,13 +109,6 @@
   <!-- Text for positive button in CMAS opt-out dialog. [CHAR LIMIT=25] -->
   <!-- Text for negative button in CMAS opt-out dialog. [CHAR LIMIT=25] -->
   <!-- Entries in the ListPreference for alert reminder intervals. [CHAR LIMIT=30] -->
-  <string-array name="alert_reminder_interval_entries">
-    <item>Once</item>
-    <item>Every 2 minutes</item>
-    <item>Svakih 5 minuta</item>
-    <item>Every 15 minutes</item>
-    <item>Off</item>
-  </string-array>
   <!-- Do not translate. Values that are retrieved from the ListPreference.
          These must match the alert_reminder_interval_entries list above. -->
   <!-- Do not translate. Values that are active in the ListPreference.
