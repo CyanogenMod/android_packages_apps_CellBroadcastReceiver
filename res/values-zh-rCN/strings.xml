@@ -112,14 +112,6 @@
     <string name="enable_cmas_presidential_alerts_title">显示总统警报</string>
     <string name="enable_cmas_presidential_alerts_summary">始终显示总统警报</string>
 
-  <string-array name="alert_sound_duration_entries">
-    <item msgid="5353482200312892037">"2秒"</item>
-    <item msgid="5656092384277009212">"4秒"</item>
-    <item msgid="253564899252909788">"6秒"</item>
-    <item msgid="7514102744524534421">"8秒"</item>
-    <item msgid="6062562309271376642">"10秒"</item>
-  </string-array>
-
   <string-array name="alert_reminder_interval_entries">
     <item msgid="6595211083588795160">"1次"</item>
     <item msgid="9097229303902157183">"每隔2分钟"</item>
