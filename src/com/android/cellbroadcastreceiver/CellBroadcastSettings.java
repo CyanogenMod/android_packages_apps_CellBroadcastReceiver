@@ -201,7 +201,7 @@ public class CellBroadcastSettings extends PreferenceActivity {
             // AND build type is not user
             boolean enableDevSettings = false;
             if (!Build.TYPE.equals("user")) {
-                enableDevSettings = Settings.Global.getInt(getActivity().getContentResolver(),
+                enableDevSettings = Settings.Global.getInt(getContext().getContentResolver(),
                         Settings.Global.DEVELOPMENT_SETTINGS_ENABLED, 0) != 0;
             }
 
@@ -260,12 +260,14 @@ public class CellBroadcastSettings extends PreferenceActivity {
             // 1. The setting through resource overlay is set to true.
             // 2. At least one SIM inserted is Brazilian SIM.
 
-            boolean enableChannel50Support = res.getBoolean(R.bool.show_brazil_settings);
+            boolean enableChannel50Support = res.getBoolean(R.bool.show_brazil_settings) ||
+                    res.getBoolean(R.bool.show_india_settings);
 
             if (!enableChannel50Support) {
                 SubscriptionManager sm = SubscriptionManager.from(getContext());
                 for (int subId : sm.getActiveSubscriptionIdList()) {
-                    if (COUNTRY_BRAZIL.equals(tm.getSimCountryIso(subId))) {
+                    if (COUNTRY_BRAZIL.equals(tm.getSimCountryIso(subId)) ||
+                        COUNTRY_INDIA.equals(tm.getSimCountryIso(subId))) {
                         enableChannel50Support = true;
                         break;
                     }
