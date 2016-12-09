@@ -327,7 +327,7 @@ public class CellBroadcastConfigService extends IntentService {
                 SmsCbConstants.MESSAGE_ID_CMAS_ALERT_REQUIRED_MONTHLY_TEST_LANGUAGE,
                 SmsCbConstants.MESSAGE_ID_CMAS_ALERT_OPERATOR_DEFINED_USE_LANGUAGE);
 
-        // Enable/Disable channel 50 messages for Brazil/India.
+        // Enable/Disable channel 50 messages for Brazil/India (50).
         setCellBroadcastRange(manager, enableChannel50Alerts,
                 SmsManager.CELL_BROADCAST_RAN_TYPE_GSM,
                 SmsCbConstants.MESSAGE_ID_GSMA_ALLOCATED_CHANNEL_50,
