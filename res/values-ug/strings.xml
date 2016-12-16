@@ -20,6 +20,7 @@
   <!-- Label for settings screen. [CHAR LIMIT=NONE] -->
   <string name="sms_cb_settings">كۆچمە ئاڭلىتىش تەڭشەكلىرى</string>
   <!-- Error message for users that aren't allowed to modify Cell broadcast settings [CHAR LIMIT=none] -->
+  <string name="cell_broadcast_settings_not_available">بۇ ئابونىت رايونلۇق رادىئو تەڭشىكىنى ئىشلىتەلمەيدۇ</string>
   <!-- Text for dismiss button in broadcast message view dialog. [CHAR LIMIT=25] -->
   <string name="button_dismiss">جەزملە</string>
   <!-- Text for list view when empty (no broadcasts). [CHAR LIMIT=200] -->
