@@ -17,6 +17,9 @@
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
   <!-- Preference category title for India settings. [CHAR LIMIT=50] -->
+  <string name="category_india_settings_title">印度專用設定</string>
   <!-- Preference title for enable channel 60 alerts. [CHAR LIMIT=30] -->
+  <string name="enable_channel_60_alerts_title">顯示 60 頻道廣播</string>
   <!-- Preference summary for enable channel 60 alerts. [CHAR LIMIT=100] -->
+  <string name="enable_channel_60_alerts_summary">60 頻道在印度被用於通訊業者特定資訊</string>
 </resources>
