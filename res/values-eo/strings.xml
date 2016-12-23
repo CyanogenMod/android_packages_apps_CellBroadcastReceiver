@@ -53,8 +53,10 @@
   <!-- Preference summary for enable notifications checkbox. [CHAR LIMIT=50] -->
   <!-- Preference title for alert sound duration list. [CHAR LIMIT=30] -->
   <!-- Do not translate. Empty summary for alert duration (set by CellBroadcastSettings). -->
+  <string name="alert_sound_duration_summary"></string>
   <!-- Preference title for alert reminder interval list. [CHAR LIMIT=30] -->
   <!-- Do not translate. Empty summary for alert reminder (set by CellBroadcastSettings). -->
+  <string name="alert_reminder_interval_summary"></string>
   <!-- Preference title for enable text-to-speech checkbox. [CHAR LIMIT=30] -->
   <!-- Preference summary for enable text-to-speech checkbox. [CHAR LIMIT=100] -->
   <!-- Preference category title for ETWS settings. [CHAR LIMIT=50] -->
